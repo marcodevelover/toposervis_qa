@@ -14,6 +14,19 @@
 </div>
 <div class="row">
     <div class="col-12 text-center">
+
+
+               <!-- START Offsidebar button--> 
+                 <%if user_signed_in? %>  
+                
+                    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+                       
+
+                    <%= button_to 'Exit', destroy_user_session_path, method: :delete %>
+                
+                <%end%>  <!-- #header-nav-right -->
+
+
         <h2 class="text-thin">Single view content</h2>
         <p>This project is an application skeleton. You can use it to quickly bootstrap your webapp projects and dev environment for these projects.
             <br>The seed app doesn't do much and has most of the feature removed so you can add theme as per your needs just following the demo app examples.</p>
