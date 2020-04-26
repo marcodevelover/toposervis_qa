@@ -116,13 +116,15 @@
             <!-- END Dropdown menu-->
         </li>
         <!-- END Alert menu-->
-        <!-- START Offsidebar button-->
-        <li class="nav-item">
-            <a class="nav-link" href="#" data-toggle-state="offsidebar-open" data-no-persist="true">
-            <em class="icon-notebook"></em>
-            </a>
-        </li>
-        <!-- END Offsidebar menu-->
+       <!-- START Offsidebar button--> 
+         <%if user_signed_in? %>  
+        <li class="nav-item"> 
+            <%=link_to destroy_user_session_path, :class => "nav-link", method: :delete,  data: { turbolinks: false }   do %>
+                <em class="icon-lock"></em>
+            <%end%>
+        </li><!-- #header-nav-right -->
+        <%end%>  <!-- #header-nav-right -->
+       <!-- END Offsidebar menu-->
     </ul>
     <!-- END Right Navbar-->
     <!-- START Search form-->
