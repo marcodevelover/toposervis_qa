@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Roles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Deleted at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_roles.each do |admin_role| %>
+      <tr>
+        <td><%= admin_role.description %></td>
+        <td><%= admin_role.deleted_at %></td>
+        <td><%= link_to 'Show', admin_role %></td>
+        <td><%= link_to 'Edit', edit_admin_role_path(admin_role) %></td>
+        <td><%= link_to 'Destroy', admin_role, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Role', new_admin_role_path %>
