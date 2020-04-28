@@ -1,0 +1,851 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+# 
+# In views, this is aliased to just `t`:
+# 
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+#https://github.com/svenfuchs/rails-i18n/blob/rails-4-x/rails/locale/es-MX.yml
+ 
+es: 
+  email_availible: Email Disponible
+  email_already_taken: Email electrónico ya ha sido tomado
+  email_not_exist:  Email no existe
+  password_instruction: "Recibirá un email con instrucciones acerca de como restaurar su contraseña en pocos minutos."
+  denied: Denegado 
+  partner_module: Partners
+  benefit_module: Convenios
+  notification_module: Notificaciones
+  wrong_data: Usuario o contraseña invalidos
+  desactivated: Se encuentra dado de baja
+  already_liked: Ya has dado me gusta
+  add_collaborators: Importar Colaboradores
+  user_types_module: Tipos de usuario
+  permissions_module: Permisos
+  enterprise_module: Empresas
+  reports_module: Reportes
+  comment_module: Mensajes
+  event_module: Eventos
+  promotion_module: Promoción
+  post_module: Publicaciones
+  configurations_module: Configuraciones
+  completed: Completado
+  incompleted: en curso
+  save: Guardar
+  enterprise: Empresa
+  department: Departamento/Sucursal
+  my_profile: Mi perfil
+  user_module: Usuarios
+  interview_gg_module: Conversaciones Servir y Sonreír
+  interview_gg: Entrevistas 
+  assign_collaborators_module: Asignar Colaboradores
+  collaborators_module: Administrar Colaboradores
+  changes_saved: Se han guardado los cambios 
+  model_actions: Acciones
+  done: Hecho 
+  taxonomy: Clasificador
+  category: Categoría
+  category_module: Categorías
+  categories: Categorías
+  shared:
+    validation:
+      size_validation: El número de imágenes ingresadas es mayor a los 10MB permitidos
+  user: 
+    close: Cerrar
+    cancel: Cancelar
+    user: Usuario
+  general: 
+    labels:
+      editing: "Editar"
+  branch: 
+    id: ID
+    name: Nombre
+    description: "Descripción"    
+    address: "Dirección"
+    enterprise: Empresa
+    confirm_delete: "Si, eliminar esta Sucursal" 
+    no_confirm_delete: "No" 
+    branch_was_successfully_created: Sucursal a sido creado exitosamente
+    branch_was_successfully_updated: Sucursal a sido actualizado exitosamente
+    title: "Sucursales"            
+  request:
+    assigned_to: Asignado a
+  edit: Editar
+  destroy: Eliminar
+  show: Mostrar    
+  request:
+    aprobed: Aprobado
+    solved: Resuelto
+    unconclused: Inconcluso
+    yes: "Si"
+  y: "Si"
+  yes: "Si"
+  confirm: "Si"
+  no_confirm_delete: "Cancelar"
+  no: "No"
+  back: Volver
+  helpers:
+    page_entries_info:
+      more_pages:
+        display_entries: Mostrando <b>%{first}&nbsp;-&nbsp;%{last}</b> %{entry_name} de <b>%{total}</b> en total
+      one_page:
+        display_entries:
+          one: Mostrando <b>%{count}</b> %{entry_name}
+          other: Mostrando <b>un total de %{count}</b> %{entry_name}
+          zero: No se han encontrado %{entry_name}
+  views:
+    pagination:
+      first: "&laquo; Primera"
+      last: "Última &raquo;"
+      next: Siguiente &rsaquo;
+      previous: "&lsaquo; Anterior"
+      truncate: "&hellip;"
+#login
+  login: "Iniciar sesión"
+  log_in: "Entrar"
+  remember_me: "Recordarme"
+  sign_in_to_start_your_session: "Registrate para iniciar sesión"
+  logout: Cerrar sesión  
+  last_sign_in: Ultima conexión
+           
+#  Admin/Users  
+  active: 
+
+  delete_user: Eliminar Usuario
+  editing_admin_user: Editar usuario de administración
+  form: Formulario
+  inactive: inactivo  
+  listing_admin_users: "Lista de usuarios"
+  new_admin_user: Nuevo usuario de administración
+  new_user: Nuevo usuario
+  on_hold: En espera
+  pending: Pendiente
+  free: Liberado
+  accept: Aceptado
+  available: Disponible
+  Refuse: Rechazado
+  assigned: Asignado
+  show_edit: Mostrar
+  search: Búsqueda
+  close: Cerrar
+  new: Nuevo
+  declined: Declinado             
+  sure_you_want_to_delete: "Realmente desea eliminar?" 
+  update_user: Actualizar usuario
+  choose_from_select: -- Seleccionar --
+  
+  actions:
+      delete: Eliminar
+      create: Crear
+      edit: Modificar
+      actions: Acciones
+      show: Mostrar
+      aprobbe: Aprobar
+      disaprobbe: Rechazar
+      activate: Activar
+
+    
+  departments:
+    name: Nombre
+    enterprise_id: Empresa
+  posts:
+    post_type_id: Tipo de publicación 
+    priority: Prioridad
+    priority_info: Ingrese número (1=Alta, 2=Media, 3=Baja)
+    publish_at: Fecha de publicación solicitada 
+    post_status_id: Status
+    user_id:  Usuario que solicita
+    title: Título de publicación 
+    description: Descripción  
+    url_video: URL de video 
+    aproved_by: Aprobado por
+    post_date: Fecha de publicación
+    created_at: Fecha de creción
+    updated_at: Última actualización
+    deleted_at: Fecha de baja
+    title: Titulo
+    enterprise: Empresa
+    post_status: Estado
+    created_at_lt: Rango de Fecha inicial
+    created_at_gt: Rango de Fecha final
+  users: 
+    department_id: Departamento/Sucursal
+    id: ID
+    phone: Teléfono
+    birthday: Fecha de Nacimiento
+    aniversary: Fecha de aniversario
+    users_list: Lista de Usuarios
+    user_image: Imagen de usuario
+    actions: Acciones
+    enterprise: "Empresa"    
+    branch: "Sucursal"
+    confirm_delete: "Si, eliminar este usuario"
+    create_user: "Crear usuario"
+    email: "Correo electrónico" 
+    last_name: "Apellido"
+    name: "Nombre"
+    New_user: "Nuevo usuario"
+    no_confirm_delete: "No"
+    password: "Contraseña"
+    password_confirmation: "Confirmar contraseña"
+    profile: "Perfil"
+    job: "Puesto"
+    user: "Usuario"
+    import: "Importar usuarios" 
+    import_for_destroy: "Importar baja"   
+    user_was_successfully_created: Usuario a sido creado exitosamente
+    user_was_successfully_updated: Usuario a sido actualizado exitosamente
+    title: "Usuarios"    
+    new_user:  "Nuevo Usuario" 
+    delete_user:  Eliminar Usuario
+    delete_message: Está seguro que desea eliminar 
+    close: Cerrar
+    show: Mostrar
+    assign: Asignar
+    user_type: Tipo de Usuario
+    branches: Sucursales
+    completed_x_assigned: 'Completados / Asignados'
+    progress: Porcentaje de avance
+    completed: Completados
+    assigned: Asignados
+    external_id: Clave del colaborador
+    rfc: Rfc
+    curp: Curp
+    imss: IMSS
+    lastname: Apellido
+    status: Estado
+    has_saipro_user: ¿Cuenta con usuario en SAIPRO?
+  comments:
+    user: Usuario
+    description: Descripción
+    subject: Motivo
+    created_at: Fecha de comentario
+  partners:
+    name: Nombre
+    partner_image: Imagen
+    status: Estado
+  benefits:
+    short_description: Descripción corta
+    partner_id: Patner
+    categories: Categorías
+    description: Descripción
+    avalible_info: Datos de contacto
+    requirements_info: ¿Cómo disfrutar el beneficio?
+    status: Estado
+  events:
+    name: Nombre
+    enterprise_id: Empresa
+    short_description: Descripción corta
+    description: Descripción
+    date: Fecha del evento
+    place: Lugar o dirección
+    image: Imagen
+    status: Estado
+    end_date: Fecha fin
+  promotions:
+    name: Nombre
+    enterprise_id: Empresa
+    description: Descripción
+    avalible_info: Datos de contacto
+    requeriments_info: ¿Cómo disfrutar de la promoción?
+    promo_image: Imagen
+    status: Estado
+  enterprises: 
+    id: ID
+    name: Nombre
+    logo: Logo
+    description: "Descripción"    
+    branch: "Sucursal"
+    confirm_delete: "Si, eliminar esta Empresa" 
+    no_confirm_delete: "No" 
+    enterprise_was_successfully_created: Empresa a sido creado exitosamente
+    enterprise_was_successfully_updated: Empresa a sido actualizado exitosamente
+    title: "Empresas"
+    new_enterprise:  "Nueva Empresa" 
+    delete_enterprise:  Eliminar Empresa
+    delete_message: Está seguro que desea eliminar   
+  collaborators:
+    id: ID
+    full_name: Nombre Completo
+    hire_date: Fecha de contratación    
+    request_type: "Tipo de Solicitud"    
+    job: Puesto
+    branch: Sucursal 
+    name: Nombre
+    lastname: Apellido
+    interview_father: Padre
+    assignations: Asignado a 
+    warning_multiple: Advertencia, existen más de 1 asignaciones para este colaborador
+  quests: 
+    id: ID 
+    description: "Descripción"   
+    confirm_delete: "Si, eliminar esta Sucursal" 
+    no_confirm_delete: "No" 
+    quest_was_successfully_created: Sucursal a sido creado exitosamente
+    quest_was_successfully_updated: Sucursal a sido actualizado exitosamente
+    title: "Encuestas"                                               
+    new_quest:  "Nueva Encuesta"  
+    actions: Acciones
+    enterprise: "Empresa"    
+    branch: "Sucursal"
+    confirm_delete: "Si, eliminar este usuario"
+    create_user: "Crear usuario"
+    email: "Correo electrónico" 
+    lastname: "Apellido"
+    name: "Nombre"
+    New_user: "Nuevo usuario"
+    no_confirm_delete: "No"
+    password: "Contraseña"
+    password_confirmation: "Confirmar contraseña"
+    profile: "Perfil"
+    job: "Puesto"
+    user: "Usuario"    
+    user_was_successfully_created: Usuario a sido creado exitosamente
+    user_was_successfully_updated: Usuario a sido actualizado exitosamente
+    title: "Usuarios"    
+    new_user:  "Nuevo Usuario" 
+    delete_user:  Eliminar Usuario
+    delete_message: Está seguro que desea eliminar 
+    close: Cerrar
+    show: Mostrar
+    assign: Asignar
+    private: Privada
+    questions:
+      description: Descripción
+    
+# roles
+  rol:
+    name: Nombre
+    new_rol: Nuevo rol
+    listing_roles: Listado de roles
+    name_show: "Nombre: "
+    editing_role: Editar rol
+    role_was_successfully_created: Rol a sido creado exitosamente
+    role_was_successfully_destroyed: Rol a sido eliminado exitosamente
+    role_was_successfully_updated: Rol a sido actualizado exitosamente
+    
+    
+  notification:
+    title: "Titulo"
+    description: "Descripción"
+    event:
+      title: "Recordatorio de evento"
+      message: "Tienes 1 evento marcado como favorito que se lleva a cabo hoy"
+      new:
+        title: "Nuevo evento publicado"
+        message: "Consulta nuestro próximo evento"
+      update:
+        title: "Actualización de evento"
+    enterprise:
+      title: "Nueva notification de la empresa"
+      message: "Nueva notification de la empresa"
+    birthday:
+      title: "Feliz cumpleaños"
+      message: "Feliz cumpleaños"
+    aniversary:
+      title: "Feliz aniversario"
+      message: "Feliz aniversario"
+    author:
+      title: "Tu publicación fue aprobada"
+      message: "Tu publicación fue aprobada"
+    refuse:
+      title: "Tu publicación NO fue aprobada"
+      message: "Tu publicación NO fue aprobada"
+    promotion:
+      new:
+        title: "Nueva promoción GAMAS"
+        message: "Hay una nueva promoción para ti"
+    benefit:
+      new:
+        title: "Nuevo convenio GAMAS"
+        message: "Consulta nuestro nuevo convenio"
+    post:
+      new:
+        title: "Nueva publicación"
+        message: "Consulta la nueva publicación en tu APP GAMAS"
+      
+
+ 
+# reports  
+ 
+    
+  access_all_actions: Acceso a todas las acciones
+  back: Volver
+  edit: Editar
+  listing_institutions: Lista de Instituciones
+  listing_volunters: Lista de Voluntarios
+  listing_colonies: Lista de colonias
+  new_Institution_has_volunteer: Nueva asignación    
+  show_users: Mostrar usuarios        
+  activerecord:
+ 
+
+
+    models:
+      Ransack::Search: 'Búsqueda'
+      Comment: Mensaje
+      User: Usuario
+      comment: Mensaje 
+      user: Usuario
+      request: Solicitud
+      user_type: Tipo de Usuario
+      Enterprise: Empresa
+      Department: Departamento
+      Category: Categoría
+    attributes: 
+      department: 
+        name: Nombre
+        enterprise_id: Departamento  
+      enterprise:
+        name: Nombre
+        logo_image: Logo 
+      request:
+        assigned_to: Asignado a
+        attachments: Adjuntar archivo
+        description: Descripción
+      user_type:
+        description: Descripción
+      user:
+        email: Correo eletrónico
+        last_name: Apellido
+        last_sign_in_at: Última sesión
+        name: Nombre
+        role_id: Rol
+        password: Contraseña
+        password_confirmation: Confirmar contraseña
+        enterprise_id: Empresa
+        branch_id: Sucursal
+        collaborators_in_other_branch: "Colaboradores en otras sucursales:"
+      directory:
+        message_text: Mensaje
+        attachments: Archivos
+        name: Nombre
+      enterprise:
+        id: ID
+        name: Nombre
+        description: "Descripción"    
+        branch: "Sucursal"
+        confirm_delete: "Si, eliminar esta Empresa" 
+        no_confirm_delete: "No" 
+      branch: 
+        id: ID
+        name: Nombre
+        description: "Descripción"    
+        address: "Dirección"
+        enterprise_id: Empresa
+        confirm_delete: "Si, eliminar esta Sucursal" 
+        no_confirm_delete: "No" 
+        enterprise_was_successfully_created: Sucursal a sido creado exitosamente
+        enterprise_was_successfully_updated: Sucursal a sido actualizado exitosamente
+        title: "Sucursales" 
+
+
+  #translation actions used to save in database (table: permissions) as description 
+  date:
+    abbr_day_names:
+    - dom
+    - lun
+    - mar
+    - mié
+    - jue
+    - vie
+    - sáb
+    abbr_month_names:
+    -
+    - ene
+    - feb
+    - mar
+    - abr
+    - may
+    - jun
+    - jul
+    - ago
+    - sep
+    - oct
+    - nov
+    - dic
+    day_names:
+    - domingo
+    - lunes
+    - martes
+    - miércoles
+    - jueves
+    - viernes
+    - sábado
+    formats:
+      default: "%d/%m/%Y"
+      long: "%A, %d de %B de %Y"
+      short: "%d de %b"
+    month_names:
+    -
+    - enero
+    - febrero
+    - marzo
+    - abril
+    - mayo
+    - junio
+    - julio
+    - agosto
+    - septiembre
+    - octubre
+    - noviembre
+    - diciembre
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: cerca de 1 hora
+        other: cerca de %{count} horas
+      about_x_months:
+        one: cerca de 1 mes
+        other: cerca de %{count} meses
+      about_x_years:
+        one: cerca de 1 año
+        other: cerca de %{count} años
+      almost_x_years:
+        one: casi 1 año
+        other: casi %{count} años
+      half_a_minute: medio minuto
+      less_than_x_minutes:
+        one: menos de 1 minuto
+        other: menos de %{count} minutos
+      less_than_x_seconds:
+        one: menos de 1 segundo
+        other: menos de %{count} segundos
+      over_x_years:
+        one: más de 1 año
+        other: más de %{count} años
+      x_days:
+        one: 1 día
+        other: "%{count} días"
+      x_minutes:
+        one: 1 minuto
+        other: "%{count} minutos"
+      x_months:
+        one: 1 mes
+        other: "%{count} meses"
+      x_years:
+        one: 1 año
+        other: "%{count} años"
+      x_seconds:
+        one: 1 segundo
+        other: "%{count} segundos"
+    prompts:
+      day: Día
+      hour: Hora
+      minute: Minuto
+      month: Mes
+      second: Segundos
+      year: Año
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: debe ser aceptado
+      blank: no puede estar en blanco
+      present: debe estar en blanco
+      confirmation: no coincide
+      empty: no puede estar vacío
+      equal_to: debe ser igual a %{count}
+      even: debe ser un número par
+      exclusion: está reservado
+      greater_than: debe ser mayor que %{count}
+      greater_than_or_equal_to: debe ser mayor o igual que %{count}
+      inclusion: no está incluido en la lista
+      invalid: es inválido
+      less_than: debe ser menor que %{count}
+      less_than_or_equal_to: debe ser menor o igual que %{count}
+      model_invalid: "La validación falló: %{errors}"
+      not_a_number: no es un número
+      not_an_integer: debe ser un entero
+      odd: debe ser un número non
+      required: debe existir
+      taken: ya ha sido tomado
+      too_long:
+        one: es demasiado largo (máximo 1 caracter)
+        other: es demasiado largo (máximo %{count} caracteres)
+      too_short:
+        one: es demasiado corto (mínimo 1 caracter)
+        other: es demasiado corto (mínimo %{count} caracteres)
+      wrong_length:
+        one: longitud errónea (debe ser de 1 caracter)
+        other: longitud errónea (debe ser de %{count} caracteres)
+      other_than: debe ser diferente a %{count}
+    template:
+      body: 'Revise que los siguientes campos sean válidos:'
+      header:
+        one: "%{model} no pudo guardarse debido a 1 error"
+        other: "%{model} no pudo guardarse debido a %{count} errores"
+  helpers:
+    select:
+      prompt: Por favor selecciona
+    submit:
+      create: Crear %{model}
+      submit: Guardar %{model}
+      update: Actualizar %{model}
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u%n"
+        precision: 2
+        separator: "."
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "$"
+    format:
+      delimiter: ","
+      precision: 2
+      separator: "."
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: mil millones
+          million:
+            one: millón
+            other: millones
+          quadrillion: mil billones
+          thousand: mil
+          trillion:
+            one: billón
+            other: billones
+          unit: ''
+      format:
+        delimiter: ","
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ","
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ","
+  support:
+    array:
+      last_word_connector: " y "
+      two_words_connector: " y "
+      words_connector: ", "
+  time:
+    am: am
+    formats:
+      default: "%a, %d de %b de %Y a las %H:%M:%S %Z"
+      long: "%A, %d de %B de %Y a las %I:%M %p"
+      short: "%d de %b a las %H:%M hrs"
+    pm: pm
+  action_create: Acciones que permiten crear registros
+  action_delete: Acciones que permiten eliminar registros
+  action_permission: "Acción: "
+  action_read: Acciones que permiten consultar registros de modelos específicos  
+  action_update: Acciones que permiten actualizar registros    
+  activate: Activar
+  active: Activo
+  cancel: Cancelar
+  choose_from_select: -- Seleccionar --
+  currency_symbol: $
+  new_agreed_hours: Nuevo horario
+  new_available_day: Nuevo día disponible
+  new_course: Nuevo curso  
+  new_colony: Nueva colonia
+  new_institution: Nueva institución
+  new_required_volunteer: Nuevo voluntario
+  new_skill: Nueva habilidad
+  new_software: Nuevo software que maneja
+  new_volunteer: Nuevo voluntario      
+  new_work_experience: Nueva experiencia de trabajo
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: cerca de 1 hora
+        other: cerca de %{count} horas
+      about_x_months:
+        one: cerca de 1 mes
+        other: cerca de %{count} meses
+      about_x_years:
+        one: cerca de 1 año
+        other: cerca de %{count} años
+      almost_x_years:
+        one: casi 1 año
+        other: casi %{count} años
+      half_a_minute: medio minuto
+      less_than_x_minutes:
+        one: menos de 1 minuto
+        other: menos de %{count} minutos
+      less_than_x_seconds:
+        one: menos de 1 segundo
+        other: menos de %{count} segundos
+      over_x_years:
+        one: más de 1 año
+        other: más de %{count} años
+      x_days:
+        one: 1 día
+        other: "%{count} días"
+      x_minutes:
+        one: 1 minuto
+        other: "%{count} minutos"
+      x_months:
+        one: 1 mes
+        other: "%{count} meses"
+      x_seconds:
+        one: 1 segundo
+        other: "%{count} segundos"
+    prompts:
+      day: Día
+      hour: Hora
+      minute: Minuto
+      month: Mes
+      second: Segundos
+      year: Año
+  delete: Eliminar
+  errors:
+    format: "%{attribute} %{message}"
+    messages:      
+      accepted: debe ser aceptado
+      blank: no puede estar en blanco
+      confirmation: no coincide
+      empty: no puede estar vacío
+      equal_to: debe ser igual a %{count}
+      even: debe ser un número par
+      exclusion: está reservado
+      greater_than: debe ser mayor que %{count}
+      greater_than_or_equal_to: debe ser mayor o igual que %{count}
+      inclusion: no está incluido en la lista
+      invalid: es inválido
+      less_than: debe ser menor que %{count}
+      less_than_or_equal_to: debe ser menor o igual que %{count}
+      not_a_number: no es un número
+      not_an_integer: debe ser un entero
+      odd: debe ser un número non
+      present: debe estar en blanco                                                                                    
+      record_invalid: 'La validación falló: %{errors}'
+      restrict_dependent_destroy:
+        many: El registro no puede ser eliminado pues existen %{record} dependientes
+        one: El registro no puede ser eliminado pues existe un %{record} dependiente        
+      taken: ya ha sido tomado
+      too_long:
+        one: es demasiado largo (máximo 1 caracter)
+        other: es demasiado largo (máximo %{count} caracteres)
+      too_short:
+        one: es demasiado corto (mínimo 1 caracter)
+        other: es demasiado corto (mínimo %{count} caracteres)
+      wrong_length:
+        one: longitud errónea (debe ser de 1 caracter)
+        other: longitud errónea (debe ser de %{count} caracteres)
+      other_than: debe ser diferente a %{count}
+    template:
+      body: 'Revise que los siguientes campos sean válidos:'
+      header:
+        one: "%{model} no pudo guardarse debido a 1 error"
+        other: "%{model} no pudo guardarse debido a %{count} errores"
+  exceeded: excedido
+  finalized: finalizado
+  generic_categories: Categorías generales
+  hash_tag: "#"
+  hours: horas
+  is_invalid: es inválido
+  must_be_in_the_past: El voluntario debe ser mayor a 2 años
+  must_be_less_than_150_years_in_the_past: El voluntario no puede ser mayor a 150 años  
+  helpers:
+    select:
+      prompt: Por favor selecciona
+    submit:
+      create: Crear %{model}
+      submit: Guardar %{model}
+      update: Actualizar %{model}
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u%n"
+        precision: 2
+        separator: "."
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "$"
+    format:
+      delimiter: ","
+      precision: 2
+      separator: "."
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: mil millones
+          million: millón
+          quadrillion: mil billones
+          thousand: mil
+          trillion: billón
+          unit: ''
+      format:
+        delimiter: ","
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ","
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ","
+  output_time_is_not_bigger: debe ser mayor que la de entrada
+  photograph_path_allowed_format: "Formatos admitidos: jpg, jpeg, png."
+  reassigned: Reasignado
+  save_hours: Guardar horas
+  set_hours: Asignar horas
+  specific_categories: Rubros específicos
+  areas_of_interest: Áreas de interés
+  support:
+    array:
+      last_word_connector: " y "
+      two_words_connector: " y "
+      words_connector: ", "
+  time:
+    am: am
+    formats:
+      default: "%a, %d de %b de %Y a las %H:%M:%S %Z"
+      long: "%A, %d de %B de %Y a las %I:%M %p"
+      short: "%d de %b a las %H:%M hrs"
+    pm: pm
