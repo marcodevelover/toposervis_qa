@@ -32,4 +32,8 @@ module ApplicationHelper
     def pack_exists?(filename)
         File.exists?(File.join(Rails.root, 'app', 'javascript', 'packs', "#{filename}.js"))
     end
+
+    def title_section(*args) 
+        render   'admin/shared/title' 
+    end
 end

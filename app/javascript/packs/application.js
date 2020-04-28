@@ -11,7 +11,7 @@ require("modernizr/modernizr.custom.js");
 // require("channels")
 
 //--- Bootstrap
-//import 'bootstrap';
+import 'bootstrap';
 
 import appInit from './angle/app.init.js';
 document.addEventListener('DOMContentLoaded', appInit);
@@ -35,3 +35,5 @@ require.context('file-loader?name=[path][name].[ext]&context=node_modules/jquery
 
 
 import {} from 'jquery-ujs';
+
+import 'sweetalert';

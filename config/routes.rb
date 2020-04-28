@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :admin do
-    resources :users
+    resources :users do
+      get :delete, on: :member
+    end
   end
   namespace :admin do
     resources :roles

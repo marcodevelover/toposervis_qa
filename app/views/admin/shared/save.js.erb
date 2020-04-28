@@ -1,0 +1,6 @@
+$("#mainModal").modal("hide"); 
+
+$(".index-collection").html("<%= escape_javascript(render '/admin/'+controller_name+'/index' ) %>") 
+<%  unless params[:id] %>
+$(".pagination").html("<%= j(render partial: 'admin/shared/paginate', locals: { objects: @objects } ) %>")  
+<% end %>

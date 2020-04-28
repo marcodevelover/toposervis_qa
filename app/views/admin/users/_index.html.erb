@@ -1,0 +1,11 @@
+<% if @collection.each do |object| %>
+<tr>
+        <td scope="row" ><%= object.id %></td>
+        <td  ><%= object.email %></td>
+        <td><%= link_to t('actions.show'), [:admin, object], data: { modal: true, turbolinks: false } %></td>
+        <td><%= link_to t('actions.edit'), edit_admin_user_path(object), data: { modal: true }  %></td>
+        <td><%= link_to t('actions.delete'), delete_admin_user_path(object), remote: true %></td>
+</tr>
+<% end.empty? %>
+  <h3>No hay resultados</h3>
+<% end %>

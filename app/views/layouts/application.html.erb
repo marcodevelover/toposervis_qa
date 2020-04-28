@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCfYPE html>
 <html lang="en">
 
 <head>
@@ -12,6 +12,11 @@
    
    <!-- =============== APP STYLES ===============-->
    <%= stylesheet_link_tag 'application', media: 'all', id: "maincss" %>
+
+   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+   <meta name="turbolinks-cache-control" content="no-cache">
 
    <%= yield :vendor_css_area %>
 
@@ -37,6 +42,7 @@
       <section class="section-container">
          <!-- Page content-->
          <div class="content-wrapper">
+            <%= title_section(@page_name) %>
             <%= yield %>
          </div>
       </section>
@@ -54,6 +60,41 @@
 
    <%= yield :body_area %>
 
+  
+<div id="modal-holder"></div>
+
+
 </body>
+<script type="text/javascript">
+   
+$(function() {
+  const modal_holder_selector = '#modal-holder';
+  const modal_selector = '.modal';
+
+  $(document).on('click', 'a[data-modal]', function() {
+    const location = $(this).attr('href');
+    // Load modal dialog from server
+    $.get(
+      location,
+      data => { $(modal_holder_selector).html(data).find(modal_selector).modal();
+      $('.modal-dialog').draggable({
+    handle: ".modal-header"
+  }); }
+    );
+    return false;
+  });
+
+  $(document).on('ajax:success', 'form[data-modal]', function(event){ 
+    const [data, _status, xhr] = event.detail;
+    const url = xhr.getResponseHeader('Location');
+    if (url) {
+      // Redirect to url
+      window.location = url;
+    }  
+
+    return false;
+  });
+});
+</script>
 
 </html>

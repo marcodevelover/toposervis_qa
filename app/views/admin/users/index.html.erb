@@ -1,7 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Users</h1>
-
 <table>
   <thead>
     <tr>
@@ -14,24 +12,14 @@
     </tr>
   </thead>
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.lastname %></td>
-        <td><%= user.phone %></td>
-        <td><%= user.deleted_at %></td>
-        <td><%= user.role_id %></td>
-        <td><%= link_to 'Show', [:admin, user] %></td>
-        <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
-        <td><%= link_to 'Destroy', [:admin, user], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                
-
-      </tr>
-    <% end %>
+  <tbody class="index-collection">
+  <%= render "index" %>  
   </tbody>
 </table>
+<div class=" pagination" id='pagination' style="margin-right: 10%;">
+  <%= render partial: 'admin/shared/paginate', locals: { objects: @collection } %>
+</div>
 
 <br>
 
-<%= link_to 'New User', new_admin_user_path %>
+<%= link_to 'New Admin User', new_admin_user_path, data: { modal: true }  %>

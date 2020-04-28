@@ -1,24 +1,35 @@
 class Admin::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :delete]
+  respond_to :html, :json
+  
+  def page_name
+     @page_name = t('user_module')
+  end
   # GET /admin/users
   # GET /admin/users.json
   def index
-    @users = User.all
+  	search
+    respond_to do |format| 
+            format.html { }
+            format.js  { respond_modal_index_with (@collection)}
+    end
   end
 
   # GET /admin/users/1
   # GET /admin/users/1.json
   def show
+  	respond_modal_with @user
   end
 
   # GET /admin/users/new
   def new
     @user = User.new
+    respond_modal_with @user
   end
 
   # GET /admin/users/1/edit
   def edit
+  	respond_modal_with @user
   end
 
   # POST /admin/users
@@ -26,39 +37,36 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to [:admin, @user], notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+    respond_modal_action_with(@user)
   end
 
   # PATCH/PUT /admin/users/1
   # PATCH/PUT /admin/users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to [:admin, @user], notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+    if params[:user][:password_confirmation].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation) 
+    end 
+  	@user.attributes =  user_params 
+    respond_modal_action_with(@user)
+  end
+
+  def delete
+    respond_modal_for_delete_with(@user,true)
   end
 
   # DELETE /admin/users/1
   # DELETE /admin/users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @user.save!(context: :delete)
+  end
+
+  def search(per_page = 10)
+    params[:q] ||= {} 
+    params[:per_page] = 10
+    
+    @q = User.search(params[:q])
+    @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])  
   end
 
   private
