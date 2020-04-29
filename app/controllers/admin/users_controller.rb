@@ -61,6 +61,11 @@ class Admin::UsersController < ApplicationController
     @user.save!(context: :delete)
   end
 
+  def filter_form
+    @q = User.ransack(params[:q])
+    respond_modal_with @q 
+  end
+
   def search(per_page = 10)
     params[:q] ||= {} 
     params[:per_page] = 10

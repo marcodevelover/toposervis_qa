@@ -202,7 +202,7 @@ es:
     no_confirm_delete: "No"
     password: "Contraseña"
     password_confirmation: "Confirmar contraseña"
-    profile: "Perfil"
+    role: "Role"
     job: "Puesto"
     user: "Usuario"
     import: "Importar usuarios" 

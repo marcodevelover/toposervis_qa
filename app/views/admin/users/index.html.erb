@@ -4,6 +4,9 @@
                 <%= link_to new_admin_user_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
                   <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
                 <%end%>
+                <%= link_to filter_form_admin_users_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                  <em class="fa mr-2 fas fa-search"></em>Buscar
+                <%end%>
                </div>
                <div class="card-body">
                   <div class="table-responsive bootgrid">
@@ -24,7 +27,7 @@
                          <%= render "index" %> 
                         </tbody>
                      </table>
-                    <div class=" pagination" id='pagination' style="margin-right: 10%;">
+                    <div class="pagination" id='pagination' style="margin-right: 10%;">
                       <%= render partial: 'admin/shared/paginate', locals: { objects: @collection } %>
                     </div>                     
                   </div>
