@@ -84,7 +84,7 @@ $(function() {
     return false;
   });
 
-  $(document).on('ajax:success', 'form[data-modal]', function(event){ 
+  $(document).on('ajax:success', 'form{data-modal}', function(event){ 
     const [data, _status, xhr] = event.detail;
     const url = xhr.getResponseHeader('Location');
     if (url) {
