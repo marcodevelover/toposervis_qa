@@ -1,25 +1,33 @@
 <p id="notice"><%= notice %></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Lastname</th>
-      <th>Phone</th>
-      <th>Deleted at</th>
-      <th>Role</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody class="index-collection">
-  <%= render "index" %>  
-  </tbody>
-</table>
-<div class=" pagination" id='pagination' style="margin-right: 10%;">
-  <%= render partial: 'admin/shared/paginate', locals: { objects: @collection } %>
-</div>
-
-<br>
-
-<%= link_to 'New Admin User', new_admin_user_path, data: { modal: true }  %>
+            <div class="card">
+               <div class="card-header">
+                <%= link_to new_admin_user_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                  <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
+                <%end%>
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive bootgrid">
+                     <table class="table table-striped" id="bootgrid-command" >
+                        <thead>
+                           <tr>
+                              <th data-column-id="id" data-type="numeric">ID</th>
+                              <th data-column-id="name">Name</th>
+                              <th data-column-id="lastname" data-order="desc">Last Name</th>
+                              <th data-column-id="email" data-order="desc">Email</th>
+                              <th data-column-id="status" data-order="desc">Status</th>
+                              <th data-column-id="commands" data-formatter="commands" data-sortable="false">
+                                 <div class="text-left">Commands</div>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody class="index-collection">
+                         <%= render "index" %> 
+                        </tbody>
+                     </table>
+                    <div class=" pagination" id='pagination' style="margin-right: 10%;">
+                      <%= render partial: 'admin/shared/paginate', locals: { objects: @collection } %>
+                    </div>                     
+                  </div>
+               </div>
+            </div>
+        

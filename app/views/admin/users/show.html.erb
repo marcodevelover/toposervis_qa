@@ -16,19 +16,19 @@
 </p>
 
 <p>
-  <strong>Deleted at:</strong>
-  <%= @user.deleted_at %>
+  <strong>Role:</strong>
+  <%= @user.role.description %>
 </p>
 
 <p>
-  <strong>Role:</strong>
-  <%= @user.role_id %>
+  <strong>Deleted at:</strong>
+  <%= @user.deleted_at %>
 </p>
 
 </div>
 <div class="modal-footer"> 
      <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
-  </div> 
+</div> 
 
-  <div id="modal-holder" ></div>
+<div id="modal-holder" ></div>
 

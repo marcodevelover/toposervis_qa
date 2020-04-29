@@ -1,10 +1,10 @@
 swal({
     title: 'Are you sure?',
-    text: 'Your will not be able to recover this imaginary file!',
+    text: 'Desea borrar este registro!',
     icon: 'warning',
     buttons: {
         cancel: {
-            text: 'No, cancel plx!',
+            text: 'No, cancel!',
             value: null,
             visible: true,
             className: "",
@@ -21,7 +21,7 @@ swal({
 }).then(function(isConfirm) {
 
     if (isConfirm) {
-        swal('Deleted!', 'Your imaginary file has been deleted.', 'success');
+        swal('Deleted!', 'Tu registro se ha dado de baja.', 'success');
         $.ajax({
                 url: "/admin/<%=controller_name%>/<%=@object.id%>/",
                 type: "DELETE",  
@@ -33,7 +33,7 @@ swal({
                 }
             });                
     } else {
-        swal('Cancelled', 'Your imaginary file is safe :)', 'error');
+        swal('Cancelled', 'Your file is safe :)', 'error');
     }
 
     });
