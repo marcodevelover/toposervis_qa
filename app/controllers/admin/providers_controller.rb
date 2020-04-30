@@ -83,7 +83,8 @@ class Admin::ProvidersController < ApplicationController
     def provider_params
       params.require(:provider).permit(
         :name, :rfc, :business_name, :deleted_at, 
-        provider_address_attributes: [ :id, :street, :number, :crossing, :postcode, :colony, :town, :state, :country, :deleted_at ]
+        provider_address_attributes: [ :id, :street, :number, :crossing, :postcode, :colony, :town, :state, :country, :deleted_at ],
+        provider_contacts_attributes: [ :id, :name, :department, :phone, :extension, :cellphone, :email, :_destroy ]
         )
     end
 end

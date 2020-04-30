@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_29_184717) do
+ActiveRecord::Schema.define(version: 2020_04_30_043432) do
 
   create_table "provider_addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "street"
@@ -26,6 +26,20 @@ ActiveRecord::Schema.define(version: 2020_04_29_184717) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["provider_id"], name: "index_provider_addresses_on_provider_id"
+  end
+
+  create_table "provider_contacts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "department"
+    t.string "phone"
+    t.string "extension"
+    t.string "cellphone"
+    t.string "email"
+    t.bigint "provider_id", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["provider_id"], name: "index_provider_contacts_on_provider_id"
   end
 
   create_table "providers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -63,5 +77,6 @@ ActiveRecord::Schema.define(version: 2020_04_29_184717) do
   end
 
   add_foreign_key "provider_addresses", "providers"
+  add_foreign_key "provider_contacts", "providers"
   add_foreign_key "users", "roles"
 end

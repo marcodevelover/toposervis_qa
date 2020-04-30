@@ -56,6 +56,42 @@
   <%= @provider.provider_address.country %>
 </p>
 
+
+<% @provider.provider_contacts.each do |contact| %>
+  <hr>
+  <p>
+    <strong>Contact name:</strong>
+    <%= contact.name %>
+  </p>
+
+  <p>
+    <strong>Department:</strong>
+    <%= contact.department %>
+  </p>
+
+  <p>
+    <strong>Phone:</strong>
+    <%= contact.phone %>
+  </p>
+
+  <p>
+    <strong>Extension:</strong>
+    <%= contact.extension %>
+  </p>
+
+  <p>
+    <strong>Cellphone:</strong>
+    <%= contact.cellphone %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= contact.email %>
+  </p>
+  <hr>
+
+<% end %>
+
 <p>
   <strong>Deleted at:</strong>
   <%= @provider.deleted_at %>

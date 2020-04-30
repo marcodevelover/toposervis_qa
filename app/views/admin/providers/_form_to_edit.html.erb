@@ -63,6 +63,12 @@
 
   <% end %>
 
+  <%= form.fields_for :provider_contacts do |f| %>
+        <%= render 'provider_contact_fields', f: f %>
+  <% end %>
+
+  <%= link_to_add_fields "Agregar Contacto", form, :provider_contacts %>
+
    <div class="required">* Required fields</div>
 </div>
 <div class="modal-footer">
@@ -75,3 +81,18 @@
 </div>
                      
 <% end %>
+
+<script type="text/javascript">
+$("[data-form-prepend]").click(function(e) {
+  var obj = $($(this).attr("data-form-prepend"));
+  obj.find("input, select, textarea").each(function() {
+    $(this).attr("name", function() {
+      return $(this)
+        .attr("name")
+        .replace("new_record", new Date().getTime());
+    });
+  });
+  obj.insertBefore(this);
+  return false;
+});          
+</script>
