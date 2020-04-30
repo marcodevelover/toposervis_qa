@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  beneficiary: MyString
+  account: MyString
+  clabe: MyString
+  banck_name: MyString
+  currency: MyString
+  provider: one
+
+two:
+  beneficiary: MyString
+  account: MyString
+  clabe: MyString
+  banck_name: MyString
+  currency: MyString
+  provider: two
