@@ -1,0 +1,69 @@
+<div class="modal-body">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @provider.name %>
+</p>
+
+<p>
+  <strong>Rfc:</strong>
+  <%= @provider.rfc %>
+</p>
+
+<p>
+  <strong>Business name:</strong>
+  <%= @provider.business_name %>
+</p>
+
+<p>
+  <strong>street:</strong>
+  <%= @provider.provider_address.street %>
+</p>
+
+<p>
+  <strong>number:</strong>
+  <%= @provider.provider_address.number %>
+</p>
+
+<p>
+  <strong>crossing:</strong>
+  <%= @provider.provider_address.crossing %>
+</p>
+
+<p>
+  <strong>postcode:</strong>
+  <%= @provider.provider_address.postcode %>
+</p>
+
+<p>
+  <strong>colony:</strong>
+  <%= @provider.provider_address.colony %>
+</p>
+
+<p>
+  <strong>town:</strong>
+  <%= @provider.provider_address.town %>
+</p>
+
+<p>
+  <strong>state:</strong>
+  <%= @provider.provider_address.state %>
+</p>
+
+<p>
+  <strong>country:</strong>
+  <%= @provider.provider_address.country %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @provider.deleted_at %>
+</p>
+
+</div>
+<div class="modal-footer"> 
+     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+</div> 
+
+<div id="modal-holder" ></div>

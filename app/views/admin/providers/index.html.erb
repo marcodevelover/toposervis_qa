@@ -1,10 +1,10 @@
             <p id="notice"><%= notice %></p>
             <div class="card">
                <div class="card-header">
-                <%= link_to new_admin_user_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                <%= link_to new_admin_provider_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
                   <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
                 <%end%>
-                <%= link_to filter_form_admin_users_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                <%= link_to filter_form_admin_providers_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
                   <em class="fa mr-2 fas fa-search"></em>Buscar
                 <%end%>
                </div>
@@ -15,8 +15,8 @@
                            <tr>
                               <th data-column-id="id" data-type="numeric">ID</th>
                               <th data-column-id="name">Name</th>
-                              <th data-column-id="lastname" data-order="desc">Last Name</th>
-                              <th data-column-id="email" data-order="desc">Email</th>
+                              <th data-column-id="rfc" data-order="desc">RFC</th>
+                              <th data-column-id="business_name" data-order="desc">Business name</th>
                               <th data-column-id="status" data-order="desc">Status</th>
                               <th data-column-id="commands" data-formatter="commands" data-sortable="false">
                                  <div class="text-left">Commands</div>

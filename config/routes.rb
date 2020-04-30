@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
+  
   namespace :admin do
     resources :users do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
+    resources :providers do
       get :delete, on: :member
       get :filter_form, on: :collection
     end

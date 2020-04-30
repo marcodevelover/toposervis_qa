@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_27_200012) do
+ActiveRecord::Schema.define(version: 2020_04_29_184717) do
+
+  create_table "provider_addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "street"
+    t.string "number"
+    t.string "crossing"
+    t.string "postcode"
+    t.string "colony"
+    t.string "town"
+    t.string "state"
+    t.string "country"
+    t.bigint "provider_id", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["provider_id"], name: "index_provider_addresses_on_provider_id"
+  end
+
+  create_table "providers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "rfc"
+    t.string "business_name"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "description"
@@ -37,5 +62,6 @@ ActiveRecord::Schema.define(version: 2020_04_27_200012) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "provider_addresses", "providers"
   add_foreign_key "users", "roles"
 end

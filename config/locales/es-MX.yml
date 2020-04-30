@@ -49,6 +49,7 @@ es:
   enterprise: Empresa
   department: Departamento/Sucursal
   my_profile: Mi perfil
+  provider_module: Proveedores
   user_module: Usuarios
   interview_gg_module: Conversaciones Servir y Sonreír
   interview_gg: Entrevistas 
@@ -229,11 +230,10 @@ es:
     lastname: Apellido
     status: Estado
     has_saipro_user: ¿Cuenta con usuario en SAIPRO?
-  comments:
-    user: Usuario
-    description: Descripción
-    subject: Motivo
-    created_at: Fecha de comentario
+  providers:
+    name: Nombre
+    rfc: RFC
+    business_name: Razón social
   partners:
     name: Nombre
     partner_image: Imagen
