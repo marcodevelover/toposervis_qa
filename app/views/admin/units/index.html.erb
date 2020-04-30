@@ -1,0 +1,34 @@
+            <p id="notice"><%= notice %></p>
+            <div class="card">
+               <div class="card-header">
+                <%= link_to new_admin_unit_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                  <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
+                <%end%>
+                <%= link_to filter_form_admin_units_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                  <em class="fa mr-2 fas fa-search"></em>Buscar
+                <%end%>
+               </div>
+               <div class="card-body">
+                  <div class="table-responsive bootgrid">
+                     <table class="table table-striped" id="bootgrid-command" >
+                        <thead>
+                           <tr>
+                              <th data-column-id="id" data-type="numeric">ID</th>
+                              <th data-column-id="name">Name</th>
+                              <th data-column-id="abbreviation" data-order="desc">Abbreviation</th>
+                              <th data-column-id="status" data-order="desc">Status</th>
+                              <th data-column-id="commands" data-formatter="commands" data-sortable="false">
+                                 <div class="text-left">Commands</div>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody class="index-collection">
+                         <%= render "index" %> 
+                        </tbody>
+                     </table>
+                    <div class="pagination" id='pagination' style="margin-right: 10%;">
+                      <%= render partial: 'admin/shared/paginate', locals: { objects: @collection } %>
+                    </div>                     
+                  </div>
+               </div>
+            </div>

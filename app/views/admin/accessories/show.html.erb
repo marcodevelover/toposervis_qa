@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @accessory.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @accessory.description %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @accessory.deleted_at %>
+</p>
+
+<%= link_to 'Edit', edit_accessory_path(@accessory) %> |
+<%= link_to 'Back', accessories_path %>

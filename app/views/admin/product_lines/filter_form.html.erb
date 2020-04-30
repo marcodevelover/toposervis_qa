@@ -1,0 +1,28 @@
+  
+	 <%= search_form_for [:admin, @q], remote:true do |f| %> 
+  			
+			<div class="modal-body">
+				<div class="form-group">
+
+					<div class="form-group"> 
+						<label class="form-label"><%= t("product_lines.name")%></label>
+						<div class="form-group">
+							<%= search_field_tag "q[name_cont]",nil,class: "form-control" , placeholder: t('product_lines.name') %>
+						</div>
+					</div>
+					<div class="form-group"> 
+						<label class="form-label"><%= t("product_lines.description")%></label>
+						<div class="form-group">
+							<%= search_field_tag "q[description_cont]",nil,class: "form-control" , placeholder: t('product_lines.description') %>
+						</div>  
+					</div>
+					  
+					 
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= submit_tag t('search'),class: 'btn btn-info waves-effect' %> 
+				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancelar</button>
+			</div>
+		<% end %>
+ 

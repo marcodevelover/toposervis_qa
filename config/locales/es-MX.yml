@@ -51,6 +51,10 @@ es:
   my_profile: Mi perfil
   provider_module: Proveedores
   user_module: Usuarios
+  unit_module: Unidades de medida
+  product_line_module: Lineas de producto
+  currency_module: Monedas
+  accessory_module: Accesorios de producto
   interview_gg_module: Conversaciones Servir y Sonreír
   interview_gg: Entrevistas 
   assign_collaborators_module: Asignar Colaboradores
@@ -234,6 +238,20 @@ es:
     name: Nombre
     rfc: RFC
     business_name: Razón social
+  product_lines:
+    name: Nombre
+    description: Descripción
+  currencies:
+    name: Nombre
+    description: Descripción
+    abbreviation: Abreviación
+  accessories:
+    name: Nombre
+    description: Descripción
+  units:
+    name: Nombre
+    description: Descripción
+    abbreviation: Abreviación
   partners:
     name: Nombre
     partner_image: Imagen

@@ -9,6 +9,22 @@ Rails.application.routes.draw do
       get :delete, on: :member
       get :filter_form, on: :collection
     end
+    resources :accessories do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
+    resources :currencies do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
+    resources :units do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
+    resources :product_lines do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
   end
   namespace :admin do
     resources :roles
