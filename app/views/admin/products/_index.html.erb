@@ -14,22 +14,9 @@
         		<em class="fa fa-edit"></em> 
         	<%end%>
 
-
-
-                <%= link_to new_admin_product_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
-                  <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
-                <%end%>
-
-
-            <%= link_to edit_admin_product_path(object), :class => "btn btn-sm btn-info", data: { modal: true }   do %>
+            <%= link_to edit_admin_product_variant_path(object.product_variants.first.id), :class => "btn btn-sm btn-info", data: { modal: true }   do %>
                 <em class="fa fa-file-image"></em> 
             <%end%>
-        		
-
-
-
-
-
 
         	<%= link_to delete_admin_product_path(object), :class => "btn btn-sm btn-danger", remote: true   do %>
         		<em class="fa fa-trash fa-fw"></em>

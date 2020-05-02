@@ -1,32 +1,8 @@
-<%= simple_form_for([:admin, @product_variant], remote: request.xhr?, html: { data: { modal: true } }) do |form| %>               
+<%= simple_form_for([:admin, @product_variant],  remote: request.xhr?, html: { data: { modal: true },class: 'ajax' }) do |form| %>               
                   
 <div class="modal-body">
   <div style="background-color:#f05050; border-color: #f05050; border-radius: 0.25rem; color:white; font-weight:bold;">
         <ul class="errors"></ul>
-  </div> 
-
-  <div class="form-group">
-        <%= form.label :code, class: "col-form-label"%> *
-        <%= form.text_field :code, class: "form-control", type: "text", required: true %>
-  </div>
-
-  <div class="form-group">
-        <%= form.label :code_alternative, class: "col-form-label"%> *
-        <%= form.text_field :code_alternative, class: "form-control", type: "text", required: true %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :currency_id, class: "col-form-label"%>
-    <div class="form-group">
-      <%= form.collection_select :currency_id, Currency.all, :id, :abbreviation, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :product_id, class: "col-form-label"%>
-    <div class="form-group">
-      <%= form.collection_select :product_id, Product.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
-    </div>
   </div>
 
 
@@ -35,7 +11,7 @@
 
            <div class="form-group row " >
             <div class="col-md-3">
-              <%= image_tag @product_variant.product_variant_images.first.image.variant(resize_to_limit: [100, 100]) %>
+              <%= image_tag f.object.image.variant(resize_to_limit: [100, 100]) %>
             </div> 
             <div class="col-md-9">
               <div class="col-md-12">
@@ -48,7 +24,7 @@
           </div>       
   <% end %>
 
-  <%= link_to_add_fields "Agregar Imágen", form, :product_variant_images, authenticity_token: true %>
+  <%= link_to_add_fields "Agregar Imágen", form, :product_variant_images %>
 
    <div class="required">* Required fields</div>
 </div>

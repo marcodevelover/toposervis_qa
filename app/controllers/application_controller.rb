@@ -38,6 +38,20 @@ class ApplicationController < ActionController::Base
            end
       end
   end
+
+  def respond_modal_action_with_hide(object)
+    @object = object
+    respond_to do |format|
+          if @object.save  
+            search
+            @objects= @collection
+            format.js  { render "admin/shared/hide.js.erb", layout: false, content_type: 'text/javascript' }
+          else 
+            format.js { render "admin/shared/error.js.erb", layout: false, content_type: 'text/javascript' }
+
+           end
+      end
+  end
   
   def respond_modal_for_delete_with(*args)
     #arguments: object, is_soft_delete

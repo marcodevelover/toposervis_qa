@@ -45,7 +45,7 @@ class Admin::ProductVariantsController < ApplicationController
   # PATCH/PUT /product_variants/1.json
   def update
     @product_variant.attributes =  product_variant_params 
-    respond_modal_action_with(@product_variant)
+    respond_modal_action_with_hide(@product_variant)
   end
 
   def delete
@@ -81,7 +81,7 @@ class Admin::ProductVariantsController < ApplicationController
     def product_variant_params
       params.require(:product_variant).permit(
         :code, :code_alternative, :stocking_time, :cost_price, :currency_id, :amount_public, :amount_provider, :amount_shipping, :stock_min, :stock_max, :product_id, :deleted_at,
-        product_variant_images_attributes: [:id, :product_variant_id, :image, :_destroy, :name]
+        product_variant_images_attributes: [:id, :product_variant_id, :_destroy, :image]
         )
     end
 end

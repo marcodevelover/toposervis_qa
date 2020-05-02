@@ -5,7 +5,7 @@
 
 require("modernizr/modernizr.custom.js");
 
-// require("@rails/ujs").start()
+require("@rails/ujs").start()
 // //require("turbolinks").start()
 // require("@rails/activestorage").start()
 // require("channels")
@@ -34,6 +34,6 @@ require.context('file-loader?name=[path][name].[ext]&context=node_modules/jquery
 require.context('file-loader?name=[path][name].[ext]&context=node_modules/jquery-ui-dist!jquery-ui-dist', true,    /jquery-ui\.theme\.css/ );
 
 
-import {} from 'jquery-ujs';
+
 
 import 'sweetalert';

@@ -1,4 +1,29 @@
+<div class="modal-body">
 <p id="notice"><%= notice %></p>
+
+<div class="p-0 col-md-12">
+  <% if  !(@product.product_variants.first.product_variant_images.blank?) %>
+    <%= image_tag @product.product_variants.first.product_variant_images.first.image.variant(resize_to_limit: [500, 500]), class: "image-preview d-block w-100"%>
+  <% end %>
+</div>
+
+<% if  !(@product.product_variants.first.product_variant_images.blank?) %>
+  <div id="gallery" class="carousel slide my-3" data-ride="carousel">
+      <div class="carousel-inner">
+          <%= create_carousel(@product.product_variants.first.product_variant_images) %>
+      </div>
+
+      <a class="carousel-control-prev" href="#gallery" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+      </a>
+
+      <a class="carousel-control-next" href="#gallery" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+      </a>
+  </div>
+<% end %>
 
 <p>
   <strong>Name:</strong>
@@ -27,28 +52,43 @@
 
 <p>
   <strong>Product line:</strong>
-  <%= @product.product_line_id %>
+  <%= @product.product_line.name %>
 </p>
 
 <p>
   <strong>Unit:</strong>
-  <%= @product.unit_id %>
+  <%= @product.unit.name %>
 </p>
 
 <p>
   <strong>Provider:</strong>
-  <%= @product.provider_id %>
-</p>
-
-<p>
-  <strong>Accessory:</strong>
-  <%= @product.accessory_id %>
+  <%= @product.provider.name %>
 </p>
 
 <p>
   <strong>Deleted at:</strong>
   <%= @product.deleted_at %>
 </p>
+</div>
+<div class="modal-footer"> 
+     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+</div> 
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<div id="modal-holder" ></div>
+<script type="text/javascript">
+$('.carousel').carousel()  
+</script>
+<script type="text/javascript">
+
+  $( ".item-img" ).click(function() {
+    var src = $(this).attr('src');
+    $('.image-preview').attr("src", src);
+  });
+
+  $('.carousel').carousel()   
+</script> 
+<style type="text/css">
+  .carousel-control-prev, .carousel-control-next {
+    width: 5%;
+  }
+</style>
