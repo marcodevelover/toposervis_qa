@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  brand: MyString
+  model: MyString
+  description: MyString
+  comment: MyString
+  product_line: one
+  unit: one
+  provider: one
+  accessory: one
+  deleted_at: 2020-04-30 20:28:51
+
+two:
+  name: MyString
+  brand: MyString
+  model: MyString
+  description: MyString
+  comment: MyString
+  product_line: two
+  unit: two
+  provider: two
+  accessory: two
+  deleted_at: 2020-04-30 20:28:51

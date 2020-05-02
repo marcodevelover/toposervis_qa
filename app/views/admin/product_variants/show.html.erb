@@ -1,0 +1,130 @@
+<div class="modal-body">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @provider.name %>
+</p>
+
+<p>
+  <strong>Rfc:</strong>
+  <%= @provider.rfc %>
+</p>
+
+<p>
+  <strong>Business name:</strong>
+  <%= @provider.business_name %>
+</p>
+
+<p>
+  <strong>street:</strong>
+  <%= @provider.provider_address.street %>
+</p>
+
+<p>
+  <strong>number:</strong>
+  <%= @provider.provider_address.number %>
+</p>
+
+<p>
+  <strong>crossing:</strong>
+  <%= @provider.provider_address.crossing %>
+</p>
+
+<p>
+  <strong>postcode:</strong>
+  <%= @provider.provider_address.postcode %>
+</p>
+
+<p>
+  <strong>colony:</strong>
+  <%= @provider.provider_address.colony %>
+</p>
+
+<p>
+  <strong>town:</strong>
+  <%= @provider.provider_address.town %>
+</p>
+
+<p>
+  <strong>state:</strong>
+  <%= @provider.provider_address.state %>
+</p>
+
+<p>
+  <strong>country:</strong>
+  <%= @provider.provider_address.country %>
+</p>
+
+
+<% @provider.provider_contacts.each do |contact| %>
+  <hr>
+  <p>
+    <strong>Contact name:</strong>
+    <%= contact.name %>
+  </p>
+
+  <p>
+    <strong>Department:</strong>
+    <%= contact.department %>
+  </p>
+
+  <p>
+    <strong>Phone:</strong>
+    <%= contact.phone %>
+  </p>
+
+  <p>
+    <strong>Extension:</strong>
+    <%= contact.extension %>
+  </p>
+
+  <p>
+    <strong>Cellphone:</strong>
+    <%= contact.cellphone %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= contact.email %>
+  </p>
+  <hr>
+
+<% end %>
+
+<p>
+  <strong>beneficiary:</strong>
+  <%= @provider.provider_bank.beneficiary %>
+</p>
+
+<p>
+  <strong>account:</strong>
+  <%= @provider.provider_bank.account %>
+</p>
+
+<p>
+  <strong>clabe:</strong>
+  <%= @provider.provider_bank.clabe %>
+</p>
+
+<p>
+  <strong>bank_name:</strong>
+  <%= @provider.provider_bank.bank_name %>
+</p>
+
+<p>
+  <strong>currency:</strong>
+  <%= @provider.provider_bank.currency %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @provider.deleted_at %>
+</p>
+
+</div>
+<div class="modal-footer"> 
+     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+</div> 
+
+<div id="modal-holder" ></div>

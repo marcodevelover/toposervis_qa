@@ -53,6 +53,7 @@ es:
   user_module: Usuarios
   unit_module: Unidades de medida
   product_line_module: Lineas de producto
+  product_module: Productos
   currency_module: Monedas
   accessory_module: Accesorios de producto
   interview_gg_module: Conversaciones Servir y Sonreír

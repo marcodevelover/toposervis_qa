@@ -25,6 +25,11 @@ Rails.application.routes.draw do
       get :delete, on: :member
       get :filter_form, on: :collection
     end
+    resources :products do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
+    resources :product_variants
   end
   namespace :admin do
     resources :roles
