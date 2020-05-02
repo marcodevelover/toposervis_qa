@@ -24,6 +24,7 @@ class Admin::ProductsController < ApplicationController
   # GET /admin/products/new
   def new
     @product = Product.new
+    @product.product_variants.build
     respond_modal_with @product
   end
 

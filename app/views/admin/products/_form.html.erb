@@ -51,11 +51,30 @@
     </div>
   </div>
 
-  <%= form.fields_for :product_variants do |f| %>
+
+
+
+
+
+
+
+  <%= form.simple_fields_for :product_variants do |f| %>
+        
+
+
         <%= render 'product_variant_fields', f: f %>
   <% end %>
 
-  <%= link_to_add_fields "<span id='add_product_variant'><em class='fa fa-plus-circle fa-fw mr-1'></em>Agregar Costos y Precios</span>".html_safe, form, :product_variants %>
+
+
+
+
+
+
+
+
+
+
 
    <div class="required">* Required fields</div>
 </div>
@@ -69,27 +88,3 @@
 </div>
                      
 <% end %>
-
-<script type="text/javascript">
-$("[data-form-prepend]").click(function(e) {
-  var obj = $($(this).attr("data-form-prepend"));
-  obj.find("input, select, textarea").each(function() {
-    $(this).attr("name", function() {
-      return $(this)
-        .attr("name")
-        .replace("new_record", new Date().getTime());
-    });
-  });
-  obj.insertBefore(this);
-  return false;
-});          
-</script>
-
-<script type="text/javascript">
-  $(function() {
-    $('#link_to_add_fields').on('click', function(e) {
-        e.preventDefault();
-        $('#add_product_variant').hide();
-    });
-});
-</script>
