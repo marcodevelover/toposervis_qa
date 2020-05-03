@@ -18,6 +18,10 @@
                 <em class="fa fa-file-image"></em> 
             <%end%>
 
+            <%= link_to add_accessory_admin_product_path(object), :class => "btn btn-sm btn-info", data: { modal: true }   do %>
+                <em class="fa fa-toolbox"></em> 
+            <%end%>
+
         	<%= link_to delete_admin_product_path(object), :class => "btn btn-sm btn-danger", remote: true   do %>
         		<em class="fa fa-trash fa-fw"></em>
         	<%end%>           		

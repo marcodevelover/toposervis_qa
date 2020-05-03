@@ -6,6 +6,8 @@ class Product < ApplicationRecord
   has_many :product_variants
   accepts_nested_attributes_for :product_variants, reject_if: :all_blank, allow_destroy: true
 
-  has_many :products_accessories
-  has_many :accesories, through: :products_accessories
+  has_many :products_accessories, inverse_of: :product, dependent: :destroy
+  has_many :accessories, through: :products_accessories
+
+  accepts_nested_attributes_for :products_accessories, reject_if: :all_blank, allow_destroy: true
 end

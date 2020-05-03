@@ -1,5 +1,5 @@
 class Admin::ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy, :delete]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :delete, :add_accessory]
   respond_to :html, :json
   
   def page_name
@@ -37,7 +37,6 @@ class Admin::ProductsController < ApplicationController
   # POST /admin/products.json
   def create
     @product = Product.new(product_params)
-
     respond_modal_action_with(@product)
   end
 
@@ -56,6 +55,11 @@ class Admin::ProductsController < ApplicationController
   # DELETE /admin/products/1.json
   def destroy
     @product.save!(context: :delete)
+  end
+
+  def add_accessory
+    @product.products_accessories.build
+    respond_modal_with @product
   end
 
   def filter_form
@@ -80,8 +84,9 @@ class Admin::ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(
-        :name, :brand, :model, :description, :comment, :product_line_id, :unit_id, :provider_id, :accessory_id, :deleted_at,
-        product_variants_attributes: [ :id, :code, :code_alternative, :stocking_time, :cost_price, :currency_id, :amount_public, :amount_provider, :amount_shipping, :stock_min, :stock_max, :product_id, :deleted_at, :_destroy ]
+        :name, :brand, :model, :description, :comment, :product_line_id, :unit_id, :provider_id, :deleted_at, 
+        products_accessories_attributes: [:id, :product_id, :accessory_id, :_destroy],
+        product_variants_attributes: [ :id, :code, :code_alternative, :stocking_time, :cost_price, :currency_id, :amount_public, :amount_provider, :amount_shipping, :stock_min, :stock_max, :product_id, :deleted_at, :_destroy ],
         )
     end
 end

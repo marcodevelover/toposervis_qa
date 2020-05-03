@@ -76,10 +76,12 @@ ActiveRecord::Schema.define(version: 2020_05_01_034825) do
     t.decimal "amount_shipping", precision: 10, scale: 2
     t.integer "stock_min"
     t.integer "stock_max"
+    t.bigint "product_id", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["currency_id"], name: "index_product_variants_on_currency_id"
+    t.index ["product_id"], name: "index_product_variants_on_product_id"
   end
 
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -91,11 +93,9 @@ ActiveRecord::Schema.define(version: 2020_05_01_034825) do
     t.bigint "product_line_id", null: false
     t.bigint "unit_id", null: false
     t.bigint "provider_id", null: false
-    t.bigint "accessory_id", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["accessory_id"], name: "index_products_on_accessory_id"
     t.index ["product_line_id"], name: "index_products_on_product_line_id"
     t.index ["provider_id"], name: "index_products_on_provider_id"
     t.index ["unit_id"], name: "index_products_on_unit_id"
@@ -199,7 +199,7 @@ ActiveRecord::Schema.define(version: 2020_05_01_034825) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "product_variant_images", "product_variants"
   add_foreign_key "product_variants", "currencies"
-  add_foreign_key "products", "accessories"
+  add_foreign_key "product_variants", "products"
   add_foreign_key "products", "product_lines"
   add_foreign_key "products", "providers"
   add_foreign_key "products", "units"

@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :products do
       get :delete, on: :member
       get :filter_form, on: :collection
+      get :add_accessory, on: :member
     end
     resources :product_variants
   end
