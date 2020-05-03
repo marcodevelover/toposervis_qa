@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_03_211534) do
+ActiveRecord::Schema.define(version: 2020_05_03_220611) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -41,6 +41,24 @@ ActiveRecord::Schema.define(version: 2020_05_03_211534) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "category_type_id", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_type_id"], name: "index_categories_on_category_type_id"
+  end
+
+  create_table "category_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "currencies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -69,7 +87,7 @@ ActiveRecord::Schema.define(version: 2020_05_03_211534) do
     t.string "beneficiary"
     t.string "account"
     t.string "clabe"
-    t.string "banck_name"
+    t.string "bank_name"
     t.string "currency"
     t.bigint "customer_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -94,6 +112,7 @@ ActiveRecord::Schema.define(version: 2020_05_03_211534) do
     t.string "name"
     t.string "rfc"
     t.string "business_name"
+    t.datetime "deleted_at", precision: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -217,6 +236,16 @@ ActiveRecord::Schema.define(version: 2020_05_03_211534) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "subcategories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "category_id", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_subcategories_on_category_id"
+  end
+
   create_table "units", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -245,6 +274,7 @@ ActiveRecord::Schema.define(version: 2020_05_03_211534) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "categories", "category_types"
   add_foreign_key "customer_addresses", "customers"
   add_foreign_key "customer_banks", "customers"
   add_foreign_key "customer_contacts", "customers"
@@ -259,5 +289,6 @@ ActiveRecord::Schema.define(version: 2020_05_03_211534) do
   add_foreign_key "provider_addresses", "providers"
   add_foreign_key "provider_banks", "providers"
   add_foreign_key "provider_contacts", "providers"
+  add_foreign_key "subcategories", "categories"
   add_foreign_key "users", "roles"
 end

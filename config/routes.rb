@@ -35,6 +35,22 @@ Rails.application.routes.draw do
       get :add_accessory, on: :member
     end
     resources :product_variants
+    resources :category_types do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
+    resources :category_types do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
+    resources :categories do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
+    resources :subcategories do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
   end
   namespace :admin do
     resources :roles

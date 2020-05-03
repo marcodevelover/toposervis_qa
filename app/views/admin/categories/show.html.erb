@@ -2,17 +2,22 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @accessory.name %>
+  <%= @category.name %>
 </p>
 
 <p>
   <strong>Description:</strong>
-  <%= @accessory.description %>
+  <%= @category.description %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @category.category_type.name %>
 </p>
 
 <p>
   <strong>Deleted at:</strong>
-  <%= @accessory.deleted_at %>
+  <%= @category.deleted_at %>
 </p>
 
 </div>

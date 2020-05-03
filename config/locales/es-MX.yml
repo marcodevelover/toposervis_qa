@@ -27,7 +27,7 @@ es:
   email_not_exist:  Email no existe
   password_instruction: "Recibirá un email con instrucciones acerca de como restaurar su contraseña en pocos minutos."
   denied: Denegado 
-  partner_module: Partners
+  category_type_module: Tipo de categorias
   benefit_module: Convenios
   notification_module: Notificaciones
   wrong_data: Usuario o contraseña invalidos
@@ -57,6 +57,8 @@ es:
   product_module: Productos
   currency_module: Monedas
   accessory_module: Accesorios de producto
+  category_module: Categorias
+  subcategory_module: Subcategorias
   interview_gg_module: Conversaciones Servir y Sonreír
   interview_gg: Entrevistas 
   assign_collaborators_module: Asignar Colaboradores
@@ -258,6 +260,15 @@ es:
     name: Nombre
     description: Descripción
     abbreviation: Abreviación
+  category_types:
+    name: Nombre
+    description: Descripción
+  categories:
+    name: Nombre
+    description: Descripción
+  subcategories:
+    name: Nombre
+    description: Descripción
   partners:
     name: Nombre
     partner_image: Imagen
