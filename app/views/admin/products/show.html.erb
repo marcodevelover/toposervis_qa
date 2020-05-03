@@ -64,7 +64,73 @@
   <strong>Provider:</strong>
   <%= @product.provider.name %>
 </p>
+<hr>
+<strong>Costos y Precios</strong>
+<p>
+  <strong>Currency:</strong>
+  <%= @product.product_variants.first.currency.abbreviation %>
+</p>
 
+<p>
+  <strong>Code:</strong>
+  <%= @product.product_variants.first.code %>
+</p>
+
+<p>
+  <strong>Code alternative:</strong>
+  <%= @product.product_variants.first.code_alternative %>
+</p>
+
+<p>
+  <strong>Stocking time:</strong>
+  <%= @product.product_variants.first.stocking_time %>
+</p>
+
+<p>
+  <strong>Cost price:</strong>
+  <%= @product.product_variants.first.cost_price %>
+</p>
+
+<p>
+  <strong>Amount public:</strong>
+  <%= @product.product_variants.first.amount_public %>
+</p>
+
+<p>
+  <strong>Amount provider:</strong>
+  <%= @product.product_variants.first.amount_provider %>
+</p>
+
+<p>
+  <strong>Amount shipping:</strong>
+  <%= @product.product_variants.first.amount_shipping %>
+</p>
+
+<p>
+  <strong>Stock min:</strong>
+  <%= @product.product_variants.first.stock_min %>
+</p>
+
+<p>
+  <strong>Stock max:</strong>
+  <%= @product.product_variants.first.stock_max %>
+</p>
+<hr>
+<strong>Accesorios</strong>
+<% @product.products_accessories.each do |accessory| %>
+
+<p>
+  <strong>Accessory:</strong>
+  <%= accessory.accessory.name %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= accessory.quantity %>
+</p>
+
+<% end %>
+<hr>
 <p>
   <strong>Deleted at:</strong>
   <%= @product.deleted_at %>
