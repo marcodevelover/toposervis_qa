@@ -58,7 +58,6 @@ class Admin::ProductsController < ApplicationController
   end
 
   def add_accessory
-    @product.products_accessories.build
     respond_modal_with @product
   end
 
@@ -85,7 +84,7 @@ class Admin::ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(
         :name, :brand, :model, :description, :comment, :product_line_id, :unit_id, :provider_id, :deleted_at, 
-        products_accessories_attributes: [:id, :product_id, :accessory_id, :_destroy],
+        products_accessories_attributes: [:id, :product_id, :accessory_id, :_destroy, :quantity],
         product_variants_attributes: [ :id, :code, :code_alternative, :stocking_time, :cost_price, :currency_id, :amount_public, :amount_provider, :amount_shipping, :stock_min, :stock_max, :product_id, :deleted_at, :_destroy ],
         )
     end
