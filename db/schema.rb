@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_01_034825) do
+ActiveRecord::Schema.define(version: 2020_05_03_211534) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -46,6 +46,54 @@ ActiveRecord::Schema.define(version: 2020_05_01_034825) do
     t.string "description"
     t.string "abbreviation"
     t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "customer_addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "street"
+    t.string "number"
+    t.string "crossing"
+    t.string "postcode"
+    t.string "colony"
+    t.string "town"
+    t.string "state"
+    t.string "country"
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_customer_addresses_on_customer_id"
+  end
+
+  create_table "customer_banks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "beneficiary"
+    t.string "account"
+    t.string "clabe"
+    t.string "banck_name"
+    t.string "currency"
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_customer_banks_on_customer_id"
+  end
+
+  create_table "customer_contacts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "department"
+    t.string "phone"
+    t.string "extension"
+    t.string "cellphone"
+    t.string "email"
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_customer_contacts_on_customer_id"
+  end
+
+  create_table "customers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "rfc"
+    t.string "business_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -197,6 +245,9 @@ ActiveRecord::Schema.define(version: 2020_05_01_034825) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "customer_addresses", "customers"
+  add_foreign_key "customer_banks", "customers"
+  add_foreign_key "customer_contacts", "customers"
   add_foreign_key "product_variant_images", "product_variants"
   add_foreign_key "product_variants", "currencies"
   add_foreign_key "product_variants", "products"

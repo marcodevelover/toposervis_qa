@@ -16,3 +16,7 @@ Provider.create(name:"Proveedor Uno", rfc:"XAXX010101000", business_name: "Prove
 ProviderAddress.create(street:"32", number:"100", crossing:"32 y 34", colony:"Fracc. Américas", town:"Mérida", state:"Yucatán", country:"México", provider_id: 1)
 ProviderBank.create(beneficiary: "Dexter", account: "1234", clabe: "1234", bank_name: "BBVA", currency:"MXN", provider_id: 1)
 ProviderContact.create(name: "Dexter", department:"Sistemas", phone:"9999999999", extension: "8", cellphone: "9999999999", email:"email@email.com", provider_id: 1)
+Customer.create(name:"Cliente Uno", rfc:"XAXX010101000", business_name: "Proveedor S.A de C.V")
+CustomerAddress.create(street:"32", number:"100", crossing:"32 y 34", colony:"Fracc. Américas", town:"Mérida", state:"Yucatán", country:"México", customer_id: 1)
+CustomerBank.create(beneficiary: "Dexter", account: "1234", clabe: "1234", bank_name: "BBVA", currency:"MXN", customer_id: 1)
+CustomerContact.create(name: "Dexter", department:"Sistemas", phone:"9999999999", extension: "8", cellphone: "9999999999", email:"email@email.com", customer_id: 1)

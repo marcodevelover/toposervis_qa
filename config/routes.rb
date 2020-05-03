@@ -9,6 +9,10 @@ Rails.application.routes.draw do
       get :delete, on: :member
       get :filter_form, on: :collection
     end
+    resources :customers do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
     resources :accessories do
       get :delete, on: :member
       get :filter_form, on: :collection
