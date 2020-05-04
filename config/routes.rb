@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     resources :subcategories do
       get :delete, on: :member
       get :filter_form, on: :collection
+      get :categories, on: :collection
     end
   end
   namespace :admin do

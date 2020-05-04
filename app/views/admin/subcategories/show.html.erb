@@ -1,0 +1,28 @@
+<div class="modal-body">
+
+<p>
+  <strong>Name:</strong>
+  <%= @subcategory.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @subcategory.description %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @subcategory.category.name %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @subcategory.deleted_at %>
+</p>
+
+</div>
+<div class="modal-footer"> 
+     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+</div> 
+
+<div id="modal-holder" ></div>
