@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  record: one
+  record_type: Record
+  product_variant: one
+  quotation: one
+  quantity: 1
+  price: 9.99
+  total: 9.99
+  currency: MyString
+  cost_price: 9.99
+  tax_item_total: 9.99
+  tax_total: 9.99
+  tax: 9.99
+  adjustment_total: 9.99
+
+two:
+  record: two
+  record_type: Record
+  product_variant: two
+  quotation: two
+  quantity: 1
+  price: 9.99
+  total: 9.99
+  currency: MyString
+  cost_price: 9.99
+  tax_item_total: 9.99
+  tax_total: 9.99
+  tax: 9.99
+  adjustment_total: 9.99

@@ -52,6 +52,11 @@ Rails.application.routes.draw do
       get :filter_form, on: :collection
       get :categories, on: :collection
     end
+    resources :conditions
+    resources :quotations do
+      get :customers, on: :collection
+    end
+    resources :quotation_items
   end
   namespace :admin do
     resources :roles

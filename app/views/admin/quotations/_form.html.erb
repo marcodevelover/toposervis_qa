@@ -1,0 +1,547 @@
+<%= simple_form_for([:admin, @quotation]) do |form| %>
+  <%= form.error_notification %>
+  <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
+            <!-- START card-->
+            <div class="card card-default">
+               <div class="card-body">
+                  <form class="form-horizontal" method="get" action="/">
+                     <h3>Datos generales</h3>
+                     <fieldset>
+                        <div class="form-group row">
+                           <div class="col-md-12">
+                              <div class="form-row">
+  
+                                 <div class="col-lg-4 mb-4">
+                                      <%= form.input :validity %>
+                                 </div>                        
+
+                                
+                                 <div class="col-lg-4 mb-4">
+                                   <%= form.label :currency_id, class: "col-form-label"%>
+                                   <div class="form-group">
+                                     <%= form.collection_select :currency_id, Currency.all, :id, :abbreviation, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
+                                   </div>
+                                 </div>
+
+                                 <div class="col-lg-4 mb-4x">
+                                        <%= form.label :exchange_rate, class: "col-form-label"%> *
+                                        <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true %>
+                                 </div>
+
+                           
+                              </div>
+
+                              <%= form.association :customer %>
+
+
+
+  
+                        
+
+
+
+
+
+
+                                 <div class="col-lg-3 mb-3">
+                                 <%= link_to new_admin_customer_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                                   <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
+                                 <%end%>
+                                 </div>
+
+                                 
+
+
+
+                                 <div><label for="validationServer03"><b>Términos y condiciones</b></label></div>
+                                    <br />
+
+                                <div class="input-group">
+                                   <%= form.text_area :condition, class: "form-control", rows: 10 %>
+                                </div>
+                              </div>
+                              <br />
+
+
+<!-- begin my product -->
+    <!-- Table Products -->
+    <h3 class="box-title m-t-40">Productos</h3>
+    <hr>
+    <div class="col-lg-12">
+      <div class="white-box">
+        <table id="table_product" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+          <thead id="product_head" >
+            <tr>
+              <th class="text-center" data-field="product">producto</th>
+              <th class="text-center" data-field="quantity">cantidad</th>
+              <th class="text-center" data-field="unit_price">precio</th>
+              <th class="text-center" data-field="discount_type">descuento</th>
+              <th class="text-center" data-field="discount_import">descuento importe</th>
+              <th class="text-center" data-field="total_price">precio total</th>
+              <th class="text-center" data-field="last_name" data-sort-ignore="true" class="min-width"><%= t('sale_note_has_products.delete') %></th>
+            </tr>
+          </thead>
+          <div class="form-inline padding-bottom-15">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div id="open_modal" class="btn btn-outline btn-success btn-sm"><i class="icon wb-plus" aria-hidden="true"></i>Agregar Producto</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <tbody>
+            
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+
+
+<!-- end my product-->
+
+
+
+                             <!-- begin productos <div>
+                                 <h3>Datos de productos y/o servicios</h3>
+                                 <button class="btn btn-success ml-auto" type="button" data-toggle="modal" data-target="#myModalProducts">
+                                    <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar Producto</button>
+                                 <table class="table table-striped table-hover w-100" id="datatable1">
+                                    <thead>
+                                       <tr>
+                                          <th style="width:80px">
+                                             <strong>ID</strong>
+                                          </th>
+                                          <th style="width:120px" class="text-center">
+                                             <strong>NOMBRE</strong>
+                                          </th>
+                                          <th>
+                                             <strong>COMENTARIOS</strong>
+                                          </th>
+                                          <th>
+                                             <strong>PRECIO</strong>
+                                          </th>
+                                          <th style="width:80px">
+                                             <strong>CANTIDAD</strong>
+                                          </th>
+                                          <th style="width:80px">
+                                             <strong>DESCUENTO</strong>
+                                          </th>
+                                          <th class="text-center">
+                                             <strong>SUBTOTAL</strong>
+                                          </th>
+                                          <th class="text-center" colspan="3">
+                                             <strong>ACCIONES</strong>
+                                          </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr>
+                                          <td>0001</td>
+                                          <td>Product 1</td>
+                                          <td>Description for Product</td>
+                                          <td>$ 100.00</td>
+                                          <td>2</td>
+                                          <td>$ 0.00</td>
+                                          <td class="text-center">$ 200.00</td>
+                                          <td class="text-center">
+                                             <button class="btn btn-sm btn-info" type="button" data-toggle="modal" data-target="#myModalProducts">
+                                                <em class="fa fa-edit"></em>
+                                             </button>
+                                          </td>
+                                          <td class="text-center">
+                                             <a class="btn btn-danger" id="swal-demo4" href=""><em class="fa fa-trash"></em></a>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td>0002</td>
+                                          <td>Product 2</td>
+                                          <td>Description for Product</td>
+                                          <td>$ 100.00</td>
+                                          <td>3</td>
+                                          <td>$ 0.00</td>
+                                          <td class="text-center">$ 300.00</td>
+                                          <td class="text-center">
+                                             <button class="btn btn-sm btn-info" type="button" data-toggle="modal" data-target="#myModalProducts">
+                                                <em class="fa fa-edit"></em>
+                                             </button>
+                                          </td>
+                                          <td class="text-center">
+                                             <a class="btn btn-danger" id="swal-demo4" href=""><em class="fa fa-trash"></em></a>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td colspan="6">&nbsp;</td>
+                                          <td align="center">Subtotal</td>
+                                          <td colspan="2" align="center">$ 500.00</td>
+                                       </tr>
+                                       <tr>
+                                          <td colspan="6">&nbsp;</td>
+                                          <td align="center">IVA</td>
+                                          <td colspan="2" align="center">$ 80.00</td>
+                                       </tr>
+                                       <tr>
+                                          <td colspan="6">&nbsp;</td>
+                                          <td align="center">Total</td>
+                                          <td colspan="2" align="center">$ 580.00</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div> end productos-->
+    
+
+    <div class="row">
+      <div class="col-md-12 pull-right">
+        <div class="form-group">
+          <label class="control-label">Importe ($)</label>
+          <%= form.text_field :total,class:"form-control",id:"total_sale", readonly:"readonly" %>
+        </div>
+      </div>
+    </div>
+
+
+
+                              <div class="modal-footer">
+                                 <div class="clearfix">
+                                    <div class="float-right">
+                                      <%= form.submit class: "btn btn-primary" %>
+                                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+                                 </div>
+                              </div>
+
+
+                           </div>
+                        </div>
+                  </form>
+               </div>
+            </div>
+            <!-- END card-->
+<% end %>
+
+<div id="modal-holder"></div>
+<!-- Products /.modal -->
+<div id="note_modal" class="modal fade" role="dialog" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Productos</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+          <div class="bg-warning rounded" style="color:white; font-weight:bold;">
+            <ul class="errors"></ul>
+          </div>
+          <div class="form-group">
+            <label class="control-label"><%= t('sale_note_has_products.product')%></label>
+             <select class="form-control" data-placeholder="Producto" tabindex="1" id="note_product">
+                <option value="0">Seleccionar</option>
+                <% ProductVariant.active.each do |product| %>
+                  <option value="<%= product.id %>"><%= product.code %></option>
+                <%end%>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label"><%= t('sale_note_has_products.quantity')%></label>
+            <input type="number" class="form-control" id="note_quantity" onblur="setTotal()" value="0"> 
+          </div>
+           <div class="form-group">
+            <label class="control-label"><%= t('sale_note_has_products.unit_price')%></label>
+            <input type="number" class="form-control" id="note_unit_price" onblur="setTotal()" value="0"> 
+          </div>
+          <div class="btn-hide">
+            <label onclick="isDiscount()" class="control-label">Descuento<span style="color: orange;"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></span></label>
+          </div>
+
+<!-- -->
+          <div class="jump show-fields d-none">
+             <div class="form-group">
+              <label class="control-label">Descuento</label>
+              <select class="form-control" data-placeholder="Tipo de descuento" tabindex="1" id="note_factor" onchange="selectDiscount()">
+                <option value="">Seleccionar</option>
+                
+                  <option value="1">Importe</option>
+                  <option value="2">Porcentaje</option>
+                
+              </select>
+            </div>
+             <div class="form-group">
+              <label class="control-label">Valor</label>
+              <input type="text" class="form-control" id="note_discount" onblur="selectDiscount()" value="0"> 
+            </div>
+          </div>
+<!-- -->
+
+          <div class="form-group jump">
+            <label class="control-label"><%= t('sale_note_has_products.total')%></label>
+            <input type="text" class="form-control" id="note_total" disabled="disabled"> 
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <div type="button" class="btn btn-default waves-effect" data-dismiss="modal"><%= t('cancel')%></div>
+        <div id="sbm_product" type="button" class="btn btn-success waves-effect waves-light"><%= t('add')%></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+$("#quotation_customer_id").select2({
+  ajax: {
+    url: '/admin/<%=controller_name%>/customers',
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: {business_name_or_rfc_cont: params.term}, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      // parse the results into the format expected by Select2
+      // since we are using custom formatting functions we do not need to
+      // alter the remote JSON data, except to indicate that infinite
+      // scrolling can be used
+      params.page = params.page || 1;
+
+      return {
+        results: data.customers,
+        pagination: {
+          more: (params.page * 30) < data.total_count
+        }
+      };
+    },
+    cache: true
+  },
+  placeholder: 'Buscar cliente',
+  allowClear: true,
+  minimumInputLength: 1,
+  templateResult: formatRepo,
+  templateSelection: formatRepoSelection
+});
+
+function formatRepo (repo) {
+  if (repo.loading) {
+    return repo.text;
+  }
+
+  var $container = $(
+    "<div class='select2-result-repository clearfix'>" +
+      "<div class='select2-result-repository__meta'>" +
+        "<div class='select2-result-repository__id'>ID: </div>" +
+        "<div class='select2-result-repository__name'>Nombre: </div>" +
+        "<div class='select2-result-repository__rfc'>RFC: </div>" +
+        "<div class='select2-result-repository__business_name'>Empresa: </div>" +
+      "</div>" +
+    "</div>"
+  );
+
+
+  $container.find(".select2-result-repository__id").append(repo.id);
+  $container.find(".select2-result-repository__name").append(repo.name);
+  $container.find(".select2-result-repository__rfc").append(repo.rfc);
+  $container.find(".select2-result-repository__business_name").append(repo.business_name);
+  
+  return $container;
+}
+
+function formatRepoSelection (repo) {
+  return repo.rfc || repo.text;
+}
+
+</script>
+
+<script type="text/javascript">
+  // Products methods ****
+  // variables
+  var product_rows = document.getElementById('table_product').getElementsByTagName("tr").length;
+  var productCount = <%= @quotation.items.count.to_f %>;
+  var total = <%= @quotation.total.to_f %>
+  
+  // Open modal
+  $("#open_modal").click(function(){
+     $("#note_modal").modal('show');
+  });
+  // OnclickListener obtiene los valores del formulario producto
+  $('#sbm_product').click(function(){
+    var item = {"product": $("#note_product option:selected").text(),
+                "product_variant_id": $("#note_product").val(), 
+                "quantity": $("#note_quantity").val(),
+                "unit_price": $("#note_unit_price").val(),
+                "discount_type": $("#note_factor option:selected").text(),
+                "factor_id": $('#note_factor').val(),
+                "discount": $("#note_discount").val(),
+                "total": $("#note_total").val()};
+    var row = create_row(item);
+    if(validate()){
+      $('#table_product tbody').append(row);
+      $('#note_modal').modal('hide');
+      clearForm();
+      productCount += 1;
+      calculateTotal();
+    }
+  });
+  // Crea la fila
+  function create_row (item) {
+    if (item.discount_type == "Seleccionar"){
+      item.discount_type = "N/A";
+    }
+    var row = $('<tr class="text-center" data_id='+productCount+'><td>' + item.product + 
+                '</td><td>' + item.quantity +
+                '</td><td>' + item.unit_price + 
+                '</td><td>' + item.discount_type +
+                '</td><td>' + item.discount +
+                '</td><td class="row_total_price">' + item.total +   
+                '<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>' +
+                '</td>' + create_row_input(item) +
+                '</tr>');
+    return row;
+  }
+  // Crea los hidden fields, obtenidos en el formulario
+  function create_row_input(item){
+    var input =
+    '<input type="hidden" value="'+item.product_variant_id+'" name="quotation[items_attributes]['+productCount+'][product_variant_id]" >' +
+    '<input type="hidden" value="'+item.quantity+'" name="quotation[items_attributes]['+productCount+'][quantity]" >' +
+    '<input type="hidden" value="'+item.unit_price+'" name="quotation[items_attributes]['+productCount+'][price]" >' +
+    
+    '<input type="hidden" value="'+item.discount+'" name="quotation[items_attributes]['+productCount+'][adjustment_total]" >' +
+    '<input type="hidden" value="'+item.total+'" name="quotation[items_attributes]['+productCount+'][total]" >';
+    return input;
+  }
+  // Establece el total en el formulario
+  function setTotal() {
+    var quantity = $("#note_quantity").val();
+    var price = $("#note_unit_price").val();
+    $("#note_total").val(quantity*price);
+  }
+  // Determina el tipo de descuento
+  function selectDiscount(){
+    setTotal();
+    var typeDiscount = $("#note_factor option:selected").text();
+    if(typeDiscount == "Importe"){
+      valueImport();
+    }
+    if(typeDiscount == "Porcentaje"){
+      valueFactor();
+    }
+  }
+  // Calcula el total con descuento del tipo Importe
+  function valueImport(){
+    var total = $("#note_total").val();
+    var discount = $("#note_discount").val();
+    $("#note_total").val(total-discount);
+  } 
+  // Calcula el total con descuento del tipo Porcentaje
+  function valueFactor(){
+    var currentTotal = $("#note_total").val();
+    var discount = $("#note_discount").val();
+    var factor = currentTotal * (discount/100);
+    $("#note_total").val(currentTotal-factor);
+  }
+  // Validaciones
+  function validate(){
+    $("#note_modal").animate({ scrollTop: 0 }, 'slow');
+    $("ul.errors").html("");
+    var validate = true;
+    var errors = [];
+    if($("#note_product").val() == 0){
+      validate = false;
+      errors.push("Seleccione un producto");
+    }
+    if($("#note_quantity").val() == 0){
+      validate = false;
+      errors.push("La cantidad debe ser mayor a 0");
+    }
+    if($("#note_unit_price").val() == 0){
+      validate = false;
+      errors.push("Precio unitario debe ser mayor a 0");
+    }
+    if(isDiscount()){
+      if($("#note_factor").val() == ""){
+      validate = false;
+      errors.push("Seleccione un tipo de descuento");
+      }
+      if($("#note_discount").val() == 0){
+        validate = false;
+        errors.push("Valor de descuento debe ser mayor a 0");
+      }
+    }
+    if(validate){
+      return true;
+    }else{
+      $.each( errors, function( key, value ) {
+        // Display errors
+        $("ul.errors").append($("<li />").html(value))
+      });
+    }
+  }
+  // Determina si se aplica la validacion de descuento
+  function isDiscount(){
+    if ($(".show-fields").is(".d-none")) {
+      return false;
+    }else{
+      return true;
+    }
+  }
+  // Elimina la fila seleccionada
+  $("#table_product").on('click', '.btnDelete', function () {
+    var productID = $(this).closest('tr').data("id");
+    if (productID != null && !sale_note_type){
+      generateOnDestroy(productID);
+    }
+    $(this).closest('tr').remove();
+    calculateTotal();
+  });
+  // Enviar item para eliminar
+  function generateOnDestroy(id){
+    var itemDestroy = '<tr><input type="hidden" value="1" name="quotation[items_attributes]['+productCount+'][_destroy]">'+
+      '<input type="hidden" value="'+id+'" name="quotation[items_attributes]['+productCount+'][id]"><tr>';
+    $('#table_product tbody').append(itemDestroy);
+    productCount +=1;
+  }
+  // Toggle discount inputs
+  $(".btn-hide label").click(function(){
+    if ($(".show-fields").is(".d-none")) {
+      $(".show-fields").toggle(5,function(){
+        $(".show-fields").removeClass("d-none");
+      });
+    }else{
+      $(".show-fields").toggle("slow",function(){
+        $(".show-fields").addClass("d-none");
+        $("#note_factor").val("");
+        $("#note_discount").val("0");
+        setTotal();
+      });
+    }
+  });
+  // Clear the form
+  function clearForm(){
+    $("#note_product").val("0");
+    $("#note_quantity").val("0");
+    $("#note_unit_price").val("0");
+    $("#note_factor").val("");
+    $("#note_discount").val("0");
+    $("#note_total").val("0");
+  }
+
+  // Calculate Total
+  function calculateTotal(){
+    total = 0;
+    var product = 0;
+    $('#table_product > tbody  > tr').each(function() {
+      var product_total = $(this).find(".row_total_price").html();
+      if(product_total != null){
+        product = parseFloat(product_total,10);
+        total += product;
+      }
+    });
+    $("#total_sale").val(total);
+  }
+  // End products ****
+</script>

@@ -10,4 +10,8 @@ class Customer < ApplicationRecord
 	accepts_nested_attributes_for :customer_bank, update_only: true
 
 	validates :name, presence: true
+
+    def name_with_rfc
+      "#{business_name} - #{rfc}"
+    end
 end

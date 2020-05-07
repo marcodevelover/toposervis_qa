@@ -5,7 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Role.create(description: "admin")
+Role.create(description: "Administrador")
+Role.create(description: "Cliente")
 User.create(email: "admin@email.com.mx", name: "admin", lastname: "admin", password: "12345678", phone: "1234567890", role_id: 1)
 Accessory.create(name:"Accesorio Uno", description: "Esto es una descripción")
 Currency.create(name:"México", description: "Esto es una descripción", abbreviation: "MX")
@@ -23,3 +24,4 @@ CustomerContact.create(name: "Dexter", department:"Sistemas", phone:"9999999999"
 CategoryType.create(name:"Tipo de categoria Uno", description: "Esto es una descripción")
 Category.create(name:"Categoria Uno", description: "Esto es una descripción", category_type_id: 1)
 Subcategory.create(name:"Subcategoria Uno", description: "Esto es una descripción", category_id: 1)
+Condition.create(name:"Terminos", description: "El texto incluido aquí es un término de acuerdo al catálogo de términos y condiciones que se tenga por producto o servicio, sin embargo, el usuario podrá modificarlo.", default: 1)

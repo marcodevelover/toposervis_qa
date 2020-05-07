@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @quotation.number %>
+</p>
+
+<p>
+  <strong>Item total:</strong>
+  <%= @quotation.item_total %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @quotation.total %>
+</p>
+
+<p>
+  <strong>Adjustment total:</strong>
+  <%= @quotation.adjustment_total %>
+</p>
+
+<p>
+  <strong>Tax:</strong>
+  <%= @quotation.tax %>
+</p>
+
+<p>
+  <strong>Tax total:</strong>
+  <%= @quotation.tax_total %>
+</p>
+
+<p>
+  <strong>Tax item total:</strong>
+  <%= @quotation.tax_item_total %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @quotation.state %>
+</p>
+
+<p>
+  <strong>Validity:</strong>
+  <%= @quotation.validity %>
+</p>
+
+<p>
+  <strong>Currency:</strong>
+  <%= @quotation.currency_id %>
+</p>
+
+<p>
+  <strong>Exchange rate:</strong>
+  <%= @quotation.exchange_rate %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @quotation.customer_id %>
+</p>
+
+<p>
+  <strong>Condition:</strong>
+  <%= @quotation.condition %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @quotation.created_by_id %>
+</p>
+
+<p>
+  <strong>Canceled at:</strong>
+  <%= @quotation.canceled_at %>
+</p>
+
+<%= link_to 'Edit', edit_quotation_path(@quotation) %> |
+<%= link_to 'Back', quotations_path %>
