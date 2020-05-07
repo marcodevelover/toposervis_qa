@@ -10,9 +10,9 @@ class CreateQuotations < ActiveRecord::Migration[6.0]
       t.decimal :tax_item_total, precision: 18, scale: 6
       t.string :state
       t.datetime :validity
-      t.references :currency, null: false, foreign_key: true
+      t.references :currency, foreign_key: true
       t.decimal :exchange_rate, precision: 18, scale: 6
-      t.references :customer, null: false, foreign_key: true
+      t.references :customer, foreign_key: true
       t.text :condition
       t.integer :created_by_id
       t.datetime :canceled_at
