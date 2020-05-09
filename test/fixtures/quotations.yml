@@ -15,7 +15,7 @@ one:
   customer: one
   condition: MyText
   created_by_id: 1
-  canceled_at: 2020-05-05 12:33:51
+  deleted_at: 2020-05-05 12:33:51
 
 two:
   number: MyString
@@ -32,4 +32,4 @@ two:
   customer: two
   condition: MyText
   created_by_id: 1
-  canceled_at: 2020-05-05 12:33:51
+  deleted_at: 2020-05-05 12:33:51

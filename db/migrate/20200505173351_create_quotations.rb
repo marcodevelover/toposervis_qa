@@ -1,7 +1,7 @@
 class CreateQuotations < ActiveRecord::Migration[6.0]
   def change
     create_table :quotations do |t|
-      t.string :number
+      t.string :folio
       t.decimal :item_total, precision: 18, scale: 6
       t.decimal :total, precision: 18, scale: 6
       t.decimal :adjustment_total, precision: 18, scale: 6
@@ -15,7 +15,7 @@ class CreateQuotations < ActiveRecord::Migration[6.0]
       t.references :customer, foreign_key: true
       t.text :condition
       t.integer :created_by_id
-      t.datetime :canceled_at
+      t.datetime :deleted_at
 
       t.timestamps
     end

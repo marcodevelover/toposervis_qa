@@ -238,6 +238,8 @@ es:
     lastname: Apellido
     status: Estado
     has_saipro_user: ¿Cuenta con usuario en SAIPRO?
+  quotations:
+    folio: Folio
   providers:
     name: Nombre
     rfc: RFC

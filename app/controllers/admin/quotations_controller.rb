@@ -1,5 +1,6 @@
 class Admin::QuotationsController < ApplicationController
-  before_action :set_quotation, only: [:show, :edit, :update, :destroy]
+  before_action :set_quotation, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal]
+  respond_to :html, :json
 
   def page_name
      @page_name = "Cotizaciones"
@@ -7,12 +8,20 @@ class Admin::QuotationsController < ApplicationController
   # GET /quotations
   # GET /quotations.json
   def index
-    @quotations = Quotation.all
+    search
+    respond_to do |format| 
+            format.html { }
+            format.js  { respond_modal_index_with (@collection)}
+    end
   end
 
   # GET /quotations/1
   # GET /quotations/1.json
   def show
+  end
+
+  def show_from_modal
+    respond_modal_with @quotation
   end
 
   # GET /quotations/new
@@ -33,7 +42,7 @@ class Admin::QuotationsController < ApplicationController
 
     respond_to do |format|
       if @quotation.save
-        format.html { redirect_to @quotation, notice: 'Quotation was successfully created.' }
+        format.html { redirect_to [:admin, @quotation], notice: 'Quotation was successfully created.' }
         format.json { render :show, status: :created, location: @quotation }
       else
         format.html { render :new }
@@ -47,34 +56,45 @@ class Admin::QuotationsController < ApplicationController
   def update
     respond_to do |format|
       if @quotation.update(quotation_params)
-        format.html { redirect_to @quotation, notice: 'Quotation was successfully updated.' }
+        format.html { redirect_to [:admin, @quotation], notice: 'Quotation was successfully updated.' }
         format.json { render :show, status: :ok, location: @quotation }
       else
-        format.html { render :edit }
+        format.html { render [:admin, @quotation] }
         format.json { render json: @quotation.errors, status: :unprocessable_entity }
       end
     end
   end
 
+  def delete
+    respond_modal_for_delete_with(@quotation,true)
+  end
+
   # DELETE /quotations/1
   # DELETE /quotations/1.json
   def destroy
-    @quotation.destroy
-    respond_to do |format|
-      format.html { redirect_to quotations_url, notice: 'Quotation was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @quotation.save!(context: :delete)
   end
 
   def customers
-
     @q = Customer.ransack(params[:q])
     @customers = @q.result(distinct: true)
     total_count = @customers.count
     respond_to do |format|
       format.json { render json: { total: total_count,  customers: @customers.map { |s| {id: s.id, name:  s.name, rfc: s.rfc, business_name: s.business_name } } } }
+    end
   end
-  
+
+  def filter_form
+    @q = Quotation.ransack(params[:q])
+    respond_modal_with @q 
+  end
+
+  def search(per_page = 10)
+    params[:q] ||= {} 
+    params[:per_page] = 10
+    
+    @q = Quotation.search(params[:q])
+    @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])
   end
 
   private
@@ -85,7 +105,7 @@ class Admin::QuotationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def quotation_params
-      params.require(:quotation).permit(:number, :item_total, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :customer_id, :condition, :created_by_id, :canceled_at,
+      params.require(:quotation).permit(:number, :item_total, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :customer_id, :condition, :created_by_id, :deleted_at,
         items_attributes: [ :id, :product_variant_id, :quotation_id, :quantity, :price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy ]
         )
     end

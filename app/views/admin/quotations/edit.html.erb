@@ -2,5 +2,5 @@
 
 <%= render 'form', quotation: @quotation %>
 
-<%= link_to 'Show', @quotation %> |
-<%= link_to 'Back', quotations_path %>
+<%= link_to 'Show', [:admin, @quotation] %> |
+<%= link_to 'Back', admin_quotations_path %>

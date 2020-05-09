@@ -1,3 +1,4 @@
+<div class="modal-body">
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -57,7 +58,7 @@
 
 <p>
   <strong>Customer:</strong>
-  <%= @quotation.customer_id? ? @quotation.customer.name : "N/A" %>
+  <%= @quotation.customer.name %>
 </p>
 
 <p>
@@ -70,10 +71,21 @@
   <%= @quotation.created_by_id %>
 </p>
 
+<h4>Productos</h4>
+
+<% @quotation.items.each do |item| %>
+  <p>
+    <strong>Producto:</strong>
+    <%= item.product_variant.product.name %>
+  </p>
+<% end %>
+
 <p>
   <strong>Canceled at:</strong>
   <%= @quotation.deleted_at %>
 </p>
 
-<%= link_to 'Edit', edit_admin_quotation_path(@quotation) %> |
-<%= link_to 'Back', admin_quotations_path %>
+</div>
+<div class="modal-footer"> 
+     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+</div>

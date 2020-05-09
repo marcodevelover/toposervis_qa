@@ -15,7 +15,7 @@ class QuotationsTest < ApplicationSystemTestCase
     click_on "New Quotation"
 
     fill_in "Adjustment total", with: @quotation.adjustment_total
-    fill_in "Canceled at", with: @quotation.canceled_at
+    fill_in "Canceled at", with: @quotation.deleted_at
     fill_in "Condition", with: @quotation.condition
     fill_in "Created by", with: @quotation.created_by_id
     fill_in "Currency", with: @quotation.currency_id
@@ -40,7 +40,7 @@ class QuotationsTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Adjustment total", with: @quotation.adjustment_total
-    fill_in "Canceled at", with: @quotation.canceled_at
+    fill_in "Canceled at", with: @quotation.deleted_at
     fill_in "Condition", with: @quotation.condition
     fill_in "Created by", with: @quotation.created_by_id
     fill_in "Currency", with: @quotation.currency_id

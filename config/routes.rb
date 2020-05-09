@@ -55,6 +55,9 @@ Rails.application.routes.draw do
     resources :conditions
     resources :quotations do
       get :customers, on: :collection
+      get :delete, on: :member
+      get :filter_form, on: :collection
+      get :show_from_modal, on: :member
     end
     resources :quotation_items
   end

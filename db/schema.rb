@@ -267,12 +267,12 @@ ActiveRecord::Schema.define(version: 2020_05_06_211222) do
     t.decimal "tax_item_total", precision: 18, scale: 6
     t.string "state"
     t.datetime "validity"
-    t.bigint "currency_id", null: false
+    t.bigint "currency_id"
     t.decimal "exchange_rate", precision: 18, scale: 6
-    t.bigint "customer_id", null: false
+    t.bigint "customer_id"
     t.text "condition"
     t.integer "created_by_id"
-    t.datetime "canceled_at"
+    t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["currency_id"], name: "index_quotations_on_currency_id"

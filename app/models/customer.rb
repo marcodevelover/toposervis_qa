@@ -11,6 +11,8 @@ class Customer < ApplicationRecord
 
 	validates :name, presence: true
 
+	scope :active, -> { where('deleted_at IS NULL')}
+
     def name_with_rfc
       "#{business_name} - #{rfc}"
     end
