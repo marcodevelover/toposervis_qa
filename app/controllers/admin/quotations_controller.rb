@@ -1,5 +1,5 @@
 class Admin::QuotationsController < ApplicationController
-  before_action :set_quotation, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal]
+  before_action :set_quotation, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf]
   respond_to :html, :json
 
   def page_name
@@ -18,6 +18,23 @@ class Admin::QuotationsController < ApplicationController
   # GET /quotations/1
   # GET /quotations/1.json
   def show
+  end
+
+  def show_from_pdf
+    respond_to do |format|
+        format.html
+        format.pdf do
+            render pdf: "1f",
+            
+            template: "admin/quotations/show_from_pdf.html.erb",
+            layout: "pdf.html",
+            viewport_size: '1280x1024'
+            
+            #lowquality: true,
+            #zoom: 1,
+            #dpi: 75
+        end
+    end
   end
 
   def show_from_modal
@@ -39,6 +56,7 @@ class Admin::QuotationsController < ApplicationController
   # POST /quotations.json
   def create
     @quotation = @quotation || Quotation.new(quotation_params)
+    @quotation.created_by_id = current_user.id
 
     respond_to do |format|
       if @quotation.save
@@ -84,6 +102,24 @@ class Admin::QuotationsController < ApplicationController
     end
   end
 
+  def product_variants
+    @q = ProductVariant.ransack(params[:q])
+    @product_variants = @q.result(distinct: true)
+    total_count = @product_variants.count
+    respond_to do |format|
+      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, unit_price: s.amount_public, unit: s.product.unit.name } } } }
+    end
+  end
+
+  def currencies
+    @q = Currency.ransack(params[:q])
+    @currencies = @q.result(distinct: true)
+    total_count = @currencies.count
+    respond_to do |format|
+      format.json { render json: { total: total_count,  currencies: @currencies.map { |s| {id: s.id, abbreviation:  s.abbreviation, exchange_rate: s.exchange_rate } } } }
+    end
+  end
+
   def filter_form
     @q = Quotation.ransack(params[:q])
     respond_modal_with @q 
@@ -105,8 +141,8 @@ class Admin::QuotationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def quotation_params
-      params.require(:quotation).permit(:number, :item_total, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :customer_id, :condition, :created_by_id, :deleted_at,
-        items_attributes: [ :id, :product_variant_id, :quotation_id, :quantity, :price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy ]
+      params.require(:quotation).permit(:folio, :subtotal, :item_total, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :customer_id, :condition, :created_by_id, :deleted_at,
+        items_attributes: [ :id, :product_variant_id, :quotation_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy ]
         )
     end
 end

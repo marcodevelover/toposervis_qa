@@ -1,0 +1,149 @@
+<div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td class="title">
+                    <%= wicked_pdf_image_tag 'pdf/logo.png' %>
+                  </td>
+
+                  <td>
+                    <strong>Toposervis S de RL de CV</strong>
+                    <br>
+                    <span>Calle42No.264x41Ay 41C</span>
+                    <br>
+                    <span>Fraccionamiento Francisco de MontejoIII Mérida,Yucatán </span>
+                    <br>
+                    <span>Tel. 01 800 890 9383 CP 97203</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        
+
+          <tr class="information">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td>
+                  	<b>Contacto:</b>
+                    <%= @quotation.customer.customer_contacts.first.name %><br>
+                    <b>Compañia:</b>
+                    <%= @quotation.customer.business_name %><br>
+                    <b>E-mail:</b>
+                    <%= @quotation.customer.customer_contacts.first.email %>
+                  </td>
+                  <td>
+                  	<b>Cotización</b><br>
+                  	<b>Folio:</b>
+                    <%= @quotation.folio %><br>
+                    <b>Fecha:</b>
+                    <%= @quotation.created_at.strftime("%d-%m-%Y") %>
+                  </td>
+
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr class="heading">
+            <td>Concepto</td>
+            <td class="right">Unidad</td>
+            <td class="right">Precio</td>
+            <td class="right">Cantidad</td>
+            <td>Total</td>
+          </tr>
+
+          <% @quotation.items.each do |item| %>
+            <tr class="item">
+                <td>
+                    <%= item.name %><br>
+                    <small><%= item.extended_description %></small>
+                </td>
+
+                <td class="right">
+                    <%= item.unit %>
+                </td>
+
+                <td class="right">
+                    <%= number_to_currency(item.unit_price) %>
+                </td>
+
+                <td class="right">
+                    x <%= item.quantity %>
+                </td>
+
+                <td>
+                    <%= number_to_currency(item.unit_price * item.quantity) %>
+                </td>
+            </tr>
+          <% end %>
+
+
+
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>Subtotal</b></td>
+            <td><%= number_to_currency(@quotation.subtotal) %></td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>Descuento</b></td>
+            <td>- <%= number_to_currency(@quotation.adjustment_total) %></td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>Impuesto (<%= (@quotation.tax * 100).to_i %>%)</b></td>
+            <td>+ <%= number_to_currency(@quotation.tax_total) %></td>
+          </tr>
+
+          <tr class="heading">
+            <td colspan="3"></td>
+            <td><b>TOTAL:</b></td>
+            <td>
+               <b><%= number_to_currency(@quotation.total) %></b>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td>
+                  	<td><b>Términos de venta:</b></td>
+                  </td>
+                  <td>
+                  	<%= @quotation.condition %>
+                  </td>
+
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="5">
+              <table>
+	          <tr class="footer">
+	          	<td colspan="1"></td>
+	            <td colspan="2" class="footer" style="text-align: center;">
+	            	<b>www.toposervis.com</b></br>
+	            	<b>Venta, renta de equipos y servicios de topografía e ingeniería<b></br>
+	            	<b>Tel. 01 800 890 9383<b></br>
+	            </td>         
+	            <td colspan="2"></td>
+          </tr> 
+              </table>
+            </td>
+          </tr>          
+          
+        </table>
+    </div>

@@ -4,6 +4,7 @@ class CreateCurrencies < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :description
       t.string :abbreviation
+      t.decimal :exchange_rate, precision: 18, scale: 6
       t.datetime :deleted_at
 
       t.timestamps

@@ -2,7 +2,7 @@ class CreateQuotations < ActiveRecord::Migration[6.0]
   def change
     create_table :quotations do |t|
       t.string :folio
-      t.decimal :item_total, precision: 18, scale: 6
+      t.decimal :subtotal, precision: 18, scale: 6
       t.decimal :total, precision: 18, scale: 6
       t.decimal :adjustment_total, precision: 18, scale: 6
       t.decimal :tax, precision: 18, scale: 6

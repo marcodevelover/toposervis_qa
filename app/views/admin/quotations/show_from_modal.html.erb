@@ -8,7 +8,7 @@
 
 <p>
   <strong>Item total:</strong>
-  <%= @quotation.item_total %>
+  <%= @quotation.subtotal %>
 </p>
 
 <p>
@@ -48,7 +48,7 @@
 
 <p>
   <strong>Currency:</strong>
-  <%= @quotation.currency.abbreviation %>
+  <%= @quotation.currency ? @quotation.currency.abbreviation : "N/A" %>
 </p>
 
 <p>
@@ -58,7 +58,7 @@
 
 <p>
   <strong>Customer:</strong>
-  <%= @quotation.customer.name %>
+  <%= @quotation.customer ? @quotation.customer.name : "N/A" %>
 </p>
 
 <p>

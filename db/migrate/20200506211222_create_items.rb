@@ -4,8 +4,10 @@ class CreateItems < ActiveRecord::Migration[6.0]
       t.references :record, polymorphic: true, index: true
       t.references :product_variant, null: false, foreign_key: true
       #t.references :quotation, null: false, foreign_key: true
+      t.string :name
+      t.text :extended_description
       t.integer :quantity
-      t.decimal :price, precision: 18, scale: 6
+      t.decimal :unit_price, precision: 18, scale: 6
       t.decimal :total, precision: 18, scale: 6
       t.string :currency
       t.decimal :cost_price, precision: 18, scale: 6
