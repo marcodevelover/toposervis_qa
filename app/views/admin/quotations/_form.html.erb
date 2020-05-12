@@ -10,25 +10,22 @@
                         <div class="form-group row">
                            <div class="col-md-12">
                               <div class="form-row">
-  
-                                 <div class="col-lg-4 mb-4">
-                                      <%= form.input :validity %>
-                                 </div>                        
-
-                                
+                                <div class="col-lg-4 mb-4">
+                                  <label class="form-label">Vigencia</label>
+                                  <div class="form-group"> 
+                                    <%= form.text_field :validity, class: "form-control" , placeholder: "Vigencia", type: 'date', value: (form.object.validity ? form.object.validity.to_date : '')%>
+                                  </div>  
+                                </div> 
                                  <div class="col-lg-4 mb-4">
                                    <%= form.label :currency_id, class: "col-form-label"%>
                                    <div class="form-group">
                                      <%= form.collection_select :currency_id, Currency.all, :id, :abbreviation, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
                                    </div>
                                  </div>
-
                                  <div class="col-lg-4 mb-4x">
                                         <%= form.label :exchange_rate, class: "col-form-label"%> *
                                         <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true, readonly: true %>
-
                                  </div>
-
                               </div>
                           </div>
                         </div>
@@ -198,7 +195,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       </div>
       <div class="modal-body">
-          <div class="bg-warning rounded" style="color:white; font-weight:bold;">
+          <div class="bg-danger rounded" style="color:white; font-weight:bold;">
             <ul class="errors"></ul>
           </div>
           <div class="form-group">
@@ -388,9 +385,12 @@ function formatRepo (repo) {
   $container.find(".select2-result-repository__code").append(repo.code);
   $container.find(".select2-result-repository__unit_price").append(repo.unit_price);
 
+  // take the value of the currency
+  var quotation_exchange_rate = $("#quotation_exchange_rate").val();
+
   $("#name").val(repo.code);
   $("#unit").val(repo.unit);
-  $("#note_unit_price").val(repo.unit_price);
+  $("#note_unit_price").val(repo.unit_price * quotation_exchange_rate);
   
   return $container;
 }
@@ -577,7 +577,7 @@ function formatRepoSelection (repo) {
     }
     if($("#note_unit_price").val() == 0){
       validate = false;
-      errors.push("Precio unitario debe ser mayor a 0");
+      errors.push("Precio unitario debe ser mayor a 0, Seleccione tipo de cambio");
     }
     if(isDiscount()){
       if($("#note_factor").val() == ""){
