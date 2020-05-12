@@ -172,15 +172,16 @@
                         </div>
                       </div>                 
                       </br>
-                      
-                         <div class="clearfix">
-                            <div class="float-right">
-                              <%= form.submit class: "btn btn-primary" %>
-                              
-                            </div>
-                         </div>
-                      
+                     <div class="clearfix">
+                        <div class="float-right">
+                        <%= form.submit class: "btn btn-primary" %>
 
+                        <%= link_to admin_quotations_path, :class => "btn btn-secondary" do %>
+                            Cancelar
+                        <%end%>     
+                        </div>
+                     </div>
+                      
                       </fieldset>
                </div> <!--card-body card-->
             </div>
@@ -189,8 +190,8 @@
 
 
 <!-- Products /.modal -->
-<div id="note_modal" class="modal fade" role="dialog" data-backdrop="false">
-  <div class="modal-dialog">
+<div id="note_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg ui-draggable">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Productos</h4>
@@ -202,13 +203,8 @@
           </div>
           <div class="form-group">
             <label class="control-label"><%= t('sale_note_has_products.product')%></label>
-             
-
              <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" id="note_product">
-
             </select>
-                  
-
           </div>
 
           <div class="form-group">
@@ -481,7 +477,7 @@ function formatRepoSelection (repo) {
   
   // Open modal
   $("#open_modal").click(function(){
-     $("#note_modal").modal('show');
+     $("#note_modal").appendTo("body").modal('show');;
   });
   // OnclickListener obtiene los valores del formulario producto
   $('#sbm_product').click(function(){
