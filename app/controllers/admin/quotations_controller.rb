@@ -107,7 +107,7 @@ class Admin::QuotationsController < ApplicationController
     @product_variants = @q.result(distinct: true)
     total_count = @product_variants.count
     respond_to do |format|
-      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, unit_price: s.amount_public, unit: s.product.unit.name } } } }
+      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, unit_price: s.amount_public, unit: s.product.unit.name, image: s.first_image } } } }
     end
   end
 

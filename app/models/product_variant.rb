@@ -10,4 +10,12 @@ class ProductVariant < ApplicationRecord
   has_many :quotations, through: :items, source: :record, source_type: 'Quotation'
 
   scope :active, -> { where('deleted_at IS NULL')}
+  
+  def first_image
+  	if !(product_variant_images.blank?)
+  		self.product_variant_images.first.image.variant(resize_to_limit: [100, 100])
+    else
+    	'null'
+    end
+  end
 end
