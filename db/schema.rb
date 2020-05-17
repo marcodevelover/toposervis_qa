@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_211222) do
+ActiveRecord::Schema.define(version: 2020_05_13_162219) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_211222) do
     t.string "name"
     t.string "description"
     t.string "abbreviation"
+    t.decimal "exchange_rate", precision: 18, scale: 6
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -130,8 +131,11 @@ ActiveRecord::Schema.define(version: 2020_05_06_211222) do
     t.string "record_type"
     t.bigint "record_id"
     t.bigint "product_variant_id", null: false
+    t.string "name"
+    t.text "extended_description"
+    t.text "unit"
     t.integer "quantity"
-    t.decimal "price", precision: 18, scale: 6
+    t.decimal "unit_price", precision: 18, scale: 6
     t.decimal "total", precision: 18, scale: 6
     t.string "currency"
     t.decimal "cost_price", precision: 18, scale: 6
@@ -143,6 +147,24 @@ ActiveRecord::Schema.define(version: 2020_05_06_211222) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_variant_id"], name: "index_items_on_product_variant_id"
     t.index ["record_type", "record_id"], name: "index_items_on_record_type_and_record_id"
+  end
+
+  create_table "order_accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "service_order_id", null: false
+    t.string "accessory"
+    t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["service_order_id"], name: "index_order_accessories_on_service_order_id"
+  end
+
+  create_table "orders_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "service_order_id", null: false
+    t.bigint "type_service_order_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["service_order_id"], name: "index_orders_types_on_service_order_id"
+    t.index ["type_service_order_id"], name: "index_orders_types_on_type_service_order_id"
   end
 
   create_table "product_lines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -258,8 +280,8 @@ ActiveRecord::Schema.define(version: 2020_05_06_211222) do
   end
 
   create_table "quotations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "number"
-    t.decimal "item_total", precision: 18, scale: 6
+    t.string "folio"
+    t.decimal "subtotal", precision: 18, scale: 6
     t.decimal "total", precision: 18, scale: 6
     t.decimal "adjustment_total", precision: 18, scale: 6
     t.decimal "tax", precision: 18, scale: 6
@@ -286,6 +308,22 @@ ActiveRecord::Schema.define(version: 2020_05_06_211222) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "service_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "date_admission"
+    t.bigint "customer_id", null: false
+    t.bigint "product_id", null: false
+    t.string "serie"
+    t.string "brand"
+    t.string "model"
+    t.text "observation"
+    t.datetime "deleted_at"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_service_orders_on_customer_id"
+    t.index ["product_id"], name: "index_service_orders_on_product_id"
+  end
+
   create_table "subcategories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -302,6 +340,14 @@ ActiveRecord::Schema.define(version: 2020_05_06_211222) do
     t.decimal "amount", precision: 18, scale: 6
     t.decimal "value", precision: 18, scale: 6
     t.boolean "default"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "type_service_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -340,6 +386,9 @@ ActiveRecord::Schema.define(version: 2020_05_06_211222) do
   add_foreign_key "customer_banks", "customers"
   add_foreign_key "customer_contacts", "customers"
   add_foreign_key "items", "product_variants"
+  add_foreign_key "order_accessories", "service_orders"
+  add_foreign_key "orders_types", "service_orders"
+  add_foreign_key "orders_types", "type_service_orders"
   add_foreign_key "product_variant_images", "product_variants"
   add_foreign_key "product_variants", "currencies"
   add_foreign_key "product_variants", "products"
@@ -353,6 +402,8 @@ ActiveRecord::Schema.define(version: 2020_05_06_211222) do
   add_foreign_key "provider_contacts", "providers"
   add_foreign_key "quotations", "currencies"
   add_foreign_key "quotations", "customers"
+  add_foreign_key "service_orders", "customers"
+  add_foreign_key "service_orders", "products"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "users", "roles"
 end

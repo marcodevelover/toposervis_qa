@@ -26,3 +26,6 @@ Category.create(name:"Categoria Uno", description: "Esto es una descripción", c
 Subcategory.create(name:"Subcategoria Uno", description: "Esto es una descripción", category_id: 1)
 Condition.create(name:"Terminos", description: "El texto incluido aquí es un término de acuerdo al catálogo de términos y condiciones que se tenga por producto o servicio, sin embargo, el usuario podrá modificarlo.", default: 1)
 Tax.create(name:"IVA", description: "Impuesto al Valor Agregado", amount: 0.16, value:0.16, default: 1)
+TypeServiceOrder.create(name:"Mantenimiento", description: "Servicio de mantenimiento")
+TypeServiceOrder.create(name:"Reparación", description: "Servicio de reparación")
+TypeServiceOrder.create(name:"Otro", description: "Otros servicios")

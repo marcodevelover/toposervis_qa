@@ -1,0 +1,30 @@
+<% if @collection.each do |object| %>
+<tr>
+        <td scope="row" ><%= object.id %></td>
+        <td><%= object.folio %></td>
+        <td><%= object.date_admission %></td>
+        <td><%= object.customer ? object.customer.business_name : "N/A" %></td>
+        <td><%= object.product ? object.product.name : "N/A" %></td>
+        <td><%= object.state %></td>
+        <td>
+            <%= link_to show_from_modal_admin_service_order_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
+                <em class="fas fa-binoculars"></em> 
+            <%end%>
+
+        	<%= link_to edit_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
+        		<em class="fa fa-edit"></em> 
+        	<%end%>
+
+            <%= link_to show_from_pdf_admin_service_order_path(object, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+                <em class="fas fa-print"></em> 
+            <%end%>
+        		
+        	<%= link_to delete_admin_service_order_path(object), :class => "btn btn-sm btn-danger", remote: true   do %>
+        		<em class="fa fa-trash fa-fw"></em>
+        	<%end%>           		
+        </td>
+
+</tr>
+<% end.empty? %>
+  <h3>No hay resultados</h3>
+<% end %>

@@ -27,6 +27,7 @@ es:
   email_not_exist:  Email no existe
   password_instruction: "Recibirá un email con instrucciones acerca de como restaurar su contraseña en pocos minutos."
   denied: Denegado 
+  type_service_order_module: Tipo de ordenes de servicio
   category_type_module: Tipo de categorias
   benefit_module: Convenios
   notification_module: Notificaciones
@@ -240,6 +241,8 @@ es:
     has_saipro_user: ¿Cuenta con usuario en SAIPRO?
   quotations:
     folio: Folio
+  service_orders:
+    folio: Folio
   providers:
     name: Nombre
     rfc: RFC
@@ -249,6 +252,9 @@ es:
     rfc: RFC
     business_name: Razón social
   product_lines:
+    name: Nombre
+    description: Descripción
+  type_service_orders:
     name: Nombre
     description: Descripción
   currencies:

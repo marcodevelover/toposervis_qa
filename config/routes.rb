@@ -29,6 +29,10 @@ Rails.application.routes.draw do
       get :delete, on: :member
       get :filter_form, on: :collection
     end
+    resources :type_service_orders do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
     resources :products do
       get :delete, on: :member
       get :filter_form, on: :collection
@@ -63,6 +67,14 @@ Rails.application.routes.draw do
       get :show_from_pdf, on: :member
     end
     resources :quotation_items
+    resources :service_orders do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+      get :customers, on: :collection
+      get :products, on: :collection
+      get :show_from_modal, on: :member
+      get :show_from_pdf, on: :member
+    end
   end
   namespace :admin do
     resources :roles

@@ -1,0 +1,2 @@
+module TypeServiceOrdersHelper
+end

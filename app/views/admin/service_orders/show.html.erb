@@ -1,0 +1,367 @@
+<p id="notice"><%= notice %></p>
+
+<div class="card card-default">
+                <div class="card-body">
+
+            <%= link_to edit_admin_service_order_path(@service_order), :class => "btn btn-sm btn-info" do %>
+              <em class="fa fa-edit"></em> 
+            <%end%>
+
+            <%= link_to show_from_pdf_admin_service_order_path(@service_order, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+                <em class="fas fa-print"></em> 
+            <%end%>
+
+            <%= link_to admin_service_orders_path, :class => "btn btn-sm btn-info" do %>
+                <em class="fas fa-step-backward"></em> 
+            <%end%>            
+
+                </div>
+  <div class="card-body">
+<div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td class="title">
+                    <%= image_tag 'pdf/logo.png' %>
+                  </td>
+
+                  <td>
+                    <strong>Toposervis S de RL de CV</strong>
+                    <br>
+                    <span>Calle42No.264x41Ay 41C</span>
+                    <br>
+                    <span>Fraccionamiento Francisco de MontejoIII Mérida,Yucatán </span>
+                    <br>
+                    <span>Tel. 01 800 890 9383 CP 97203</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        
+
+          <tr class="information">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td>
+                    <b>Contacto:</b>
+                    <%= @service_order.customer.customer_contacts.first.name %><br>
+                    <b>Compañia:</b>
+                    <%= @service_order.customer.business_name %><br>
+                    <b>E-mail:</b>
+                    <%= @service_order.customer.customer_contacts.first.email %>
+                  </td>
+                  <td>
+                    <b>Orden de servicio</b><br>
+                    <b>Folio:</b>
+                    <%= @service_order.folio %><br>
+                    <b>Fecha:</b>
+                    <%= @service_order.created_at.strftime("%d-%m-%Y") %>
+                  </td>
+
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="5"><b>Producto:</b> <%= @service_order.product.name %></td>
+          </tr>
+          <tr>
+            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @service_order.product.name %></b> marca <b><%= @service_order.brand %></b> model <b><%= @service_order.product.model %></b> con número de serie <b><%= @service_order.serie %></b> para su revisión y diagnostico.</br> <b>Accesorios que incluye:</b></td>
+          </tr>          
+
+          <tr class="heading">
+            
+            <td class="left" colspan="3">Accesorios</td>
+            <td class="right" colspan="2">Cantidad</td>
+            
+          </tr> 
+
+          <% @service_order.order_accessories.where.not(quantity: 0).each do |item| %>
+            
+            <tr class="item">
+                
+                <td colspan="3">
+                    <%= item.accessory %><br>
+                    
+                </td>
+
+                <td class="right" colspan="2">
+                    <%= item.quantity %>
+                </td>
+                
+            </tr>
+            
+          <% end %>
+
+
+
+          <tr>
+            <td colspan="5"></td>
+          </tr> 
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+
+          <tr>
+            <td colspan="3" style="text-align: center"><strong>_________________________________</strong></td>
+            <td colspan="3" style="text-align: center"><strong>_________________________________</strong></td>
+          </tr>          
+          <tr>
+            <td colspan="3" style="text-align: center"><strong>Cliente:</strong></td>
+            <td colspan="3" style="text-align: center"><strong>Toposervis S de RL de CV</strong></td>
+          </tr>
+
+
+
+          <tr>
+            <td colspan="5">
+              <table>
+            <tr class="footer">
+              <td colspan="1"></td>
+              <td colspan="2" class="footer" style="text-align: center;">
+                <b>www.toposervis.com</b></br>
+                <b>Venta, renta de equipos y servicios de topografía e ingeniería<b></br>
+                <b>Tel. 01 800 890 9383<b></br>
+              </td>         
+              <td colspan="2"></td>
+          </tr> 
+              </table>
+            </td>
+          </tr>          
+          
+        </table>
+    </div>
+
+<style type="text/css">
+// Place all the styles related to the Conditions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.invoice-box {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #eee;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .10);
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    color: #555;
+}
+
+.invoice-box table {
+    width: 100%;
+    line-height: inherit;
+    text-align: left;
+}
+
+.invoice-box table td {
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.invoice-box table tr td:nth-child(2) {
+    text-align: right;
+}
+
+.right {
+  text-align: right;
+}
+
+.invoice-box table tr.top table td {
+    padding-bottom: 20px;
+}
+
+.invoice-box table tr.top table td.title {
+    font-size: 45px;
+    line-height: 45px;
+    color: #333;
+}
+
+.invoice-box table tr.information table td {
+    padding-bottom: 40px;
+}
+
+.invoice-box table tr.heading td {
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+}
+
+.invoice-box table tr.details td {
+    padding-bottom: 20px;
+}
+
+.invoice-box table tr.item td{
+    border-bottom: 1px solid #eee;
+}
+
+.invoice-box table tr.item.last td {
+    border-bottom: none;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+.badge:empty {
+  display: none;
+}
+
+.btn .badge {
+  position: relative;
+  top: -1px;
+}
+
+.badge-pill {
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  border-radius: 10rem;
+}
+
+.badge-primary {
+  color: #fff;
+  background-color: #007bff;
+}
+
+.badge-primary[href]:hover, .badge-primary[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #0062cc;
+}
+
+.badge-secondary {
+  color: #fff;
+  background-color: #6c757d;
+}
+
+.badge-secondary[href]:hover, .badge-secondary[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #545b62;
+}
+
+.badge-success {
+  color: #fff;
+  background-color: #28a745;
+}
+
+.badge-success[href]:hover, .badge-success[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #1e7e34;
+}
+
+.badge-info {
+  color: #fff;
+  background-color: #17a2b8;
+}
+
+.badge-info[href]:hover, .badge-info[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #117a8b;
+}
+
+.badge-warning {
+  color: #212529;
+  background-color: #ffc107;
+}
+
+.badge-warning[href]:hover, .badge-warning[href]:focus {
+  color: #212529;
+  text-decoration: none;
+  background-color: #d39e00;
+}
+
+.badge-danger {
+  color: #fff;
+  background-color: #dc3545;
+}
+
+.badge-danger[href]:hover, .badge-danger[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #bd2130;
+}
+
+.badge-light {
+  color: #212529;
+  background-color: #f8f9fa;
+}
+
+.badge-light[href]:hover, .badge-light[href]:focus {
+  color: #212529;
+  text-decoration: none;
+  background-color: #dae0e5;
+}
+
+.badge-dark {
+  color: #fff;
+  background-color: #343a40;
+}
+
+.badge-dark[href]:hover, .badge-dark[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #1d2124;
+}
+
+.invoice-box table tr.total td:nth-child(2) {
+    border-top: 2px solid #eee;
+    font-weight: bold;
+}
+
+
+
+.invoice-box table tr.footer td {
+    color:orange;
+    font-weight: bold;
+    padding-bottom: 1px;
+
+}
+
+// @media only screen and (max-width: 600px) {
+//     .invoice-box table tr.top table td {
+//         width: 100%;
+//         display: block;
+//         text-align: center;
+//     }
+//
+//     .invoice-box table tr.information table td {
+//         width: 100%;
+//         display: block;
+//         text-align: center;
+//     }
+// }
+
+/** RTL **/
+.rtl {
+    direction: rtl;
+    font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+}
+
+.rtl table {
+    text-align: right;
+}
+
+.rtl table tr td:nth-child(2) {
+    text-align: left;
+}  
+</style>
