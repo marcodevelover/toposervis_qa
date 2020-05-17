@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_162219) do
+ActiveRecord::Schema.define(version: 2020_05_17_173557) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -123,6 +123,14 @@ ActiveRecord::Schema.define(version: 2020_05_13_162219) do
     t.string "rfc"
     t.string "business_name"
     t.datetime "deleted_at", precision: 6
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "diagnosis_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -309,6 +317,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_162219) do
   end
 
   create_table "service_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "folio"
     t.datetime "date_admission"
     t.bigint "customer_id", null: false
     t.bigint "product_id", null: false
@@ -316,8 +325,9 @@ ActiveRecord::Schema.define(version: 2020_05_13_162219) do
     t.string "brand"
     t.string "model"
     t.text "observation"
+    t.integer "created_by_id"
     t.datetime "deleted_at"
-    t.string "status"
+    t.string "state"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_service_orders_on_customer_id"

@@ -29,6 +29,7 @@ es:
   denied: Denegado 
   type_service_order_module: Tipo de ordenes de servicio
   category_type_module: Tipo de categorias
+  diagnosis_type_module: Tipo de diagnosticos
   benefit_module: Convenios
   notification_module: Notificaciones
   wrong_data: Usuario o contraseña invalidos
@@ -269,6 +270,9 @@ es:
     description: Descripción
     abbreviation: Abreviación
   category_types:
+    name: Nombre
+    description: Descripción
+  diagnosis_types:
     name: Nombre
     description: Descripción
   categories:

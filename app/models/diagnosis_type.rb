@@ -1,0 +1,2 @@
+class DiagnosisType < ApplicationRecord
+end

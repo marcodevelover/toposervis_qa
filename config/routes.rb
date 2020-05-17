@@ -43,7 +43,7 @@ Rails.application.routes.draw do
       get :delete, on: :member
       get :filter_form, on: :collection
     end
-    resources :category_types do
+    resources :diagnosis_types do
       get :delete, on: :member
       get :filter_form, on: :collection
     end
