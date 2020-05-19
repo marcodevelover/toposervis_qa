@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_17_173557) do
+ActiveRecord::Schema.define(version: 2020_05_17_175853) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -125,6 +125,28 @@ ActiveRecord::Schema.define(version: 2020_05_17_173557) do
     t.datetime "deleted_at", precision: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "diagnoses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "service_order_id", null: false
+    t.datetime "date"
+    t.string "delivery_time"
+    t.datetime "date_delivery"
+    t.bigint "diagnosis_type_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["diagnosis_type_id"], name: "index_diagnoses_on_diagnosis_type_id"
+    t.index ["service_order_id"], name: "index_diagnoses_on_service_order_id"
+  end
+
+  create_table "diagnosis_descriptions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "diagnosis_id", null: false
+    t.string "description"
+    t.integer "created_by_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["diagnosis_id"], name: "index_diagnosis_descriptions_on_diagnosis_id"
   end
 
   create_table "diagnosis_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -395,6 +417,9 @@ ActiveRecord::Schema.define(version: 2020_05_17_173557) do
   add_foreign_key "customer_addresses", "customers"
   add_foreign_key "customer_banks", "customers"
   add_foreign_key "customer_contacts", "customers"
+  add_foreign_key "diagnoses", "diagnosis_types"
+  add_foreign_key "diagnoses", "service_orders"
+  add_foreign_key "diagnosis_descriptions", "diagnoses"
   add_foreign_key "items", "product_variants"
   add_foreign_key "order_accessories", "service_orders"
   add_foreign_key "orders_types", "service_orders"

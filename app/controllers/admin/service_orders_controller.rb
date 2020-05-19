@@ -1,5 +1,5 @@
 class Admin::ServiceOrdersController < ApplicationController
-  before_action :set_service_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf]
+  before_action :set_service_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :diagnoses]
   respond_to :html, :json
 
   def page_name
@@ -41,6 +41,10 @@ class Admin::ServiceOrdersController < ApplicationController
     respond_modal_with @service_order
   end
 
+  def diagnoses
+
+  end
+
   # GET /service_orders/new
   def new
     @service_order = ServiceOrder.new
@@ -70,11 +74,21 @@ class Admin::ServiceOrdersController < ApplicationController
   # PATCH/PUT /service_orders/1
   # PATCH/PUT /service_orders/1.json
   def update
+    #@service_order.diagnosis.diagnosis_descriptions.created_by_id = current_user.id
     if params[:service_order][:images].present?
-      params[:service_order][:images].each do |image|
-      @service_order.images.attach(image)
+        params[:service_order][:images].each do |image|
+        @service_order.images.attach(image)
+      end
     end
-    end    
+
+    if params[:service_order][:diagnosis_attributes].present?
+      if params[:service_order][:diagnosis_attributes][:images].present?
+          params[:service_order][:diagnosis_attributes][:images].each do |image|
+          @service_order.diagnosis.images.attach(image)
+        end
+      end    
+    end
+    
     respond_to do |format|
       if @service_order.update(service_order_params)
         format.html { redirect_to [:admin, @service_order], notice: 'Service order was successfully updated.' }
@@ -139,7 +153,11 @@ class Admin::ServiceOrdersController < ApplicationController
     def service_order_params
       params.require(:service_order).permit(:date_admission, :customer_id, :product_id, :serie, :brand, :model, :observation, :deleted_at, :status,
         order_accessories_attributes: [ :id, :service_order_id, :accessory, :quantity, :_destroy ],
-        type_service_order_ids: [], images_attachments_attributes: [:id, :_destroy]
+        type_service_order_ids: [], images_attachments_attributes: [:id, :_destroy],
+        diagnosis_attributes: [ :id, :service_order_id, :date, :delivery_time, :date_delivery, :diagnosis_type_id, 
+          images_attachments_attributes: [:id, :_destroy],
+          diagnosis_descriptions_attributes: [:id, :diagnosis_id, :description, :created_by_id, :deleted_at, :_destroy]
+          ]
         )
     end
 end

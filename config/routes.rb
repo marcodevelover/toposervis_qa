@@ -67,6 +67,7 @@ Rails.application.routes.draw do
       get :show_from_pdf, on: :member
     end
     resources :quotation_items
+    resources :diagnoses
     resources :service_orders do
       get :delete, on: :member
       get :filter_form, on: :collection
@@ -74,7 +75,9 @@ Rails.application.routes.draw do
       get :products, on: :collection
       get :show_from_modal, on: :member
       get :show_from_pdf, on: :member
+      get :diagnoses, on: :member
     end
+    #resources :diagnoses
   end
   namespace :admin do
     resources :roles

@@ -12,6 +12,8 @@ class ServiceOrder < ApplicationRecord
   has_many_base64_attached :images
   accepts_nested_attributes_for :images_attachments, allow_destroy: true
 
+  has_one :diagnosis, inverse_of: :service_order
+  accepts_nested_attributes_for :diagnosis, reject_if: :all_blank, allow_destroy: true
 
   before_create :set_folio, :set_state
 

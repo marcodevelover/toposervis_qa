@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service_order: one
+  date: 2020-05-17 12:57:50
+  delivery_time: MyString
+  date_delivery: 2020-05-17 12:57:50
+  diagnosis_type: one
+
+two:
+  service_order: two
+  date: 2020-05-17 12:57:50
+  delivery_time: MyString
+  date_delivery: 2020-05-17 12:57:50
+  diagnosis_type: two

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Service order:</strong>
+  <%= @diagnosis.service_order_id %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @diagnosis.date %>
+</p>
+
+<p>
+  <strong>Delivery time:</strong>
+  <%= @diagnosis.delivery_time %>
+</p>
+
+<p>
+  <strong>Date delivery:</strong>
+  <%= @diagnosis.date_delivery %>
+</p>
+
+<p>
+  <strong>Diagnosis type:</strong>
+  <%= @diagnosis.diagnosis_type_id %>
+</p>
+
+<%= link_to 'Edit', edit_diagnosis_path(@diagnosis) %> |
+<%= link_to 'Back', diagnoses_path %>
