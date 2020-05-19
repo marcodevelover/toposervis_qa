@@ -67,7 +67,9 @@ Rails.application.routes.draw do
       get :show_from_pdf, on: :member
     end
     resources :quotation_items
-    resources :diagnoses
+    resources :diagnoses do
+      get :show_from_pdf, on: :member
+    end
     resources :service_orders do
       get :delete, on: :member
       get :filter_form, on: :collection

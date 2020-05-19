@@ -1,5 +1,5 @@
 class Admin::DiagnosesController < ApplicationController
-  before_action :set_diagnosis, only: [:show, :edit, :update, :destroy]
+  before_action :set_diagnosis, only: [:show, :edit, :update, :destroy, :show_from_pdf]
 
   # GET /diagnoses
   # GET /diagnoses.json
@@ -12,6 +12,23 @@ class Admin::DiagnosesController < ApplicationController
   def show
   end
 
+  def show_from_pdf
+    respond_to do |format|
+        format.html
+        format.pdf do
+            render pdf: "1f",
+            
+            template: "admin/diagnoses/show_from_pdf.html.erb",
+            
+            layout: "pdf.html",
+            viewport_size: '1280x1024'
+            
+            #lowquality: true,
+            #zoom: 1,
+            #dpi: 75
+        end
+    end
+  end
   # GET /diagnoses/new
   def new
     @diagnosis = Diagnosis.new

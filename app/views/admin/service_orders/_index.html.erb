@@ -15,10 +15,20 @@
         		<em class="fa fa-edit"></em> 
         	<%end%>
 
+            <%= link_to diagnoses_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
+                <em class="fa fa-edit"></em> 
+            <%end%>
+
             <%= link_to show_from_pdf_admin_service_order_path(object, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
                 <em class="fas fa-print"></em> 
             <%end%>
-        		
+
+            <% if object.diagnosis.present? %>
+            <%= link_to show_from_pdf_admin_diagnosis_path(object.diagnosis.id, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+                <em class="fas fa-print"></em> 
+            <%end%>
+        	<% end %>
+
         	<%= link_to delete_admin_service_order_path(object), :class => "btn btn-sm btn-danger", remote: true   do %>
         		<em class="fa fa-trash fa-fw"></em>
         	<%end%>           		
