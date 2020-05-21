@@ -1,93 +1,4 @@
-<div class="modal-body">
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Folio:</strong>
-  <%= @service_order.folio %>
-</p>
-
-<p>
-  <strong>Fecha de admisión:</strong>
-  <%= @service_order.date_admission %>
-</p>
-
-<% @service_order.orders_types.each do |type| %>
-  <p>
-    <strong>Tipo de servicio:</strong>
-    <%= type.type_service_order.name %>
-  </p>
-<% end %>
-
-<p>
-  <strong>Cliente:</strong>
-  <%= @service_order.customer ? @service_order.customer.name : "N/A" %>
-</p>
-
-<p>
-<p>
-  <strong>Producto:</strong>
-  <%= @service_order.product ? @service_order.product.name : "N/A" %>
-</p>
-<p>
-  <strong>Serie:</strong>
-  <%= @service_order.serie %>
-</p>
-<p>
-  <strong>Marca:</strong>
-  <%= @service_order.brand %>
-</p>
-<p>
-  <strong>Modelo:</strong>
-  <%= @service_order.model %>
-</p>
-<p>
-  <strong>Observaciones:</strong>
-  <%= @service_order.observation %>
-</p>
-<p>
-
-<% if @service_order.images.attached? %>
-<div class="form-group row" >
-<% @service_order.images.each do |f| %>
-          <div class="col-md-6">
-            <%= image_tag f.variant(resize_to_limit: [300, 300]) %>
-          </div>    
-<% end %>
-</div>    
-<% end %>
-</p>
-
-<%if @service_order.order_accessories.first %>
-<strong>Accesorios:</strong><br>
-  <% @service_order.order_accessories.each_with_index do |item,index| %>
-    <tr class="text-center" data-id="<%=item.id%>">
-      <td>
-      <%= item.accessory %>
-      </td>
-      
-      <td>
-        <%=item.quantity%><br>
-      </td>
-    </tr>
-  <%end%>
-<%end%>  
-</p>
-
-<p>
-  <strong>Created by:</strong>
-  <%= @service_order.user.name %>
-</p>
-
-
-<p>
-  <strong>Canceled at:</strong>
-  <%= @service_order.deleted_at %>
-</p>
-
-</div>
-
-
-
+<%= render "show"%>
 
 <%= simple_form_for([:admin, @service_order]) do |form| %>
   <%= form.error_notification %>
@@ -97,25 +8,44 @@
                <div class="card-body">
                   
                      <h3></h3>
+                     <h4 class="box-title m-t-40">Información general del Diagnostico</h4>
                      <fieldset>
 
   <%= form.fields_for :diagnosis, (@service_order.diagnosis.nil? ? Diagnosis.new : @service_order.diagnosis) do |f| %>
         
-        
-        <%= f.text_field :delivery_time %>
 
-        
-
-       <div class="form-group">
-          <%= f.label :diagnosis_type_id, class: "col-form-label"%>
-          <div class="form-group">
-            <%= f.collection_select :diagnosis_type_id, DiagnosisType.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
-          </div>  
-       </div>
-
-<!-- start img-->
                         <div class="form-group row">
                            <div class="col-md-12">
+                              <div class="form-row">
+                                <div class="col-lg-4 mb-4">
+                                  <label class="form-label">Fecha de diagnostico</label>
+                                  <div class="form-group"> 
+                                    <%= f.text_field :date, class: "form-control" , placeholder: "Fecha", type: 'date', value: (f.object.date ? f.object.date.to_date : '')%>
+                                  </div>  
+                                </div> 
+
+                                <div class="col-lg-4 mb-4">
+                                  <label class="form-label">Tiempo de diagnostico</label>
+                                  <div class="form-group"> 
+                                    <%= f.text_field :delivery_time, class: "form-control" %>
+                                  </div>  
+                                </div> 
+
+                                 <div class="col-lg-4 mb-4">
+                                  <%= f.label :diagnosis_type_id, class: "col-form-label"%>
+                                  <div class="form-group">
+                                    <%= f.collection_select :diagnosis_type_id, DiagnosisType.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
+                                  </div> 
+                                 </div>
+
+                              </div>
+                          </div>
+                        </div>
+
+                        <!-- start img-->
+                        <div class="form-group row">
+                           <div class="col-md-12">
+                            <label class="form-label">Imágenes</label>
                               <div class="form-row">
                                  <div class="col-lg-12 mb-12x">
                                         <%= f.file_field :images, multiple: true, class: "mb-1 btn btn-outline-secondary" %>
@@ -126,6 +56,7 @@
                         </div>
                         </br>
 
+                      <% if @service_order.diagnosis %>
                          <% if @service_order.diagnosis.images.attached? %>
                           <div class="form-group row" >
                           <%= f.fields_for :images_attachments do |i| %>
@@ -140,18 +71,13 @@
                           <% end %>
                           </div>    
                         <% end %>
+                      <% end %>
+                      <!-- end img-->
 
 
-
-<!-- end img-->
-
-
-
-
-
-                              <!-- Table diagnosticos -->
-                      <h4 class="box-title m-t-40">Captura de diagnostico</h4>
+                      <!-- Table diagnosticos -->
                       <hr>
+                      <h4 class="box-title m-t-40">Captura de diagnostico</h4>
 
                       <div class="row">
                         <div class="col-sm-6">
@@ -177,7 +103,7 @@
                             </thead>
                             <tbody>
 
-                                <%if @service_order.diagnosis.diagnosis_descriptions.first %>
+                                <%if @service_order.diagnosis %>
                                   <% @service_order.diagnosis.diagnosis_descriptions.each_with_index do |item,index| %>
                                     <tr class="text-center" data-id="<%=item.id%>">
                                       <td>
@@ -196,8 +122,10 @@
                           </table>
                         </div>
                       </div>
-<!--end diagnosticos -->
+                      <!--end table diagnosticos -->
 
+
+                      <%= render "item", f:f%>
 
   <% end %>                
 
@@ -290,63 +218,16 @@
     '<input type="hidden" value="'+item.description+'" name="service_order[diagnosis_attributes][diagnosis_descriptions_attributes]['+productCount+'][description]" >';
     return input;
   }
-  // Establece el total en el formulario
-  function setTotal() {
-    var quantity = $("#note_quantity").val();
-    var price = $("#note_unit_price").val();
-    $("#note_total").val(quantity*price);
-  }
-  // Determina el tipo de descuento
-  function selectDiscount(){
-    setTotal();
-    var typeDiscount = $("#note_factor option:selected").text();
-    if(typeDiscount == "Importe"){
-      valueImport();
-    }
-    if(typeDiscount == "Porcentaje"){
-      valueFactor();
-    }
-  }
-  // Calcula el total con descuento del tipo Importe
-  function valueImport(){
-    var total = $("#note_total").val();
-    var discount = $("#note_discount").val();
-    $("#note_total").val(total-discount);
-  } 
-  // Calcula el total con descuento del tipo Porcentaje
-  function valueFactor(){
-    var currentTotal = $("#note_total").val();
-    var discount = $("#note_discount").val();
-    var factor = currentTotal * (discount/100);
-    $("#note_total").val(currentTotal-factor);
-  }
+
   // Validaciones
   function validate(){
     $("#note_modal").animate({ scrollTop: 0 }, 'slow');
     $("ul.errors").html("");
     var validate = true;
     var errors = [];
-    if($("#note_product").val() == 0){
+    if($("#description").val() == ""){
       validate = false;
-      errors.push("Seleccione un producto");
-    }
-    if($("#note_quantity").val() == 0){
-      validate = false;
-      errors.push("La cantidad debe ser mayor a 0");
-    }
-    if($("#note_unit_price").val() == 0){
-      validate = false;
-      errors.push("Precio unitario debe ser mayor a 0, Seleccione tipo de cambio");
-    }
-    if(isDiscount()){
-      if($("#note_factor").val() == ""){
-      validate = false;
-      errors.push("Seleccione un tipo de descuento");
-      }
-      if($("#note_discount").val() == 0){
-        validate = false;
-        errors.push("Valor de descuento debe ser mayor a 0");
-      }
+      errors.push("Agregue una descripción");
     }
     if(validate){
       return true;
@@ -357,14 +238,7 @@
       });
     }
   }
-  // Determina si se aplica la validacion de descuento
-  function isDiscount(){
-    if ($(".show-fields").is(".d-none")) {
-      return false;
-    }else{
-      return true;
-    }
-  }
+
   // Elimina la fila seleccionada
   $("#table_product").on('click', '.btnDelete', function () {
     var productID = $(this).closest('tr').data("id");
@@ -381,58 +255,10 @@
     $('#table_product tbody').append(itemDestroy);
     productCount +=1;
   }
-  // Toggle discount inputs
-  $(".btn-hide label").click(function(){
-    if ($(".show-fields").is(".d-none")) {
-      $(".show-fields").toggle(5,function(){
-        $(".show-fields").removeClass("d-none");
-      });
-    }else{
-      $(".show-fields").toggle("slow",function(){
-        $(".show-fields").addClass("d-none");
-        $("#note_factor").val("");
-        $("#note_discount").val("0");
-        setTotal();
-      });
-    }
-  });
+
   // Clear the form
   function clearForm(){
-    
     $("#description").val("");
-
-  }
-
-  // Calculate importe
-  function calculateTotal(){
-    total = 0;
-    tax_total = 0;
-    var product = 0;
-    total_with_tax = 0
-    $('#table_product > tbody  > tr').each(function() {
-      var product_total = $(this).find(".row_total_price").html();
-      if(product_total != null){
-        product = parseFloat(product_total,10);
-        total += product;
-        tax_total = total * 0.16
-        total_with_tax = total + tax_total
-      }
-    });
-
-    total_discount = 0;
-    var discount = 0;
-    $('#table_product > tbody  > tr').each(function() {
-      var product_discount = $(this).find(".row_total_discount").html();
-      if(product_discount != null){
-        discount = parseFloat(product_discount);
-        total_discount += discount;
-      }
-    });
-
-    $("#total_sale").val(total);
-    $("#tax_total").val(tax_total);
-    $("#total_with_tax").val(total_with_tax);
-    $("#adjustment_total").val(total_discount);
   }
 
   // End products ****

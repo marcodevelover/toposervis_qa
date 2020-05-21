@@ -78,6 +78,7 @@ Rails.application.routes.draw do
       get :show_from_modal, on: :member
       get :show_from_pdf, on: :member
       get :diagnoses, on: :member
+      get :product_variants, on: :collection
     end
     #resources :diagnoses
   end

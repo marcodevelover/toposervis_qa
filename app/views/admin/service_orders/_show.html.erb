@@ -1,0 +1,94 @@
+            <!-- START card-->
+<div class="card card-default">
+<div class="card-body">
+<h4 class="box-title m-t-40">Información de la Orden de servicio</h4>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Folio:</strong>
+  <%= @service_order.folio %>
+</p>
+
+<p>
+  <strong>Fecha de admisión:</strong>
+  <%= @service_order.date_admission %>
+</p>
+
+<% @service_order.orders_types.each do |type| %>
+  <p>
+    <strong>Tipo de servicio:</strong>
+    <%= type.type_service_order.name %>
+  </p>
+<% end %>
+
+<p>
+  <strong>Cliente:</strong>
+  <%= @service_order.customer ? @service_order.customer.name : "N/A" %>
+</p>
+
+<p>
+<p>
+  <strong>Producto:</strong>
+  <%= @service_order.product ? @service_order.product.name : "N/A" %>
+</p>
+<p>
+  <strong>Serie:</strong>
+  <%= @service_order.serie %>
+</p>
+<p>
+  <strong>Marca:</strong>
+  <%= @service_order.brand %>
+</p>
+<p>
+  <strong>Modelo:</strong>
+  <%= @service_order.model %>
+</p>
+<p>
+  <strong>Observaciones:</strong>
+  <%= @service_order.observation %>
+</p>
+<p>
+
+<% if @service_order.images.attached? %>
+<div class="form-group row" >
+<% @service_order.images.each do |f| %>
+          <div class="col-md-6">
+            <%= image_tag f.variant(resize_to_limit: [300, 300]) %>
+          </div>    
+<% end %>
+</div>    
+<% end %>
+</p>
+
+<%if @service_order.order_accessories.first %>
+<strong>Accesorios:</strong><br>
+  <% @service_order.order_accessories.each_with_index do |item,index| %>
+    <tr class="text-center" data-id="<%=item.id%>">
+      <td>
+      <%= item.accessory %>
+      </td>
+      
+      <td>
+        <%=item.quantity%><br>
+      </td>
+    </tr>
+  <%end%>
+<%end%>  
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @service_order.user.name %>
+</p>
+
+
+<p>
+  <strong>Canceled at:</strong>
+  <%= @service_order.deleted_at %>
+</p>
+
+
+
+</div> <!-- card-body-->
+</div> <!-- card-default-->

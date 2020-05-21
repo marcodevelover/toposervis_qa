@@ -1,3 +1,52 @@
+<style type="text/css">
+/* active */    
+.badge-active {
+  color: #fff;
+  background-color: #27c24c;
+}
+
+a.badge-active:hover, a.badge-active:focus {
+  color: #fff;
+  background-color: #1e983b;
+}
+
+a.badge-active:focus, a.badge-active.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(39, 194, 76, 0.5);
+}
+/* diagnosed */
+.badge-diagnosed {
+  color: #fff;
+  background-color: #ff902b;
+}
+
+a.badge-diagnosed:hover, a.badge-diagnosed:focus {
+  color: #212529;
+  background-color: #f77600;
+}
+
+a.badge-diagnosed:focus, a.badge-diagnosed.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 144, 43, 0.5);
+}
+/* delivered */
+.badge-delivered {
+  color: #fff;
+  background-color: #23b7e5;
+}
+
+a.badge-delivered:hover, a.badge-delivered:focus {
+  color: #fff;
+  background-color: #1797be;
+}
+
+a.badge-delivered:focus, a.badge-delivered.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(35, 183, 229, 0.5);
+}
+</style>
+
+
 <% if @collection.each do |object| %>
 <tr>
         <td scope="row" ><%= object.id %></td>
@@ -5,10 +54,19 @@
         <td><%= object.date_admission %></td>
         <td><%= object.customer ? object.customer.business_name : "N/A" %></td>
         <td><%= object.product ? object.product.name : "N/A" %></td>
-        <td><%= object.state %></td>
+        <td>
+            <% if object.deleted_at? %>
+                <span class="badge badge-danger">Baja</span>
+            <% end %>
+
+            <% unless object.deleted_at? %>
+                <span class="badge badge-<%= object.state %>"><%= object.state %></span>
+            <% end %>
+        </td>
+
         <td>
             <%= link_to show_from_modal_admin_service_order_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
-                <em class="fas fa-binoculars"></em> 
+                <em class="fas fa-info-circle"></em> 
             <%end%>
 
         	<%= link_to edit_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
@@ -16,18 +74,25 @@
         	<%end%>
 
             <%= link_to diagnoses_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
-                <em class="fa fa-edit"></em> 
+                <em class="fa fa-cogs"></em> 
             <%end%>
 
-            <%= link_to show_from_pdf_admin_service_order_path(object, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
-                <em class="fas fa-print"></em> 
-            <%end%>
 
-            <% if object.diagnosis.present? %>
-            <%= link_to show_from_pdf_admin_diagnosis_path(object.diagnosis.id, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
-                <em class="fas fa-print"></em> 
-            <%end%>
-        	<% end %>
+            <button class="btn dropdown-toggle btn-info" type="button" data-toggle="dropdown" aria-expanded="false"><em class="fas fa-print"></em></button>
+               <div class="dropdown-menu" role="menu" style="">
+
+                    <%= link_to show_from_pdf_admin_service_order_path(object, format: :pdf), :class => "dropdown-item", target: :_blank do %>
+                        Orden de servicio
+                    <%end%>
+
+                    <% if object.diagnosis.present? %>
+                    <%= link_to show_from_pdf_admin_diagnosis_path(object.diagnosis.id, format: :pdf), :class => "dropdown-item", target: :_blank do %>
+                        Diagnostico
+                    <%end%>
+                    <% end %>
+
+               </div>
+
 
         	<%= link_to delete_admin_service_order_path(object), :class => "btn btn-sm btn-danger", remote: true   do %>
         		<em class="fa fa-trash fa-fw"></em>

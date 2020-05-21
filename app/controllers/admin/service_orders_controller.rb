@@ -42,7 +42,7 @@ class Admin::ServiceOrdersController < ApplicationController
   end
 
   def diagnoses
-
+    @service_order.diagnosis.nil? ? @service_order.build_diagnosis : @service_order.diagnosis
   end
 
   # GET /service_orders/new
@@ -60,6 +60,13 @@ class Admin::ServiceOrdersController < ApplicationController
   def create
     @service_order = ServiceOrder.new(service_order_params)
     @service_order.created_by_id = current_user.id
+
+    if params[:service_order][:images].present?
+        params[:service_order][:images].each do |image|
+        @service_order.images.attach(image)
+      end
+    end
+
     respond_to do |format|
       if @service_order.save
         format.html { redirect_to [:admin, @service_order], notice: 'Service order was successfully created.' }
@@ -74,6 +81,8 @@ class Admin::ServiceOrdersController < ApplicationController
   # PATCH/PUT /service_orders/1
   # PATCH/PUT /service_orders/1.json
   def update
+    #@service_order.diagnosis ||= @service_order.build_diagnosis
+    
     #@service_order.diagnosis.diagnosis_descriptions.created_by_id = current_user.id
     if params[:service_order][:images].present?
         params[:service_order][:images].each do |image|
@@ -82,6 +91,7 @@ class Admin::ServiceOrdersController < ApplicationController
     end
 
     if params[:service_order][:diagnosis_attributes].present?
+      @service_order.diagnosis.nil? ? @service_order.build_diagnosis : @service_order.diagnosis
       if params[:service_order][:diagnosis_attributes][:images].present?
           params[:service_order][:diagnosis_attributes][:images].each do |image|
           @service_order.diagnosis.images.attach(image)
@@ -100,14 +110,14 @@ class Admin::ServiceOrdersController < ApplicationController
     end
   end
 
+  def delete
+    respond_modal_for_delete_with(@service_order,true)
+  end
+
   # DELETE /service_orders/1
   # DELETE /service_orders/1.json
   def destroy
-    @service_order.destroy
-    respond_to do |format|
-      format.html { redirect_to service_orders_url, notice: 'Service order was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @service_order.save!(context: :delete)
   end
 
   def customers
@@ -128,7 +138,16 @@ class Admin::ServiceOrdersController < ApplicationController
     respond_to do |format|
       format.json { render json: { total: total_count, products: @products.map { |s| {id: s.id, name:  s.name, accessories: s.accessories } } } }
     end
-  end  
+  end
+
+  def product_variants
+    @q = ProductVariant.ransack(params[:q])
+    @product_variants = @q.result(distinct: true)
+    total_count = @product_variants.count
+    respond_to do |format|
+      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, unit_price: s.amount_public, unit: s.product.unit.name, image: s.first_image } } } }
+    end
+  end
 
   def filter_form
     @q = ServiceOrder.ransack(params[:q])
@@ -154,9 +173,10 @@ class Admin::ServiceOrdersController < ApplicationController
       params.require(:service_order).permit(:date_admission, :customer_id, :product_id, :serie, :brand, :model, :observation, :deleted_at, :status,
         order_accessories_attributes: [ :id, :service_order_id, :accessory, :quantity, :_destroy ],
         type_service_order_ids: [], images_attachments_attributes: [:id, :_destroy],
-        diagnosis_attributes: [ :id, :service_order_id, :date, :delivery_time, :date_delivery, :diagnosis_type_id, 
+        diagnosis_attributes: [ :id, :service_order_id, :date, :delivery_time, :date_delivery, :diagnosis_type_id, :subtotal, :adjustment_total, :tax_total, :total,
           images_attachments_attributes: [:id, :_destroy],
-          diagnosis_descriptions_attributes: [:id, :diagnosis_id, :description, :created_by_id, :deleted_at, :_destroy]
+          diagnosis_descriptions_attributes: [:id, :diagnosis_id, :description, :created_by_id, :deleted_at, :_destroy],
+          items_attributes: [ :id, :product_variant_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy ]
           ]
         )
     end

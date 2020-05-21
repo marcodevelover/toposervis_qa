@@ -12,11 +12,12 @@ class ServiceOrder < ApplicationRecord
   has_many_base64_attached :images
   accepts_nested_attributes_for :images_attachments, allow_destroy: true
 
-  has_one :diagnosis, inverse_of: :service_order
+  has_one :diagnosis, inverse_of: :service_order, touch: true
   accepts_nested_attributes_for :diagnosis, reject_if: :all_blank, allow_destroy: true
 
   before_create :set_folio, :set_state
-
+  before_update :set_diagnosed
+# active, diagnosed, delivered
   def set_folio
   	@prefix = "M"
   	@date = Time.now
@@ -27,4 +28,12 @@ class ServiceOrder < ApplicationRecord
   def set_state
     self.state = "active"
   end  
+
+  def set_diagnosed
+    if self.diagnosis.present?
+      self.state = "diagnosed"
+    end
+  end  
+
+
 end

@@ -79,8 +79,8 @@
             
           <% end %>
 <!--diagnosis-->
-          <tr class="heading">
-            <td colspan="5" style="text-align: center;"><b>Diagnostico y presupuesto</b></td>
+          <tr>
+            <td colspan="5" style="text-align: center;"><b>Diagnostico</b></td>
           </tr>         
 
           <tr class="heading">
@@ -103,7 +103,79 @@
           <% end %>
 
 <!--end diagnosis-->
+<!--diagnosis items-->
+          <tr>
+            <td colspan="5" style="text-align: center;"><b>Presupuesto</b></td>
+          </tr>         
 
+          <tr class="heading">
+            <td>Concepto</td>
+            <td class="right">Unidad</td>
+            <td class="right">Precio</td>
+            <td class="right">Cantidad</td>
+            <td>Total</td>
+          </tr>
+
+          <% @diagnosis.items.each do |item| %>
+            <tr class="item">
+                <td>
+                    <%= item.name %><br>
+                    <small><%= item.extended_description %></small>
+                </td>
+
+                <td class="right">
+                    <%= item.unit %>
+                </td>
+
+                <td class="right">
+                    <%= number_to_currency(item.unit_price) %>
+                </td>
+
+                <td class="right">
+                    x <%= item.quantity %>
+                </td>
+
+                <td>
+                    <%= number_to_currency(item.unit_price * item.quantity) %>
+                </td>
+            </tr>
+          <% end %>
+
+
+
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>Subtotal</b></td>
+            <td><%= number_to_currency(@diagnosis.subtotal) %></td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <% if @diagnosis.adjustment_total %>
+            <td><b>Descuento</b></td>
+            <td>- <%= number_to_currency(@diagnosis.adjustment_total) %></td>
+            <% end %>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>Impuesto (<%= (@diagnosis.tax * 100).to_i %>%)</b></td>
+            <td>+ <%= number_to_currency(@diagnosis.tax_total) %></td>
+          </tr>
+
+          <tr class="heading">
+            <td colspan="3"></td>
+            <td><b>TOTAL:</b></td>
+            <td>
+               <b><%= number_to_currency(@diagnosis.total) %></b>
+            </td>
+          </tr>
+
+<!--end diagnosis items-->
 
 
           <tr>
