@@ -1,5 +1,5 @@
 class Admin::ServiceOrdersController < ApplicationController
-  before_action :set_service_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :diagnoses]
+  before_action :set_service_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :diagnoses, :output, :delivered]
   respond_to :html, :json
 
   def page_name
@@ -118,6 +118,37 @@ class Admin::ServiceOrdersController < ApplicationController
   # DELETE /service_orders/1.json
   def destroy
     @service_order.save!(context: :delete)
+    @object = @service_order
+    respond_to do |format|
+          if @object.save  
+            search
+            @objects= @collection
+            format.js  { render "admin/shared/save.js.erb", layout: false, content_type: 'text/javascript' }
+          else 
+            format.js { render "admin/shared/error.js.erb", layout: false, content_type: 'text/javascript' }
+
+           end
+      end
+  end
+
+  def output
+    respond_modal_for_output_with(@service_order,true)
+  end
+
+  # PUT /service_orders/1
+  def delivered
+    @service_order.save!(context: :output)
+    @object = @service_order
+    respond_to do |format|
+          if @object.save  
+            search
+            @objects= @collection
+            format.js  { render "admin/shared/save.js.erb", layout: false, content_type: 'text/javascript' }
+          else 
+            format.js { render "admin/shared/error.js.erb", layout: false, content_type: 'text/javascript' }
+
+           end
+      end
   end
 
   def customers

@@ -1,0 +1,43 @@
+swal({
+    title: 'Are you sure?',
+    text: 'Desea realizar la salida de esta orden!',
+    icon: 'warning',
+    buttons: {
+        cancel: {
+            text: 'No, cancel!',
+            value: null,
+            visible: true,
+            className: "",
+            closeModal: false
+        },
+        confirm: {
+            text: 'Si, marcar para salir!',
+            value: true,
+            visible: true,
+            className: "bg-danger",
+            closeModal: false
+        }
+    }
+}).then(function(isConfirm) {
+
+    if (isConfirm) {
+        swal('Deleted!', 'Tu registro se ha dado de baja.', 'success');
+        $.ajax({
+                url: "/admin/<%=controller_name%>/<%=@object.id%>/delivered",
+                type: "PUT",  
+                success: function () {
+                    swal("done", "changes_saved", "success");
+ 
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    swal("Error deleting!", "Please try again", "error");
+                }
+            });                
+    } else {
+        swal('Cancelled', 'Your file is safe :)', 'error');
+    }
+
+    });
+            
+
+

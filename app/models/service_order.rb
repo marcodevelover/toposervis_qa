@@ -16,7 +16,7 @@ class ServiceOrder < ApplicationRecord
   accepts_nested_attributes_for :diagnosis, reject_if: :all_blank, allow_destroy: true
 
   before_create :set_folio, :set_state
-  before_update :set_diagnosed
+  before_update :set_diagnosed, if: Proc.new { self.diagnosis.present? && state == "active" }
 # active, diagnosed, delivered
   def set_folio
   	@prefix = "M"
@@ -30,9 +30,7 @@ class ServiceOrder < ApplicationRecord
   end  
 
   def set_diagnosed
-    if self.diagnosis.present?
-      self.state = "diagnosed"
-    end
+    self.state = "diagnosed"
   end  
 
 

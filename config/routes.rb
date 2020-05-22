@@ -72,6 +72,8 @@ Rails.application.routes.draw do
     end
     resources :service_orders do
       get :delete, on: :member
+      get :output, on: :member
+      put :delivered, on: :member
       get :filter_form, on: :collection
       get :customers, on: :collection
       get :products, on: :collection

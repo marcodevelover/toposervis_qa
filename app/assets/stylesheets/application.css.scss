@@ -30,3 +30,49 @@
  *= require vendor.assets
  *
  */
+
+/* active */    
+.badge-active {
+  color: #fff;
+  background-color: #27c24c;
+}
+
+a.badge-active:hover, a.badge-active:focus {
+  color: #fff;
+  background-color: #1e983b;
+}
+
+a.badge-active:focus, a.badge-active.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(39, 194, 76, 0.5);
+}
+/* diagnosed */
+.badge-diagnosed {
+  color: #fff;
+  background-color: #ff902b;
+}
+
+a.badge-diagnosed:hover, a.badge-diagnosed:focus {
+  color: #212529;
+  background-color: #f77600;
+}
+
+a.badge-diagnosed:focus, a.badge-diagnosed.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 144, 43, 0.5);
+}
+/* delivered */
+.badge-delivered {
+  color: #fff;
+  background-color: #23b7e5;
+}
+
+a.badge-delivered:hover, a.badge-delivered:focus {
+  color: #fff;
+  background-color: #1797be;
+}
+
+a.badge-delivered:focus, a.badge-delivered.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(35, 183, 229, 0.5);
+}

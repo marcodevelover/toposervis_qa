@@ -67,6 +67,20 @@ class ApplicationController < ActionController::Base
       end
   end
 
+  def respond_modal_for_output_with(*args)
+    #arguments: object, is_soft_delete
+    @object =  args[0] 
+    respond_to do |format| 
+
+            search
+            @objects=  @collection
+            format.js  { render "admin/shared/output.js.erb", layout: false, content_type: 'text/javascript' }
+         
+
+           
+      end
+  end
+
   def respond_modal_with(*args, &blk)
     @object= args[0]
       options = args.extract_options!
