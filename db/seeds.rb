@@ -35,3 +35,12 @@ DiagnosisType.create(name:"Limpieza y mantenimiento", description: "Esto es una 
 DiagnosisType.create(name:"Reparación", description: "Esto es una descripción")
 DiagnosisType.create(name:"Garantia de servicios", description: "Esto es una descripción")
 DiagnosisType.create(name:"Garantia de piezas", description: "Esto es una descripción")
+PaymentMethod.create(name:"Efectivo", description: "Esto es una descripción")
+PaymentMethod.create(name:"Cheque nominativo", description: "Esto es una descripción")
+PaymentMethod.create(name:"Transferencia electrónica de fondos", description: "Esto es una descripción")
+PaymentMethod.create(name:"Tarjeta de crédito", description: "Esto es una descripción")
+PaymentMethod.create(name:"Tarjeta de débito", description: "Esto es una descripción")
+PaymentMethod.create(name:"Por definir", description: "Esto es una descripción")
+PaymentWay.create(name:"Pago en una sola exhibición", description: "Esto es una descripción")
+PaymentWay.create(name:"Pago en parcialidades o diferido", description: "Esto es una descripción")
+

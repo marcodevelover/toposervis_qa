@@ -82,6 +82,14 @@ Rails.application.routes.draw do
       get :diagnoses, on: :member
       get :product_variants, on: :collection
     end
+    resources :payment_ways  do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
+    resources :payment_methods  do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
     #resources :diagnoses
   end
   namespace :admin do
