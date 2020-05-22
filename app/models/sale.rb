@@ -1,6 +1,8 @@
-class Quotation < ApplicationRecord
-  belongs_to :currency#, optional:true
-  belongs_to :customer#, optional:true
+class Sale < ApplicationRecord
+  belongs_to :payment_method
+  belongs_to :payment_way
+  belongs_to :currency
+  belongs_to :customer
 
   has_many :items, dependent: :destroy, as: :record
   has_many :product_variants, through: :items
@@ -10,9 +12,9 @@ class Quotation < ApplicationRecord
   before_create :set_folio, :set_tax, :set_state
 
   def set_folio
-    @prefix = "C"
+    @prefix = "V"
     @date = Time.now
-    Quotation.last ? @number = Quotation.last.id+1 : @number = 1
+    Sale.last ? @number = Sale.last.id+1 : @number = 1
     self.folio = "#{@prefix}#{@date.strftime("%C%m")}#{@number}"
   end
 

@@ -1,12 +1,12 @@
-class Admin::QuotationsController < ApplicationController
-  before_action :set_quotation, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf]
+class Admin::SalesController < ApplicationController
+  before_action :set_sale, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf]
   respond_to :html, :json
 
   def page_name
-     @page_name = "Cotizaciones"
+     @page_name = "Ventas"
   end
-  # GET /quotations
-  # GET /quotations.json
+  # GET /sales
+  # GET /sales.json
   def index
     search
     respond_to do |format| 
@@ -15,8 +15,8 @@ class Admin::QuotationsController < ApplicationController
     end
   end
 
-  # GET /quotations/1
-  # GET /quotations/1.json
+  # GET /sales/1
+  # GET /sales/1.json
   def show
   end
 
@@ -26,7 +26,7 @@ class Admin::QuotationsController < ApplicationController
         format.pdf do
             render pdf: "1f",
             
-            template: "admin/quotations/show_from_pdf.html.erb",
+            template: "admin/sales/show_from_pdf.html.erb",
             layout: "pdf.html",
             viewport_size: '1280x1024'
             
@@ -38,59 +38,66 @@ class Admin::QuotationsController < ApplicationController
   end
 
   def show_from_modal
-    respond_modal_with @quotation
+    respond_modal_with @sale
   end
-
-  # GET /quotations/new
+  # GET /sales/new
   def new
-    @quotation = Quotation.new
-    @quotation.condition = Condition.condition_default.first.description
-    @factors_options = ["Importe", "Porcentaje"]
+    @sale = Sale.new
   end
 
-  # GET /quotations/1/edit
+  # GET /sales/1/edit
   def edit
   end
 
-  # POST /quotations
-  # POST /quotations.json
+  # POST /sales
+  # POST /sales.json
   def create
-    @quotation = @quotation || Quotation.new(quotation_params)
-    @quotation.created_by_id = current_user.id
+    @sale = @sale || Sale.new(sale_params)
+    @sale.created_by_id = current_user.id
 
     respond_to do |format|
-      if @quotation.save
-        format.html { redirect_to [:admin, @quotation], notice: 'Quotation was successfully created.' }
-        format.json { render :show, status: :created, location: @quotation }
+      if @sale.save
+        format.html { redirect_to [:admin, @sale], notice: 'Sale was successfully created.' }
+        format.json { render :show, status: :created, location: @sale }
       else
         format.html { render :new }
-        format.json { render json: @quotation.errors, status: :unprocessable_entity }
+        format.json { render json: @sale.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /quotations/1
-  # PATCH/PUT /quotations/1.json
+  # PATCH/PUT /sales/1
+  # PATCH/PUT /sales/1.json
   def update
     respond_to do |format|
-      if @quotation.update(quotation_params)
-        format.html { redirect_to [:admin, @quotation], notice: 'Quotation was successfully updated.' }
-        format.json { render :show, status: :ok, location: @quotation }
+      if @sale.update(sale_params)
+        format.html { redirect_to [:admin, @sale], notice: 'Sale was successfully updated.' }
+        format.json { render :show, status: :ok, location: @sale }
       else
-        format.html { render [:admin, @quotation] }
-        format.json { render json: @quotation.errors, status: :unprocessable_entity }
+        format.html { render :edit }
+        format.json { render json: @sale.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def delete
-    respond_modal_for_delete_with(@quotation,true)
+    respond_modal_for_delete_with(@sale,true)
   end
 
-  # DELETE /quotations/1
-  # DELETE /quotations/1.json
+  # DELETE /sales/1
+  # DELETE /sales/1.json
   def destroy
-    @quotation.save!(context: :delete)
+    @sale.save!(context: :delete)
+    @object = @sale
+    respond_to do |format|
+          if @object.save  
+            search
+            @objects= @collection
+            format.js  { render "admin/shared/save.js.erb", layout: false, content_type: 'text/javascript' }
+          else 
+            format.js { render "admin/shared/error.js.erb", layout: false, content_type: 'text/javascript' }
+           end
+      end
   end
 
   def customers
@@ -121,7 +128,7 @@ class Admin::QuotationsController < ApplicationController
   end
 
   def filter_form
-    @q = Quotation.ransack(params[:q])
+    @q = Sale.ransack(params[:q])
     respond_modal_with @q 
   end
 
@@ -129,19 +136,19 @@ class Admin::QuotationsController < ApplicationController
     params[:q] ||= {} 
     params[:per_page] = 10
     
-    @q = Quotation.search(params[:q])
+    @q = Sale.search(params[:q])
     @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_quotation
-      @quotation = Quotation.find(params[:id])
+    def set_sale
+      @sale = Sale.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def quotation_params
-      params.require(:quotation).permit(:folio, :subtotal, :item_total, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :customer_id, :condition, :created_by_id, :deleted_at,
+    def sale_params
+      params.require(:sale).permit(:folio, :reference, :date, :observation, :payment_method_id, :payment_way_id, :subtotal, :item_total, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :customer_id, :condition, :created_by_id, :deleted_at,
         items_attributes: [ :id, :product_variant_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy ]
         )
     end

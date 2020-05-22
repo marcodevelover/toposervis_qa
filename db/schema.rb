@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_22_072458) do
+ActiveRecord::Schema.define(version: 2020_05_22_154335) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -359,6 +359,35 @@ ActiveRecord::Schema.define(version: 2020_05_22_072458) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "sales", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "folio"
+    t.string "reference"
+    t.datetime "date"
+    t.text "observation"
+    t.bigint "payment_method_id", null: false
+    t.bigint "payment_way_id", null: false
+    t.decimal "item_total", precision: 18, scale: 6
+    t.decimal "total", precision: 18, scale: 6
+    t.decimal "adjustment_total", precision: 18, scale: 6
+    t.decimal "tax", precision: 18, scale: 6
+    t.decimal "tax_total", precision: 18, scale: 6
+    t.decimal "tax_item_total", precision: 18, scale: 6
+    t.string "state"
+    t.datetime "validity"
+    t.bigint "currency_id", null: false
+    t.decimal "exchange_rate", precision: 18, scale: 6
+    t.bigint "customer_id", null: false
+    t.text "condition"
+    t.integer "created_by_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["currency_id"], name: "index_sales_on_currency_id"
+    t.index ["customer_id"], name: "index_sales_on_customer_id"
+    t.index ["payment_method_id"], name: "index_sales_on_payment_method_id"
+    t.index ["payment_way_id"], name: "index_sales_on_payment_way_id"
+  end
+
   create_table "service_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "folio"
     t.datetime "date_admission"
@@ -458,6 +487,10 @@ ActiveRecord::Schema.define(version: 2020_05_22_072458) do
   add_foreign_key "provider_contacts", "providers"
   add_foreign_key "quotations", "currencies"
   add_foreign_key "quotations", "customers"
+  add_foreign_key "sales", "currencies"
+  add_foreign_key "sales", "customers"
+  add_foreign_key "sales", "payment_methods"
+  add_foreign_key "sales", "payment_ways"
   add_foreign_key "service_orders", "customers"
   add_foreign_key "service_orders", "products"
   add_foreign_key "subcategories", "categories"

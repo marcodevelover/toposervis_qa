@@ -324,7 +324,7 @@
 
           <tr>
             <td colspan="3"></td>
-            <% if @service_order.diagnosis.adjustment_total %>
+            <% if @service_order.diagnosis.adjustment_total != 0%>
             <td><b>Descuento</b></td>
             <td>- <%= number_to_currency(@service_order.diagnosis.adjustment_total) %></td>
             <% end %>

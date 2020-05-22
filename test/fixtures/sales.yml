@@ -1,0 +1,45 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  folio: MyString
+  reference: MyString
+  date: 2020-05-22 10:43:35
+  observation: MyText
+  payment_method: one
+  payment_way: one
+  item_total: 9.99
+  total: 9.99
+  adjustment_total: 9.99
+  tax: 9.99
+  tax_total: 9.99
+  tax_item_total: 9.99
+  state: MyString
+  validity: 2020-05-22 10:43:35
+  currency: one
+  exchange_rate: 9.99
+  customer: one
+  condition: MyText
+  created_by_id: 1
+  deleted_at: 2020-05-22 10:43:35
+
+two:
+  folio: MyString
+  reference: MyString
+  date: 2020-05-22 10:43:35
+  observation: MyText
+  payment_method: two
+  payment_way: two
+  item_total: 9.99
+  total: 9.99
+  adjustment_total: 9.99
+  tax: 9.99
+  tax_total: 9.99
+  tax_item_total: 9.99
+  state: MyString
+  validity: 2020-05-22 10:43:35
+  currency: two
+  exchange_rate: 9.99
+  customer: two
+  condition: MyText
+  created_by_id: 1
+  deleted_at: 2020-05-22 10:43:35

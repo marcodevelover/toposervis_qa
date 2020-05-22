@@ -9,6 +9,7 @@ class ProductVariant < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :quotations, through: :items, source: :record, source_type: 'Quotation'
   has_many :diagnoses, through: :items, source: :record, source_type: 'Diagnosis'
+  has_many :sales, through: :items, source: :record, source_type: 'Sale'
 
   scope :active, -> { where('deleted_at IS NULL')}
   
