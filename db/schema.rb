@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_22_154335) do
+ActiveRecord::Schema.define(version: 2020_05_24_170056) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -193,6 +193,30 @@ ActiveRecord::Schema.define(version: 2020_05_22_154335) do
     t.index ["service_order_id"], name: "index_order_accessories_on_service_order_id"
   end
 
+  create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "folio"
+    t.datetime "date"
+    t.text "observation"
+    t.decimal "subtotal", precision: 18, scale: 6
+    t.decimal "total", precision: 18, scale: 6
+    t.decimal "adjustment_total", precision: 18, scale: 6
+    t.decimal "tax", precision: 18, scale: 6
+    t.decimal "tax_total", precision: 18, scale: 6
+    t.decimal "tax_item_total", precision: 18, scale: 6
+    t.string "state"
+    t.datetime "validity"
+    t.bigint "currency_id", null: false
+    t.decimal "exchange_rate", precision: 18, scale: 6
+    t.bigint "customer_id", null: false
+    t.text "condition"
+    t.integer "created_by_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["currency_id"], name: "index_orders_on_currency_id"
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
+  end
+
   create_table "orders_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "service_order_id", null: false
     t.bigint "type_service_order_id", null: false
@@ -360,32 +384,18 @@ ActiveRecord::Schema.define(version: 2020_05_22_154335) do
   end
 
   create_table "sales", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "record_type"
+    t.bigint "record_id"
     t.string "folio"
-    t.string "reference"
-    t.datetime "date"
-    t.text "observation"
     t.bigint "payment_method_id", null: false
     t.bigint "payment_way_id", null: false
-    t.decimal "item_total", precision: 18, scale: 6
-    t.decimal "total", precision: 18, scale: 6
-    t.decimal "adjustment_total", precision: 18, scale: 6
-    t.decimal "tax", precision: 18, scale: 6
-    t.decimal "tax_total", precision: 18, scale: 6
-    t.decimal "tax_item_total", precision: 18, scale: 6
     t.string "state"
-    t.datetime "validity"
-    t.bigint "currency_id", null: false
-    t.decimal "exchange_rate", precision: 18, scale: 6
-    t.bigint "customer_id", null: false
-    t.text "condition"
-    t.integer "created_by_id"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["currency_id"], name: "index_sales_on_currency_id"
-    t.index ["customer_id"], name: "index_sales_on_customer_id"
     t.index ["payment_method_id"], name: "index_sales_on_payment_method_id"
     t.index ["payment_way_id"], name: "index_sales_on_payment_way_id"
+    t.index ["record_type", "record_id"], name: "index_sales_on_record_type_and_record_id"
   end
 
   create_table "service_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -472,6 +482,8 @@ ActiveRecord::Schema.define(version: 2020_05_22_154335) do
   add_foreign_key "diagnosis_descriptions", "diagnoses"
   add_foreign_key "items", "product_variants"
   add_foreign_key "order_accessories", "service_orders"
+  add_foreign_key "orders", "currencies"
+  add_foreign_key "orders", "customers"
   add_foreign_key "orders_types", "service_orders"
   add_foreign_key "orders_types", "type_service_orders"
   add_foreign_key "product_variant_images", "product_variants"
@@ -487,8 +499,6 @@ ActiveRecord::Schema.define(version: 2020_05_22_154335) do
   add_foreign_key "provider_contacts", "providers"
   add_foreign_key "quotations", "currencies"
   add_foreign_key "quotations", "customers"
-  add_foreign_key "sales", "currencies"
-  add_foreign_key "sales", "customers"
   add_foreign_key "sales", "payment_methods"
   add_foreign_key "sales", "payment_ways"
   add_foreign_key "service_orders", "customers"

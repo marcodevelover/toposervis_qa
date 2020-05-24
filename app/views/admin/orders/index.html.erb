@@ -1,10 +1,10 @@
             <p id="notice"><%= notice %></p>
             <div class="card">
                <div class="card-header">
-                <%= link_to new_admin_sale_path, :class => "btn btn-success ml-auto" do %>
+                <%= link_to new_admin_order_path, :class => "btn btn-success ml-auto" do %>
                   <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
                 <%end%>
-                <%= link_to filter_form_admin_sales_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                <%= link_to filter_form_admin_orders_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
                   <em class="fa mr-2 fas fa-search"></em>Buscar
                 <%end%>
                </div>

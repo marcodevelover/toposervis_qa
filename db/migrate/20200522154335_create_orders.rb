@@ -1,12 +1,12 @@
-class CreateSales < ActiveRecord::Migration[6.0]
+class CreateOrders < ActiveRecord::Migration[6.0]
   def change
-    create_table :sales do |t|
+    create_table :orders do |t|
       t.string :folio
-      t.string :reference
+      #t.string :reference
       t.datetime :date
       t.text :observation
-      t.references :payment_method, null: false, foreign_key: true
-      t.references :payment_way, null: false, foreign_key: true
+      #t.references :payment_method, null: false, foreign_key: true
+      #t.references :payment_way, null: false, foreign_key: true
       t.decimal :subtotal, precision: 18, scale: 6
       t.decimal :total, precision: 18, scale: 6
       t.decimal :adjustment_total, precision: 18, scale: 6

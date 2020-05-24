@@ -1,12 +1,12 @@
-class Admin::SalesController < ApplicationController
-  before_action :set_sale, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf]
+class Admin::OrdersController < ApplicationController
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf]
   respond_to :html, :json
 
   def page_name
      @page_name = "Ventas"
   end
-  # GET /sales
-  # GET /sales.json
+  # GET /orders
+  # GET /orders.json
   def index
     search
     respond_to do |format| 
@@ -15,8 +15,8 @@ class Admin::SalesController < ApplicationController
     end
   end
 
-  # GET /sales/1
-  # GET /sales/1.json
+  # GET /orders/1
+  # GET /orders/1.json
   def show
   end
 
@@ -26,7 +26,7 @@ class Admin::SalesController < ApplicationController
         format.pdf do
             render pdf: "1f",
             
-            template: "admin/sales/show_from_pdf.html.erb",
+            template: "admin/orders/show_from_pdf.html.erb",
             layout: "pdf.html",
             viewport_size: '1280x1024'
             
@@ -38,57 +38,58 @@ class Admin::SalesController < ApplicationController
   end
 
   def show_from_modal
-    respond_modal_with @sale
+    respond_modal_with @order
   end
-  # GET /sales/new
+  # GET /orders/new
   def new
-    @sale = Sale.new
+    @order = Order.new
+    @sale = @order.build_sale
   end
 
-  # GET /sales/1/edit
+  # GET /orders/1/edit
   def edit
   end
 
-  # POST /sales
-  # POST /sales.json
+  # POST /orders
+  # POST /orders.json
   def create
-    @sale = @sale || Sale.new(sale_params)
-    @sale.created_by_id = current_user.id
+    @order = @order || Order.new(order_params)
+    @order.created_by_id = current_user.id
 
     respond_to do |format|
-      if @sale.save
-        format.html { redirect_to [:admin, @sale], notice: 'Sale was successfully created.' }
-        format.json { render :show, status: :created, location: @sale }
+      if @order.save
+        format.html { redirect_to [:admin, @order], notice: 'Order was successfully created.' }
+        format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
-        format.json { render json: @sale.errors, status: :unprocessable_entity }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /sales/1
-  # PATCH/PUT /sales/1.json
+  # PATCH/PUT /orders/1
+  # PATCH/PUT /orders/1.json
   def update
     respond_to do |format|
-      if @sale.update(sale_params)
-        format.html { redirect_to [:admin, @sale], notice: 'Sale was successfully updated.' }
-        format.json { render :show, status: :ok, location: @sale }
+      if @order.update(order_params)
+        format.html { redirect_to [:admin, @order], notice: 'Order was successfully updated.' }
+        format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit }
-        format.json { render json: @sale.errors, status: :unprocessable_entity }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def delete
-    respond_modal_for_delete_with(@sale,true)
+    respond_modal_for_delete_with(@order,true)
   end
 
-  # DELETE /sales/1
-  # DELETE /sales/1.json
+  # DELETE /orders/1
+  # DELETE /orders/1.json
   def destroy
-    @sale.save!(context: :delete)
-    @object = @sale
+    @order.save!(context: :delete)
+    @object = @order
     respond_to do |format|
           if @object.save  
             search
@@ -128,7 +129,7 @@ class Admin::SalesController < ApplicationController
   end
 
   def filter_form
-    @q = Sale.ransack(params[:q])
+    @q = Order.ransack(params[:q])
     respond_modal_with @q 
   end
 
@@ -136,19 +137,20 @@ class Admin::SalesController < ApplicationController
     params[:q] ||= {} 
     params[:per_page] = 10
     
-    @q = Sale.search(params[:q])
-    @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])
+    @q = Order.search(params[:q])
+    @collection = @q.result(:distinct => true).includes(:sale).page(params[:page]).per(params[:per_page])
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_sale
-      @sale = Sale.find(params[:id])
+    def set_order
+      @order = Order.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def sale_params
-      params.require(:sale).permit(:folio, :reference, :date, :observation, :payment_method_id, :payment_way_id, :subtotal, :item_total, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :customer_id, :condition, :created_by_id, :deleted_at,
+    def order_params
+      params.require(:order).permit(:folio, :reference, :date, :observation, :payment_method_id, :payment_way_id, :subtotal, :item_total, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :customer_id, :condition, :created_by_id, :deleted_at,
+        sale_attributes: [:id, :folio, :payment_method_id, :payment_way_id, :_destroy],
         items_attributes: [ :id, :product_variant_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy ]
         )
     end

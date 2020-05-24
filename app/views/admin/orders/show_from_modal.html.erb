@@ -3,84 +3,84 @@
 
 <p>
   <strong>Folio:</strong>
-  <%= @sale.folio %>
+  <%= @order.sale.folio %>
 </p>
 
 <p>
   <strong>Item total:</strong>
-  <%= @sale.subtotal %>
+  <%= @order.subtotal %>
 </p>
 
 <p>
   <strong>Total:</strong>
-  <%= @sale.total %>
+  <%= @order.total %>
 </p>
 
 <p>
   <strong>Adjustment total:</strong>
-  <%= @sale.adjustment_total %>
+  <%= @order.adjustment_total %>
 </p>
 
 <p>
   <strong>Tax:</strong>
-  <%= @sale.tax %>
+  <%= @order.tax %>
 </p>
 
 <p>
   <strong>Tax total:</strong>
-  <%= @sale.tax_total %>
+  <%= @order.tax_total %>
 </p>
 
 <p>
   <strong>Tax item total:</strong>
-  <%= @sale.tax_item_total %>
+  <%= @order.tax_item_total %>
 </p>
 
 <p>
   <strong>State:</strong>
-  <%= @sale.state %>
+  <%= @order.state %>
 </p>
 
 <p>
   <strong>Date:</strong>
-  <%= @sale.date%>
+  <%= @order.date%>
 </p>
 <p>
   <strong>Método de pago:</strong>
-  <%= @sale.payment_method ? @sale.payment_method.name : "N/A" %>
+  <%= @order.sale.payment_method ? @order.sale.payment_method.name : "N/A" %>
 </p>
 <p>
   <strong>Forma de pago:</strong>
-  <%= @sale.payment_way ? @sale.payment_way.name : "N/A" %>
+  <%= @order.sale.payment_way ? @order.sale.payment_way.name : "N/A" %>
 </p>
 <p>
   <strong>Currency:</strong>
-  <%= @sale.currency ? @sale.currency.abbreviation : "N/A" %>
+  <%= @order.currency ? @order.currency.abbreviation : "N/A" %>
 </p>
 
 <p>
   <strong>Exchange rate:</strong>
-  <%= @sale.exchange_rate %>
+  <%= @order.exchange_rate %>
 </p>
 
 <p>
   <strong>Customer:</strong>
-  <%= @sale.customer ? @sale.customer.name : "N/A" %>
+  <%= @order.customer ? @order.customer.name : "N/A" %>
 </p>
 
 <p>
   <strong>Condition:</strong>
-  <%= @sale.observation %>
+  <%= @order.observation %>
 </p>
 
 <p>
   <strong>Created by:</strong>
-  <%= @sale.created_by_id %>
+  <%= @order.created_by_id %>
 </p>
 
 <h4>Productos</h4>
 
-<% @sale.items.each do |item| %>
+<% @order.items.each do |item| %>
   <p>
     <strong>Producto:</strong>
     <%= item.product_variant.product.name %>
@@ -89,7 +89,7 @@
 
 <p>
   <strong>Canceled at:</strong>
-  <%= @sale.deleted_at %>
+  <%= @order.deleted_at %>
 </p>
 
 </div>

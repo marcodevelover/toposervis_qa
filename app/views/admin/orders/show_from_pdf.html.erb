@@ -29,22 +29,22 @@
                 <tr>
                   <td>
                   	<b>Contacto:</b>
-                    <%= @sale.customer.customer_contacts.first.name %><br>
+                    <%= @order.customer.customer_contacts.first.name %><br>
                     <b>Compañia:</b>
-                    <%= @sale.customer.business_name %><br>
+                    <%= @order.customer.business_name %><br>
                     <b>E-mail:</b>
-                    <%= @sale.customer.customer_contacts.first.email %><br>
+                    <%= @order.customer.customer_contacts.first.email %><br>
                     <b>Método de pago:</b>
-                    <%= @sale.payment_method.name %><br>
+                    <%= @order.sale.payment_method.name %><br>
                     <b>Forma de pago:</b>
-                    <%= @sale.payment_way.name %>
+                    <%= @order.sale.payment_way.name %>
                   </td>
                   <td>
                   	<b>Nota de venta</b><br>
                   	<b>Folio:</b>
-                    <%= @sale.folio %><br>
+                    <%= @order.sale.folio %><br>
                     <b>Fecha:</b>
-                    <%= @sale.created_at.strftime("%d-%m-%Y") %>
+                    <%= @order.created_at.strftime("%d-%m-%Y") %>
                   </td>
 
                 </tr>
@@ -60,7 +60,7 @@
             <td>Total</td>
           </tr>
 
-          <% @sale.items.each do |item| %>
+          <% @order.items.each do |item| %>
             <tr class="item">
                 <td>
                     <%= item.name %><br>
@@ -94,28 +94,28 @@
           <tr>
             <td colspan="3"></td>
             <td><b>Subtotal</b></td>
-            <td><%= number_to_currency(@sale.subtotal) %></td>
+            <td><%= number_to_currency(@order.subtotal) %></td>
           </tr>
 
           <tr>
             <td colspan="3"></td>
-            <% if @sale.adjustment_total != 0 %>
+            <% if @order.adjustment_total != 0 %>
             <td><b>Descuento</b></td>
-            <td>- <%= number_to_currency(@sale.adjustment_total) %></td>
+            <td>- <%= number_to_currency(@order.adjustment_total) %></td>
             <% end %>
           </tr>
 
           <tr>
             <td colspan="3"></td>
-            <td><b>Impuesto (<%= (@sale.tax * 100).to_i %>%)</b></td>
-            <td>+ <%= number_to_currency(@sale.tax_total) %></td>
+            <td><b>Impuesto (<%= (@order.tax * 100).to_i %>%)</b></td>
+            <td>+ <%= number_to_currency(@order.tax_total) %></td>
           </tr>
 
           <tr class="heading">
             <td colspan="3"></td>
             <td><b>TOTAL:</b></td>
             <td>
-               <b><%= number_to_currency(@sale.total) %></b>
+               <b><%= number_to_currency(@order.total) %></b>
             </td>
           </tr>
 

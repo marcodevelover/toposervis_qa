@@ -10,14 +10,30 @@
                         <div class="form-group row">
                            <div class="col-md-12">
                               <div class="form-row">
+
+          <div class="col-lg-8 mb-8x">
+            <label class="control-label">Cotización</label>
+             <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" id="note_quotation" style="width: 100%">
+            </select>
+          </div>
+
+
+
+                              </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                           <div class="col-md-12">
+                              <div class="form-row">
                                 <div class="col-lg-4 mb-4">
                                   <label class="form-label">Fecha</label>
                                   <div class="form-group"> 
                                     <%= form.text_field :date, class: "form-control" , placeholder: "Vigencia", type: 'date', value: (form.object.date ? form.object.date.to_date : '')%>
                                   </div>  
                                 </div> 
-                                 <div class="col-lg-4 mb-4">
-                                   <%= form.label :currency_id, class: "col-form-label"%>
+                                 <div class="col-lg-4 mb-4" >
+                                   <%= form.label :currency_id, class: "col-form-label", id: "for_currency"%>
                                    <div class="form-group">
                                      <%= form.collection_select :currency_id, Currency.all, :id, :abbreviation, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
                                    </div>
@@ -483,6 +499,107 @@ function formatRepo (repo) {
 
 function formatRepoSelection (repo) {
   return repo.rfc || repo.text;
+}
+
+</script>
+
+<script type="text/javascript">
+
+$("#note_quotation").select2({
+  ajax: {
+    url: '/admin/<%=controller_name%>/quotations',
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: {folio_cont: params.term}, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      // parse the results into the format expected by Select2
+      // since we are using custom formatting functions we do not need to
+      // alter the remote JSON data, except to indicate that infinite
+      // scrolling can be used
+      params.page = params.page || 1;
+
+      return {
+        results: data.quotations,
+        pagination: {
+          more: (params.page * 30) < data.total_count
+        }
+      };
+    },
+    cache: true
+  },
+  placeholder: 'Buscar Cotización',
+  allowClear: true,
+  minimumInputLength: 1,
+  templateResult: formatRepo,
+  templateSelection: formatRepoSelection
+});
+
+function formatRepo (repo) {
+  if (repo.loading) {
+    return repo.text;
+  }
+
+  var $container = $(
+    "<div class='select2-result-repository clearfix'>" +
+      "<div class='select2-result-repository__meta'>" +
+        "<div class='select2-result-repository__id'>ID: </div>" +
+        "<div class='select2-result-repository__code'>Folio: </div>" +
+        "<div class='select2-result-repository__unit_price'>Precio unitario: </div>" +
+        
+      "</div>" +
+    "</div>"
+  );
+
+
+  $container.find(".select2-result-repository__id").append(repo.id);
+  $container.find(".select2-result-repository__code").append(repo.folio);
+  //$container.find(".select2-result-repository__unit_price").append(repo.unit_price);
+//add all accesories
+
+
+  var productCount = 0;
+  var obj = repo.items;
+  if (obj == ""){
+    $( "#items" ).remove();
+  }
+
+  var tbl = $("<tbody/>").attr("id","items");
+  $("#table_product tbody").append(tbl);
+  for(var i=0;i<obj.length;i++)
+  {
+      var tr="<tr class='text-center' data_id='"+productCount+"' >";
+      var td1="<td>"+obj[i]["name"]+"</td>";
+      var td2="<td><input type='number' value='0' name='sale[items_attributes]["+productCount+"][quantity]'  ></td>"
+      var td3="<td><button type='button' class='btn btn-sm btn-icon btn-pure btn-outline btnDelete'><em class='fa-2x icon-close mr-2'></em></button></td></tr>";
+      var hidden="<input type='hidden' value="+obj[i]["name"]+" name='sale[items_attributes]["+productCount+"][name]'  >"
+      
+     $("#items").append(tr+td1+td2+hidden);  
+     productCount += 1;
+    
+  } 
+
+//end products  
+  return $container;
+}
+
+function formatRepoSelection (repo) {
+  // take the value of the currency
+  
+  $("#sale_exchange_rate").val(repo.exchange_rate);
+  $("#sale_currency_id").val(repo.currency_id);
+  $("#sale_currency_id").trigger('change'); 
+  $("#sale_customer_id").val(repo.customer_id);
+  $("#sale_customer_id").trigger('change'); 
+
+ 
+
+
+  return repo.folio || repo.text;
 }
 
 </script>
