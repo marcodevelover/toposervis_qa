@@ -1,5 +1,5 @@
 class Admin::QuotationsController < ApplicationController
-  before_action :set_quotation, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf]
+  before_action :set_quotation, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :sales]
   respond_to :html, :json
 
   def page_name
@@ -102,6 +102,10 @@ class Admin::QuotationsController < ApplicationController
     end
   end
 
+  def sales
+    @quotation.sale.nil? ? @quotation.build_sale : @quotation.sale
+  end
+
   def product_variants
     @q = ProductVariant.ransack(params[:q])
     @product_variants = @q.result(distinct: true)
@@ -142,6 +146,7 @@ class Admin::QuotationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def quotation_params
       params.require(:quotation).permit(:folio, :subtotal, :item_total, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :customer_id, :condition, :created_by_id, :deleted_at,
+        sale_attributes: [:id, :folio, :payment_method_id, :payment_way_id, :_destroy],
         items_attributes: [ :id, :product_variant_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy ]
         )
     end

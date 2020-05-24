@@ -7,7 +7,12 @@ class Quotation < ApplicationRecord
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
+  has_one :sale, as: :record
+  accepts_nested_attributes_for :sale
+
   before_create :set_folio, :set_tax, :set_state
+  before_update :set_diagnosed, if: Proc.new { self.sale.present? && state == "active" }
+  # active, sold
 
   def set_folio
     @prefix = "C"
@@ -23,4 +28,8 @@ class Quotation < ApplicationRecord
   def set_state
     self.state = "active"
   end
+
+  def set_diagnosed
+    self.state = "sold"
+  end  
 end

@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       get :filter_form, on: :collection
       get :show_from_modal, on: :member
       get :show_from_pdf, on: :member
+      get :sales, on: :member
     end
     resources :quotation_items
     resources :diagnoses do

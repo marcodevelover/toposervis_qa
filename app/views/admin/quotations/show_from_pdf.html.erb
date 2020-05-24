@@ -33,9 +33,23 @@
                     <b>Compañia:</b>
                     <%= @quotation.customer.business_name %><br>
                     <b>E-mail:</b>
-                    <%= @quotation.customer.customer_contacts.first.email %>
+                    <%= @quotation.customer.customer_contacts.first.email %><br>
+                    <% if @quotation.sale.present? %>
+                    <b>Método de pago:</b>
+                    <%= @quotation.sale.payment_method.name %><br>
+                    <b>Forma de pago:</b>
+                    <%= @quotation.sale.payment_way.name %>            
+                    <% end %>
                   </td>
+
                   <td>
+                    <% if @quotation.sale.present?%>
+                    <b>Nota de venta</b><br>
+                    <b>Folio:</b>
+                    <%= @quotation.sale.folio %><br>
+                    <b>Fecha:</b>
+                    <%= @quotation.sale.created_at.strftime("%d-%m-%Y") %><br>
+                    <% end %>                    
                   	<b>Cotización</b><br>
                   	<b>Folio:</b>
                     <%= @quotation.folio %><br>
@@ -95,8 +109,10 @@
 
           <tr>
             <td colspan="3"></td>
+            <% if @quotation.adjustment_total != 0 %>
             <td><b>Descuento</b></td>
             <td>- <%= number_to_currency(@quotation.adjustment_total) %></td>
+            <% end %>
           </tr>
 
           <tr>

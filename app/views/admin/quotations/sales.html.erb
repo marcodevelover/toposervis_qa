@@ -1,0 +1,228 @@
+<%= simple_form_for([:admin, @quotation]) do |form| %>
+  <%= form.error_notification %>
+  <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
+            <!-- START card-->
+            <div class="card card-default">
+               <div class="card-body">
+                  
+                     <h3></h3>
+                     <fieldset>
+                        <div class="form-group row">
+                           <div class="col-md-12">
+                              <div class="form-row">
+                                <div class="col-lg-4 mb-4">
+                                  <label class="form-label">Vigencia</label>
+                                  <div class="form-group"> 
+                                    <%= form.text_field :validity, class: "form-control" , placeholder: "Vigencia", type: 'date', value: (form.object.validity ? form.object.validity.to_date : '')%>
+                                  </div>  
+                                </div> 
+                                 <div class="col-lg-4 mb-4x">
+                                  <label class="decimal optional col-form-label" for="quotation_exchange_rate">Moneda</label>
+                                    <input class="form-control" type="text" readonly="readonly" value="<%=@quotation.currency.abbreviation%>">
+                                 </div>
+
+
+                                 <div class="col-lg-4 mb-4x">
+                                        <%= form.label :exchange_rate, class: "col-form-label"%> *
+                                        <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true, readonly: true %>
+                                 </div>
+                              </div>
+                          </div>
+                        </div>
+<!--pay-->
+                        <%= form.simple_fields_for :sale do |sale| %>
+                         <div class="form-group row">
+                           <div class="col-md-12">
+                              <div class="form-row">
+ 
+
+                                 <div class="col-lg-6 mb-6">
+                                   <%= form.label :folio, class: "col-form-label"%>
+                                   <div class="form-group">
+                                     <%= sale.text_field :folio, class: 'form-control', readonly: true %>
+                                   </div>
+                                 </div>
+
+
+                              </div>
+                          </div>
+                        </div>
+                        <br>                  
+                        <div class="form-group row">
+                           <div class="col-md-12">
+                              <div class="form-row">
+ 
+
+                                 <div class="col-lg-6 mb-6">
+                                   
+                                   <div class="form-group">
+                                     <%= sale.association :payment_method, input_html: { class: 'custom-select custom-select-sm' } %>
+                                   </div>
+                                 </div>
+                                 <div class="col-lg-6 mb-6">
+                                   
+                                   <div class="form-group">
+                                     <%= sale.association :payment_way, input_html: { class: 'custom-select custom-select-sm' } %>
+                                   </div>
+                                 </div>
+
+                              </div>
+                          </div>
+                        </div>
+                      </br>
+                        <% end %>
+<!--end pay-->
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <div class="form-row">
+                              <div class="col-lg-8 mb-8">
+                                <%= form.association :customer, input_html: { class: 'custom-select custom-select-sm' } %>
+                              </div>
+                              <div class="col-lg-4 mb-4">
+                                </br>
+                               <%= link_to new_admin_customer_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                                 <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
+                               <%end%>                                  
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </br>
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <div class="form-row">
+                              <div class="col-lg-12 mb-12">
+                                <label for="validationServer03"><b>Términos y condiciones</b></label>
+                                <%= form.text_area :condition, class: "form-control", rows: 10 %>
+                              </div>
+
+                            </div>
+                          </div>
+
+                        </div>
+                      </br>
+
+                          <!-- begin my product -->
+                              <!-- Table Products -->
+                      <h4 class="box-title m-t-40">Productos y/o Servicios</h4>
+                      <hr>
+
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <div id="open_modal" class="btn btn-success ml-auto">
+                              <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </br>
+                                                          
+                      <div class="col-lg-12">
+                        <div class="white-box">
+                          <table id="table_product" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+                            <thead id="product_head" >
+                              <tr>
+                                <th class="text-center" data-field="product">Producto</th>
+                                <th class="text-center" data-field="quantity">Cantidad</th>
+                                <th class="text-center" data-field="unit_price">Precio</th>
+                                <th class="text-center" data-field="unit">Unidad</th>
+                                <th class="text-center" data-field="discount_import">Descuento importe</th>
+                                <th class="text-center" data-field="total_price">Precio total</th>
+                                <th class="text-center" data-field="last_name" data-sort-ignore="true" class="min-width">Eliminar</th>
+                              </tr>
+                            </thead>
+                              <tbody>
+                                
+                                <%if @quotation.items.first %>
+                                  <% @quotation.items.each_with_index do |item,index| %>
+                                    <tr class="text-center" data-id="<%=item.id%>">
+                                      
+                                      <td>
+                                      <%= item.name %><br>
+                                      <small><%= item.extended_description ? item.extended_description : "" %></small>
+                                      </td>
+                                      <td><%= item.quantity %></td>
+                                      <td><%= item.unit_price %></td>
+
+                                      <td><%= item.unit %></td>
+
+                                  
+
+                                      <td class="row_total_discount"><%= item.adjustment_total ? item.adjustment_total : 0%></td>
+                                      <td class="row_total_price"><%= item.total %></td>
+
+                                      <td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>
+
+                                      
+
+                                        <input type="hidden" value="<%=item.product_variant.id%>" name="quotation[items_attributes][<%=index%>][product_variant_id]">
+                                        
+                                        <input type="hidden" value="<%=item.name%>" name="quotation[items_attributes][<%=index%>][name]">
+                                        <input type="hidden" value="<%=item.extended_description%>" name="quotation[items_attributes][<%=index%>][extended_description]">
+                                        <input type="hidden" value="<%=item.unit%>" name="quotation[items_attributes][<%=index%>][unit]">
+                                        <input type="hidden" value="<%=item.quantity%>" name="quotation[items_attributes][<%=index%>][quantity]">
+                                        <input type="hidden" value="<%=item.unit_price%>" name="quotation[items_attributes][<%=index%>][unit_price]">
+
+                                        <input type="hidden" value="<%=item.total%>" name="quotation[items_attributes][<%=index%>][total]">
+                                        <input type="hidden" value="<%=item.id%>" name="quotation[items_attributes][<%=index%>][id]">
+                                    </tr>
+                                  <%end%>
+                                <%end%>
+
+                              </tbody>
+                          </table>
+                        </div>
+                      </div>
+    
+                      <div class="col-lg-12">
+                        <div class="col-md-3 offset-md-9">
+                          <div class="form-group">
+                            <label class="control-label">Importe ($)</label>
+                            <%= form.text_field :subtotal,class:"form-control",id:"total_sale", readonly:"readonly" %>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12">
+                        <div class="col-md-3 offset-md-9">
+                          <div class="form-group">
+                            <label class="control-label">Descuento ($)</label>
+                            <%= form.text_field :adjustment_total,class:"form-control",id:"adjustment_total", readonly:"readonly" %>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-lg-12">
+                        <div class="col-md-3 offset-md-9">
+                          <div class="form-group">
+                            <label class="control-label">IVA ($)</label>
+                            <%= form.text_field :tax_total,class:"form-control",id:"tax_total", readonly:"readonly" %>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-12">
+                        <div class="col-md-3 offset-md-9">
+                          <div class="form-group">
+                            <label class="control-label">Total ($)</label>
+                            <%= form.text_field :total,class:"form-control",id:"total_with_tax", readonly:"readonly" %>
+                          </div>
+                        </div>
+                      </div>                 
+                      </br>
+                     <div class="clearfix">
+                        <div class="float-right">
+                        <%= form.submit class: "btn btn-primary" %>
+
+                        <%= link_to admin_quotations_path, :class => "btn btn-secondary" do %>
+                            Cancelar
+                        <%end%>     
+                        </div>
+                     </div>
+                      
+                      </fieldset>
+               </div> <!--card-body card-->
+            </div>
+            <!-- END card-->
+<% end %>
