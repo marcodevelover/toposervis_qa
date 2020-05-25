@@ -101,6 +101,9 @@ Rails.application.routes.draw do
       get :show_from_modal, on: :member
       get :show_from_pdf, on: :member
     end
+    resources :sales do
+      get :filter_form, on: :collection
+    end
     #resources :diagnoses
   end
   namespace :admin do

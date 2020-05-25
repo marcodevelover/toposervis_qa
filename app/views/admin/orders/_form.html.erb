@@ -35,16 +35,18 @@
                          <div class="form-group row">
                            <div class="col-md-12">
                               <div class="form-row">
- 
-
+                                 <div class="col-lg-6 mb-6">
+                                   <div class="form-group">
+                                     <% @states  = ["", "payment", "pending"]  %>
+                                     <%= sale.input :state, collection: @states, selected: @order.sale.state, input_html: { class: 'custom-select custom-select-sm' } %>                                      
+                                   </div>
+                                 </div>
                                  <div class="col-lg-6 mb-6">
                                    <%= form.label :folio, class: "col-form-label"%>
                                    <div class="form-group">
                                      <%= sale.text_field :folio, class: 'form-control', readonly: true %>
                                    </div>
                                  </div>
-
-
                               </div>
                           </div>
                         </div>

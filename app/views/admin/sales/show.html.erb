@@ -1,0 +1,27 @@
+<div class="modal-body">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Origen:</strong>
+  <%= @sale.record_type %>
+</p>
+<p>
+  <strong>Folio:</strong>
+  <%= @sale.folio %>
+</p>
+<p>
+  <strong>Método de pago:</strong>
+  <%= @sale.payment_method.name %>
+</p>
+<p>
+  <strong>Forma de pago:</strong>
+  <%= @sale.payment_way.name %>
+</p>
+
+
+</div>
+<div class="modal-footer"> 
+     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+</div> 
+
+<div id="modal-holder" ></div>

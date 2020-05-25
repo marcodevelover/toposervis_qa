@@ -1,0 +1,125 @@
+<%= simple_form_for([:admin, @provider], remote: request.xhr?, html: { data: { modal: true } }) do |form| %>               
+                  
+<div class="modal-body">
+  <div style="background-color:#f05050; border-color: #f05050; border-radius: 0.25rem; color:white; font-weight:bold;">
+        <ul class="errors"></ul>
+  </div> 
+
+  <div class="form-group">
+        <%= form.label :name, class: "col-form-label"%> *
+        <%= form.text_field :name, class: "form-control", type: "text", required: true %>
+  </div>
+
+  <div class="form-group">
+        <%= form.label :rfc, class: "col-form-label"%> *
+        <%= form.text_field :rfc, class: "form-control", type: "text", required: true %>
+  </div>
+
+  <div class="form-group">
+        <%= form.label :business_name , class: "col-form-label"%>
+        <%= form.text_field :business_name , class: "form-control", type: "text" %>
+  </div>
+
+  <%= form.fields_for :provider_address_attributes do |f| %>
+  <div class="form-group">
+        <%= f.label :street, class: "col-form-label"%>
+        <%= f.text_field :street , class: "form-control", type: "text" %>
+  </div>
+
+  <div class="form-group">
+        <%= f.label :number, class: "col-form-label"%>
+        <%= f.text_field :number, class: "form-control", type: "text" %>
+  </div>
+
+  <div class="form-group">
+        <%= f.label :crossing, class: "col-form-label"%>
+        <%= f.text_field :crossing, class: "form-control", type: "text" %>
+  </div>
+
+  <div class="form-group">
+        <%= f.label :postcode, class: "col-form-label"%>
+        <%= f.text_field :postcode, class: "form-control", type: "text" %>
+  </div>
+
+  <div class="form-group">
+        <%= f.label :colony, class: "col-form-label"%>
+        <%= f.text_field :colony, class: "form-control", type: "text" %>
+  </div>
+
+  <div class="form-group">
+        <%= f.label :town, class: "col-form-label"%>
+        <%= f.text_field :town, class: "form-control", type: "text" %>
+  </div>
+
+  <div class="form-group">
+        <%= f.label :state, class: "col-form-label"%>
+        <%= f.text_field :state, class: "form-control", type: "text" %>
+  </div>
+
+  <div class="form-group">
+        <%= f.label :country, class: "col-form-label"%>
+        <%= f.text_field :country, class: "form-control", type: "text" %>
+  </div>
+
+  <% end %>
+
+  <%= form.fields_for :provider_contacts do |f| %>
+        <%= render 'provider_contact_fields', f: f %>
+  <% end %>
+
+  <%= link_to_add_fields "Agregar Contacto", form, :provider_contacts %>
+
+  <%= form.fields_for :provider_bank_attributes do |f| %>
+  <div class="form-group">
+        <%= f.label :beneficiary, class: "col-form-label"%>
+        <%= f.text_field :beneficiary , class: "form-control", type: "text" %>
+  </div>
+
+  <div class="form-group">
+        <%= f.label :account, class: "col-form-label"%>
+        <%= f.text_field :account, class: "form-control", type: "text" %>
+  </div>
+
+  <div class="form-group">
+        <%= f.label :clabe, class: "col-form-label"%>
+        <%= f.text_field :clabe, class: "form-control", type: "text" %>
+  </div>
+
+  <div class="form-group">
+        <%= f.label :bank_name, class: "col-form-label"%>
+        <%= f.text_field :bank_name, class: "form-control", type: "text" %>
+  </div>
+
+  <div class="form-group">
+        <%= f.label :currency, class: "col-form-label"%>
+        <%= f.text_field :currency, class: "form-control", type: "text" %>
+  </div>
+  <% end %>
+
+   <div class="required">* Required fields</div>
+</div>
+<div class="modal-footer">
+   <div class="clearfix">
+      <div class="float-right">
+        <%= form.submit class: "btn btn-primary" %>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+   </div>
+</div>
+                     
+<% end %>
+
+<script type="text/javascript">
+$("[data-form-prepend]").click(function(e) {
+  var obj = $($(this).attr("data-form-prepend"));
+  obj.find("input, select, textarea").each(function() {
+    $(this).attr("name", function() {
+      return $(this)
+        .attr("name")
+        .replace("new_record", new Date().getTime());
+    });
+  });
+  obj.insertBefore(this);
+  return false;
+});          
+</script>

@@ -3,7 +3,7 @@ class Admin::OrdersController < ApplicationController
   respond_to :html, :json
 
   def page_name
-     @page_name = "Ventas"
+     @page_name = "Orden de Ventas"
   end
   # GET /orders
   # GET /orders.json
@@ -150,7 +150,7 @@ class Admin::OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:folio, :reference, :date, :observation, :payment_method_id, :payment_way_id, :subtotal, :item_total, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :customer_id, :condition, :created_by_id, :deleted_at,
-        sale_attributes: [:id, :folio, :payment_method_id, :payment_way_id, :_destroy],
+        sale_attributes: [:id, :folio, :payment_method_id, :payment_way_id, :state, :_destroy],
         items_attributes: [ :id, :product_variant_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy ]
         )
     end

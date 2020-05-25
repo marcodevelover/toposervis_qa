@@ -216,7 +216,7 @@ class Admin::ServiceOrdersController < ApplicationController
         type_service_order_ids: [], images_attachments_attributes: [:id, :_destroy],
         diagnosis_attributes: [ :id, :service_order_id, :date, :delivery_time, :date_delivery, :diagnosis_type_id, :subtotal, :adjustment_total, :tax_total, :total,
           images_attachments_attributes: [:id, :_destroy],
-          sale_attributes: [:id, :folio, :payment_method_id, :payment_way_id, :_destroy],
+          sale_attributes: [:id, :folio, :payment_method_id, :payment_way_id, :state, :_destroy],
           diagnosis_descriptions_attributes: [:id, :diagnosis_id, :description, :created_by_id, :deleted_at, :_destroy],
           items_attributes: [ :id, :product_variant_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy ]
           ]

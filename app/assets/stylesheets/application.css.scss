@@ -89,3 +89,33 @@ a.badge-sold:focus, a.badge-sold.focus {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(114, 102, 186, 0.5);
 }
+/* payment */
+.badge-payment {
+  color: #fff;
+  background-color: #27c24c;
+}
+
+a.badge-payment:hover, a.badge-payment:focus {
+  color: #fff;
+  background-color: #1e983b;
+}
+
+a.badge-payment:focus, a.badge-payment.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(39, 194, 76, 0.5);
+}
+/* pending */
+.badge-pending {
+  color: #fff;
+  background-color: #ff902b;
+}
+
+a.badge-pending:hover, a.badge-pending:focus {
+  color: #212529;
+  background-color: #f77600;
+}
+
+a.badge-pending:focus, a.badge-pending.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 144, 43, 0.5);
+}
