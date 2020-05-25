@@ -201,9 +201,21 @@
                     <b>Compañia:</b>
                     <%= @service_order.customer.business_name %><br>
                     <b>E-mail:</b>
-                    <%= @service_order.customer.customer_contacts.first.email %>
-                  </td>
+                    <%= @service_order.customer.customer_contacts.first.email %><br>
+                    <% if @service_order.diagnosis.sale.present? %>
+                    <b>Método de pago:</b>
+                    <%= @service_order.diagnosis.sale.payment_method.name %><br>
+                    <b>Forma de pago:</b>
+                    <%= @service_order.diagnosis.sale.payment_way.name %>            
+                    <% end %>
                   <td>
+                    <% if @service_order.diagnosis.sale.present?%>
+                    <b>Nota de venta</b><br>
+                    <b>Folio:</b>
+                    <%= @service_order.diagnosis.sale.folio %><br>
+                    <b>Fecha:</b>
+                    <%= @service_order.diagnosis.sale.created_at.strftime("%d-%m-%Y") %><br>
+                    <% end %>
                     <b>Orden de servicio</b><br>
                     <b>Folio:</b>
                     <%= @service_order.folio %><br>

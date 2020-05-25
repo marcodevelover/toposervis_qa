@@ -1,5 +1,5 @@
 class Admin::ServiceOrdersController < ApplicationController
-  before_action :set_service_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :diagnoses, :output, :delivered]
+  before_action :set_service_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :diagnoses, :output, :delivered, :sales]
   respond_to :html, :json
 
   def page_name
@@ -84,6 +84,11 @@ class Admin::ServiceOrdersController < ApplicationController
     #@service_order.diagnosis ||= @service_order.build_diagnosis
     
     #@service_order.diagnosis.diagnosis_descriptions.created_by_id = current_user.id
+    if params[:service_order][:diagnosis_attributes][:sale_attributes].present?
+      @service_order.diagnosis.sale.nil? ? @service_order.diagnosis.build_sale : @service_order.diagnosis.sale
+      @service_order.diagnosis.sale.created_by_id = current_user.id
+    end
+
     if params[:service_order][:images].present?
         params[:service_order][:images].each do |image|
         @service_order.images.attach(image)
@@ -151,6 +156,10 @@ class Admin::ServiceOrdersController < ApplicationController
       end
   end
 
+  def sales
+    @service_order.diagnosis.sale.nil? ? @service_order.diagnosis.build_sale : @service_order.diagnosis.sale
+  end
+
   def customers
     @q = Customer.ransack(params[:q])
     @customers = @q.result(distinct: true)
@@ -164,10 +173,11 @@ class Admin::ServiceOrdersController < ApplicationController
     @q = Product.ransack(params[:q])
     @products = @q.result(distinct: true)
     total_count = @products.count
+    total_accessories = @products.first.accessories.count
     #accessories_count = @products.first.accessories.count
     #@products.accessories ? accessories_count = @products.first.accessories.count : "null"
     respond_to do |format|
-      format.json { render json: { total: total_count, products: @products.map { |s| {id: s.id, name:  s.name, accessories: s.accessories } } } }
+      format.json { render json: { total: total_count, products: @products.map { |s| {id: s.id, name:  s.name, accessories: s.accessories, total_accessories: total_accessories } } } }
     end
   end
 
@@ -206,6 +216,7 @@ class Admin::ServiceOrdersController < ApplicationController
         type_service_order_ids: [], images_attachments_attributes: [:id, :_destroy],
         diagnosis_attributes: [ :id, :service_order_id, :date, :delivery_time, :date_delivery, :diagnosis_type_id, :subtotal, :adjustment_total, :tax_total, :total,
           images_attachments_attributes: [:id, :_destroy],
+          sale_attributes: [:id, :folio, :payment_method_id, :payment_way_id, :_destroy],
           diagnosis_descriptions_attributes: [:id, :diagnosis_id, :description, :created_by_id, :deleted_at, :_destroy],
           items_attributes: [ :id, :product_variant_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy ]
           ]

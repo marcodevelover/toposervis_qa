@@ -4,7 +4,7 @@ class ApplicationRecord < ActiveRecord::Base
   include ActiveStorageSupport::SupportForBase64
 
   before_validation :erase , on: :delete 
-  before_validation :delivered , on: :output 
+  before_validation :delivered , on: :output, if: Proc.new { self.diagnosis.present? && self.sale.present? && state == "sold" } 
   def erase	
   	self.deleted_at=Time.now
   end  

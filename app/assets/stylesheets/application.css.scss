@@ -79,15 +79,13 @@ a.badge-delivered:focus, a.badge-delivered.focus {
 /* sold */
 .badge-sold {
   color: #fff;
-  background-color: #23b7e5;
+  background-color: #7266ba;
 }
-
 a.badge-sold:hover, a.badge-sold:focus {
   color: #fff;
-  background-color: #1797be;
+  background-color: #564aa3;
 }
-
 a.badge-sold:focus, a.badge-sold.focus {
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(35, 183, 229, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(114, 102, 186, 0.5);
 }

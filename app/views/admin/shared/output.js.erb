@@ -21,7 +21,7 @@ swal({
 }).then(function(isConfirm) {
 
     if (isConfirm) {
-        swal('Deleted!', 'Tu registro se ha dado de baja.', 'success');
+        swal('Deleted!', 'Se ha realizado la salida del servico.', 'success');
         $.ajax({
                 url: "/admin/<%=controller_name%>/<%=@object.id%>/delivered",
                 type: "PUT",  
@@ -30,7 +30,7 @@ swal({
  
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    swal("Error deleting!", "Please try again", "error");
+                    swal("Error!", "Tu orden de salida aun no se encuentra pagada", "error");
                 }
             });                
     } else {

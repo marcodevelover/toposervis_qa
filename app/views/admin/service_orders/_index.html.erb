@@ -28,12 +28,15 @@
                 <em class="fa fa-cogs"></em> 
             <%end%>
 
+            <%if object.diagnosis.present?%>
+            <%= link_to sales_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
+                <em class="fa fa-money-bill-alt"></em> 
+            <%end%>
+            <%end%>
           
-          <% if object.diagnosis.present? %>
-          <%= link_to output_admin_service_order_path(object), :class => "btn btn-sm btn-info", remote: true   do %>
-            <em class="fa fa-share"></em> 
-          <%end%> 
-          <% end %>
+            <%= link_to output_admin_service_order_path(object), :class => "btn btn-sm btn-info", remote: true   do %>
+                <em class="fa fa-share"></em> 
+            <% end %>
 
             <button class="btn dropdown-toggle btn-info" type="button" data-toggle="dropdown" aria-expanded="false"><em class="fas fa-print"></em></button>
                <div class="dropdown-menu" role="menu" style="">

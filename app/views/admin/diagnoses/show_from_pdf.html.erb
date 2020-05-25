@@ -34,8 +34,21 @@
                     <%= @diagnosis.service_order.customer.business_name %><br>
                     <b>E-mail:</b>
                     <%= @diagnosis.service_order.customer.customer_contacts.first.email %>
+                    <% if @diagnosis.sale.present? %>
+                    <b>Método de pago:</b>
+                    <%= @diagnosis.sale.payment_method.name %><br>
+                    <b>Forma de pago:</b>
+                    <%= @diagnosis.sale.payment_way.name %>            
+                    <% end %>
                   </td>
                   <td>
+                    <% if @diagnosis.sale.present?%>
+                    <b>Nota de venta</b><br>
+                    <b>Folio:</b>
+                    <%= @diagnosis.sale.folio %><br>
+                    <b>Fecha:</b>
+                    <%= @diagnosis.sale.created_at.strftime("%d-%m-%Y") %><br>
+                    <% end %>
                   	<b>Orden de servicio</b><br>
                   	<b>Folio:</b>
                     <%= @diagnosis.service_order.folio %><br>

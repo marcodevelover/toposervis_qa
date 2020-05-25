@@ -82,6 +82,7 @@ Rails.application.routes.draw do
       get :show_from_pdf, on: :member
       get :diagnoses, on: :member
       get :product_variants, on: :collection
+      get :sales, on: :member
     end
     resources :payment_ways  do
       get :delete, on: :member

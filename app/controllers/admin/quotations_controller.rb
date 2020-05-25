@@ -72,6 +72,11 @@ class Admin::QuotationsController < ApplicationController
   # PATCH/PUT /quotations/1
   # PATCH/PUT /quotations/1.json
   def update
+    if params[:quotation][:sale_attributes].present?
+      @quotation.sale.nil? ? @quotation.build_sale : @quotation.sale
+      @quotation.sale.created_by_id = current_user.id
+    end
+
     respond_to do |format|
       if @quotation.update(quotation_params)
         format.html { redirect_to [:admin, @quotation], notice: 'Quotation was successfully updated.' }

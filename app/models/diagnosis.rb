@@ -12,6 +12,9 @@ class Diagnosis < ApplicationRecord
   has_many :product_variants, through: :items
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
+  has_one :sale, as: :record
+  accepts_nested_attributes_for :sale
+
   before_create :set_tax
 
   def set_tax
