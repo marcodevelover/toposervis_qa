@@ -16,28 +16,39 @@
         </td>
 
         <td>
+            <% if can? :read, object %>
             <%= link_to show_from_modal_admin_service_order_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
                 <em class="fas fa-info-circle"></em> 
             <%end%>
+            <%end%>
 
+            <% if can? :update, object %>
         	<%= link_to edit_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
         		<em class="fa fa-edit"></em> 
         	<%end%>
+            <% end %>
 
+            <% if can? :update, object %>
             <%= link_to diagnoses_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
                 <em class="fa fa-cogs"></em> 
             <%end%>
+            <%end%>
 
+            <% if can? :update, object %>
             <%if object.diagnosis.present?%>
             <%= link_to sales_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
                 <em class="fa fa-money-bill-alt"></em> 
             <%end%>
             <%end%>
-          
+            <%end%>
+
+            <% if can? :update, object %>
             <%= link_to output_admin_service_order_path(object), :class => "btn btn-sm btn-info", remote: true   do %>
                 <em class="fa fa-share"></em> 
             <% end %>
+            <%end%>
 
+            <% if can? :read, object %>
             <button class="btn dropdown-toggle btn-info" type="button" data-toggle="dropdown" aria-expanded="false"><em class="fas fa-print"></em></button>
                <div class="dropdown-menu" role="menu" style="">
 
@@ -52,11 +63,13 @@
                     <% end %>
 
                </div>
+            <%end%>
 
-
+            <% if can? :update, object %>
         	<%= link_to delete_admin_service_order_path(object), :class => "btn btn-sm btn-danger", remote: true   do %>
         		<em class="fa fa-trash fa-fw"></em>
-        	<%end%>           		
+        	<%end%>         
+            <%end%>  		
         </td>
 
 </tr>

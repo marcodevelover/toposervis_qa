@@ -33,7 +33,7 @@
   <div class="form-group">
     <%= form.label :role_id, class: "col-form-label"%>
     <div class="form-group">
-      <%= form.collection_select :role_id, Role.all, :id, :description, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
+      <%= form.collection_select :role_id, Role.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
     </div>
   </div>
 

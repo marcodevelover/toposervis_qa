@@ -64,3 +64,4 @@ gem 'caxlsx'
 gem 'caxlsx_rails'
 gem "chartkick"
 gem 'groupdate'
+gem 'cancancan'

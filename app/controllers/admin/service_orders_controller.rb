@@ -1,4 +1,5 @@
 class Admin::ServiceOrdersController < ApplicationController
+  load_and_authorize_resource
   before_action :set_service_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :diagnoses, :output, :delivered, :sales]
   respond_to :html, :json
 

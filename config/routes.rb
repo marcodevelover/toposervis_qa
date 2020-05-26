@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   namespace :admin do
+    root to: "dashboard#index"
     get 'dashboard', to: 'dashboard#index', as: 'dashboard'
     get 'reports/quotations_total', to: 'reports#quotations_total', as: 'reports_quotations'
     get 'reports/service_orders_total', to: 'reports#service_orders_total', as: 'reports_service_orders'

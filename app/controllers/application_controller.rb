@@ -88,6 +88,31 @@ class ApplicationController < ActionController::Base
       respond_with *args, options, &blk
   end  
 
+  def authenticate_active_admin_user!
+    authenticate_user!
+    unless current_user.role.name = "admin"
+      flash[:alert] = "You are not authorized to access this resource!"
+      redirect_to root_path
+    end
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.json { head :forbidden, content_type: 'text/html' }
+      format.html { redirect_to root_path, notice: exception.message }
+      format.js   { head :forbidden, content_type: 'text/html' }      
+    end
+    
+  end
+
+  def after_sign_in_path_for(resource)
+    if current_user and ( current_user.role.name == "customer")
+      service_orders_path
+    else
+      admin_root_path
+    end
+  end  
+
   private
 
   def layout_by_resource

@@ -1,4 +1,6 @@
 class Admin::DashboardController < ApplicationController
+  load_and_authorize_resource :class => :Dashboard
+  
   def page_name
      @page_name = "Dashboard"
   end	

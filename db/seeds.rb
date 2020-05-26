@@ -5,8 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Role.create(description: "Administrador")
-Role.create(description: "Cliente")
+Role.create(name:"admin" description: "Administrador")
+Role.create(name:"customer" description: "Cliente")
 User.create(email: "admin@email.com", name: "admin", lastname: "admin", password: "12345678", phone: "1234567890", role_id: 1)
 Accessory.create(name:"Accesorio Uno", description: "Esto es una descripción")
 Currency.create(name:"México", description: "Esto es una descripción", abbreviation: "MX", exchange_rate: 1.0)

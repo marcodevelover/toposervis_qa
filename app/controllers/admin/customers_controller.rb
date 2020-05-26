@@ -1,4 +1,5 @@
 class Admin::CustomersController < ApplicationController
+  load_and_authorize_resource
   before_action :set_customer, only: [:show, :edit, :update, :destroy, :delete]
   respond_to :html, :json
 
