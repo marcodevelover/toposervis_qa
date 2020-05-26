@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   
   namespace :admin do
-    get 'reports/quotations_total', to: 'reports#quotations_total', as: 'reports'
+    get 'reports/quotations_total', to: 'reports#quotations_total', as: 'reports_quotations'
+    get 'reports/service_orders_total', to: 'reports#service_orders_total', as: 'reports_service_orders'
+    get 'reports/orders_total', to: 'reports#orders_total', as: 'reports_orders'
+    get 'reports/sales_total', to: 'reports#sales_total', as: 'reports_sales'
     resources :users do
       get :delete, on: :member
       get :filter_form, on: :collection

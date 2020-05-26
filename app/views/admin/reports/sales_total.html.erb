@@ -1,4 +1,4 @@
-<%= search_form_for @q, url: admin_reports_quotations_path do |f| %> 
+<%= search_form_for @q, url: admin_reports_sales_path do |f| %> 
             <!-- START card-->
             <div class="card card-default">
                <div class="card-body">
@@ -35,9 +35,9 @@
                                   </div>  
                                 </div> 
                                 <div class="col-lg-6 mb-6">
-                                  <label class="form-label">Cliente</label>
+                                  <label class="form-label">Origen</label>
                                   <div class="form-group"> 
-                                    <%= f.search_field :customer_name_cont, class: "form-control" , placeholder: "Buscar"%>
+                                    <%= f.search_field :record_type_cont, class: "form-control" , placeholder: "Buscar"%>
 
                                     
                                   </div>  
@@ -52,7 +52,7 @@
 	                        </div>
 	                     </div>
 <% end %>
-<% if @collection %><%= render "quotations_total" %><%end%>
+<% if @collection %><%= render "sales_total" %><%end%>
                       </fieldset>
                </div> <!--card-body card-->
             </div>

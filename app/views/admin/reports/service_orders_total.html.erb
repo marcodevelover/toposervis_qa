@@ -1,4 +1,4 @@
-<%= search_form_for @q, url: admin_reports_quotations_path do |f| %> 
+<%= search_form_for @q, url: admin_reports_service_orders_path do |f| %> 
             <!-- START card-->
             <div class="card card-default">
                <div class="card-body">
@@ -52,7 +52,7 @@
 	                        </div>
 	                     </div>
 <% end %>
-<% if @collection %><%= render "quotations_total" %><%end%>
+<% if @collection %><%= render "service_orders_total" %><%end%>
                       </fieldset>
                </div> <!--card-body card-->
             </div>
