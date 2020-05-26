@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   namespace :admin do
+    get 'reports/quotations_total', to: 'reports#quotations_total', as: 'reports'
     resources :users do
       get :delete, on: :member
       get :filter_form, on: :collection
