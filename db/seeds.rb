@@ -7,7 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Role.create(name:"admin" description: "Administrador")
 Role.create(name:"customer" description: "Cliente")
-User.create(email: "admin@email.com", name: "admin", lastname: "admin", password: "12345678", phone: "1234567890", role_id: 1)
+User.create(email: "admin@admin.com", name: "admin", lastname: "admin", password: "12345678", phone: "1234567890", role_id: 1)
+User.create(email: "customer@customer.com", name: "customer", lastname: "customer", password: "12345678", phone: "1234567890", role_id: 2)
 Accessory.create(name:"Accesorio Uno", description: "Esto es una descripción")
 Currency.create(name:"México", description: "Esto es una descripción", abbreviation: "MX", exchange_rate: 1.0)
 Currency.create(name:"EEUU", description: "Esto es una descripción", abbreviation: "USD", exchange_rate: 25.0)
@@ -43,4 +44,5 @@ PaymentMethod.create(name:"Tarjeta de débito", description: "Esto es una descri
 PaymentMethod.create(name:"Por definir", description: "Esto es una descripción")
 PaymentWay.create(name:"Pago en una sola exhibición", description: "Esto es una descripción")
 PaymentWay.create(name:"Pago en parcialidades o diferido", description: "Esto es una descripción")
+UsersCustomer.create(user_id: 2, customer_id: 1)
 

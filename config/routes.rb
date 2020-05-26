@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :users do
       get :delete, on: :member
       get :filter_form, on: :collection
+      get :customers, on: :collection
     end
     resources :providers do
       get :delete, on: :member

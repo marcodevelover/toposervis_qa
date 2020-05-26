@@ -201,7 +201,13 @@ class Admin::ServiceOrdersController < ApplicationController
     params[:per_page] = 10
     
     @q = ServiceOrder.search(params[:q])
-    @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])
+
+    if (current_user.role.name == "customer")
+    @collection = @q.result(:distinct => true).includes(:customer).where(customer_id: current_user.customers.first.id).page(params[:page]).per(params[:per_page])
+    else
+      @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])
+    end
+
   end
 
   private

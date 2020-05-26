@@ -37,6 +37,14 @@
     </div>
   </div>
 
+
+
+ <div class="form-group">
+   <%= form.label :customers, class: "col-form-label"%>
+     <%= form.collection_select :customer_ids, Customer.all, :id, :name, {prompt: t('choose_from_select')}, style: "width: 100%" %>
+ </div>
+
+                                 
    <div class="required">* Required fields</div>
 </div>
 <div class="modal-footer">
@@ -49,3 +57,66 @@
 </div>
                      
 <% end %>
+
+
+
+<script type="text/javascript">
+
+$("#user_customer_ids").select2({
+  ajax: {
+    url: '/admin/<%=controller_name%>/customers',
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: {name_cont: params.term}, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      // parse the results into the format expected by Select2
+      // since we are using custom formatting functions we do not need to
+      // alter the remote JSON data, except to indicate that infinite
+      // scrolling can be used
+      params.page = params.page || 1;
+
+      return {
+        results: data.customers,
+        pagination: {
+          more: (params.page * 30) < data.total_count
+        }
+      };
+    },
+    cache: true
+  },
+  placeholder: 'Buscar Cliente',
+  allowClear: true,
+  minimumInputLength: 1,
+  templateResult: formatRepo,
+  templateSelection: formatRepoSelection
+});
+
+function formatRepo (repo) {
+  if (repo.loading) {
+    return repo.text;
+  }
+
+  var $container = $(
+    "<div class='select2-result-repository clearfix'>" +
+      "<div class='select2-result-repository__meta'>" +
+        "<div class='select2-result-repository__abbreviation'>Nombre: </div>" +
+      "</div>" +
+    "</div>"
+  );
+
+
+  $container.find(".select2-result-repository__abbreviation").append(repo.name);
+  
+  return $container;
+}
+
+function formatRepoSelection (repo) {
+  return repo.name || repo.text;
+}
+
+</script>

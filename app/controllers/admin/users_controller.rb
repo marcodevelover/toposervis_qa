@@ -74,6 +74,15 @@ class Admin::UsersController < ApplicationController
     @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])  
   end
 
+  def customers
+    @q = Customer.ransack(params[:q])
+    @customers = @q.result(distinct: true)
+    total_count = @customers.count
+    respond_to do |format|
+      format.json { render json: { total: total_count,  customers: @customers.map { |s| {id: s.id, name:  s.name, rfc: s.rfc, business_name: s.business_name } } } }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -82,6 +91,6 @@ class Admin::UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :password, :name, :lastname, :phone, :deleted_at, :role_id)
+      params.require(:user).permit(:email, :password, :name, :lastname, :phone, :deleted_at, :role_id, :customer_ids)
     end
 end

@@ -1,5 +1,6 @@
 <% if @collection.each do |object| %>
-<tr>
+<% if can? :read, object %>
+<tr>    
         <td scope="row" ><%= object.id %></td>
         <td><%= object.folio %></td>
         <td><%= object.date_admission %></td>
@@ -73,6 +74,7 @@
         </td>
 
 </tr>
+<% end %>
 <% end.empty? %>
   <h3>No hay resultados</h3>
 <% end %>

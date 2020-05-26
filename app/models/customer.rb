@@ -9,6 +9,9 @@ class Customer < ApplicationRecord
 	has_one :customer_bank, dependent: :destroy
 	accepts_nested_attributes_for :customer_bank, update_only: true
 
+	has_many :users_customers
+	has_many :users, through: :users_customers
+
 	validates :name, presence: true
 
 	scope :active, -> { where('deleted_at IS NULL')}
