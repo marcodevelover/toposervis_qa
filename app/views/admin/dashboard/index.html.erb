@@ -41,5 +41,21 @@
                </div>               
 
             </div>
-</div>
 
+<div class="row">
+               <div class="col-xl-12">
+				<div class="card card-default card-demo" id="cardChart9">
+                   <div class="card-header">
+                      <a class="float-right" href="#" data-tool="card-collapse" data-toggle="tooltip" title="" data-original-title="Collapse card">
+                         <em class="fa fa-minus"></em>
+                      </a>
+                      <div class="card-title">Estadística de ventas</div>
+                   </div>
+                   <div class="card-wrapper collapse show">
+                      <div class="card-body">
+                      	<%= line_chart Item.group_by_day(:created_at).count %>
+                      </div>
+                   </div>
+                </div>
+            </div>
+</div>

@@ -39,3 +39,6 @@ require.context('file-loader?name=[path][name].[ext]&context=node_modules/jquery
 import 'sweetalert';
 import 'select2';
 import 'select2/dist/css/select2.css';
+
+require("chartkick")
+require("chart.js")
