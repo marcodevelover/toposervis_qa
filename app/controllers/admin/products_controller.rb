@@ -37,6 +37,10 @@ class Admin::ProductsController < ApplicationController
   # POST /admin/products.json
   def create
     @product = Product.new(product_params)
+    @product.product_variants.first.build_stock_item
+    @product.product_variants.each do |product_variant|
+      product_variant.stock_item.stock = 0
+    end
     respond_modal_action_with(@product)
   end
 
