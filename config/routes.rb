@@ -111,6 +111,14 @@ Rails.application.routes.draw do
     resources :sales do
       get :filter_form, on: :collection
     end
+    resources :receipt_types  do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
+    resources :entry_codes  do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
     #resources :diagnoses
   end
   namespace :admin do

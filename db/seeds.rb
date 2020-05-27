@@ -45,4 +45,12 @@ PaymentMethod.create(name:"Por definir", description: "Esto es una descripción"
 PaymentWay.create(name:"Pago en una sola exhibición", description: "Esto es una descripción")
 PaymentWay.create(name:"Pago en parcialidades o diferido", description: "Esto es una descripción")
 UsersCustomer.create(user_id: 2, customer_id: 1)
+EntryCode.create(name:"Devolución de venta", description: "Esto es una descripción")
+EntryCode.create(name:"Entrada de fabrica", description: "Esto es una descripción")
+EntryCode.create(name:"Cancelación de factura", description: "Esto es una descripción")
+EntryCode.create(name:"Cancelación devolución de compra", description: "Esto es una descripción")
+EntryCode.create(name:"Ajustes", description: "Esto es una descripción")
+EntryCode.create(name:"Ajustes por traspaso", description: "Esto es una descripción")
+ReceiptType.create(name:"Nota", description: "Esto es una descripción")
+ReceiptType.create(name:"Factura", description: "Esto es una descripción")
 
