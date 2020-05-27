@@ -1,0 +1,132 @@
+<div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td class="title">
+                    <%= wicked_pdf_image_tag 'pdf/logo.png' %>
+                  </td>
+
+                  <td>
+                    <strong>Toposervis S de RL de CV</strong>
+                    <br>
+                    <span>Calle42No.264x41Ay 41C</span>
+                    <br>
+                    <span>Fraccionamiento Francisco de MontejoIII Mérida,Yucatán </span>
+                    <br>
+                    <span>Tel. 01 800 890 9383 CP 97203</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        
+
+          <tr class="information">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td>
+                  	<b>Contacto:</b>
+                    <%= @purchase.provider.provider_contacts.first.name %><br>
+                    <b>Compañia:</b>
+                    <%= @purchase.provider.business_name %><br>
+                    <b>E-mail:</b>
+                    <%= @purchase.provider.provider_contacts.first.email %><br>
+                    <b>Tipo de comprobante:</b>
+                    <%= @purchase.receipt_type.name %><br>
+                    <b>Código de entrada:</b>
+                    <%= @purchase.entry_code.name %>   
+                  </td>
+
+                  <td>
+                    <b>Entrada</b><br>
+                    <b>Folio:</b>
+                    <%= @purchase.folio %><br>
+                    <b>Fecha:</b>
+                    <%= @purchase.date.strftime("%d-%m-%Y") %><br>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr class="heading">
+            <td>Concepto</td>
+            <td class="right">Info. Producto</td>
+            <td class="right">Precio</td>
+            <td class="right">Cantidad</td>
+            <td>Total</td>
+          </tr>
+
+          <% @purchase.purchase_items.each do |item| %>
+            <tr class="item">
+                <td>
+                    <%= item.name %><br>
+                    <small><%= item.observation %></small>
+                </td>
+                <td class="right">
+                    <small><b>Unidad: </b> <%= item.unit %></small><br>
+                    <small><b>No. Serie: </b> <%= item.number_serie %></small><br>
+                    <small><b>No. Pedimento: </b><%= item.number_procedure %></small><br>
+                    <small><b>No. Parte: </b><%= item.number_part %></small>
+                </td>
+
+                <td class="right">
+                    <%= number_to_currency(item.unit_price) %>
+                </td>
+
+                <td class="right">
+                    x <%= item.quantity %>
+                </td>
+                <td>
+                    <%= number_to_currency(item.unit_price * item.quantity) %>
+                </td>
+            </tr>
+          <% end %>
+
+
+
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>Subtotal</b></td>
+            <td><%= number_to_currency(@purchase.subtotal) %></td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>Impuesto (<%= (@purchase.tax * 100).to_i %>%)</b></td>
+            <td>+ <%= number_to_currency(@purchase.tax_total) %></td>
+          </tr>
+
+          <tr class="heading">
+            <td colspan="3"></td>
+            <td><b>TOTAL:</b></td>
+            <td>
+               <b><%= number_to_currency(@purchase.total) %></b>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="5">
+              <table>
+	          <tr class="footer">
+	          	<td colspan="1"></td>
+	            <td colspan="2" class="footer" style="text-align: center;">
+	            	<b>www.toposervis.com</b></br>
+	            	<b>Venta, renta de equipos y servicios de topografía e ingeniería<b></br>
+	            	<b>Tel. 01 800 890 9383<b></br>
+	            </td>         
+	            <td colspan="2"></td>
+          </tr> 
+              </table>
+            </td>
+          </tr>          
+          
+        </table>
+    </div>

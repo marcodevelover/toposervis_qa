@@ -74,7 +74,15 @@ Rails.application.routes.draw do
       get :show_from_pdf, on: :member
       get :sales, on: :member
     end
-    resources :quotation_items
+    resources :purchases do
+      get :providers, on: :collection
+      get :currencies, on: :collection
+      get :product_variants, on: :collection
+      get :delete, on: :member
+      get :filter_form, on: :collection
+      get :show_from_modal, on: :member
+      get :show_from_pdf, on: :member
+    end    
     resources :diagnoses do
       get :show_from_pdf, on: :member
     end

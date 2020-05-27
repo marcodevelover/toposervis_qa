@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_010017) do
+ActiveRecord::Schema.define(version: 2020_05_27_014344) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -362,6 +362,57 @@ ActiveRecord::Schema.define(version: 2020_05_27_010017) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "purchase_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "record_type"
+    t.bigint "record_id"
+    t.bigint "product_variant_id", null: false
+    t.string "name"
+    t.integer "quantity"
+    t.decimal "unit_price", precision: 18, scale: 6
+    t.decimal "total", precision: 18, scale: 6
+    t.string "currency"
+    t.decimal "cost_price", precision: 18, scale: 6
+    t.decimal "tax_item_total", precision: 18, scale: 6
+    t.decimal "tax_total", precision: 18, scale: 6
+    t.decimal "tax", precision: 18, scale: 6
+    t.decimal "adjustment_total", precision: 18, scale: 6
+    t.string "number_serie"
+    t.string "number_procedure"
+    t.string "number_part"
+    t.text "observation"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_variant_id"], name: "index_purchase_items_on_product_variant_id"
+    t.index ["record_type", "record_id"], name: "index_purchase_items_on_record_type_and_record_id"
+  end
+
+  create_table "purchases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "folio"
+    t.datetime "date"
+    t.text "observation"
+    t.decimal "item_total", precision: 18, scale: 6
+    t.decimal "total", precision: 18, scale: 6
+    t.decimal "adjustment_total", precision: 18, scale: 6
+    t.decimal "tax", precision: 18, scale: 6
+    t.decimal "tax_total", precision: 18, scale: 6
+    t.decimal "tax_item_total", precision: 18, scale: 6
+    t.string "state"
+    t.datetime "validity"
+    t.bigint "currency_id", null: false
+    t.decimal "exchange_rate", precision: 18, scale: 6
+    t.bigint "receipt_type_id", null: false
+    t.bigint "entry_code_id", null: false
+    t.bigint "provider_id", null: false
+    t.integer "created_by_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["currency_id"], name: "index_purchases_on_currency_id"
+    t.index ["entry_code_id"], name: "index_purchases_on_entry_code_id"
+    t.index ["provider_id"], name: "index_purchases_on_provider_id"
+    t.index ["receipt_type_id"], name: "index_purchases_on_receipt_type_id"
+  end
+
   create_table "quotations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "folio"
     t.decimal "subtotal", precision: 18, scale: 6
@@ -524,6 +575,11 @@ ActiveRecord::Schema.define(version: 2020_05_27_010017) do
   add_foreign_key "provider_addresses", "providers"
   add_foreign_key "provider_banks", "providers"
   add_foreign_key "provider_contacts", "providers"
+  add_foreign_key "purchase_items", "product_variants"
+  add_foreign_key "purchases", "currencies"
+  add_foreign_key "purchases", "entry_codes"
+  add_foreign_key "purchases", "providers"
+  add_foreign_key "purchases", "receipt_types"
   add_foreign_key "quotations", "currencies"
   add_foreign_key "quotations", "customers"
   add_foreign_key "sales", "payment_methods"
