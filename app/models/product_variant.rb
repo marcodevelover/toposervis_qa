@@ -1,6 +1,7 @@
 class ProductVariant < ApplicationRecord
   belongs_to :product
   belongs_to :currency
+  has_one :stock_item
 
   has_many :product_variant_images
 

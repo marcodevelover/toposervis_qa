@@ -8,7 +8,8 @@ class Purchase < ApplicationRecord
 
   accepts_nested_attributes_for :purchase_items, reject_if: :all_blank, allow_destroy: true
 
-  before_create :set_tax, :set_state, :set_exchange_rate
+  before_create :set_tax, :set_state, :set_exchange_rate, :update_stock
+  before_update :update_stock
 
   def set_exchange_rate
     self.exchange_rate = 1.0 #need info#
@@ -22,4 +23,10 @@ class Purchase < ApplicationRecord
     self.state = "active"
   end  
 
+  def update_stock
+    self.purchase_items.each do |item|
+      @stock = StockItem.find_by(product_variant_id: item.product_variant_id)
+      @stock.update(stock: @stock.stock + item.quantity)
+    end
+  end  
 end

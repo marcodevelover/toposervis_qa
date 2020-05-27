@@ -31,6 +31,11 @@
 </p>
 
 <p>
+  <strong>Existencias:</strong>
+  <%= @product.product_variants.first.stock_item.stock %>
+</p>
+
+<p>
   <strong>Brand:</strong>
   <%= @product.brand %>
 </p>

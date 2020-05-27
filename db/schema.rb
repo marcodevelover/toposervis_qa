@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_014344) do
+ActiveRecord::Schema.define(version: 2020_05_27_172136) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -380,6 +380,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_014344) do
     t.string "number_procedure"
     t.string "number_part"
     t.text "observation"
+    t.string "unit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_variant_id"], name: "index_purchase_items_on_product_variant_id"
@@ -390,7 +391,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_014344) do
     t.string "folio"
     t.datetime "date"
     t.text "observation"
-    t.decimal "item_total", precision: 18, scale: 6
+    t.decimal "subtotal", precision: 18, scale: 6
     t.decimal "total", precision: 18, scale: 6
     t.decimal "adjustment_total", precision: 18, scale: 6
     t.decimal "tax", precision: 18, scale: 6
@@ -483,6 +484,14 @@ ActiveRecord::Schema.define(version: 2020_05_27_014344) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_service_orders_on_customer_id"
     t.index ["product_id"], name: "index_service_orders_on_product_id"
+  end
+
+  create_table "stock_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "product_variant_id", null: false
+    t.decimal "stock", precision: 10, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_variant_id"], name: "index_stock_items_on_product_variant_id"
   end
 
   create_table "subcategories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -586,6 +595,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_014344) do
   add_foreign_key "sales", "payment_ways"
   add_foreign_key "service_orders", "customers"
   add_foreign_key "service_orders", "products"
+  add_foreign_key "stock_items", "product_variants"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "users", "roles"
   add_foreign_key "users_customers", "customers"
