@@ -1,4 +1,4 @@
-class ConditionsController < ApplicationController
+class Admin::ConditionsController < ApplicationController
   before_action :set_condition, only: [:show, :edit, :update, :destroy]
 
   # GET /conditions

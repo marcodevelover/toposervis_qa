@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
     t.string "name"
     t.string "rfc"
     t.string "business_name"
-    t.datetime "deleted_at", precision: 6
+    t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -132,14 +132,14 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
     t.datetime "date"
     t.string "delivery_time"
     t.datetime "date_delivery"
-    t.bigint "diagnosis_type_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.decimal "subtotal", precision: 18, scale: 6
+    t.decimal "total", precision: 18, scale: 6
     t.decimal "adjustment_total", precision: 18, scale: 6
     t.decimal "tax", precision: 18, scale: 6
     t.decimal "tax_total", precision: 18, scale: 6
-    t.decimal "total", precision: 18, scale: 6
+    t.bigint "diagnosis_type_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["diagnosis_type_id"], name: "index_diagnoses_on_diagnosis_type_id"
     t.index ["service_order_id"], name: "index_diagnoses_on_service_order_id"
   end
@@ -176,7 +176,6 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
     t.bigint "product_variant_id", null: false
     t.string "name"
     t.text "extended_description"
-    t.text "unit"
     t.integer "quantity"
     t.decimal "unit_price", precision: 18, scale: 6
     t.decimal "total", precision: 18, scale: 6
@@ -380,7 +379,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
     t.string "number_procedure"
     t.string "number_part"
     t.text "observation"
-    t.string "unit"
+    t.text "unit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_variant_id"], name: "index_purchase_items_on_product_variant_id"
@@ -469,17 +468,17 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
   end
 
   create_table "service_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "folio"
     t.datetime "date_admission"
+    t.string "folio"
     t.bigint "customer_id", null: false
     t.bigint "product_id", null: false
     t.string "serie"
     t.string "brand"
     t.string "model"
-    t.text "observation"
     t.integer "created_by_id"
+    t.text "observation"
     t.datetime "deleted_at"
-    t.string "state"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_service_orders_on_customer_id"
