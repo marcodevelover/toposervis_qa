@@ -11,6 +11,12 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :sale
 
   before_create :set_tax, :set_state
+  before_validation :erase_sale, on: :delete, if: Proc.new { self.sale.present? }
+
+  def erase_sale
+    @sale = Sale.find_by(id: self.sale.id)
+    @sale.update(deleted_at: Time.now)
+  end    
 
   def set_folio
     @prefix = "V"
@@ -26,4 +32,6 @@ class Order < ApplicationRecord
   def set_state
     self.state = "active"
   end
+  
+
 end

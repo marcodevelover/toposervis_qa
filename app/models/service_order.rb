@@ -19,6 +19,13 @@ class ServiceOrder < ApplicationRecord
   before_update :set_diagnosed, if: Proc.new { self.diagnosis.present? && state == "active" }
   before_update :set_sold, if: Proc.new { self.diagnosis.present? && state == "diagnosed" }
 # active, diagnosed, sold, delivered
+  before_validation :erase_sale, on: :delete, if: Proc.new { self.diagnosis.sale.present? }
+
+  def erase_sale
+    @sale = Sale.find_by(id: self.diagnosis.sale.id)
+    @sale.update(deleted_at: Time.now)
+  end  
+
   def set_folio
   	@prefix = "M"
   	@date = Time.now
@@ -29,6 +36,10 @@ class ServiceOrder < ApplicationRecord
   def set_state
     self.state = "active"
   end  
+
+  def set_diagnosed
+    self.state = "diagnosed"
+  end    
 
   def set_sold
     self.state = "sold"

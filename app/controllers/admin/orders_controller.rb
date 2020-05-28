@@ -91,14 +91,10 @@ class Admin::OrdersController < ApplicationController
     @order.save!(context: :delete)
     @object = @order
     respond_to do |format|
-          if @object.save  
-            search
-            @objects= @collection
-            format.js  { render "admin/shared/save.js.erb", layout: false, content_type: 'text/javascript' }
-          else 
-            format.js { render "admin/shared/error.js.erb", layout: false, content_type: 'text/javascript' }
-           end
-      end
+      search
+      @objects= @collection
+      format.js  { render "admin/shared/save.js.erb", layout: false, content_type: 'text/javascript' }
+    end
   end
 
   def customers
