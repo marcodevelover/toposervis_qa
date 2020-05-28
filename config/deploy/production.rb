@@ -1,0 +1,1 @@
+server "#{fetch(:server)}", user: "#{fetch(:user)}", roles: %w{app db web}
