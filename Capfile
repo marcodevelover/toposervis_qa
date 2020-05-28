@@ -36,3 +36,4 @@ Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
 require 'capistrano/rvm'
 set :rvm_type, :user
 set :rvm_ruby_version, '2.2.5'
+require "whenever/capistrano" 

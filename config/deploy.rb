@@ -12,6 +12,7 @@ set :repo_url, 'https://2be5f383f44112a90f5c4dadeb6c16bf585e3bfc:x-oauth-basic@g
 set :branch, ENV['branch'] if ENV['branch']
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/home/#{fetch(:user)}/toposervis/#{fetch(:branch)}"
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 append :linked_files, "config/database.yml", "config/secrets.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle", "public/system", "public/uploads", "storage"
 
