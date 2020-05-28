@@ -4,32 +4,25 @@
 			<div class="modal-body">
 				<div class="form-group">
 					<div class="form-group"> 
-						<label class="form-label"><%= t("users.email")%></label>
+						<label class="form-label">Nombre</label>
 						<div class="form-group">
-							<%= search_field_tag  "q[email_cont]",nil,class: "form-control", placeholder: t('users.email'), width: '100%'%>
+							<%= search_field_tag  "q[name_cont]",nil,class: "form-control", placeholder: "Nombre", width: '100%'%>
  
 						</div>
 					</div>
 					<div class="form-group"> 
-						<label class="form-label"><%= t("users.name")%></label>
+						<label class="form-label">Marca</label>
 						<div class="form-group">
-							<%= search_field_tag "q[name_cont]",nil,class: "form-control" , placeholder: t('users.name') %>
+							<%= search_field_tag "q[brand_cont]",nil,class: "form-control" , placeholder: "Marca" %>
 						</div>
 					</div>
 					<div class="form-group"> 
-						<label class="form-label"><%= t("users.lastname")%></label>
+						<label class="form-label">Modelo</label>
 						<div class="form-group">
-							<%= search_field_tag "q[lastname_cont]",nil,class: "form-control" , placeholder: t('users.lastname') %>
+							<%= search_field_tag "q[model_cont]",nil,class: "form-control" , placeholder: "Modelo" %>
 						</div>  
 					</div>
-					 
-					<div class="form-group">
-						<label class="form-label"><%= t("users.role")%></label>
-						<div class="form-group">
-							<%= select_tag "q[profile_id_eq]", options_from_collection_for_select(Role.all, "id", "description"), prompt: t('choose_from_select'), class:"form-control"%>
-						</div>
-					</div>   
-					 
+					   
 				</div>
 			</div>
 			<div class="modal-footer">
