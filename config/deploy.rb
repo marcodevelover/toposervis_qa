@@ -5,7 +5,7 @@ ask(:user, nil)
 
 set :application, 'toposervis'
 set :stage, 'production'
-set :repo_url, 'https://2e1c497195e5c35c7c364674b028807e6138257b:x-oauth-basic@github.com/DETEI/toposervis.git'
+set :repo_url, 'https://2be5f383f44112a90f5c4dadeb6c16bf585e3bfc:x-oauth-basic@github.com/DETEI/toposervis.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
