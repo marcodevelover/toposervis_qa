@@ -14,7 +14,7 @@ set :branch, ENV['branch'] if ENV['branch']
 set :deploy_to, "/home/#{fetch(:user)}/toposervis/#{fetch(:branch)}"
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 append :linked_files, "config/database.yml", "config/secrets.yml"
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle", "public/system", "public/uploads", "storage"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle", "public/system", "public/uploads", "storage", "public/packs", "node_modules"
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -40,13 +40,12 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bund
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 before "deploy:assets:precompile", "deploy:yarn_install"
-
 namespace :deploy do
-  desc 'Run rake yarn:install'
+  desc "Run rake yarn install"
   task :yarn_install do
     on roles(:web) do
       within release_path do
-        execute("cd #{release_path} && yarn install")
+        execute("cd #{release_path} && yarn install --silent --no-progress --no-audit --no-optional")
       end
     end
   end
