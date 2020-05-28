@@ -5,19 +5,19 @@
       <ul class="sidebar-nav">
          <!-- START user info-->
          <li class="has-user-block">
-            <div id="user-block" class="collapse">
+            <div id="user-block" class="collapse" >
                <div class="item user-block">
                   <!-- User picture-->
                   <div class="user-block-picture">
                      <div class="user-block-status">
-                        <img src="<%= image_path('angle/user/02.jpg') %>" alt="Avatar" width="60" height="60" class="img-thumbnail rounded-circle" />
+                        <img src="<%= image_path('angle/user/jefe.png') %>" alt="Avatar" width="60" height="60" class="img-thumbnail rounded-circle" />
                         <div class="circle circle-success circle-lg"></div>
                      </div>
                   </div>
                   <!-- Name and Job-->
                   <div class="user-block-info">
-                     <span class="user-block-name">Hello, Mike</span>
-                     <span class="user-block-role">Designer</span>
+                     <span class="user-block-name"><%= current_user.name %></span>
+                     <span class="user-block-role"><%= current_user.role ? current_user.role.name : "" %></span>
                   </div>
                </div>
             </div>
@@ -25,16 +25,211 @@
          <!-- END user info-->
          <!-- Iterates over all sidebar items-->
          <li class="nav-heading">
-            <span>Main Navigation</span>
+            <span>Menú</span>
          </li>
-         <li class="<%= 'active' if controller?('singleview') && action?('index') %>">
-            <a href="/singleview" title="Single View">
+         <li class="<%= 'active' if controller?('dashboard') && action?('index') %>">
+            <a href="<%= admin_dashboard_path %>" title="dashboard">
                <em class="icon-speedometer"></em>
-               <span>Single View</span>
+               <span>Escritorio</span>
             </a>
          </li>
+
+         <li class="<%= 'active' if controller?('dashboard') && action?('index') %>">
+            <a href="#settings" data-toggle="collapse" data-target="#purchases" title="<%=t('configurations_module')%>"> 
+               <em class="icon-grid"></em>
+               <span>Compras</span>
+            </a>
+            <ul class="sidebar-nav sidebar-subnav collapse" id="purchases" style="">
+               <li class="sidebar-subnav-header"><%=t('event_module')%></li>
+               <li class=" ">
+                  <a href="<%= admin_quotations_path %>" title="<%=t('event_module')%>">
+                     <span data-localize="">Entrada por compra</span>
+                  </a>
+               </li>              
+            </ul>
+         </li>  
+
+
+         <li class="<%= 'active' if controller?('dashboard') && action?('index') %>">
+            <a href="#settings" data-toggle="collapse" data-target="#sales" title="<%=t('configurations_module')%>"> 
+               <em class="fa-1x icon-basket mr-2"></em>
+               <span>Ventas</span>
+            </a>
+            <ul class="sidebar-nav sidebar-subnav collapse" id="sales" style="">
+               <li class="sidebar-subnav-header"><%=t('event_module')%></li>
+               <li class=" ">
+                  <a href="<%= admin_quotations_path %>" title="<%=t('event_module')%>">
+                     <span data-localize="">Cotizaciones</span>
+                  </a>
+               </li>
+
+               <li class=" ">
+                  <a href="<%= admin_orders_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Orden de venta</span>
+                  </a>
+               </li> 
+               <li class=" ">
+                  <a href="<%= admin_sales_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Ventas</span>
+                  </a>
+               </li> 
+
+            </ul>
+         </li>  
+         <li class="<%= 'active' if controller?('dashboard') && action?('index') %>">
+            <a href="#settings" data-toggle="collapse" data-target="#service_orders" title="<%=t('configurations_module')%>"> 
+               <em class="fa-1x icon-wrench mr-2"></em>
+               <span>Mantenimiento</span>
+            </a>
+            <ul class="sidebar-nav sidebar-subnav collapse" id="service_orders" style="">
+               <li class="sidebar-subnav-header"><%=t('event_module')%></li>
+               <li class=" ">
+                  <a href="<%= admin_service_orders_path %>" title="<%=t('event_module')%>">
+                     <span data-localize="">Orden de servicios</span>
+                  </a>
+               </li>
+              
+            </ul>
+         </li>  
+         <li class="<%= 'active' if controller?('dashboard') && action?('index') %>">
+            <a href="#settings" data-toggle="collapse" data-target="#catalogs" title="<%=t('configurations_module')%>"> 
+               <em class="fa-1x icon-book-open mr-2"></em>
+               <span>Catálogos</span>
+            </a>
+            <ul class="sidebar-nav sidebar-subnav collapse" id="catalogs" style="">
+               <li class="sidebar-subnav-header"><%=t('event_module')%></li>
+               <li class=" ">
+                  <a href="<%= admin_users_path %>" title="<%=t('event_module')%>">
+                     <span data-localize="">Usuarios</span>
+                  </a>
+               </li>
+               <li class=" ">
+                  <a href="<%= admin_providers_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Proveedores</span>
+                  </a>
+               </li>
+               <li class=" ">
+                  <a href="<%= admin_customers_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Clientes</span>
+                  </a>
+               </li>  
+               <li class=" ">
+                  <a href="<%= admin_accessories_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Accesorios de producto</span>
+                  </a>
+               </li>  
+               <li class=" ">
+                  <a href="<%= admin_currencies_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Monedas</span>
+                  </a>
+               </li>  
+               <li class=" ">
+                  <a href="<%= admin_units_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Unidades</span>
+                  </a>
+               </li>    
+               <li class=" ">
+                  <a href="<%= admin_type_service_orders_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Tipos de servicio</span>
+                  </a>
+               </li> 
+               <li class=" ">
+                  <a href="<%= admin_products_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Productos</span>
+                  </a>
+               </li> 
+               <li class=" ">
+                  <a href="<%= admin_category_types_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Tipos de categoria de productos</span>
+                  </a>
+               </li>                
+               <li class=" ">
+                  <a href="<%= admin_diagnosis_types_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Tipos de diagnostico</span>
+                  </a>
+               </li> 
+               <li class=" ">
+                  <a href="<%= admin_categories_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Categorias de productos</span>
+                  </a>
+               </li>    
+               <li class=" ">
+                  <a href="<%= admin_subcategories_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Subcategorias de productos</span>
+                  </a>
+               </li> 
+               <li class=" ">
+                  <a href="<%= admin_conditions_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Condiciones</span>
+                  </a>
+               </li>    
+               <li class=" ">
+                  <a href="<%= admin_payment_ways_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Formas de pago</span>
+                  </a>
+               </li> 
+               <li class=" ">
+                  <a href="<%= admin_payment_methods_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Métodos de pago</span>
+                  </a>
+               </li>    
+               <li class=" ">
+                  <a href="<%= admin_receipt_types_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Tipos de comprobante</span>
+                  </a>
+               </li>   
+               <li class=" ">
+                  <a href="<%= admin_entry_codes_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Códigos de entrada</span>
+                  </a>
+               </li>     
+            </ul>
+         </li> 
+         <li class="<%= 'active' if controller?('dashboard') && action?('index') %>">
+            <a href="#settings" data-toggle="collapse" data-target="#reports" title="<%=t('configurations_module')%>"> 
+               <em class="fa-1x mr-2 far fa-file-alt"></em>
+               <span>Reportes</span>
+            </a>
+            <ul class="sidebar-nav sidebar-subnav collapse" id="reports" style="">
+               <li class="sidebar-subnav-header"><%=t('event_module')%></li>
+               <li class=" ">
+                  <a href="<%= admin_reports_service_orders_path %>" title="<%=t('event_module')%>">
+                     <span data-localize="">Orden de servicios</span>
+                  </a>
+               </li>
+               <li class=" ">
+                  <a href="<%= admin_reports_quotations_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Cotizaciones</span>
+                  </a>
+               </li>
+               <li class=" ">
+                  <a href="<%= admin_reports_orders_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Ordenes</span>
+                  </a>
+               </li>  
+               <li class=" ">
+                  <a href="<%= admin_reports_sales_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Ventas</span>
+                  </a>
+               </li>  
+               <li class=" ">
+                  <a href="<%= admin_reports_products_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Existencias</span>
+                  </a>
+               </li>               
+            </ul>
+         </li>     
+
+                  <p>
+
       </ul>
       <!-- END sidebar nav-->
    </nav>
 </div>
 <!-- END Sidebar (left)-->
+<script type="text/javascript">
+$('#user-block').collapse()
+$('.collapse').collapse({
+  toggle: false
+})
+</script>
