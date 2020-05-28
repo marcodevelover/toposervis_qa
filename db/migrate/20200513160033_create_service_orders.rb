@@ -8,7 +8,7 @@ class CreateServiceOrders < ActiveRecord::Migration[6.0]
       t.string :serie
       t.string :brand
       t.string :model
-      t.int :created_by_id
+      t.integer :created_by_id
       t.text :observation
       t.datetime :deleted_at
       t.string :status
