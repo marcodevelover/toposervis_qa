@@ -18,6 +18,12 @@
         	<%= link_to [:admin, object], :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
         		<em class="fas fa-info-circle"></em> 
         	<%end%>	
+            <a class="btn btn-sm btn-info" href="">
+              <em class="fa-1x far fa-money-bill-alt"></em> Facturar
+</a>
+            <a class="btn btn-sm btn-danger" href="">
+              <em class="fa-1x far fa-money-bill-alt"></em>Cancelar
+</a>
 
             <% if object.record_type == "Quotation" %>
             <%= link_to show_from_pdf_admin_quotation_path(object.record_id, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
