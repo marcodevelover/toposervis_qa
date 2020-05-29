@@ -1,66 +1,76 @@
 class Admin::ConditionsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_condition, only: [:show, :edit, :update, :destroy]
-
-  # GET /conditions
-  # GET /conditions.json
+  before_action :set_condition, only: [:show, :edit, :update, :destroy, :delete]
+  respond_to :html, :json
+  
+  def page_name
+     @page_name = "Términos y condiciones"
+  end
+  # GET /admin/conditions
+  # GET /admin/conditions.json
   def index
-    @conditions = Condition.all
+    search
+    respond_to do |format| 
+            format.html { }
+            format.js  { respond_modal_index_with (@collection)}
+    end
   end
 
-  # GET /conditions/1
-  # GET /conditions/1.json
+  # GET /admin/conditions/1
+  # GET /admin/conditions/1.json
   def show
+    respond_modal_with @condition
   end
 
-  # GET /conditions/new
+  # GET /admin/conditions/new
   def new
     @condition = Condition.new
+    respond_modal_with @condition
   end
 
-  # GET /conditions/1/edit
+  # GET /admin/conditions/1/edit
   def edit
+    respond_modal_with @condition
   end
 
-  # POST /conditions
-  # POST /conditions.json
+  # POST /admin/conditions
+  # POST /admin/conditions.json
   def create
     @condition = Condition.new(condition_params)
 
-    respond_to do |format|
-      if @condition.save
-        format.html { redirect_to @condition, notice: 'Condition was successfully created.' }
-        format.json { render :show, status: :created, location: @condition }
-      else
-        format.html { render :new }
-        format.json { render json: @condition.errors, status: :unprocessable_entity }
-      end
-    end
+    respond_modal_action_with(@condition)
   end
 
-  # PATCH/PUT /conditions/1
-  # PATCH/PUT /conditions/1.json
+  # PATCH/PUT /admin/conditions/1
+  # PATCH/PUT /admin/conditions/1.json
   def update
-    respond_to do |format|
-      if @condition.update(condition_params)
-        format.html { redirect_to @condition, notice: 'Condition was successfully updated.' }
-        format.json { render :show, status: :ok, location: @condition }
-      else
-        format.html { render :edit }
-        format.json { render json: @condition.errors, status: :unprocessable_entity }
-      end
-    end
+    @condition.attributes =  condition_params 
+    respond_modal_action_with(@condition)
   end
 
-  # DELETE /conditions/1
-  # DELETE /conditions/1.json
-  def destroy
-    @condition.destroy
-    respond_to do |format|
-      format.html { redirect_to conditions_url, notice: 'Condition was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+  def delete
+    respond_modal_for_delete_with(@condition,true)
   end
+
+  # DELETE /admin/conditions/1
+  # DELETE /admin/conditions/1.json
+  def destroy
+    @condition.save!(context: :delete)
+  end
+
+  def filter_form
+    @q = Condition.ransack(params[:q])
+    respond_modal_with @q 
+  end
+
+  def search(per_page = 10)
+    params[:q] ||= {} 
+    params[:per_page] = 10
+    
+    @q = Condition.search(params[:q])
+    @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])  
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

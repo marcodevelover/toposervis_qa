@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<div class="modal-body">
 
 <p>
   <strong>Name:</strong>
@@ -20,5 +20,12 @@
   <%= @condition.deleted_at %>
 </p>
 
-<%= link_to 'Edit', edit_condition_path(@condition) %> |
-<%= link_to 'Back', conditions_path %>
+
+</div>
+<div class="modal-footer"> 
+     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+</div> 
+
+<div id="modal-holder" ></div>
+
+
