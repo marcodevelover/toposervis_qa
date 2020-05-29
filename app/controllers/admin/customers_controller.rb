@@ -84,7 +84,7 @@ class Admin::CustomersController < ApplicationController
         :name, :rfc, :business_name, :deleted_at, 
         customer_address_attributes: [ :id, :street, :number, :crossing, :postcode, :colony, :town, :state, :country, :deleted_at ],
         customer_contacts_attributes: [ :id, :name, :department, :phone, :extension, :cellphone, :email, :_destroy ],
-        customer_bank_attributes: [ :id, :beneficiary ]
+        customer_bank_attributes: [ :id, :beneficiary, :account, :clabe, :bank_name, :currency ]
         )
     end
 end
