@@ -6,6 +6,7 @@ class CreateItems < ActiveRecord::Migration[6.0]
       #t.references :quotation, null: false, foreign_key: true
       t.string :name
       t.text :extended_description
+      t.string :unit
       t.integer :quantity
       t.decimal :unit_price, precision: 18, scale: 6
       t.decimal :total, precision: 18, scale: 6
