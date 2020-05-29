@@ -45,7 +45,12 @@ class Admin::QuotationsController < ApplicationController
   # GET /quotations/new
   def new
     @quotation = Quotation.new
-    @quotation.condition = Condition.condition_default.first.description
+    @conditions = []
+    Condition.condition_default.each do |condition|
+      @conditions << condition.description
+    end
+    @quotation.condition = @conditions
+
     @factors_options = ["Importe", "Porcentaje"]
   end
 
