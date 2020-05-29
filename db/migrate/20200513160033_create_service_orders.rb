@@ -11,7 +11,7 @@ class CreateServiceOrders < ActiveRecord::Migration[6.0]
       t.integer :created_by_id
       t.text :observation
       t.datetime :deleted_at
-      t.string :status
+      t.string :state
 
       t.timestamps
     end
