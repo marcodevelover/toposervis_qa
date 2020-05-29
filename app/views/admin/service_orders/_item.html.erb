@@ -122,7 +122,7 @@
           </div>
           <div class="form-group">
             <label class="control-label"><%= t('sale_note_has_products.product')%></label>
-             <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" id="note_product">
+             <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" id="note_product" style="width: 100%">
             </select>
           </div>
 
@@ -241,19 +241,19 @@ function formatRepo (repo) {
   $container.find(".select2-result-repository__id").append(repo.id);
   $container.find(".select2-result-repository__code").append(repo.code);
   $container.find(".select2-result-repository__unit_price").append(repo.unit_price);
-
-  // take the value of the currency for now set here
-  var quotation_exchange_rate = 1;
-
-  $("#name").val(repo.code);
-  $("#unit").val(repo.unit);
-  $("#note_unit_price").val(repo.unit_price * quotation_exchange_rate);
   
   return $container;
 }
 
 function formatRepoSelection (repo) {
+  // take the value of the currency for now set here
+  var quotation_exchange_rate = 1;
+  $("#name").val(repo.code);
+  $("#unit").val(repo.unit);
+  $("#note_unit_price").val(repo.unit_price * quotation_exchange_rate);
+  
   return repo.code || repo.text;
+
 }
 
 </script>

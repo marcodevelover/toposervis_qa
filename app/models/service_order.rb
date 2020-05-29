@@ -16,9 +16,9 @@ class ServiceOrder < ApplicationRecord
   accepts_nested_attributes_for :diagnosis, reject_if: :all_blank, allow_destroy: true
 
   before_create :set_folio, :set_state
-  before_update :set_diagnosed, if: Proc.new { self.diagnosis.present? && state == "active" }
-  before_update :set_sold, if: Proc.new { self.diagnosis.present? && state == "diagnosed" }
-# active, diagnosed, sold, delivered
+  before_update :update_state, if: Proc.new { self.diagnosis.present? }
+  
+  # active, diagnosed, sold, delivered
   before_validation :erase_sale, on: :delete, if: Proc.new { self.diagnosis.sale.present? }
 
   def erase_sale
@@ -37,13 +37,17 @@ class ServiceOrder < ApplicationRecord
     self.state = "active"
   end  
 
-  def set_diagnosed
-    self.state = "diagnosed"
+  def update_state
+    #self.state = "diagnosed"
+    @state = self.state
+    case @state
+    when "active"
+      self.state = "diagnosed"
+    when "diagnosed"
+      self.state = "sold"
+    else
+      self.state
+    end    
   end    
-
-  def set_sold
-    self.state = "sold"
-  end  
-
 
 end

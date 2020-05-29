@@ -81,48 +81,49 @@
 <hr>
 <h4>Diagnostico</h4>
 
-<p>
-  <strong>Fecha de diagnostico:</strong>
-  <%= @service_order.diagnosis.date %>
-</p>
+<% unless @service_order.diagnosis.nil? %>
+      <p>
+        <strong>Fecha de diagnostico:</strong>
+        <%= @service_order.diagnosis.date %>
+      </p>
 
-<p>
-  <strong>Tiempo de diagnostico:</strong>
-  <%= @service_order.diagnosis.delivery_time %>
-</p>
+      <p>
+        <strong>Tiempo de diagnostico:</strong>
+        <%= @service_order.diagnosis.delivery_time %>
+      </p>
 
-<p>
-  <strong>Tipo de diagnostico:</strong>
-  <%= @service_order.diagnosis.diagnosis_type.name %>
-</p>
-<p>
-<% if @service_order.diagnosis.images.attached? %>
-<div class="form-group row" >
-<% @service_order.diagnosis.images.each do |f| %>
-          <div class="col-md-6">
-            <%= image_tag f.variant(resize_to_limit: [300, 300]) %>
-          </div>    
-<% end %>
-</div>  
-<p>
-<% if @service_order.diagnosis.diagnosis_descriptions %>
-<table class="table table-bordered table-hover toggle-circle">
-  <thead><th>Diagnostico</th><th>Creado por</th><th>Fecha</th></thead>
-<% @service_order.diagnosis.diagnosis_descriptions.each do |f| %>
-          <tr>
-            
-            <td><%= f.description %></td>
-            <td><%= f.user.name %> <%= f.user.lastname %></td>
-            <td><%= f.created_at %></td>
-          </tr>    
-<% end %>
-</table>
-<% end %>
-</p>
+      <p>
+        <strong>Tipo de diagnostico:</strong>
+        <%= @service_order.diagnosis.diagnosis_type.name %>
+      </p>
+      <p>
+      <% if @service_order.diagnosis.images.attached? %>
+      <div class="form-group row" >
+      <% @service_order.diagnosis.images.each do |f| %>
+                <div class="col-md-6">
+                  <%= image_tag f.variant(resize_to_limit: [300, 300]) %>
+                </div>    
+      <% end %>
+      </div>  
+      <p>
+      <% if @service_order.diagnosis.diagnosis_descriptions %>
+      <table class="table table-bordered table-hover toggle-circle">
+        <thead><th>Diagnostico</th><th>Creado por</th><th>Fecha</th></thead>
+      <% @service_order.diagnosis.diagnosis_descriptions.each do |f| %>
+                <tr>
+                  
+                  <td><%= f.description %></td>
+                  <td><%= f.user.name %> <%= f.user.lastname %></td>
+                  <td><%= f.created_at %></td>
+                </tr>    
+      <% end %>
+      </table>
+      <% end %>
+      </p>
 
+      <% end %>
+      </p>
 <% end %>
-</p>
-
 
 <p>
   <strong>Canceled at:</strong>
