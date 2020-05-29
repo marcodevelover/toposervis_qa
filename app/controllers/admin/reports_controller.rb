@@ -5,6 +5,7 @@ class Admin::ReportsController < ApplicationController
   end
 
   def quotations_total
+    @page_description = 'Cotizaciones'
   	@q = Quotation.ransack(params[:q])
     unless params[:q].nil?
       created_at_gt = params[:q][:created_at_gteq]
@@ -28,6 +29,7 @@ class Admin::ReportsController < ApplicationController
   end
 
   def service_orders_total
+    @page_description = 'Ordenes de servicio'
     @q = ServiceOrder.ransack(params[:q])
     unless params[:q].nil?
       created_at_gt = params[:q][:created_at_gteq]
@@ -51,6 +53,7 @@ class Admin::ReportsController < ApplicationController
   end  
 
   def orders_total
+    @page_description = 'Ordenes'
     @q = Order.ransack(params[:q])
     unless params[:q].nil?
       created_at_gt = params[:q][:created_at_gteq]
@@ -74,6 +77,7 @@ class Admin::ReportsController < ApplicationController
   end  
 
   def sales_total
+    @page_description = 'Ventas'
     @q = Sale.ransack(params[:q])
     unless params[:q].nil?
       created_at_gt = params[:q][:created_at_gteq]
@@ -97,6 +101,7 @@ class Admin::ReportsController < ApplicationController
   end
 
   def products_total
+    @page_description = 'Existencias'
     @q = Product.ransack(params[:q])
     unless params[:q].nil?
       created_at_gt = params[:q][:created_at_gteq]
