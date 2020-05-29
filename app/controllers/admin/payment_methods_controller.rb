@@ -1,4 +1,5 @@
 class Admin::PaymentMethodsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_payment_method, only: [:show, :edit, :update, :destroy, :delete]
   respond_to :html, :json
   

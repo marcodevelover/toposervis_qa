@@ -1,4 +1,5 @@
 class Admin::ReceiptTypesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_receipt_type, only: [:show, :edit, :update, :destroy, :delete]
   respond_to :html, :json
   

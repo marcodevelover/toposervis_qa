@@ -1,4 +1,5 @@
 class Admin::EntryCodesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_entry_code, only: [:show, :edit, :update, :destroy, :delete]
   respond_to :html, :json
   

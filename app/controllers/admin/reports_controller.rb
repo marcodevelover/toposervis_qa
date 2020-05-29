@@ -1,5 +1,5 @@
 class Admin::ReportsController < ApplicationController
-
+  load_and_authorize_resource :class => :Report
   def page_name
      @page_name = "Reportes"
   end

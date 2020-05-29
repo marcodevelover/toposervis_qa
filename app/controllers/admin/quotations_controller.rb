@@ -1,4 +1,5 @@
 class Admin::QuotationsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_quotation, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :sales]
   respond_to :html, :json
 

@@ -1,4 +1,5 @@
 class Admin::OrdersController < ApplicationController
+  load_and_authorize_resource
   before_action :set_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf]
   respond_to :html, :json
 

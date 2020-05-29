@@ -1,4 +1,5 @@
 class Admin::SalesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_sale, only: [:show]
   respond_to :html, :json
 

@@ -1,4 +1,5 @@
 class Admin::SubcategoriesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_subcategory, only: [:show, :edit, :update, :destroy, :delete]
   respond_to :html, :json
   

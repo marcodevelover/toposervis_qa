@@ -27,13 +27,17 @@
          <li class="nav-heading">
             <span>Menú</span>
          </li>
+
+         <% if can? :manage, :Dashboard %>
          <li class="<%= 'active' if controller?('dashboard') && action?('index') %>">
             <a href="<%= admin_dashboard_path %>" title="dashboard">
                <em class="icon-speedometer"></em>
                <span>Escritorio</span>
             </a>
          </li>
+         <%end%>
 
+         <% if can? :manage, Purchase %>
          <li class="<%= 'active' if controller?('dashboard') && action?('index') %>">
             <a href="#settings" data-toggle="collapse" data-target="#purchases" title="<%=t('configurations_module')%>"> 
                <em class="icon-grid"></em>
@@ -48,8 +52,9 @@
                </li>              
             </ul>
          </li>  
+         <%end%>
 
-
+         <% if can? :manage, Sale %>
          <li class="<%= 'active' if controller?('dashboard') && action?('index') %>">
             <a href="#settings" data-toggle="collapse" data-target="#sales" title="<%=t('configurations_module')%>"> 
                <em class="fa-1x icon-basket mr-2"></em>
@@ -76,6 +81,8 @@
 
             </ul>
          </li>  
+         <%end%>
+         <% if can? :read, ServiceOrder %>
          <li class="<%= 'active' if controller?('dashboard') && action?('index') %>">
             <a href="#settings" data-toggle="collapse" data-target="#service_orders" title="<%=t('configurations_module')%>"> 
                <em class="fa-1x icon-wrench mr-2"></em>
@@ -91,6 +98,8 @@
               
             </ul>
          </li>  
+         <%end%>
+         <% if can? :manage, :Dashboard %>
          <li class="<%= 'active' if controller?('dashboard') && action?('index') %>">
             <a href="#settings" data-toggle="collapse" data-target="#catalogs" title="<%=t('configurations_module')%>"> 
                <em class="fa-1x icon-book-open mr-2"></em>
@@ -185,6 +194,9 @@
                </li>     
             </ul>
          </li> 
+         <%end%>
+
+         <% if can? :manage, :Report %>
          <li class="<%= 'active' if controller?('dashboard') && action?('index') %>">
             <a href="#settings" data-toggle="collapse" data-target="#reports" title="<%=t('configurations_module')%>"> 
                <em class="fa-1x mr-2 far fa-file-alt"></em>
@@ -218,7 +230,8 @@
                   </a>
                </li>               
             </ul>
-         </li>     
+         </li>  
+         <%end%>   
 
                   <p>
 
