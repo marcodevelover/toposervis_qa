@@ -9,15 +9,21 @@
 
             <%= link_to admin_orders_path, :class => "btn btn-sm btn-info" do %>
                 <em class="fas fa-step-backward"></em> 
-            <%end%>            
+            <%end%>
+            
+            <% if @order.sale.bill_state != "invoiced" %>
+            <%= link_to bill_admin_order_path(@order), :class => "btn btn-sm btn-info", remote: true   do %>
+                <em class="fa-1x far fa-money-bill-alt"></em> Facturar
+            <% end %>
+            <% end %>
 
-
-
-
-
-
-
-
+            <a class="btn btn-sm btn-info" target="_blank" href="https://portalsat.plataforma.sat.gob.mx/ConsultaRFC/" >
+                <em class="fa-1x mr-2 fas fa-external-link-alt"></em> Verificar RFC
+            </a>
+     
+            <% if @order.sale.bill_state == "invoiced" %>     
+            <br><span class="badge badge-success">Facturado</span>
+            <% end %>
                 </div>
   <div class="card-body">
 <div class="invoice-box">
