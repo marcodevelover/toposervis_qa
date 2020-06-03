@@ -1,3 +1,9 @@
+GIT
+  remote: https://2be5f383f44112a90f5c4dadeb6c16bf585e3bfc:x-oauth-basic@github.com/dova3187/facturapi
+  revision: 1514e0db0a0cde919b824af3da20cbdbfe044a85
+  specs:
+    facturapi_ruby (1.3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -299,6 +305,7 @@ DEPENDENCIES
   caxlsx_rails
   chartkick
   devise
+  facturapi_ruby!
   groupdate
   image_processing (~> 1.2)
   jbuilder (~> 2.7)

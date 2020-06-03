@@ -1,6 +1,6 @@
 class Admin::OrdersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :bill, :invoice]
   respond_to :html, :json
 
   def page_name
@@ -18,7 +18,7 @@ class Admin::OrdersController < ApplicationController
 
   # GET /orders/1
   # GET /orders/1.json
-  def show
+  def show    
   end
 
   def show_from_pdf
@@ -136,6 +136,15 @@ class Admin::OrdersController < ApplicationController
     
     @q = Order.search(params[:q])
     @collection = @q.result(:distinct => true).includes(:sale).page(params[:page]).per(params[:per_page])
+  end
+
+  def bill
+    respond_modal_for_bill_with(@order,true)
+  end
+
+  # PUT /orders/1
+  def invoice
+    @order.save!(context: :bill)
   end
 
   private

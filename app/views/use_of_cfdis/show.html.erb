@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cfdi key:</strong>
+  <%= @use_of_cfdi.cfdi_key %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @use_of_cfdi.descripcion %>
+</p>
+
+<p>
+  <strong>Persona fisica:</strong>
+  <%= @use_of_cfdi.persona_fisica %>
+</p>
+
+<p>
+  <strong>Persona moral:</strong>
+  <%= @use_of_cfdi.persona_moral %>
+</p>
+
+<%= link_to 'Edit', edit_use_of_cfdi_path(@use_of_cfdi) %> |
+<%= link_to 'Back', use_of_cfdis_path %>

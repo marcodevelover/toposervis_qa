@@ -1,0 +1,2 @@
+class UseOfCfdi < ApplicationRecord
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_172136) do
+ActiveRecord::Schema.define(version: 2020_06_01_061726) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
     t.string "name"
     t.string "rfc"
     t.string "business_name"
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -132,14 +132,14 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
     t.datetime "date"
     t.string "delivery_time"
     t.datetime "date_delivery"
-    t.decimal "subtotal", precision: 18, scale: 6
-    t.decimal "total", precision: 18, scale: 6
-    t.decimal "adjustment_total", precision: 18, scale: 6
-    t.decimal "tax", precision: 18, scale: 6
-    t.decimal "tax_total", precision: 18, scale: 6
     t.bigint "diagnosis_type_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "subtotal", precision: 18, scale: 6
+    t.decimal "adjustment_total", precision: 18, scale: 6
+    t.decimal "tax", precision: 18, scale: 6
+    t.decimal "tax_total", precision: 18, scale: 6
+    t.decimal "total", precision: 18, scale: 6
     t.index ["diagnosis_type_id"], name: "index_diagnoses_on_diagnosis_type_id"
     t.index ["service_order_id"], name: "index_diagnoses_on_service_order_id"
   end
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
     t.bigint "product_variant_id", null: false
     t.string "name"
     t.text "extended_description"
+    t.text "unit"
     t.integer "quantity"
     t.decimal "unit_price", precision: 18, scale: 6
     t.decimal "total", precision: 18, scale: 6
@@ -239,6 +240,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "payment_method_key"
   end
 
   create_table "payment_ways", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -247,6 +249,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "payment_way_key"
   end
 
   create_table "product_lines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -279,6 +282,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "product_key"
     t.index ["currency_id"], name: "index_product_variants_on_currency_id"
     t.index ["product_id"], name: "index_product_variants_on_product_id"
   end
@@ -379,7 +383,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
     t.string "number_procedure"
     t.string "number_part"
     t.text "observation"
-    t.text "unit"
+    t.string "unit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_variant_id"], name: "index_purchase_items_on_product_variant_id"
@@ -462,23 +466,24 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "bill_state"
     t.index ["payment_method_id"], name: "index_sales_on_payment_method_id"
     t.index ["payment_way_id"], name: "index_sales_on_payment_way_id"
     t.index ["record_type", "record_id"], name: "index_sales_on_record_type_and_record_id"
   end
 
   create_table "service_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.datetime "date_admission"
     t.string "folio"
+    t.datetime "date_admission"
     t.bigint "customer_id", null: false
     t.bigint "product_id", null: false
     t.string "serie"
     t.string "brand"
     t.string "model"
-    t.integer "created_by_id"
     t.text "observation"
+    t.integer "created_by_id"
     t.datetime "deleted_at"
-    t.string "status"
+    t.string "state"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_service_orders_on_customer_id"
@@ -527,6 +532,16 @@ ActiveRecord::Schema.define(version: 2020_05_27_172136) do
     t.string "description"
     t.string "abbreviation"
     t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "unit_key"
+  end
+
+  create_table "use_of_cfdis", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "cfdi_key"
+    t.string "description"
+    t.boolean "persona_fisica"
+    t.boolean "persona_moral"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

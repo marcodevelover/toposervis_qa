@@ -1,0 +1,45 @@
+swal({
+    title: 'Desea realizar la factura?',
+    text: 'Se emitirá un CFDI!',
+    icon: 'warning',
+    buttons: {
+        cancel: {
+            text: 'No, cancel!',
+            value: null,
+            visible: true,
+            className: "",
+            closeModal: false
+        },
+        confirm: {
+            text: 'Si, marcar para facturar!',
+            showLoaderOnConfirm: true,
+            value: true,
+            visible: true,
+            className: "bg-info",
+            closeModal: false
+        }
+    }
+}).then(function(isConfirm) {
+
+    if (isConfirm) {
+        swal('Facturando!', 'Espere un momento...', 'success');
+        $.ajax({
+                url: "/admin/<%=controller_name%>/<%=@object.id%>/invoice",
+                type: "PUT",  
+                success: function () {
+                    swal("Hecho", "Facturado", "success");
+                    location.reload();
+ 
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    swal("Error!", "Algo ha salido mal!!!", "error");
+                }
+            });                
+    } else {
+        swal('Cancelado', 'Tu nota de venta no se ha facturado', 'error');
+    }
+
+    });
+            
+
+

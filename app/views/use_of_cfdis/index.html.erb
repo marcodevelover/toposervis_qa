@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Use Of Cfdis</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cfdi key</th>
+      <th>Descripcion</th>
+      <th>Persona fisica</th>
+      <th>Persona moral</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @use_of_cfdis.each do |use_of_cfdi| %>
+      <tr>
+        <td><%= use_of_cfdi.cfdi_key %></td>
+        <td><%= use_of_cfdi.descripcion %></td>
+        <td><%= use_of_cfdi.persona_fisica %></td>
+        <td><%= use_of_cfdi.persona_moral %></td>
+        <td><%= link_to 'Show', use_of_cfdi %></td>
+        <td><%= link_to 'Edit', edit_use_of_cfdi_path(use_of_cfdi) %></td>
+        <td><%= link_to 'Destroy', use_of_cfdi, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Use Of Cfdi', new_use_of_cfdi_path %>

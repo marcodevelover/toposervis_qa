@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :use_of_cfdis
   namespace :admin do
     root to: "dashboard#index"
     get 'dashboard', to: 'dashboard#index', as: 'dashboard'
@@ -119,6 +120,8 @@ Rails.application.routes.draw do
       get :filter_form, on: :collection
       get :show_from_modal, on: :member
       get :show_from_pdf, on: :member
+      get :bill, on: :member
+      put :invoice, on: :member
     end
     resources :sales do
       get :filter_form, on: :collection
