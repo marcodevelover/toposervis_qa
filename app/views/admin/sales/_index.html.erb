@@ -15,9 +15,8 @@
             <% end %>
         </td>
         <td>
-
-            <span class="badge badge-<%= object.state %>"><%= object.bill_state %></span>
-            
+            <span class="badge badge-<%= object.bill_state %>"><%= object.bill_state %></span><br>
+            <span class="badge badge-<%= object.cancellation_state %>"><%= object.cancellation_state %></span>
         </td>
 
         <td>
@@ -35,6 +34,10 @@
             <%= link_to show_from_pdf_admin_order_path(object.record_id, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
                 <em class="fas fa-print"></em> 
             <%end%>
+            <%= link_to admin_order_path(object.record_id), :class => "btn btn-sm btn-info" do %>
+                <em class="fa-1x fas fa-external-link-alt"></em>Facturación
+            <%end%>
+
             <%end%>
 
             <% if object.record_type == "Diagnosis" %>

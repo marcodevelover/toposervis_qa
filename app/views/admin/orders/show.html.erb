@@ -34,6 +34,29 @@
             <% end %>
             <% end %>
              
+            <% unless @order.sale.bill_key.blank? %>
+            <button class="btn dropdown-toggle btn-info" type="button" data-toggle="dropdown" aria-expanded="false"><em class="fa-1x fas fa-download"></em></button>
+               <div class="dropdown-menu" role="menu" style="">
+
+                <% unless @order.sale.bill_key.blank? %>
+
+                <%= link_to download_pdf_admin_sale_path(@order.sale.bill_key), :class => "dropdown-item", target: :_blank do %>
+                    PDF de factura
+                <%end%>
+
+                <%= link_to download_xml_admin_sale_path(@order.sale.bill_key), :class => "dropdown-item", target: :_blank do %>
+                    XML de factura
+                <%end%>  
+
+                <%= link_to download_zip_admin_sale_path(@order.sale.bill_key), :class => "dropdown-item", target: :_blank do %>
+                    ZIP de factura
+                <%end%>            
+
+                <%end%>
+
+               </div>
+            <%end%>
+
             <br><br>
 
             <span class="badge badge-<%= @order.sale.bill_state %>"><%= @order.sale.bill_state %></span>
