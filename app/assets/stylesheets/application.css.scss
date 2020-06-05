@@ -125,3 +125,103 @@ a.badge-pending:focus, a.badge-pending.focus {
 .sort_link {
   color: #fff !important;
 }
+/* invoiced */
+.badge-invoiced {
+  color: #fff;
+  background-color: #27c24c;
+}
+
+a.badge-invoiced:hover, a.badge-invoiced:focus {
+  color: #fff;
+  background-color: #1e983b;
+}
+
+a.badge-invoiced:focus, a.badge-invoiced.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(39, 194, 76, 0.5);
+}
+
+/* canceled */
+.badge-canceled {
+  color: #fff;
+  background-color: #f05050;
+}
+a.badge-canceled:hover, a.badge-canceled:focus {
+  color: #fff;
+  background-color: #ec2121;
+}
+a.badge-canceled:focus, a.badge-canceled.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(240, 80, 80, 0.5);
+}
+/* valid */
+.badge-valid {
+  color: #fff;
+  background-color: #ff902b;
+}
+
+a.badge-valid:hover, a.badge-valid:focus {
+  color: #212529;
+  background-color: #f77600;
+}
+
+a.badge-valid:focus, a.badge-valid.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 144, 43, 0.5);
+}
+/* pending */
+.badge-pending {
+  color: #fff;
+  background-color: #ff902b;
+}
+
+a.badge-pending:hover, a.badge-pending:focus {
+  color: #212529;
+  background-color: #f77600;
+}
+
+a.badge-pending:focus, a.badge-pending.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 144, 43, 0.5);
+}
+/* accepted */
+.badge-accepted {
+  color: #fff;
+  background-color: #27c24c;
+}
+
+a.badge-accepted:hover, a.badge-accepted:focus {
+  color: #fff;
+  background-color: #1e983b;
+}
+
+a.badge-accepted:focus, a.badge-accepted.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(39, 194, 76, 0.5);
+}
+/* rejected */
+.badge-rejected {
+  color: #fff;
+  background-color: #f05050;
+}
+a.badge-rejected:hover, a.badge-rejected:focus {
+  color: #fff;
+  background-color: #ec2121;
+}
+a.badge-rejected:focus, a.badge-rejected.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(240, 80, 80, 0.5);
+}
+/* expired */
+.badge-expired {
+  color: #fff;
+  background-color: #f05050;
+}
+a.badge-expired:hover, a.badge-expired:focus {
+  color: #fff;
+  background-color: #ec2121;
+}
+a.badge-expired:focus, a.badge-expired.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(240, 80, 80, 0.5);
+}
