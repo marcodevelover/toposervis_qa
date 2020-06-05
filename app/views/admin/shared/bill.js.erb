@@ -22,7 +22,7 @@ swal({
 }).then(function(isConfirm) {
 
     if (isConfirm) {
-        swal('Facturando!', 'Espere un momento...', 'success');
+        swal('Facturando!', 'Espere un momento...', 'info', {buttons: false});
         $.ajax({
                 url: "/admin/<%=controller_name%>/<%=@object.id%>/invoice",
                 type: "PUT",  

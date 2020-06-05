@@ -1,5 +1,7 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
+  require 'net/http'
+  include FacturapiRuby
 
   include ActiveStorageSupport::SupportForBase64
   #include AbstractController::Rendering
@@ -41,7 +43,7 @@ class ApplicationRecord < ActiveRecord::Base
                         payment_form:   self.sale.payment_method.payment_method_key
                     )
     @sale = Sale.find_by(id: self.sale.id)
-    @sale.update(bill_state: "invoiced")
+    @sale.update(bill_key: ext_invoice["id"], bill_state: "invoiced")
 
     rescue FacturapiRuby::FacturapiRubyError => e
         puts e.data['message']
