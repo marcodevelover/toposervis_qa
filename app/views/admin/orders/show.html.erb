@@ -25,6 +25,12 @@
                 <em class="fa-1x far fa-money-bill-alt"></em> Cancelar
             <% end %>
 
+            
+
+            <%= link_to request_cancellation_state_invoice_admin_order_path(@order), :class => "btn btn-sm btn-info", remote: true   do %>
+                <em class="fa-1x far fa-money-bill-alt"></em> Verificar estatus de cancelación
+            <% end %>
+
 
      
             <% if @order.sale.bill_state == "invoiced" %>     

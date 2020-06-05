@@ -95,7 +95,17 @@ class ApplicationController < ActionController::Base
             @objects=  @collection
             format.js  { render "admin/shared/cancel_bill.js.erb", layout: false, content_type: 'text/javascript' }
       end
-  end  
+  end 
+
+  def respond_modal_for_request_cancellation_state_invoice_with(*args)
+    @object =  args[0] 
+    respond_to do |format| 
+
+            search
+            @objects=  @collection
+            format.js  { render "admin/shared/cancellation_state_bill.js.erb", layout: false, content_type: 'text/javascript' }
+      end
+  end    
 
   def respond_modal_with(*args, &blk)
     @object= args[0]

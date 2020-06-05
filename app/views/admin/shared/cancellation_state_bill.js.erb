@@ -1,0 +1,45 @@
+swal({
+    title: 'Verificar estado de la cancelación?',
+    text: 'Se actualizara tu factura a el estado más reciente de la solicitud.',
+    icon: 'warning',
+    buttons: {
+        cancel: {
+            text: 'No, cancel!',
+            value: null,
+            visible: true,
+            className: "",
+            closeModal: false
+        },
+        confirm: {
+            text: 'Si, verificar estado!',
+            showLoaderOnConfirm: true,
+            value: true,
+            visible: true,
+            className: "bg-info",
+            closeModal: false
+        }
+    }
+}).then(function(isConfirm) {
+
+    if (isConfirm) {
+        swal('Procesando!', 'Espere un momento...', 'info', {buttons: false});
+        $.ajax({
+                url: "/admin/<%=controller_name%>/<%=@object.id%>/cancellation_state_invoice",
+                type: "PUT",  
+                success: function () {
+                    swal("Hecho", "Actualización de estado efectuada", "success");
+                    location.reload();
+ 
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    swal("Error!", "Algo ha salido mal!!!", "error");
+                }
+            });                
+    } else {
+        swal('Cancelado', 'Tu actualización de estado no se ha efectuado', 'error');
+    }
+
+    });
+            
+
+

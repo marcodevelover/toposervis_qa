@@ -124,6 +124,8 @@ Rails.application.routes.draw do
       put :invoice, on: :member
       get :request_cancel_invoice, on: :member
       put :cancel_invoice, on: :member
+      get :request_cancellation_state_invoice, on: :member
+      put :cancellation_state_invoice, on: :member
     end
     resources :sales do
       get :filter_form, on: :collection
