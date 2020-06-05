@@ -1,0 +1,45 @@
+swal({
+    title: 'Desea realizar la cancelación?',
+    text: 'Se realiza una solicitud de cancelación de factura ante el SAT',
+    icon: 'warning',
+    buttons: {
+        cancel: {
+            text: 'No, cancel!',
+            value: null,
+            visible: true,
+            className: "",
+            closeModal: false
+        },
+        confirm: {
+            text: 'Si, marcar para cancelar!',
+            showLoaderOnConfirm: true,
+            value: true,
+            visible: true,
+            className: "bg-info",
+            closeModal: false
+        }
+    }
+}).then(function(isConfirm) {
+
+    if (isConfirm) {
+        swal('Procesando!', 'Espere un momento...', 'info', {buttons: false});
+        $.ajax({
+                url: "/admin/<%=controller_name%>/<%=@object.id%>/cancel_invoice",
+                type: "PUT",  
+                success: function () {
+                    swal("Hecho", "Solicitud de cancelación efectuada", "success");
+                    location.reload();
+ 
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    swal("Error!", "Algo ha salido mal!!!", "error");
+                }
+            });                
+    } else {
+        swal('Cancelado', 'Tu solicitud de cancelación no se ha efectuado', 'error');
+    }
+
+    });
+            
+
+

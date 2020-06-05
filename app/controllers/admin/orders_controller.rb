@@ -1,6 +1,6 @@
 class Admin::OrdersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :bill, :invoice]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :bill, :invoice, :cancel_invoice]
   respond_to :html, :json
 
   def page_name
@@ -146,6 +146,14 @@ class Admin::OrdersController < ApplicationController
   def invoice
     @order.save!(context: :bill)
   end
+
+  def request_cancel_invoice
+    respond_modal_for_request_cancel_invoice_with(@order,true)
+  end  
+
+  def cancel_invoice
+    @order.save!(context: :request_cancel_invoice)
+  end    
 
   private
     # Use callbacks to share common setup or constraints between actions.

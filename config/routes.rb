@@ -122,6 +122,8 @@ Rails.application.routes.draw do
       get :show_from_pdf, on: :member
       get :bill, on: :member
       put :invoice, on: :member
+      get :request_cancel_invoice, on: :member
+      put :cancel_invoice, on: :member
     end
     resources :sales do
       get :filter_form, on: :collection

@@ -1,7 +1,7 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
-  require 'net/http'
-  include FacturapiRuby
+  #require 'net/http'
+  #include FacturapiRuby
 
   include ActiveStorageSupport::SupportForBase64
   #include AbstractController::Rendering
@@ -10,6 +10,7 @@ class ApplicationRecord < ActiveRecord::Base
   #before_validation :erase_sale, on: :delete, if: Proc.new { self.sale.present? || self.diagnosis.sale.present? }
   before_validation :delivered , on: :output, if: Proc.new { self.diagnosis.present? && self.diagnosis.sale.present? && self.state == "sold" } 
   before_validation :invoice , on: :bill, if: Proc.new { self.sale.bill_state != "invoiced" }
+  before_validation :cancel_invoice , on: :request_cancel_invoice, if: Proc.new { self.sale.bill_state == "invoiced" }
   def erase	
   	self.deleted_at=Time.now
   end  
@@ -42,12 +43,26 @@ class ApplicationRecord < ActiveRecord::Base
                                                     }).as_json,
                         payment_form:   self.sale.payment_method.payment_method_key
                     )
-    @sale = Sale.find_by(id: self.sale.id)
-    @sale.update(bill_key: ext_invoice["id"], bill_state: "invoiced")
+        @sale = Sale.find_by(id: self.sale.id)
+        @sale.update(bill_key: ext_invoice["id"], bill_state: "invoiced")
 
     rescue FacturapiRuby::FacturapiRubyError => e
         puts e.data['message']
         raise e.data['message']
     end    
   end  
+
+  def cancel_invoice
+    
+    begin
+        ext_invoice = FacturapiRuby::Invoices.cancel(self.sale.bill_key)
+        @sale = Sale.find_by(id: self.sale.id)
+        @sale.update(bill_state: ext_invoice["status"], cancellation_state: ext_invoice["cancellation_status"])
+
+    rescue FacturapiRuby::FacturapiRubyError => e
+        puts e.data['message']
+        raise e.data['message']
+    end   
+  
+  end    
 end
