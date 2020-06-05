@@ -1,6 +1,6 @@
 class Admin::QuotationsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_quotation, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :sales]
+  before_action :set_quotation, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :sales, :bill, :invoice, :cancel_invoice, :request_cancellation_state_invoice, :cancellation_state_invoice]
   respond_to :html, :json
 
   def page_name
@@ -147,6 +147,31 @@ class Admin::QuotationsController < ApplicationController
     @q = Quotation.search(params[:q])
     @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])
   end
+
+  def bill
+    respond_modal_for_bill_with(@quotation,true)
+  end
+
+  # PUT /orders/1
+  def invoice
+    @quotation.save!(context: :bill)
+  end
+
+  def request_cancel_invoice
+    respond_modal_for_request_cancel_invoice_with(@quotation,true)
+  end  
+
+  def cancel_invoice
+    @quotation.save!(context: :request_cancel_invoice)
+  end
+
+  def request_cancellation_state_invoice
+    respond_modal_for_request_cancellation_state_invoice_with(@quotation,true)
+  end  
+
+  def cancellation_state_invoice
+    @quotation.save!(context: :request_cancellation_state_invoice)
+  end  
 
   private
     # Use callbacks to share common setup or constraints between actions.

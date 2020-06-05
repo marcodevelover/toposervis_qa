@@ -78,6 +78,12 @@ Rails.application.routes.draw do
       get :show_from_modal, on: :member
       get :show_from_pdf, on: :member
       get :sales, on: :member
+      get :bill, on: :member
+      put :invoice, on: :member
+      get :request_cancel_invoice, on: :member
+      put :cancel_invoice, on: :member
+      get :request_cancellation_state_invoice, on: :member
+      put :cancellation_state_invoice, on: :member
     end
     resources :purchases do
       get :providers, on: :collection
