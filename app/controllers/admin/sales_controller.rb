@@ -36,6 +36,24 @@ class Admin::SalesController < ApplicationController
     @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])  
   end
 
+  def download_pdf
+    pdf = FacturapiRuby::Files.pdf(invoice_id: params[:id])
+    send_file pdf.path
+    pdf.close
+  end  
+
+  def download_xml
+    xml = FacturapiRuby::Files.xml(invoice_id: params[:id])
+    send_file xml.path
+    xml.close
+  end 
+
+  def download_zip
+    zip = FacturapiRuby::Files.zip(invoice_id: params[:id])
+    send_file zip.path
+    zip.close
+  end      
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sale

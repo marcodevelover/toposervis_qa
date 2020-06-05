@@ -125,6 +125,9 @@ Rails.application.routes.draw do
     end
     resources :sales do
       get :filter_form, on: :collection
+      get :download_pdf, on: :member
+      get :download_xml, on: :member
+      get :download_zip, on: :member
     end
     resources :receipt_types  do
       get :delete, on: :member
