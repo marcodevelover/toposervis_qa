@@ -109,6 +109,12 @@ Rails.application.routes.draw do
       get :diagnoses, on: :member
       get :product_variants, on: :collection
       get :sales, on: :member
+      get :bill, on: :member
+      put :invoice, on: :member
+      get :request_cancel_invoice, on: :member
+      put :cancel_invoice, on: :member
+      get :request_cancellation_state_invoice, on: :member
+      put :cancellation_state_invoice, on: :member
     end
     resources :payment_ways  do
       get :delete, on: :member

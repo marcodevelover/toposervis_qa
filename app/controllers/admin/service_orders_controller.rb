@@ -1,6 +1,6 @@
 class Admin::ServiceOrdersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_service_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :diagnoses, :output, :delivered, :sales]
+  before_action :set_service_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :diagnoses, :output, :delivered, :sales, :bill, :invoice, :cancel_invoice, :request_cancellation_state_invoice, :cancellation_state_invoice]
   respond_to :html, :json
 
   def page_name
@@ -209,6 +209,32 @@ class Admin::ServiceOrdersController < ApplicationController
     end
 
   end
+
+  def bill
+    respond_modal_for_bill_with(@service_order,true)
+  end
+
+  # PUT /orders/1
+  def invoice
+    @service_order.save!(context: :bill_to_diagnosis)
+  end
+
+  def request_cancel_invoice
+    respond_modal_for_request_cancel_invoice_with(@service_order,true)
+  end  
+
+  def cancel_invoice
+    @service_order.save!(context: :request_cancel_invoice_to_diagnosis)
+  end
+
+  def request_cancellation_state_invoice
+    respond_modal_for_request_cancellation_state_invoice_with(@service_order,true)
+  end  
+
+  def cancellation_state_invoice
+    @service_order.save!(context: :request_cancellation_state_invoice_to_diagnosis)
+  end 
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -14,7 +14,65 @@
 
             <%= link_to admin_service_orders_path, :class => "btn btn-sm btn-info" do %>
                 <em class="fas fa-step-backward"></em> 
-            <%end%>            
+            <%end%>   
+
+<!--ddddd-->
+            <a class="btn btn-sm btn-info" target="_blank" href="https://portalsat.plataforma.sat.gob.mx/ConsultaRFC/" >
+                <em class="fa-1x mr-2 fas fa-external-link-alt"></em> Verificar RFC
+            </a>
+
+            <% if @service_order.diagnosis.sale.bill_state.blank?  %>
+            <%= link_to bill_admin_service_order_path(@service_order), :class => "btn btn-sm btn-info", remote: true   do %>
+                <em class="fa-1x far fa-money-bill-alt"></em> Facturar
+            <% end %>
+            <% end %>
+
+            <% if @service_order.diagnosis.sale.bill_state == "invoiced"  %>
+            <%= link_to request_cancel_invoice_admin_service_order_path(@service_order), :class => "btn btn-sm btn-info", remote: true   do %>
+                <em class="fa-1x far fa-money-bill-alt"></em> Cancelar
+            <% end %>
+            <% end %>
+
+            
+            <% if @service_order.diagnosis.sale.cancellation_state == "pending" %>
+            <%= link_to request_cancellation_state_invoice_admin_service_order_path(@service_order), :class => "btn btn-sm btn-info", remote: true   do %>
+                <em class="fa-1x far fa-money-bill-alt"></em> Verificar cancelación
+            <% end %>
+            <% end %>
+             
+            <% unless @service_order.diagnosis.sale.bill_key.blank? %>
+            <button class="btn dropdown-toggle btn-info" type="button" data-toggle="dropdown" aria-expanded="false"><em class="fa-1x fas fa-download"></em></button>
+               <div class="dropdown-menu" role="menu" style="">
+
+                <% unless @service_order.diagnosis.sale.bill_key.blank? %>
+
+                <%= link_to download_pdf_admin_sale_path(@service_order.diagnosis.sale.bill_key), :class => "dropdown-item", target: :_blank do %>
+                    PDF de factura
+                <%end%>
+
+                <%= link_to download_xml_admin_sale_path(@service_order.diagnosis.sale.bill_key), :class => "dropdown-item", target: :_blank do %>
+                    XML de factura
+                <%end%>  
+
+                <%= link_to download_zip_admin_sale_path(@service_order.diagnosis.sale.bill_key), :class => "dropdown-item", target: :_blank do %>
+                    ZIP de factura
+                <%end%>            
+
+                <%end%>
+
+               </div>
+            <%end%>
+
+            <br><br>
+
+            <span class="badge badge-<%= @service_order.diagnosis.sale.bill_state %>"><%= @service_order.diagnosis.sale.bill_state %></span>
+
+            <% unless @service_order.diagnosis.sale.cancellation_state.blank?  %>
+            <span class="badge badge-<%= @service_order.diagnosis.sale.cancellation_state %>"><%= @service_order.diagnosis.sale.cancellation_state %></span>
+            <% end %>
+
+<!--ddddd-->
+
 
                 </div>
 

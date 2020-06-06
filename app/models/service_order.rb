@@ -20,6 +20,9 @@ class ServiceOrder < ApplicationRecord
   
   # active, diagnosed, sold, delivered
   before_validation :erase_sale, on: :delete, if: Proc.new { self.diagnosis.sale.present? }
+  before_validation :invoice , on: :bill_to_diagnosis, if: Proc.new { self.diagnosis.sale.bill_state != "invoiced" }
+  before_validation :cancel_invoice , on: :request_cancel_invoice_to_diagnosis, if: Proc.new { self.diagnosis.sale.bill_state == "invoiced" }
+  before_validation :cancellation_state_invoice , on: :request_cancellation_state_invoice_to_diagnosis, if: Proc.new { self.diagnosis.sale.bill_state == "valid" }
 
   def erase_sale
     @sale = Sale.find_by(id: self.diagnosis.sale.id)
@@ -48,6 +51,66 @@ class ServiceOrder < ApplicationRecord
     else
       self.state
     end    
-  end    
+  end
+
+
+  def invoice
+    
+    @items = self.diagnosis.items
+
+    begin
+        ext_invoice = FacturapiRuby::Invoices.create(
+                        customer:       {
+                                            "legal_name": self.customer.business_name,
+                                            "email": self.customer.customer_contacts.first.email,
+                                            "tax_id": self.customer.rfc
+                                        },
+                        items:          (@items.map { |s| { quantity: s.quantity, 
+                                                            product: { description: s.name, 
+                                                                       product_key: s.product_variant.product_key, 
+                                                                       price: s.unit_price, 
+                                                                       tax_included: false} 
+                                                          } 
+                                                    }).as_json,
+                        payment_form:   self.diagnosis.sale.payment_method.payment_method_key
+                    )
+        @sale = Sale.find_by(id: self.diagnosis.sale.id)
+        @sale.update(bill_key: ext_invoice["id"], bill_state: "invoiced")
+
+    rescue FacturapiRuby::FacturapiRubyError => e
+        puts e.data['message']
+        raise e.data['message']
+    end    
+  end
+
+  def cancel_invoice
+    
+    begin
+        ext_invoice = FacturapiRuby::Invoices.cancel(self.diagnosis.sale.bill_key)
+        @sale = Sale.find_by(id: self.diagnosis.sale.id)
+        @sale.update(bill_state: ext_invoice["status"], cancellation_state: ext_invoice["cancellation_status"])
+
+    rescue FacturapiRuby::FacturapiRubyError => e
+        puts e.data['message']
+        raise e.data['message']
+    end   
+  
+  end  
+
+  def cancellation_state_invoice
+ 
+    begin
+        ext_invoice = FacturapiRuby::Invoices.get(self.diagnosis.sale.bill_key)
+        @sale = Sale.find_by(id: self.diagnosis.sale.id)
+        @sale.update(bill_state: ext_invoice["status"], cancellation_state: ext_invoice["cancellation_status"])
+
+    rescue FacturapiRuby::FacturapiRubyError => e
+        puts e.data['message']
+        raise e.data['message']
+    end     
+    
+  
+  end  
+
 
 end
