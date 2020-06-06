@@ -145,7 +145,7 @@ class Admin::QuotationsController < ApplicationController
     params[:per_page] = 10
     
     @q = Quotation.search(params[:q])
-    @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])
+    @collection = @q.result(:distinct => true).order('id DESC').page(params[:page]).per(params[:per_page])
   end
 
   def bill
