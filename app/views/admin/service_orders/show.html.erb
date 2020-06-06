@@ -1,149 +1,4 @@
 <p id="notice"><%= notice %></p>
-
-<div class="card card-default">
-                <div class="card-body">
-
-            <%= link_to edit_admin_service_order_path(@service_order), :class => "btn btn-sm btn-info" do %>
-              <em class="fa fa-edit"></em> 
-            <%end%>
-
-            <%= link_to show_from_pdf_admin_service_order_path(@service_order, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
-                <em class="fas fa-print"></em> 
-            <%end%>
-
-            <%= link_to admin_service_orders_path, :class => "btn btn-sm btn-info" do %>
-                <em class="fas fa-step-backward"></em> 
-            <%end%>            
-
-                </div>
-
-  <div class="card-body">
-<div class="invoice-box">
-        <table cellpadding="0" cellspacing="0">
-          <tr class="top">
-            <td colspan="5">
-              <table>
-                <tr>
-                  <td class="title">
-                    <%= image_tag 'pdf/logo.png' %>
-                  </td>
-
-                  <td>
-                    <strong>Toposervis S de RL de CV</strong>
-                    <br>
-                    <span>Calle42No.264x41Ay 41C</span>
-                    <br>
-                    <span>Fraccionamiento Francisco de MontejoIII Mérida,Yucatán </span>
-                    <br>
-                    <span>Tel. 01 800 890 9383 CP 97203</span>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        
-
-          <tr class="information">
-            <td colspan="5">
-              <table>
-                <tr>
-                  <td>
-                    <b>Contacto:</b>
-                    <%= @service_order.customer.customer_contacts.first.name %><br>
-                    <b>Compañia:</b>
-                    <%= @service_order.customer.business_name %><br>
-                    <b>E-mail:</b>
-                    <%= @service_order.customer.customer_contacts.first.email %>
-                  </td>
-                  <td>
-                    <b>Orden de servicio</b><br>
-                    <b>Folio:</b>
-                    <%= @service_order.folio %><br>
-                    <b>Fecha:</b>
-                    <%= @service_order.created_at.strftime("%d-%m-%Y") %>
-                  </td>
-
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <tr>
-            <td colspan="5"><b>Producto:</b> <%= @service_order.product.name %></td>
-          </tr>
-          <tr>
-            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @service_order.product.name %></b> marca <b><%= @service_order.brand %></b> model <b><%= @service_order.product.model %></b> con número de serie <b><%= @service_order.serie %></b> para su revisión y diagnostico.</br> <b>Accesorios que incluye:</b></td>
-          </tr>          
-
-          <tr class="heading">
-            
-            <td class="left" colspan="3">Accesorios</td>
-            <td class="right" colspan="2">Cantidad</td>
-            
-          </tr> 
-
-          <% @service_order.order_accessories.where.not(quantity: 0).each do |item| %>
-            
-            <tr class="item">
-                
-                <td colspan="3">
-                    <%= item.accessory %><br>
-                    
-                </td>
-
-                <td class="right" colspan="2">
-                    <%= item.quantity %>
-                </td>
-                
-            </tr>
-            
-          <% end %>
-
-
-
-          <tr>
-            <td colspan="5"></td>
-          </tr> 
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-
-          <tr>
-            <td colspan="3" style="text-align: center"><strong>_________________________________</strong></td>
-            <td colspan="3" style="text-align: center"><strong>_________________________________</strong></td>
-          </tr>          
-          <tr>
-            <td colspan="3" style="text-align: center"><strong>Cliente:</strong></td>
-            <td colspan="3" style="text-align: center"><strong>Toposervis S de RL de CV</strong></td>
-          </tr>
-
-
-
-          <tr>
-            <td colspan="5">
-              <table>
-            <tr class="footer">
-              <td colspan="1"></td>
-              <td colspan="2" class="footer" style="text-align: center;">
-                <b>www.toposervis.com</b></br>
-                <b>Venta, renta de equipos y servicios de topografía e ingeniería<b></br>
-                <b>Tel. 01 800 890 9383<b></br>
-              </td>         
-              <td colspan="2"></td>
-          </tr> 
-              </table>
-            </td>
-          </tr>          
-          
-        </table>
-</div> <!--invoice-box -->
-
-  </div> <!--card-body -->
-</div> <!--card card-default -->
-
 <!-- diagnoses-->
 <% if @service_order.diagnosis.present? %>
 <div class="card card-default">
@@ -404,6 +259,153 @@
 </div> <!--card card-default -->
 <% end %>
 <!-- end diagnoses -->
+
+<!-- service order-->
+<div class="card card-default">
+                <div class="card-body">
+
+            <%= link_to edit_admin_service_order_path(@service_order), :class => "btn btn-sm btn-info" do %>
+              <em class="fa fa-edit"></em> 
+            <%end%>
+
+            <%= link_to show_from_pdf_admin_service_order_path(@service_order, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+                <em class="fas fa-print"></em> 
+            <%end%>
+
+            <%= link_to admin_service_orders_path, :class => "btn btn-sm btn-info" do %>
+                <em class="fas fa-step-backward"></em> 
+            <%end%>            
+
+                </div>
+
+  <div class="card-body">
+<div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td class="title">
+                    <%= image_tag 'pdf/logo.png' %>
+                  </td>
+
+                  <td>
+                    <strong>Toposervis S de RL de CV</strong>
+                    <br>
+                    <span>Calle42No.264x41Ay 41C</span>
+                    <br>
+                    <span>Fraccionamiento Francisco de MontejoIII Mérida,Yucatán </span>
+                    <br>
+                    <span>Tel. 01 800 890 9383 CP 97203</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        
+
+          <tr class="information">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td>
+                    <b>Contacto:</b>
+                    <%= @service_order.customer.customer_contacts.first.name %><br>
+                    <b>Compañia:</b>
+                    <%= @service_order.customer.business_name %><br>
+                    <b>E-mail:</b>
+                    <%= @service_order.customer.customer_contacts.first.email %>
+                  </td>
+                  <td>
+                    <b>Orden de servicio</b><br>
+                    <b>Folio:</b>
+                    <%= @service_order.folio %><br>
+                    <b>Fecha:</b>
+                    <%= @service_order.created_at.strftime("%d-%m-%Y") %>
+                  </td>
+
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="5"><b>Producto:</b> <%= @service_order.product.name %></td>
+          </tr>
+          <tr>
+            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @service_order.product.name %></b> marca <b><%= @service_order.brand %></b> model <b><%= @service_order.product.model %></b> con número de serie <b><%= @service_order.serie %></b> para su revisión y diagnostico.</br> <b>Accesorios que incluye:</b></td>
+          </tr>          
+
+          <tr class="heading">
+            
+            <td class="left" colspan="3">Accesorios</td>
+            <td class="right" colspan="2">Cantidad</td>
+            
+          </tr> 
+
+          <% @service_order.order_accessories.where.not(quantity: 0).each do |item| %>
+            
+            <tr class="item">
+                
+                <td colspan="3">
+                    <%= item.accessory %><br>
+                    
+                </td>
+
+                <td class="right" colspan="2">
+                    <%= item.quantity %>
+                </td>
+                
+            </tr>
+            
+          <% end %>
+
+
+
+          <tr>
+            <td colspan="5"></td>
+          </tr> 
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+
+          <tr>
+            <td colspan="3" style="text-align: center"><strong>_________________________________</strong></td>
+            <td colspan="3" style="text-align: center"><strong>_________________________________</strong></td>
+          </tr>          
+          <tr>
+            <td colspan="3" style="text-align: center"><strong>Cliente:</strong></td>
+            <td colspan="3" style="text-align: center"><strong>Toposervis S de RL de CV</strong></td>
+          </tr>
+
+
+
+          <tr>
+            <td colspan="5">
+              <table>
+            <tr class="footer">
+              <td colspan="1"></td>
+              <td colspan="2" class="footer" style="text-align: center;">
+                <b>www.toposervis.com</b></br>
+                <b>Venta, renta de equipos y servicios de topografía e ingeniería<b></br>
+                <b>Tel. 01 800 890 9383<b></br>
+              </td>         
+              <td colspan="2"></td>
+          </tr> 
+              </table>
+            </td>
+          </tr>          
+          
+        </table>
+</div> <!--invoice-box -->
+
+  </div> <!--card-body -->
+</div> <!--card card-default -->
+
+<!-- end service order -->
 
 
 
