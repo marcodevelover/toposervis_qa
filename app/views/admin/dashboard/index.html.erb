@@ -4,7 +4,7 @@
                   <div class="card flex-row align-items-center align-items-stretch border-0">
                      <div class="col-4 d-flex align-items-center bg-primary-dark justify-content-center rounded-left"><em class="fa-3x icon-basket mr-2"></em></div>
                      <div class="col-8 py-3 bg-primary rounded-right">
-                        <div class="h2 mt-0">$<%=@item_sum%></div>
+                        <div class="h2 mt-0">$<%=@sale_sum%></div>
                         <div class="text-uppercase">Ventas</div>
                      </div>
                   </div>
@@ -53,7 +53,7 @@
                    </div>
                    <div class="card-wrapper collapse show">
                       <div class="card-body">
-                      	<%= line_chart Item.group_by_day(:created_at).count %>
+                      	<%= line_chart Sale.group_by_day(:created_at).count %>
                       </div>
                    </div>
                 </div>

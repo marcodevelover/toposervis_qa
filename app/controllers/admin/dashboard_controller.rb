@@ -5,7 +5,11 @@ class Admin::DashboardController < ApplicationController
      @page_name = "Dashboard"
   end	
   def index
-  	@item_sum = Item.sum(:total)
+    @order = Order.where('deleted_at IS NULL').sum(:total)
+    @service_order = ServiceOrder.joins('INNER JOIN diagnoses ON diagnoses.service_order_id = service_orders.id').where('service_orders.deleted_at is null').where(state: "sold").sum(:total)
+    @quotation = Quotation.where('deleted_at IS NULL').where(state: "sold").sum(:total)
+    @sale_sum = @order + @service_order + @quotation
+
   	@quotation_count = Quotation.count
   	@order_service_count = ServiceOrder.count
   	@order_count = Order.count
