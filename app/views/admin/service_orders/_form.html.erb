@@ -46,13 +46,22 @@
                           <div class="col-md-12">
                             <div class="form-row">
                               <div class="col-lg-8 mb-8">
-                                <%= form.association :product, input_html: { class: 'custom-select custom-select-sm' } %>
+                              <%if @service_order.product %>
+                                        <div class="form-group">
+                                          <label class="control-label"><%= t('sale_note_has_products.product')%></label>
+                                          <input class="form-control" type="text" value="<%= @service_order.product.name %>" readonly="readonly">
+                                        </div>
+                              <%else %>
+                                        <div class="form-group">
+                                          <label class="control-label"><%= t('sale_note_has_products.product')%></label>
+                                           <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" name='service_order[product_id]' id="service_order_product_id" style="width: 100%">
+                                          </select>
+                                        </div>
+                              <% end %>
+
                               </div>
                               <div class="col-lg-4 mb-4">
                                 </br>
-                               
-                                 
-                                                                 
                               </div>
                             </div>
                           </div>
@@ -303,7 +312,7 @@ function formatRepo (repo) {
   $container.find(".select2-result-repository__id").append(repo.id);
   $container.find(".select2-result-repository__name").append(repo.name);
 
-//add all accesories
+/*add all accesories
   var productCount = <%= @service_order.order_accessories.count.to_f %>;
   var obj = repo.accessories;
   if (obj == ""){
@@ -324,11 +333,29 @@ function formatRepo (repo) {
      productCount += 1;
     
   } 
-//
+*/
   return $container;
 }
 
 function formatRepoSelection (repo) {
+  if (repo.accessories !== undefined){
+    var productCount = <%= @service_order.order_accessories.count.to_f %>;
+    var obj = repo.accessories;
+    var tbl = $("<tbody/>").attr("id","accessories");
+    $("#container_accessories").html(tbl);
+    for(var i=0;i<obj.length;i++)
+    {
+        var tr="<tr class='text-center' data_id='"+productCount+"' >";
+        var td1="<td>"+obj[i]["name"]+"</td>";
+        var td2="<td><input type='number' value='0' name='service_order[order_accessories_attributes]["+productCount+"][quantity]'  ></td>"
+        var td3="<td><button type='button' class='btn btn-sm btn-icon btn-pure btn-outline btnDelete'><em class='fa-2x icon-close mr-2'></em></button></td></tr>";
+        var hidden="<input type='hidden' value="+obj[i]["name"]+" name='service_order[order_accessories_attributes]["+productCount+"][accessory]'  >"
+        
+       $("#accessories").append(tr+td1+td2+hidden); 
+       productCount += 1;
+      
+    } 
+  }
   return repo.name || repo.text;
 }
 </script>
