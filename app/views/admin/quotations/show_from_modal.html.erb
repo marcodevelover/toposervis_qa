@@ -5,15 +5,17 @@
   <strong>Folio:</strong>
   <%= @quotation.folio %>
 </p>
-
 <p>
-  <strong>Item total:</strong>
-  <%= @quotation.subtotal %>
+  <strong>¿Incluye impuestos?</strong>
+  <%= t @quotation.is_tax?.to_s %>
 </p>
-
 <p>
-  <strong>Total:</strong>
-  <%= @quotation.total %>
+  <% if @quotation.is_tax %>  
+    <strong>Subtotal:</strong>
+  <% else %>  
+    <strong>Total:</strong>
+  <% end %>
+<%= @quotation.subtotal %>
 </p>
 
 <p>
@@ -21,21 +23,27 @@
   <%= @quotation.adjustment_total %>
 </p>
 
-<p>
-  <strong>Tax:</strong>
-  <%= @quotation.tax %>
-</p>
+<% if @quotation.is_tax %>
+  <p>
+    <strong>Total:</strong>
+    <%= @quotation.total %>
+  </p>
+    
+  <p>
+    <strong>Tax:</strong>
+    <%= @quotation.tax %>
+  </p>
 
-<p>
-  <strong>Tax total:</strong>
-  <%= @quotation.tax_total %>
-</p>
+  <p>
+    <strong>Tax total:</strong>
+    <%= @quotation.tax_total %>
+  </p>
 
-<p>
-  <strong>Tax item total:</strong>
-  <%= @quotation.tax_item_total %>
-</p>
-
+  <p>
+    <strong>Tax item total:</strong>
+    <%= @quotation.tax_item_total %>
+  </p>
+<% end %>
 <p>
   <strong>State:</strong>
   <%= @quotation.state %>

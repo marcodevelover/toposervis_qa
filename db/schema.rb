@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_021507) do
+ActiveRecord::Schema.define(version: 2020_06_10_033351) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_021507) do
     t.decimal "tax", precision: 18, scale: 6
     t.decimal "tax_total", precision: 18, scale: 6
     t.decimal "total", precision: 18, scale: 6
+    t.boolean "is_tax"
     t.index ["diagnosis_type_id"], name: "index_diagnoses_on_diagnosis_type_id"
     t.index ["service_order_id"], name: "index_diagnoses_on_service_order_id"
   end
@@ -436,6 +437,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_021507) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_tax"
     t.index ["currency_id"], name: "index_quotations_on_currency_id"
     t.index ["customer_id"], name: "index_quotations_on_customer_id"
   end

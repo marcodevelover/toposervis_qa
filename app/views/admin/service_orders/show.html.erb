@@ -21,7 +21,7 @@
                 <em class="fa-1x mr-2 fas fa-external-link-alt"></em> Verificar RFC
             </a>
 
-            <% if @service_order.diagnosis.sale.bill_state.blank?  %>
+            <% if @service_order.diagnosis.sale.bill_state.blank? && @service_order.diagnosis.is_tax %>
             <%= link_to bill_admin_service_order_path(@service_order), :class => "btn btn-sm btn-info", remote: true   do %>
                 <em class="fa-1x far fa-money-bill-alt"></em> Facturar
             <% end %>
@@ -257,15 +257,21 @@
 
           <tr>
             <td colspan="3"></td>
+            <% if @service_order.diagnosis.is_tax %>
             <td><b>Impuesto (<%= (@service_order.diagnosis.tax * 100).to_i %>%)</b></td>
             <td>+ <%= number_to_currency(@service_order.diagnosis.tax_total) %></td>
+            <% end %>
           </tr>
 
           <tr class="heading">
             <td colspan="3"></td>
             <td><b>TOTAL:</b></td>
             <td>
+              <% if @service_order.diagnosis.is_tax %>
                <b><%= number_to_currency(@service_order.diagnosis.total) %></b>
+               <%else%>
+               <b><%= number_to_currency(@service_order.diagnosis.subtotal) %></b>
+               <%end%>
             </td>
           </tr>
 

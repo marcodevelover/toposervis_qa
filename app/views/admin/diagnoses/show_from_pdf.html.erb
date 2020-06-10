@@ -168,7 +168,7 @@
 
           <tr>
             <td colspan="3"></td>
-            <% if @diagnosis.adjustment_total %>
+            <% if @diagnosis.adjustment_total != 0 %>
             <td><b>Descuento</b></td>
             <td>- <%= number_to_currency(@diagnosis.adjustment_total) %></td>
             <% end %>
@@ -176,15 +176,21 @@
 
           <tr>
             <td colspan="3"></td>
+            <% if @diagnosis.is_tax %>
             <td><b>Impuesto (<%= (@diagnosis.tax * 100).to_i %>%)</b></td>
             <td>+ <%= number_to_currency(@diagnosis.tax_total) %></td>
+            <% end %>
           </tr>
 
           <tr class="heading">
             <td colspan="3"></td>
             <td><b>TOTAL:</b></td>
             <td>
+               <% if @diagnosis.is_tax %>
                <b><%= number_to_currency(@diagnosis.total) %></b>
+               <%else%>
+               <b><%= number_to_currency(@diagnosis.subtotal) %></b>
+               <%end%>
             </td>
           </tr>
 
