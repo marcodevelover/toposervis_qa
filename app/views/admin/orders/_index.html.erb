@@ -3,7 +3,7 @@
         <td scope="row" ><%= object.id %></td>
         <td><%= object.sale.folio %></td>
         <td><%= object.customer ? object.customer.business_name : "N/A" %></td>
-        <td><%= object.total %></td>
+        <td><%= object.subtotal %></td>
         <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activado</span>".html_safe %></td>
         <td>
             <%= link_to show_from_modal_admin_order_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
