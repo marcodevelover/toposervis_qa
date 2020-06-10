@@ -107,15 +107,21 @@
 
           <tr>
             <td colspan="3"></td>
+            <% if @order.is_tax %>
             <td><b>Impuesto (<%= (@order.tax * 100).to_i %>%)</b></td>
             <td>+ <%= number_to_currency(@order.tax_total) %></td>
+            <%end%>
           </tr>
 
           <tr class="heading">
             <td colspan="3"></td>
             <td><b>TOTAL:</b></td>
             <td>
+               <% if @order.is_tax %>
                <b><%= number_to_currency(@order.total) %></b>
+               <%else%>
+               <b><%= number_to_currency(@order.subtotal) %></b>
+               <%end%>
             </td>
           </tr>
 

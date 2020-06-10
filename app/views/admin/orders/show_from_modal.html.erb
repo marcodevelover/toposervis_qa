@@ -7,35 +7,44 @@
 </p>
 
 <p>
-  <strong>Item total:</strong>
-  <%= @order.subtotal %>
+  <strong>¿Incluye impuestos?</strong>
+  <%= t @order.is_tax?.to_s %>
 </p>
 
 <p>
-  <strong>Total:</strong>
-  <%= @order.total %>
+  <% if @order.is_tax %>  
+    <strong>Subtotal:</strong>
+  <% else %>  
+    <strong>Total:</strong>
+  <% end %>
+<%= @order.subtotal %>
 </p>
 
 <p>
   <strong>Adjustment total:</strong>
   <%= @order.adjustment_total %>
 </p>
+<% if @order.is_tax %>
 
-<p>
-  <strong>Tax:</strong>
-  <%= @order.tax %>
-</p>
+    <p>
+      <strong>Total:</strong>
+      <%= @order.total %>
+    </p>    
+    <p>
+      <strong>Tax:</strong>
+      <%= @order.tax %>
+    </p>
 
-<p>
-  <strong>Tax total:</strong>
-  <%= @order.tax_total %>
-</p>
+    <p>
+      <strong>Tax total:</strong>
+      <%= @order.tax_total %>
+    </p>
 
-<p>
-  <strong>Tax item total:</strong>
-  <%= @order.tax_item_total %>
-</p>
-
+    <p>
+      <strong>Tax item total:</strong>
+      <%= @order.tax_item_total %>
+    </p>
+<% end %>
 <p>
   <strong>State:</strong>
   <%= @order.state %>
