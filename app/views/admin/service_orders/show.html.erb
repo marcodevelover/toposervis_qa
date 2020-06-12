@@ -21,6 +21,7 @@
                 <em class="fa-1x mr-2 fas fa-external-link-alt"></em> Verificar RFC
             </a>
 
+<% if @service_order.diagnosis.sale %>
             <% if @service_order.diagnosis.sale.bill_state.blank? && @service_order.diagnosis.is_tax %>
             <%= link_to bill_admin_service_order_path(@service_order), :class => "btn btn-sm btn-info", remote: true   do %>
                 <em class="fa-1x far fa-money-bill-alt"></em> Facturar
@@ -62,7 +63,6 @@
 
                </div>
             <%end%>
-
             <br><br>
 
             <span class="badge badge-<%= @service_order.diagnosis.sale.bill_state %>"><%= @service_order.diagnosis.sale.bill_state %></span>
@@ -70,7 +70,7 @@
             <% unless @service_order.diagnosis.sale.cancellation_state.blank?  %>
             <span class="badge badge-<%= @service_order.diagnosis.sale.cancellation_state %>"><%= @service_order.diagnosis.sale.cancellation_state %></span>
             <% end %>
-
+<% end %>
 <!--ddddd-->
 
 

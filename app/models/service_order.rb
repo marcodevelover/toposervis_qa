@@ -17,8 +17,9 @@ class ServiceOrder < ApplicationRecord
 
   before_create :set_folio, :set_state
   before_update :update_state, if: Proc.new { self.diagnosis.present? }
+  #before_update :update_state_sale, if: Proc.new { self.diagnosis.sale.present? }
   
-  # active, diagnosed, sold, delivered
+  # active, diagnosed, done, sold, delivered
   before_validation :erase_sale, on: :delete, if: Proc.new { self.diagnosis.sale.present? }
   before_validation :invoice , on: :bill_to_diagnosis, if: Proc.new { self.diagnosis.sale.bill_state != "invoiced" }
   before_validation :cancel_invoice , on: :request_cancel_invoice_to_diagnosis, if: Proc.new { self.diagnosis.sale.bill_state == "invoiced" }
@@ -41,18 +42,17 @@ class ServiceOrder < ApplicationRecord
   end  
 
   def update_state
-    #self.state = "diagnosed"
     @state = self.state
+    @is_done = self.diagnosis.is_done
     case @state
     when "active"
       self.state = "diagnosed"
-    when "diagnosed"
+    when "done"
       self.state = "sold"
     else
       self.state
-    end    
+    end
   end
-
 
   def invoice
     
