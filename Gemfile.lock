@@ -1,8 +1,8 @@
 GIT
   remote: https://2be5f383f44112a90f5c4dadeb6c16bf585e3bfc:x-oauth-basic@github.com/dova3187/facturapi
-  revision: 1514e0db0a0cde919b824af3da20cbdbfe044a85
+  revision: 90c8e4dffe6b19d4149776717e565d97d8cc8a74
   specs:
-    facturapi_ruby (1.3.0)
+    facturapi_ruby (1.3.1)
 
 GEM
   remote: https://rubygems.org/
