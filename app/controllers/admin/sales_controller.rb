@@ -1,6 +1,6 @@
 class Admin::SalesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_sale, only: [:show]
+  before_action :set_sale, only: [:show, :download_pdf, :download_xml, :download_zip]
   respond_to :html, :json
 
   def page_name
@@ -37,19 +37,19 @@ class Admin::SalesController < ApplicationController
   end
 
   def download_pdf
-    pdf = FacturapiRuby::Files.pdf(invoice_id: params[:id])
+    pdf = FacturapiRuby::Files.pdf(invoice_id: @sale.bill_key)
     send_file pdf.path
     pdf.close
   end  
 
   def download_xml
-    xml = FacturapiRuby::Files.xml(invoice_id: params[:id])
+    xml = FacturapiRuby::Files.xml(invoice_id: @sale.bill_key)
     send_file xml.path
     xml.close
   end 
 
   def download_zip
-    zip = FacturapiRuby::Files.zip(invoice_id: params[:id])
+    zip = FacturapiRuby::Files.zip(invoice_id: @sale.bill_key)
     send_file zip.path
     zip.close
   end      

@@ -45,15 +45,15 @@
 
                 <% unless @quotation.sale.bill_key.blank? %>
 
-                <%= link_to download_pdf_admin_sale_path(@quotation.sale.bill_key), :class => "dropdown-item", target: :_blank do %>
+                <%= link_to download_pdf_admin_sale_path(@quotation.sale), :class => "dropdown-item", target: :_blank do %>
                     PDF de factura
                 <%end%>
 
-                <%= link_to download_xml_admin_sale_path(@quotation.sale.bill_key), :class => "dropdown-item", target: :_blank do %>
+                <%= link_to download_xml_admin_sale_path(@quotation.sale), :class => "dropdown-item", target: :_blank do %>
                     XML de factura
                 <%end%>  
 
-                <%= link_to download_zip_admin_sale_path(@quotation.sale.bill_key), :class => "dropdown-item", target: :_blank do %>
+                <%= link_to download_zip_admin_sale_path(@quotation.sale), :class => "dropdown-item", target: :_blank do %>
                     ZIP de factura
                 <%end%>            
 
