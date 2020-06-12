@@ -485,10 +485,6 @@ es:
               required: Es obligatorio   
             provider:
               required: Es obligatorio   
-
-
-
-
     models:
       Ransack::Search: 'Búsqueda'
       Comment: Mensaje
@@ -499,8 +495,12 @@ es:
       user_type: Tipo de Usuario
       Enterprise: Empresa
       Department: Departamento
-      Category: Categoría
+      Category: Categoríax
+      Provider: PPP
+      provider: PPP
     attributes: 
+      product_variant: 
+        product_key: Clave SAT
       department: 
         name: Nombre
         enterprise_id: Departamento  
