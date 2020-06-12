@@ -447,7 +447,46 @@ es:
   new_Institution_has_volunteer: Nueva asignación    
   show_users: Mostrar usuarios        
   activerecord:
- 
+    errors:
+      models:
+        purchase:
+          attributes:
+            receipt_type:
+              required: Es obligatorio
+            entry_code:
+              required: Es obligatorio
+            provider:
+              required: Es obligatorio
+        quotation:
+          attributes:
+            customer:
+              required: Es obligatorio
+        sale:
+          attributes:
+            payment_method:
+              required: Es obligatorio
+            payment_way:
+              required: Es obligatorio
+            customer:
+              required: Es obligatorio
+        order:
+          attributes:
+            customer:
+              required: Es obligatorio
+        service_order:
+          attributes:
+            customer:
+              required: Es obligatorio
+        product:
+          attributes:
+            product_line:
+              required: Es obligatorio   
+            unit:
+              required: Es obligatorio   
+            provider:
+              required: Es obligatorio   
+
+
 
 
     models:
