@@ -113,7 +113,17 @@ class Admin::ServiceOrdersController < ApplicationController
         format.html { redirect_to [:admin, @service_order], notice: 'Service order was successfully updated.' }
         format.json { render :show, status: :ok, location: @service_order }
       else
-        format.html { render :edit }
+        if @service_order.state == "diagnosed"
+          if params[:service_order][:diagnosis_attributes][:sale_attributes].present?
+            format.html { render :sales }
+          end
+        end
+        if params[:service_order][:diagnosis_attributes].present?
+          format.html { render :diagnoses }
+        end
+        if params[:service_order].present?
+          format.html { render :edit }
+        end
         format.json { render json: @service_order.errors, status: :unprocessable_entity }
       end
     end

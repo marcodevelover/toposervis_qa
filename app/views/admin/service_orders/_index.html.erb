@@ -44,8 +44,10 @@
             <%end%>
 
             <% if can? :update, object %>
-            <%= link_to output_admin_service_order_path(object), :class => "btn btn-sm btn-info", remote: true   do %>
-                <em class="fa fa-share"></em> 
+                <% if object.state == "sold" %>
+                <%= link_to output_admin_service_order_path(object), :class => "btn btn-sm btn-info", remote: true   do %>
+                    <em class="fa fa-share"></em> 
+                <% end %>
             <% end %>
             <%end%>
 
