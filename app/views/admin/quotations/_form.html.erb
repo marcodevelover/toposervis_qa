@@ -343,7 +343,7 @@ $("#note_product").select2({
     delay: 250,
     data: function (params) {
       return {
-        q: {code_cont: params.term}, // search term
+        q: {code_or_product_name_cont: params.term}, // search term
         page: params.page
       };
     },
