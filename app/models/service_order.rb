@@ -69,10 +69,12 @@ class ServiceOrder < ApplicationRecord
                                                             product: { description: s.name, 
                                                                        product_key: s.product_variant.product_key, 
                                                                        price: s.unit_price, 
+                                                                       unit_key: s.product_variant.product.unit.unit_key,
                                                                        tax_included: false} 
                                                           } 
                                                     }).as_json,
-                        payment_form:   self.diagnosis.sale.payment_method.payment_method_key
+                        payment_form:   self.diagnosis.sale.payment_method.payment_method_key,
+                        payment_method: self.diagnosis.sale.payment_way.payment_way_key
                     )
         @sale = Sale.find_by(id: self.diagnosis.sale.id)
         @sale.update(bill_key: ext_invoice["id"], bill_state: "invoiced")
