@@ -244,7 +244,7 @@ function formatRepo (repo) {
         "<div class='select2-result-repository__id'>ID: </div>" +
         "<div class='select2-result-repository__code'>Código: </div>" +
         "<div class='select2-result-repository__unit_price'>Precio unitario: </div>" +
-        
+        "<div class='select2-result-repository__stock'>Existencias: </div>" +
       "</div>" +
     "</div>"
   );
@@ -253,6 +253,7 @@ function formatRepo (repo) {
   $container.find(".select2-result-repository__id").append(repo.id);
   $container.find(".select2-result-repository__code").append(repo.code);
   $container.find(".select2-result-repository__unit_price").append(repo.unit_price);
+  $container.find(".select2-result-repository__stock").append(repo.stock);
   
   return $container;
 }
