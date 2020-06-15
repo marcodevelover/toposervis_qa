@@ -44,7 +44,8 @@ class ApplicationRecord < ActiveRecord::Base
                                                           } 
                                                     }).as_json,
                         payment_form:   self.sale.payment_method.payment_method_key,
-                        payment_method: self.sale.payment_way.payment_way_key
+                        payment_method: self.sale.payment_way.payment_way_key,
+                        use: self.sale.use_of_cfdi.cfdi_key
                     )
         @sale = Sale.find_by(id: self.sale.id)
         @sale.update(bill_key: ext_invoice["id"], bill_state: "invoiced")

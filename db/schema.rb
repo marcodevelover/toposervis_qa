@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_12_034910) do
+ActiveRecord::Schema.define(version: 2020_06_14_234531) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -255,6 +255,13 @@ ActiveRecord::Schema.define(version: 2020_06_12_034910) do
     t.string "payment_way_key"
   end
 
+  create_table "preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "value"
+    t.string "key"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "product_lines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -473,6 +480,7 @@ ActiveRecord::Schema.define(version: 2020_06_12_034910) do
     t.string "bill_state"
     t.string "bill_key"
     t.string "cancellation_state"
+    t.integer "use_of_cfdi_id"
     t.index ["payment_method_id"], name: "index_sales_on_payment_method_id"
     t.index ["payment_way_id"], name: "index_sales_on_payment_way_id"
     t.index ["record_type", "record_id"], name: "index_sales_on_record_type_and_record_id"

@@ -386,7 +386,7 @@ function formatRepo (repo) {
 function formatRepoSelection (repo) {
   // take the value of the currency
   var purchase_exchange_rate = 1;
-  $("#name").val(repo.code);
+  $("#name").val(repo.product_name);
   $("#unit").val(repo.unit);
   $("#note_unit_price").val(repo.unit_price * purchase_exchange_rate);
   return repo.code || repo.text;

@@ -2,6 +2,7 @@ class Sale < ApplicationRecord
   belongs_to :record, polymorphic: true
   belongs_to :payment_method
   belongs_to :payment_way
+  belongs_to :use_of_cfdi
 
   before_create :set_folio, :remove_stock
   before_update :add_stock, if: Proc.new { deleted_at.present? }
