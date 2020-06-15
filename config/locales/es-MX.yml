@@ -246,6 +246,7 @@ es:
     folio: Folio
   service_orders:
     folio: Folio
+    product: Producto
   providers:
     name: Nombre
     rfc: RFC
@@ -499,6 +500,26 @@ es:
       Provider: PPP
       provider: PPP
     attributes: 
+      sale:
+        payment_method: Formas de pago
+        payment_way: Métodos de pago
+        use_of_cfdi: Uso de CFDI
+        state: Estado de pago
+      quotation:
+        currency_id: Moneda
+        exchange_rate: Tipo de cambio
+        customer: Cliente
+      service_order:
+        customer: Cliente
+        product: Producto
+        serie: Serie
+        brand: Marca
+        model: Modelo
+        type_service_orders: Tipo de servicios
+      order:
+        currency_id: Moneda
+        exchange_rate: Tipo de cambio
+        customer: Cliente
       product_variant: 
         product_key: Clave SAT
       department: 

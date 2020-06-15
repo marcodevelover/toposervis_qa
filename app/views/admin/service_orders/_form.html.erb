@@ -48,12 +48,12 @@
                               <div class="col-lg-8 mb-8">
                               <%if @service_order.product %>
                                         <div class="form-group">
-                                          <label class="control-label"><%= t('sale_note_has_products.product')%></label>
+                                          <label class="control-label"><%= t('service_orders.product')%></label>
                                           <input class="form-control" type="text" value="<%= @service_order.product.name %>" readonly="readonly">
                                         </div>
                               <%else %>
                                         <div class="form-group">
-                                          <label class="control-label"><abbr title="required">*</abbr><%= t('sale_note_has_products.product')%></label>
+                                          <label class="control-label"><abbr title="required">*</abbr><%= t('service_orders.product')%></label>
                                            <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" name='service_order[product_id]' id="service_order_product_id" style="width: 100%">
                                           </select>
                                         </div>
