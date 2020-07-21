@@ -24,7 +24,7 @@ class Admin::PurchasesController < ApplicationController
     respond_to do |format|
         format.html
         format.pdf do
-            render pdf: "1f",
+            render pdf: "entrada_" + @purchase.folio,
             
             template: "admin/purchases/show_from_pdf.html.erb",
             layout: "pdf.html",

@@ -17,7 +17,7 @@ class Admin::DiagnosesController < ApplicationController
     respond_to do |format|
         format.html
         format.pdf do
-            render pdf: "1f",
+            render pdf: "orden_servicio_" + @diagnosis.service_order.folio,
             
             template: "admin/diagnoses/show_from_pdf.html.erb",
             

@@ -25,7 +25,7 @@ class Admin::QuotationsController < ApplicationController
     respond_to do |format|
         format.html
         format.pdf do
-            render pdf: "1f",
+            render pdf: "cotizacion_" + @quotation.folio,
             
             template: "admin/quotations/show_from_pdf.html.erb",
             layout: "pdf.html",

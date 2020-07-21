@@ -25,7 +25,7 @@ class Admin::ServiceOrdersController < ApplicationController
     respond_to do |format|
         format.html
         format.pdf do
-            render pdf: "1f",
+            render pdf: "orden_servicio_" + @service_order.folio,
             
             template: "admin/service_orders/show_from_pdf.html.erb",
             layout: "pdf.html",

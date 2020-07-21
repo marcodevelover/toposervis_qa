@@ -1,0 +1,189 @@
+rails g scaffold Provider name:string rfc:string business_name:string deleted_at:datetime
+
+rails g model ProviderAddress street:string number:string crossing:string postcode:string colony:string town:string state:string country:string provider:references
+
+rails g model ProviderContact name:string department:string phone:string extension:string cellphone:string email:string provider:references
+
+rails g model ProviderBank beneficiary:string account:string clabe:string bank_name:string currency:string provider:references
+
+------
+
+rails g scaffold ProductLine name:string description:string deleted_at:datetime
+
+rails g scaffold Unit name:string description:string abbreviation:string deleted_at:datetime
+
+rails g scaffold Currency name:string description:string abbreviation:string deleted_at:datetime
+
+rails g scaffold Accessory name:string description:string deleted_at:datetime
+
+------
+
+rails g scaffold Product name:string brand:string model:string description:string comment:string product_line:references unit:references provider:references accessory:references deleted_at:datetime
+
+rails g model ProductVariant code:string code_alternative:string stocking_time:string 'cost_price:decimal{10,2}' currency:references 'amount_public:decimal{10,2}' 'amount_provider:decimal{10,2}' 'amount_shipping:decimal{10,2}' stock_min:integer stock_max:integer product:references deleted_at:datetime
+
+rails g model ProductVariantImage product_variant:references
+
+//must ProductsAccessory
+rails g model ProductsAccessories product:references accessory:references quantity:integer
+
+------
+
+rails g scaffold Customer name:string rfc:string business_name:string deleted_at:datetime
+
+rails g model CustomerAddress street:string number:string crossing:string postcode:string colony:string town:string state:string country:string customer:references
+
+rails g model CustomerContact name:string department:string phone:string extension:string cellphone:string email:string customer:references
+
+rails g model CustomerBank beneficiary:string account:string clabe:string bank_name:string currency:string customer:references
+
+------
+
+rails g scaffold CategoryType name:string description:string deleted_at:datetime
+
+rails g scaffold Category name:string description category_type:references deleted_at:datetime
+
+rails g scaffold Subcategory name:string description category:references deleted_at:datetime
+
+------
+
+rails g scaffold Condition name:string description:text default:boolean deleted_at:datetime
+
+rails g model Tax name:string description:string 'amount:decimal{18,6}' 'value:decimal{18,6}' default:boolean deleted_at:datetime
+
+rails g scaffold Quotation number:string 'item_total:decimal{18,6}' 'total:decimal{18,6}' 'adjustment_total:decimal{18,6}' 'tax:decimal{18,6}' 'tax_total:decimal{18,6}' 'tax_item_total:decimal{18,6}' state:string validity:datetime currency:references 'exchange_rate:decimal{18,6}' customer:references condition:text created_by_id:integer canceled_at:datetime
+
+rails destroy model QuotationsItem product_variant:references quotation:references quantity:integer 'price:decimal{18,6}' 'total:decimal{18,6}' currency:string 'cost_price:decimal{18,6}' 'tax_item_total:decimal{18,6}' 'tax_total:decimal{18,6}' 'tax:decimal{18,6}' 'adjustment_total:decimal{18,6}'
+
+rails g model Item record:references{polymorphic} product_variant:references unit:string quantity:integer 'price:decimal{18,6}' 'total:decimal{18,6}' currency:string 'cost_price:decimal{18,6}' 'tax_item_total:decimal{18,6}' 'tax_total:decimal{18,6}' 'tax:decimal{18,6}' 'adjustment_total:decimal{18,6}' extended_description:text unit:string
+
+
+------
+rails g scaffold TypeServiceOrder name:string description:string deleted_at:datetime
+
+rails g scaffold ServiceOrder date_admission:datetime folio:string customer:references product:references serie:string brand:string model:string observation:text created_by_id:integer deleted_at:datetime status:stringx	
+
+rails g model OrdersType service_order:references type_service_order:references
+
+rails g model OrderAccessory service_order:references accessory:string quantity:integer
+
+------
+rails g scaffold DiagnosisType name:string description:string deleted_at:datetime
+
+rails g scaffold Diagnosis service_order:references date:datetime delivery_time:string date_delivery:datetime diagnosis_type:references 
+
+rails g model DiagnosisDescription diagnosis:references description:string created_by_id:integer deleted_at:datetime
+
+------
+rails g scaffold PaymentMethod name:string description:string deleted_at:datetime
+
+rails g scaffold PaymentWay name:string description:string deleted_at:datetime
+
+rails g scaffold Order folio:string  date:datetime observation:text 'item_total:decimal{18,6}' 'total:decimal{18,6}' 'adjustment_total:decimal{18,6}' 'tax:decimal{18,6}' 'tax_total:decimal{18,6}' 'tax_item_total:decimal{18,6}' state:string validity:datetime currency:references 'exchange_rate:decimal{18,6}' customer:references condition:text created_by_id:integer deleted_at:datetime
+
+rails g model Sale record:references{polymorphic} folio:string payment_method:references payment_way:references state:string deleted_at:datetime
+
+------
+rails g controller Reports quotations_total
+
+rails g controller Dashboard index
+
+rails g model UsersCustomer user:references customer:references
+
+------
+rails g scaffold EntryCode name:string description:string deleted_at:datetime
+
+rails g scaffold ReceiptType name:string description:string deleted_at:datetime
+
+rails g scaffold Purchase folio:string  date:datetime observation:text 'subtotal:decimal{18,6}' 'total:decimal{18,6}' 'adjustment_total:decimal{18,6}' 'tax:decimal{18,6}' 'tax_total:decimal{18,6}' 'tax_item_total:decimal{18,6}' state:string validity:datetime currency:references 'exchange_rate:decimal{18,6}' receipt_type:references entry_code:references provider:references created_by_id:integer deleted_at:datetime
+
+rails g model PurchaseItem record:references{polymorphic} product_variant:references name:string quantity:integer 'unit_price:decimal{18,6}' 'total:decimal{18,6}' currency:string 'cost_price:decimal{18,6}' 'tax_item_total:decimal{18,6}' 'tax_total:decimal{18,6}' 'tax:decimal{18,6}' 'adjustment_total:decimal{18,6}' number_serie:string number_procedure:string number_part:string observation:text unit:string
+
+------
+
+rails g model StockItem product_variant:references 'stock:decimal{10,2}'
+
+------
+
+rails g migration AddColumsToProductVariants product_key:string
+
+rails g migration AddColumsToUnits unit_key:string
+
+rails g migration AddColumsToPaymentWays payment_way_key:string
+
+rails g migration AddColumsToPaymentMethods payment_method_key:string
+
+rails g scaffold UseOfCfdi cfdi_key:string descripcion:string persona_fisica:boolean persona_moral:boolean
+
+rails g migration AddColumsToSale bill_state:string
+
+------
+
+rails g migration AddColumsToOrders is_tax:boolean
+
+rails g migration AddColumsToQuotations is_tax:boolean
+
+rails g migration AddColumsToDiagnoses is_tax:boolean
+
+------
+
+rails g migration AddColumsIsDoneToDiagnoses is_done:boolean
+
+rails g model Preference value:string key:string 
+
+rails g migration AddColumsUseOfCfdisToSales use_of_cfdi_id:integer
+
+------
+
+Documentation
+
+-- Quotation --
+
+rails g scaffold Quotation 
+number:string 
+
+item_total:decimal{10,2}
+total:decimal{10,2} 
+
+adjustment_total:decimal{10,2}
+
+tax:{10,4}
+tax_total:decimal{10,4}
+tax_item_total:{10,4}
+
+state:string 
+ 
+ 
+
+validity:datetime 
+currency:refences 
+exchange_rate:decimal{10,2}
+
+customer:references 
+condition:text 
+created_by_id:integer 
+canceled_at:datetime
+canceler_id:integer 
+
+-- QuotationItem --
+
+rails g scaffold QuotationItem 
+product_variant:references 
+quotation:references 
+quantity:integer 
+
+price:decimal{10,2} //va el total sin descuento
+total::decimal{10,2}
+
+currency:string
+cost_price:decimal{10,2}
+
+tax_item_total:decimal{10,4}
+tax_total:decimal{10,4}
+tax:decimal{10,4} //va el iva 16
+
+
+adjustment_total:decimal{10,2} //va el descuento de cada item
+
+--------
+
