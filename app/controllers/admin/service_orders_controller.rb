@@ -29,11 +29,12 @@ class Admin::ServiceOrdersController < ApplicationController
             
             template: "admin/service_orders/show_from_pdf.html.erb",
             layout: "pdf.html",
-            viewport_size: '1280x1024'
-            
-            #lowquality: true,
-            #zoom: 1,
-            #dpi: 75
+            viewport_size: '1280x1024',
+            margin:  {   
+                         bottom: 40,
+                         
+                         },
+            footer:  {   html: {   template: "admin/service_orders/footer_pdf.html.erb"}}
         end
     end
   end

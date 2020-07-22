@@ -22,11 +22,12 @@ class Admin::DiagnosesController < ApplicationController
             template: "admin/diagnoses/show_from_pdf.html.erb",
             
             layout: "pdf.html",
-            viewport_size: '1280x1024'
-            
-            #lowquality: true,
-            #zoom: 1,
-            #dpi: 75
+            viewport_size: '1280x1024',
+            margin:  {   
+                         bottom: 40,
+                         
+                         },
+            footer:  {   html: {   template: "admin/diagnoses/footer_pdf.html.erb"}}
         end
     end
   end

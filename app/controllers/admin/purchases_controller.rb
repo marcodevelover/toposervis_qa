@@ -28,11 +28,12 @@ class Admin::PurchasesController < ApplicationController
             
             template: "admin/purchases/show_from_pdf.html.erb",
             layout: "pdf.html",
-            viewport_size: '1280x1024'
-            
-            #lowquality: true,
-            #zoom: 1,
-            #dpi: 75
+            viewport_size: '1280x1024',
+            margin:  {   
+                         bottom: 40,
+                         
+                         },
+            footer:  {   html: {   template: "admin/purchases/footer_pdf.html.erb"}}
         end
     end
   end
