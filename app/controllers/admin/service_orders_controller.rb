@@ -106,7 +106,10 @@ class Admin::ServiceOrdersController < ApplicationController
           params[:service_order][:diagnosis_attributes][:images].each do |image|
           @service_order.diagnosis.images.attach(image)
         end
-      end    
+      end
+      if params[:service_order][:diagnosis_attributes][:is_done] == "1"
+        ServiceOrderMailer.with(service_order: @service_order).service_order_done.deliver_later
+      end
     end
     
     respond_to do |format|
