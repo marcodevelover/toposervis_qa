@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_14_234531) do
+ActiveRecord::Schema.define(version: 2020_07_23_224500) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "deleted_at"
@@ -164,12 +172,65 @@ ActiveRecord::Schema.define(version: 2020_06_14_234531) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "document_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "entry_codes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "expense_amounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "expense_id", null: false
+    t.decimal "total", precision: 18, scale: 6
+    t.decimal "iva", precision: 18, scale: 6
+    t.decimal "ieps", precision: 18, scale: 6
+    t.decimal "total_with_tax", precision: 18, scale: 6
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["expense_id"], name: "index_expense_amounts_on_expense_id"
+  end
+
+  create_table "expense_files", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "expense_id", null: false
+    t.string "xml"
+    t.string "pdf"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["expense_id"], name: "index_expense_files_on_expense_id"
+  end
+
+  create_table "expenses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "date"
+    t.bigint "payment_method_id", null: false
+    t.string "purchase_order"
+    t.string "last_digit"
+    t.string "project"
+    t.bigint "account_id", null: false
+    t.bigint "category_type_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "provider_id", null: false
+    t.bigint "document_type_id", null: false
+    t.string "folio"
+    t.text "comment"
+    t.string "concept"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_expenses_on_account_id"
+    t.index ["category_id"], name: "index_expenses_on_category_id"
+    t.index ["category_type_id"], name: "index_expenses_on_category_type_id"
+    t.index ["document_type_id"], name: "index_expenses_on_document_type_id"
+    t.index ["payment_method_id"], name: "index_expenses_on_payment_method_id"
+    t.index ["provider_id"], name: "index_expenses_on_provider_id"
   end
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -553,7 +614,7 @@ ActiveRecord::Schema.define(version: 2020_06_14_234531) do
 
   create_table "use_of_cfdis", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "cfdi_key"
-    t.string "description"
+    t.string "name"
     t.boolean "persona_fisica"
     t.boolean "persona_moral"
     t.datetime "created_at", precision: 6, null: false
@@ -595,6 +656,14 @@ ActiveRecord::Schema.define(version: 2020_06_14_234531) do
   add_foreign_key "diagnoses", "diagnosis_types"
   add_foreign_key "diagnoses", "service_orders"
   add_foreign_key "diagnosis_descriptions", "diagnoses"
+  add_foreign_key "expense_amounts", "expenses"
+  add_foreign_key "expense_files", "expenses"
+  add_foreign_key "expenses", "accounts"
+  add_foreign_key "expenses", "categories"
+  add_foreign_key "expenses", "category_types"
+  add_foreign_key "expenses", "document_types"
+  add_foreign_key "expenses", "payment_methods"
+  add_foreign_key "expenses", "providers"
   add_foreign_key "items", "product_variants"
   add_foreign_key "order_accessories", "service_orders"
   add_foreign_key "orders", "currencies"

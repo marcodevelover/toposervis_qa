@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2020-07-23 17:37:25
+  payment_method: one
+  purchase_order: MyString
+  last_digit: MyString
+  project: MyString
+  account: one
+  category_type: one
+  category: one
+  provider: one
+  document_type: one
+  folio: MyString
+  comment: MyText
+  concept: MyString
+  deleted_at: 2020-07-23 17:37:25
+
+two:
+  date: 2020-07-23 17:37:25
+  payment_method: two
+  purchase_order: MyString
+  last_digit: MyString
+  project: MyString
+  account: two
+  category_type: two
+  category: two
+  provider: two
+  document_type: two
+  folio: MyString
+  comment: MyText
+  concept: MyString
+  deleted_at: 2020-07-23 17:37:25

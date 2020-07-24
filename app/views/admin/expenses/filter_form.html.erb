@@ -1,0 +1,22 @@
+  
+	 <%= search_form_for [:admin, @q], remote:true do |f| %> 
+  			
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="form-group"> 
+						<label class="form-label"><%= t("service_orders.folio")%></label>
+						<div class="form-group">
+							<%= search_field_tag  "q[folio_cont]",nil,class: "form-control", placeholder: t('service_orders.folio'), width: '100%'%>
+ 
+						</div>
+					</div>
+					 
+				</div>
+			</div>
+			
+			<div class="modal-footer">
+				<%= submit_tag t('search'),class: 'btn btn-info waves-effect' %> 
+				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancelar</button>
+			</div>
+		<% end %>
+ 

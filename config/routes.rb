@@ -156,6 +156,14 @@ Rails.application.routes.draw do
       get :delete, on: :member
       get :filter_form, on: :collection
     end
+
+    resources :expenses do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+      get :show_from_modal, on: :member
+    end
+    resources :document_types
+    resources :accounts
     #resources :diagnoses
   end
   namespace :admin do

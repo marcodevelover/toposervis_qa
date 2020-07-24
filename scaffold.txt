@@ -134,6 +134,19 @@ rails g model Preference value:string key:string
 rails g migration AddColumsUseOfCfdisToSales use_of_cfdi_id:integer
 
 ------
+rails g scaffold Account name:string description:string deleted_at:datetime
+
+###rails destroy scaffold ExpenseType name:string description:string deleted_at:datetime
+
+rails g scaffold DocumentType name:string description:string deleted_at:datetime
+
+rails g scaffold Expense date:datetime payment_method:references purchase_order:string last_digit:string project:string account:references category_type:references category:references provider:references document_type:references folio:string comment:text concept:string deleted_at:datetime
+
+rails g model ExpenseAmount expense:references 'total:decimal{18,6}' 'iva:decimal{18,6}' 'ieps:decimal{18,6}' 'total_with_tax:decimal{18,6}'
+
+###rails destroy model ExpenseFile expense:references xml:string pdf:string
+
+------
 
 Documentation
 

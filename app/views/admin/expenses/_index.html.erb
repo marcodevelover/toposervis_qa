@@ -1,0 +1,29 @@
+<% if @collection.each do |object| %>
+<tr>
+        <td scope="row" ><%= object.id %></td>
+        <td><%= object.date %></td>
+        <td><%= object.folio %></td>
+        <td><%= object.account.name %></td>
+        <td><%= object.category_type.name %></td>
+        <td><%= object.payment_method.name %></td>
+        <td><%= object.provider.name %></td>
+        <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activado</span>".html_safe %></td>
+        <td>
+            <%= link_to show_from_modal_admin_expense_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
+                <em class="fas fa-info-circle"></em> 
+            <%end%>
+
+            <%= link_to edit_admin_expense_path(object), :class => "btn btn-sm btn-info" do %>
+                <em class="fa fa-edit"></em> 
+            <%end%>
+            <% unless object.deleted_at?%>
+        	<%= link_to delete_admin_expense_path(object), :class => "btn btn-sm btn-danger", remote: true   do %>
+        		<em class="fa fa-trash fa-fw"></em>
+        	<%end%>    
+            <%end%>       		
+        </td>
+
+</tr>
+<% end.empty? %>
+  <h3>No hay resultados</h3>
+<% end %>
