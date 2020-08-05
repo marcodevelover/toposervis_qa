@@ -364,6 +364,7 @@ function formatRepoSelection (repo) {
     var discount = $("#note_discount").val();
     var factor = currentTotal * (discount/100);
     $("#note_total").val(currentTotal-factor);
+    $("#note_discount").val(factor);
   }
   // Validaciones
   function validate_item(){
