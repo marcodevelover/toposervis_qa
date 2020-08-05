@@ -75,7 +75,8 @@ class ServiceOrder < ApplicationRecord
                                                     }).as_json,
                         payment_form:   self.diagnosis.sale.payment_method.payment_method_key,
                         payment_method: self.diagnosis.sale.payment_way.payment_way_key,
-                        use: self.diagnosis.sale.use_of_cfdi.cfdi_key
+                        use: self.diagnosis.sale.use_of_cfdi.cfdi_key,
+                        pdf_custom_section: "<strong>Número de serie</strong> #{self.serie.blank? ? '----' : self.serie}; <strong>Modelo</strong> #{self.model.blank? ? '----' : self.model}; <strong>Marca</strong> #{self.brand.blank? ? '----' : self.brand}"
                     )
         @sale = Sale.find_by(id: self.diagnosis.sale.id)
         @sale.update(bill_key: ext_invoice["id"], bill_state: "invoiced")
