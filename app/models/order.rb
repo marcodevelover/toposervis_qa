@@ -20,9 +20,8 @@ class Order < ApplicationRecord
 
   def set_folio
     @prefix = "V"
-    @date = Time.now
-    Order.last ? @number = Order.last.id+1 : @number = 1
-    self.folio = "#{@prefix}#{@date.strftime("%C%m")}#{@number}"
+    Order.last ? @number = Order.last.id : @number = 1
+    self.folio = "#{@prefix}#{@number.to_s.rjust(6, '0')}"
   end
 
   def set_tax

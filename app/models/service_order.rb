@@ -33,8 +33,8 @@ class ServiceOrder < ApplicationRecord
   def set_folio
   	@prefix = "M"
   	@date = Time.now
-    ServiceOrder.last ? @number = ServiceOrder.last.id+1 : @number = 1
-    self.folio = "#{@prefix}#{@date.strftime("%C%m")}#{@number}"
+    ServiceOrder.last ? @number = ServiceOrder.last.id : @number = 1
+    self.folio = "#{@prefix}#{@number.to_s.rjust(6, '0')}"
   end
 
   def set_state

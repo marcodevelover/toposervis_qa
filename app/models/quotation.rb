@@ -23,8 +23,8 @@ class Quotation < ApplicationRecord
   def set_folio
     @prefix = "C"
     @date = Time.now
-    Quotation.last ? @number = Quotation.last.id+1 : @number = 1
-    self.folio = "#{@prefix}#{@date.strftime("%C%m")}#{@number}"
+    Quotation.last ? @number = Quotation.last.id : @number = 1
+    self.folio = "#{@prefix}#{@number.to_s.rjust(6, '0')}"
   end
 
   def set_tax

@@ -9,10 +9,9 @@ class Sale < ApplicationRecord
 
   def set_folio
     @prefix = "V"
-    @date = Time.now
-    Sale.last ? @number = Sale.last.id+1 : @number = 1
-    self.folio = "#{@prefix}#{@date.strftime("%C%m")}#{@number}"
-  end  
+    Order.last ? @number = Order.last.id : @number = 1
+    self.folio = "#{@prefix}#{@number.to_s.rjust(6, '0')}"
+  end
 
   def remove_stock
     self.record.items.each do |item|
