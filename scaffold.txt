@@ -107,6 +107,8 @@ rails g model StockItem product_variant:references 'stock:decimal{10,2}'
 
 rails g migration AddColumsToProductVariants product_key:string
 
+rails g migration AddColumsDescriptionToProductVariants product_description:string
+
 rails g migration AddColumsToUnits unit_key:string
 
 rails g migration AddColumsToPaymentWays payment_way_key:string

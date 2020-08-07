@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_23_224500) do
+ActiveRecord::Schema.define(version: 2020_08_07_025238) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -199,15 +199,6 @@ ActiveRecord::Schema.define(version: 2020_07_23_224500) do
     t.index ["expense_id"], name: "index_expense_amounts_on_expense_id"
   end
 
-  create_table "expense_files", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "expense_id", null: false
-    t.string "xml"
-    t.string "pdf"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["expense_id"], name: "index_expense_files_on_expense_id"
-  end
-
   create_table "expenses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "date"
     t.bigint "payment_method_id", null: false
@@ -354,6 +345,7 @@ ActiveRecord::Schema.define(version: 2020_07_23_224500) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "product_key"
+    t.string "product_description"
     t.index ["currency_id"], name: "index_product_variants_on_currency_id"
     t.index ["product_id"], name: "index_product_variants_on_product_id"
   end
@@ -657,7 +649,6 @@ ActiveRecord::Schema.define(version: 2020_07_23_224500) do
   add_foreign_key "diagnoses", "service_orders"
   add_foreign_key "diagnosis_descriptions", "diagnoses"
   add_foreign_key "expense_amounts", "expenses"
-  add_foreign_key "expense_files", "expenses"
   add_foreign_key "expenses", "accounts"
   add_foreign_key "expenses", "categories"
   add_foreign_key "expenses", "category_types"

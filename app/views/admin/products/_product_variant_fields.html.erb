@@ -6,10 +6,20 @@
       <%= f.collection_select :currency_id, Currency.all, :id, :abbreviation, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
     </div>
   </div>
+  <div class="form-group">
+    <select id="product_sat" class="custom-select custom-select-sm" style="width: 100%">
+      <option value="<%=@product.product_variants.last.product_key%>" selected="selected"><%=@product.product_variants.last.product_description%></option>
+    </select>
+  </div>
 
   <div class="form-group">
         <%= f.label :product_key, class: "col-form-label"%>
-        <%= f.text_field :product_key, class: "form-control", type: "text" %>
+        <%= f.text_field :product_key, class: "form-control", type: "text", readonly: "readonly" %>
+  </div>
+
+  <div class="form-group">
+        <%= f.label :product_description, class: "col-form-label"%>
+        <%= f.text_field :product_description, class: "form-control", type: "text", readonly: "readonly" %>
   </div>
 
   <div class="form-group">

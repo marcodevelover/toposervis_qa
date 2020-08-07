@@ -68,3 +68,63 @@
 </div>
                      
 <% end %>
+<script type="text/javascript">
+$("#product_sat").select2({
+  ajax: {
+    url: "https://www.facturapi.io/v1/catalogs/products",
+    headers: {
+        "Authorization" : "Basic c2tfdGVzdF85V0p4NGpCTWJ3NlBRNHJFQUx4MDg1cTgyNzB5a1pyUTo=",
+        "Content-Type" : "application/json",
+    },
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: params.term, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      return {
+          results: $.map(data.data, function (data) {
+              return {
+                  description: data.description,
+                  id: data.key
+              }
+
+          })
+      };
+    },
+    cache: true
+  },
+  placeholder: 'Buscar clave SAT',
+  minimumInputLength: 1,
+  templateResult: formatRepo,
+  templateSelection: formatRepoSelection
+});
+
+function formatRepo (repo) {
+  if (repo.loading) {
+    return repo.text;
+  }
+
+  var $container = $(
+    "<div class='select2-result-repository clearfix'>" +
+      "<div class='select2-result-repository__meta'>" +
+        "<div class='select2-result-repository__description'></div>" +
+      "</div>" +
+    "</div>"
+  );
+  
+  $container.find(".select2-result-repository__description").text(repo.description);
+  
+  return $container;
+}
+
+function formatRepoSelection (repo) {
+  console.log(repo)
+  $("#product_product_variants_attributes_0_product_key").val(repo.id || repo.text);
+  $("#product_product_variants_attributes_0_product_description").val(repo.description || repo.text);
+  return repo.description || repo.text;
+}
+</script>
