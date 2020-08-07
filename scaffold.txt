@@ -111,6 +111,8 @@ rails g migration AddColumsDescriptionToProductVariants product_description:stri
 
 rails g migration AddColumsToUnits unit_key:string
 
+rails g migration AddColumsDescriptionToUnits unit_description:string
+
 rails g migration AddColumsToPaymentWays payment_way_key:string
 
 rails g migration AddColumsToPaymentMethods payment_method_key:string

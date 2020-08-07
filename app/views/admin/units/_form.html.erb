@@ -16,8 +16,19 @@
   </div>
 
   <div class="form-group">
+    <select id="unit_sat" class="custom-select custom-select-sm" style="width: 100%">
+      <option value="<%=@unit.unit_key%>" selected="selected"><%=@unit.unit_description%></option>
+    </select>
+  </div>
+
+  <div class="form-group">
         <%= form.label :unit_key, class: "col-form-label"%>
-        <%= form.text_field :unit_key, class: "form-control", type: "text" %>
+        <%= form.text_field :unit_key, class: "form-control", type: "text", readonly: "readonly" %>
+  </div>
+
+  <div class="form-group">
+        <%= form.label :unit_description, class: "col-form-label"%>
+        <%= form.text_field :unit_description, class: "form-control", type: "text", readonly: "readonly" %>
   </div>
 
   <div class="form-group">
@@ -37,3 +48,63 @@
 </div>
                      
 <% end %>
+<script type="text/javascript">
+$("#unit_sat").select2({
+  ajax: {
+    url: "https://www.facturapi.io/v1/catalogs/units",
+    headers: {
+        "Authorization" : "Basic c2tfdGVzdF85V0p4NGpCTWJ3NlBRNHJFQUx4MDg1cTgyNzB5a1pyUTo=",
+        "Content-Type" : "application/json",
+    },
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: params.term, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      return {
+          results: $.map(data.data, function (data) {
+              return {
+                  description: data.description,
+                  id: data.key
+              }
+
+          })
+      };
+    },
+    cache: true
+  },
+  placeholder: 'Buscar clave SAT',
+  minimumInputLength: 1,
+  templateResult: formatRepo,
+  templateSelection: formatRepoSelection
+});
+
+function formatRepo (repo) {
+  if (repo.loading) {
+    return repo.text;
+  }
+
+  var $container = $(
+    "<div class='select2-result-repository clearfix'>" +
+      "<div class='select2-result-repository__meta'>" +
+        "<div class='select2-result-repository__description'></div>" +
+      "</div>" +
+    "</div>"
+  );
+  
+  $container.find(".select2-result-repository__description").text(repo.description);
+  
+  return $container;
+}
+
+function formatRepoSelection (repo) {
+  console.log(repo)
+  $("#unit_unit_key").val(repo.id || repo.text);
+  $("#unit_unit_description").val(repo.description || repo.text);
+  return repo.description || repo.text;
+}
+</script>
