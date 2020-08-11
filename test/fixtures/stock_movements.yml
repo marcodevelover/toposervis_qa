@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stock_item: one
+  folio: MyString
+  stock: 9.99
+  quantity: 1
+  total: 9.99
+  currency: MyString
+  cost_price: 9.99
+
+two:
+  stock_item: two
+  folio: MyString
+  stock: 9.99
+  quantity: 1
+  total: 9.99
+  currency: MyString
+  cost_price: 9.99

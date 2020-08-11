@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_07_042139) do
+ActiveRecord::Schema.define(version: 2020_08_10_000444) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -565,6 +565,22 @@ ActiveRecord::Schema.define(version: 2020_08_07_042139) do
     t.index ["product_variant_id"], name: "index_stock_items_on_product_variant_id"
   end
 
+  create_table "stock_movements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "stock_item_id", null: false
+    t.string "folio"
+    t.string "description"
+    t.decimal "stock", precision: 10, scale: 2
+    t.integer "quantity"
+    t.decimal "total", precision: 18, scale: 6
+    t.bigint "currency_id", null: false
+    t.decimal "cost_price", precision: 18, scale: 6
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["currency_id"], name: "index_stock_movements_on_currency_id"
+    t.index ["stock_item_id"], name: "index_stock_movements_on_stock_item_id"
+  end
+
   create_table "subcategories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -685,6 +701,8 @@ ActiveRecord::Schema.define(version: 2020_08_07_042139) do
   add_foreign_key "service_orders", "customers"
   add_foreign_key "service_orders", "products"
   add_foreign_key "stock_items", "product_variants"
+  add_foreign_key "stock_movements", "currencies"
+  add_foreign_key "stock_movements", "stock_items"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "users", "roles"
   add_foreign_key "users_customers", "customers"

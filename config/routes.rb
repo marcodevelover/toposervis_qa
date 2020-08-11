@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get 'reports/orders_total', to: 'reports#orders_total', as: 'reports_orders'
     get 'reports/sales_total', to: 'reports#sales_total', as: 'reports_sales'
     get 'reports/products_total', to: 'reports#products_total', as: 'reports_products'
+    get 'reports/kardex', to: 'reports#kardex', as: 'reports_kardex'
     resources :users do
       get :delete, on: :member
       get :filter_form, on: :collection
