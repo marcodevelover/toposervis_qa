@@ -17,6 +17,7 @@ class Sale < ApplicationRecord
     self.record.items.each do |item|
       @stock = StockItem.find_by(product_variant_id: item.product_variant_id)
       @stock.update(stock: @stock.stock - item.quantity)
+      @stock.stock_movements.create(stock_item_id: @stock, folio: self.folio, description: 'Venta', stock: @stock.stock, quantity: -item.quantity, total: item.total, currency_id: self.record.currency_id, cost_price: item.unit_price)
     end
   end  
 
@@ -24,6 +25,7 @@ class Sale < ApplicationRecord
     self.record.items.each do |item|
       @stock = StockItem.find_by(product_variant_id: item.product_variant_id)
       @stock.update(stock: @stock.stock + item.quantity)
+      @stock.stock_movements.create(stock_item_id: @stock, folio: self.folio, description: 'Venta', stock: @stock.stock, quantity: item.quantity, total: item.total, currency_id: self.record.currency_id, cost_price: item.unit_price, deleted_at: DateTime.now )
     end
   end 
 end
