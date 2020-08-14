@@ -7,8 +7,22 @@
 
   <div class="form-group">
         <%= form.label :name, class: "col-form-label"%> *
-        <%= form.text_field :name, class: "form-control", type: "text", required: true %>
+        <%= form.text_field :name, class: "form-control", type: "text", required: true, readonly: "readonly"%>
   </div>
+
+  <% if @currency.name == "USD" %>
+  <div class="form-group">
+    <button type="button" class="btn btn-primary" id="submit_time">Consultar tipo de cambio</button>
+    <br><small>Resultado obtenido desde <a href="https://www.banxico.org.mx/" target="_blank"> banxico.org.mx </a></small>
+  </div>
+  <% end %>
+
+  <div class="form-group">
+        <%= form.label :exchange_rate, class: "col-form-label"%> *
+        <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true%>
+  </div>
+
+
 
   <div class="form-group">
         <%= form.label :description, class: "col-form-label"%> *
@@ -32,3 +46,20 @@
 </div>
                      
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $( "#submit_time" ).click(function() {
+      var url = "https://www.banxico.org.mx/SieAPIRest/service/v1/series/SF43786/datos/oportuno?token=f87ca729d53c713bc6f70b5650a91d83b97d18b0401cebf559ce3c8a48ee3a9b";
+      $.ajax({
+        method: "GET",
+        url: url,
+        dataType: "JSON",
+        success: function (data) { 
+          $("#currency_exchange_rate").val(data.bmx.series[0].datos[0].dato);
+          $("#currency_description").val(data.bmx.series[0].datos[0].fecha +" "+ data.bmx.series[0].titulo);
+        }
+      })
+    });
+  });
+</script>
