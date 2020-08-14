@@ -19,7 +19,7 @@
                                  <div class="col-lg-4 mb-4">
                                    <%= form.label :currency_id, class: "col-form-label"%>
                                    <div class="form-group">
-                                     <%= form.collection_select :currency_id, Currency.all, :id, :abbreviation, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
+                                     <%= form.collection_select :currency_id, Currency.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
                                    </div>
                                  </div>
                                  <div class="col-lg-4 mb-4x">
@@ -320,7 +320,7 @@ function formatRepo (repo) {
   );
 
 
-  $container.find(".select2-result-repository__abbreviation").append(repo.abbreviation);
+  $container.find(".select2-result-repository__abbreviation").append(repo.name);
   
 
   $("#quotation_exchange_rate").val(repo.exchange_rate);
@@ -329,7 +329,7 @@ function formatRepo (repo) {
 }
 
 function formatRepoSelection (repo) {
-  return repo.abbreviation || repo.text;
+  return repo.name || repo.text;
 }
 
 </script>
@@ -398,9 +398,25 @@ function formatRepo (repo) {
 function formatRepoSelection (repo) {
   // take the value of the currency
   var quotation_exchange_rate = $("#quotation_exchange_rate").val();
+  var quotation_currency_text = $("#quotation_currency_id option:selected").text();
   $("#name").val(repo.product_name);
   $("#unit").val(repo.unit);
-  $("#note_unit_price").val(repo.unit_price * quotation_exchange_rate);
+  
+  if(quotation_currency_text == repo.exchange_name){
+    $("#note_unit_price").val(repo.unit_price);
+  }
+  if(quotation_currency_text != repo.exchange_name){
+    switch (quotation_currency_text) {
+      case 'MXN':
+        $("#note_unit_price").val(repo.unit_price * repo.exchange_rate);
+        break;
+      case 'USD':
+        $("#note_unit_price").val(repo.unit_price * quotation_exchange_rate);
+        break;
+      default:
+        console.log('Lo lamentamos, debe seleccionar al menos una MONEDA');
+    }
+  }
   return repo.code || repo.text;
 }
 
