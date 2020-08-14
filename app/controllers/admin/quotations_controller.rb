@@ -129,7 +129,7 @@ class Admin::QuotationsController < ApplicationController
     @product_variants = @q.result(distinct: true)
     total_count = @product_variants.count
     respond_to do |format|
-      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, unit_price: s.amount_public, unit: s.product.unit.name, stock: s.stock_item.stock, image: s.first_image } } } }
+      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, unit_price: s.amount_public, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, image: s.first_image } } } }
     end
   end
 
@@ -138,7 +138,7 @@ class Admin::QuotationsController < ApplicationController
     @currencies = @q.result(distinct: true)
     total_count = @currencies.count
     respond_to do |format|
-      format.json { render json: { total: total_count,  currencies: @currencies.map { |s| {id: s.id, abbreviation:  s.abbreviation, exchange_rate: s.exchange_rate } } } }
+      format.json { render json: { total: total_count,  currencies: @currencies.map { |s| {id: s.id, name:  s.name, description:  s.description, abbreviation:  s.abbreviation, exchange_rate: s.exchange_rate } } } }
     end
   end
 
