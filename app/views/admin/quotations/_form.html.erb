@@ -314,15 +314,17 @@ function formatRepo (repo) {
   var $container = $(
     "<div class='select2-result-repository clearfix'>" +
       "<div class='select2-result-repository__meta'>" +
-        "<div class='select2-result-repository__abbreviation'>Abreviación: </div>" +
+        "<div class='select2-result-repository__abbreviation'></div>" +
+        "<div class='select2-result-repository__exchange_rate'></div>" +
+        "<div class='select2-result-repository__description'></div>" +
       "</div>" +
     "</div>"
   );
 
-
   $container.find(".select2-result-repository__abbreviation").append(repo.name);
+  $container.find(".select2-result-repository__exchange_rate").append(repo.exchange_rate);
+  $container.find(".select2-result-repository__description").append(repo.description);
   
-
   $("#quotation_exchange_rate").val(repo.exchange_rate);
   
   return $container;
