@@ -2,53 +2,48 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Folio:</strong>
+  <strong><%= t("purchases.folio")%>:</strong>
   <%= @purchase.folio %>
 </p>
 
 <p>
-  <strong>Item total:</strong>
+  <strong><%= t("purchases.subtotal")%>:</strong>
   <%= @purchase.subtotal %>
 </p>
 
 <p>
-  <strong>Total:</strong>
+  <strong><%= t("purchases.total")%>:</strong>
   <%= @purchase.total %>
 </p>
 
 <p>
-  <strong>Tax:</strong>
+  <strong><%= t("purchases.tax")%>:</strong>
   <%= @purchase.tax %>
 </p>
 
 <p>
-  <strong>Tax total:</strong>
+  <strong><%= t("purchases.tax_total")%>:</strong>
   <%= @purchase.tax_total %>
 </p>
 
 <p>
-  <strong>Tax item total:</strong>
-  <%= @purchase.tax_item_total %>
-</p>
-
-<p>
-  <strong>State:</strong>
+  <strong><%= t("purchases.state")%>:</strong>
   <%= @purchase.state %>
 </p>
 
 <p>
-  <strong>Fecha:</strong>
+  <strong><%= t("purchases.date")%>:</strong>
   <%= @purchase.date %>
 </p>
 
 <p>
-  <strong>Proveedor:</strong>
+  <strong><%= t("purchases.provider")%>:</strong>
   <%= @purchase.provider ? @purchase.provider.name : "N/A" %>
 </p>
 
 <p>
-  <strong>Created by:</strong>
-  <%= @purchase.created_by_id %>
+  <strong><%= t("purchases.created_by")%>:</strong>
+  <%= @purchase.user.name %> <%= @purchase.user.lastname %>
 </p>
 
 <h4>Productos</h4>
@@ -65,11 +60,11 @@
 <% end %>
 
 <p>
-  <strong>Canceled at:</strong>
+  <strong><%= t("purchases.deleted_at")%>:</strong>
   <%= @purchase.deleted_at %>
 </p>
 
 </div>
 <div class="modal-footer"> 
-     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
 </div>

@@ -6,14 +6,13 @@
         <td><%= object.total %></td>
         <td>
             <% if object.deleted_at? %>
-                <span class="badge badge-danger">Baja</span>
+                <span class="badge badge-danger"><%= t("deleted")%></span>
             <% end %>
-
             <% unless object.deleted_at? %>
-                <span class="badge badge-<%= object.state %>"><%= object.state %></span>
+                <span class="badge badge-<%= object.state %>"><%= t(object.state) %></span>    
+                
             <% end %>
         </td>
-
         <td>
             <%= link_to show_from_modal_admin_purchase_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
                 <em class="fas fa-info-circle"></em> 

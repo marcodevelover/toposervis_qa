@@ -32,6 +32,13 @@
  */
 
  @import 'select2/dist/css/select2'; 
+/* errors */ 
+.error_notification{
+    color: #f05050;
+  }
+.error{
+    color: #f05050;
+  }
 
 /* active */    
 .badge-active {

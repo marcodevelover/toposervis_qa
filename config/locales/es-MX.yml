@@ -22,6 +22,7 @@
 #https://github.com/svenfuchs/rails-i18n/blob/rails-4-x/rails/locale/es-MX.yml
  
 es: 
+  add: Agregar
   email_availible: Email Disponible
   email_already_taken: Email electrónico ya ha sido tomado
   email_not_exist:  Email no existe
@@ -160,7 +161,7 @@ es:
   sure_you_want_to_delete: "Realmente desea eliminar?" 
   update_user: Actualizar usuario
   choose_from_select: -- Seleccionar --
-  
+  commands: Acciones
   actions:
       delete: Eliminar
       create: Crear
@@ -175,24 +176,20 @@ es:
   departments:
     name: Nombre
     enterprise_id: Empresa
-  posts:
-    post_type_id: Tipo de publicación 
-    priority: Prioridad
-    priority_info: Ingrese número (1=Alta, 2=Media, 3=Baja)
-    publish_at: Fecha de publicación solicitada 
-    post_status_id: Status
-    user_id:  Usuario que solicita
-    title: Título de publicación 
-    description: Descripción  
-    url_video: URL de video 
-    aproved_by: Aprobado por
-    post_date: Fecha de publicación
-    created_at: Fecha de creción
-    updated_at: Última actualización
-    deleted_at: Fecha de baja
-    title: Titulo
-    enterprise: Empresa
-    post_status: Estado
+  purchases:
+    folio: Folio
+    provider: Proveedor
+    total: Total
+    status: Proveedor
+    subtotal: Subtotal
+    total: Total
+    tax: Impuesto
+    tax_total: Impuesto total
+    quantity: Cantidad
+    state: Estatus
+    date: Fecha
+    created_by: Creado por
+    deleted_at: Cancelado el
     created_at_lt: Rango de Fecha inicial
     created_at_gt: Rango de Fecha final
   users: 
@@ -453,39 +450,39 @@ es:
         purchase:
           attributes:
             receipt_type:
-              required: Es obligatorio
+              required: no puede estar en blanco
             entry_code:
-              required: Es obligatorio
+              required: no puede estar en blanco
             provider:
-              required: Es obligatorio
+              required: no puede estar en blanco
         quotation:
           attributes:
             customer:
-              required: Es obligatorio
+              required: no puede estar en blanco
         sale:
           attributes:
             payment_method:
-              required: Es obligatorio
+              required: no puede estar en blanco
             payment_way:
-              required: Es obligatorio
+              required: no puede estar en blanco
             customer:
-              required: Es obligatorio
+              required: no puede estar en blanco
         order:
           attributes:
             customer:
-              required: Es obligatorio
+              required: no puede estar en blanco
         service_order:
           attributes:
             customer:
-              required: Es obligatorio
+              required: no puede estar en blanco
         product:
           attributes:
             product_line:
-              required: Es obligatorio   
+              required: no puede estar en blanco
             unit:
-              required: Es obligatorio   
+              required: no puede estar en blanco
             provider:
-              required: Es obligatorio   
+              required: no puede estar en blanco
     models:
       Ransack::Search: 'Búsqueda'
       Comment: Mensaje
@@ -497,8 +494,9 @@ es:
       Enterprise: Empresa
       Department: Departamento
       Category: Categoríax
-      Provider: PPP
-      provider: PPP
+      Provider: Proveedor
+      purchase: entrada
+      Purchase: Entrada
     attributes: 
       sale:
         payment_method: Formas de pago
@@ -516,6 +514,11 @@ es:
         brand: Marca
         model: Modelo
         type_service_orders: Tipo de servicios
+      purchase:
+        receipt_type: Tipo de recibo
+        entry_code: Código de entrada
+        folio: Folio
+        provider: Proveedor
       order:
         currency_id: Moneda
         exchange_rate: Tipo de cambio
@@ -785,6 +788,7 @@ es:
   action_update: Acciones que permiten actualizar registros    
   activate: Activar
   active: Activo
+  deleted: Baja
   cancel: Cancelar
   choose_from_select: -- Seleccionar --
   currency_symbol: $

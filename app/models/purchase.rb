@@ -5,6 +5,10 @@ class Purchase < ApplicationRecord
   belongs_to :provider
   has_many :purchase_items, dependent: :destroy, as: :record
   has_many :product_variants, through: :purchase_items
+  belongs_to :user, foreign_key: "created_by_id"
+
+  validates :date, presence: true
+  validates :folio, presence: true
 
   accepts_nested_attributes_for :purchase_items, reject_if: :all_blank, allow_destroy: true
 
