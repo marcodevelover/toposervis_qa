@@ -180,7 +180,6 @@ es:
     folio: Folio
     provider: Proveedor
     total: Total
-    status: Proveedor
     subtotal: Subtotal
     total: Total
     tax: Impuesto
