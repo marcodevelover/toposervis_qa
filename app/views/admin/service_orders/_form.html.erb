@@ -14,6 +14,7 @@
                                   <label class="form-label">Fecha de ingreso</label>
                                   <div class="form-group"> 
                                     <%= form.text_field :date_admission, class: "form-control" , placeholder: "Ingreso", type: 'date', value: (form.object.date_admission ? form.object.date_admission.to_date : '')%>
+                                    <%= form.error :date_admission, id: 'date_admission_error' %>
                                   </div>  
                                 </div> 
                                 <div class="col-lg-4 mb-4x">
@@ -56,6 +57,7 @@
                                           <label class="control-label"><abbr title="required">*</abbr><%= t('service_orders.product')%></label>
                                            <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" name='service_order[product_id]' id="service_order_product_id" style="width: 100%">
                                           </select>
+                                          <%= form.error :product, id: 'product_error' %>
                                         </div>
                               <% end %>
 
@@ -73,17 +75,17 @@
                            <div class="col-md-12">
                               <div class="form-row">
                                  <div class="col-lg-4 mb-4x">
-                                        <%= form.label :serie, class: "col-form-label"%> *
+                                        <%= form.label :serie, class: "col-form-label"%>
                                         <%= form.text_field :serie, class: "form-control", type: "text", required: true %>
                                  </div>
 
                                   <div class="col-lg-4 mb-4x">
-                                        <%= form.label :brand, class: "col-form-label"%> *
+                                        <%= form.label :brand, class: "col-form-label"%>
                                         <%= form.text_field :brand, class: "form-control", type: "text", required: true %>
                                  </div>
 
                                  <div class="col-lg-4 mb-4x">
-                                        <%= form.label :model, class: "col-form-label"%> *
+                                        <%= form.label :model, class: "col-form-label"%>
                                         <%= form.text_field :model, class: "form-control", type: "text", required: true %>
                                  </div>                              
 
@@ -178,7 +180,7 @@
                         <div class="float-right">
                         <%= form.submit class: "btn btn-primary" %>
 
-                        <%= link_to admin_service_orders_path, :class => "btn btn-secondary" do %>
+                        <%= link_to admin_service_orders_path, :class => "btn btn-danger" do %>
                             Cancelar
                         <%end%>     
                         </div>

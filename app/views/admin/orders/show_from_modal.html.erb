@@ -2,7 +2,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Folio:</strong>
+  <strong><%= t("orders.folio")%>:</strong>
   <%= @order.sale.folio %>
 </p>
 
@@ -21,37 +21,31 @@
 </p>
 
 <p>
-  <strong>Adjustment total:</strong>
+  <strong><%= t("orders.adjustment_total")%>:</strong>
   <%= @order.adjustment_total %>
 </p>
 <% if @order.is_tax %>
 
     <p>
-      <strong>Total:</strong>
+      <strong><%= t("orders.total")%>:</strong>
       <%= @order.total %>
     </p>    
     <p>
-      <strong>Tax:</strong>
+      <strong><%= t("orders.tax")%>:</strong>
       <%= @order.tax %>
     </p>
 
     <p>
-      <strong>Tax total:</strong>
+      <strong><%= t("orders.tax_total")%>:</strong>
       <%= @order.tax_total %>
-    </p>
-
-    <p>
-      <strong>Tax item total:</strong>
-      <%= @order.tax_item_total %>
     </p>
 <% end %>
 <p>
-  <strong>State:</strong>
-  <%= @order.state %>
+  <strong><%= t("orders.state")%>:</strong>
+  <%= @order.deleted_at? ? "Baja".html_safe : "Activo".html_safe %>
 </p>
-
 <p>
-  <strong>Date:</strong>
+  <strong><%= t("orders.date")%>:</strong>
   <%= @order.date%>
 </p>
 <p>
@@ -63,28 +57,28 @@
   <%= @order.sale.payment_way ? @order.sale.payment_way.name : "N/A" %>
 </p>
 <p>
-  <strong>Currency:</strong>
+  <strong><%= t("orders.currency")%>:</strong>
   <%= @order.currency ? @order.currency.abbreviation : "N/A" %>
 </p>
 
 <p>
-  <strong>Exchange rate:</strong>
+  <strong><%= t("orders.exchange_rate")%>:</strong>
   <%= @order.exchange_rate %>
 </p>
 
 <p>
-  <strong>Customer:</strong>
+  <strong><%= t("orders.customer")%>:</strong>
   <%= @order.customer ? @order.customer.name : "N/A" %>
 </p>
 
 <p>
-  <strong>Condition:</strong>
+  <strong><%= t("orders.observation")%>:</strong>
   <%= @order.observation %>
 </p>
 
 <p>
-  <strong>Created by:</strong>
-  <%= @order.created_by_id %>
+  <strong><%= t("orders.created_by")%>:</strong>
+  <%= @order.user.name %> <%= @order.user.lastname %>
 </p>
 
 <h4>Productos</h4>
@@ -99,11 +93,11 @@
 <% end %>
 
 <p>
-  <strong>Canceled at:</strong>
+  <strong><%= t("orders.deleted_at")%>:</strong>
   <%= @order.deleted_at %>
 </p>
 
 </div>
 <div class="modal-footer"> 
-     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
 </div>

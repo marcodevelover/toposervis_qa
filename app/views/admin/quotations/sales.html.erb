@@ -4,7 +4,6 @@
             <!-- START card-->
             <div class="card card-default">
                <div class="card-body">
-                  
                      <h3></h3>
                      <fieldset>
                         <div class="form-group row">
@@ -20,8 +19,6 @@
                                   <label class="decimal optional col-form-label" for="quotation_exchange_rate">Moneda</label>
                                     <input class="form-control" type="text" readonly="readonly" value="<%=@quotation.currency.abbreviation%>">
                                  </div>
-
-
                                  <div class="col-lg-4 mb-4x">
                                         <%= form.label :exchange_rate, class: "col-form-label"%> *
                                         <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true, readonly: true %>
@@ -29,21 +26,38 @@
                               </div>
                           </div>
                         </div>
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <div class="form-row">
+                              <div class="col-lg-8 mb-8">
+                                <%= form.association :customer, input_html: { class: 'custom-select custom-select-sm' }, disabled: true %>
+                                
+                              </div>
+                              <div class="col-lg-4 mb-4">
+                                <%= form.label :folio, class: "col-form-label"%>
+                                <div class="form-group">
+                                  <%= form.text_field :folio, class: 'form-control', readonly: true %>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 <!--pay-->
                         <%= form.simple_fields_for :sale do |sale| %>
                          <div class="form-group row">
                            <div class="col-md-12">
                               <div class="form-row">
+
                                  <div class="col-lg-6 mb-6">
                                    <div class="form-group">
                                      <% @states  = ["", "payment", "pending"]  %>
                                      <%= sale.input :state, collection: @states, selected: @quotation.sale.state, input_html: { class: 'custom-select custom-select-sm' } %>                                      
                                    </div>
                                  </div>
+
                                  <div class="col-lg-6 mb-6">
-                                   <%= form.label :folio, class: "col-form-label"%>
                                    <div class="form-group">
-                                     <%= sale.text_field :folio, class: 'form-control', readonly: true %>
+                                     <%= sale.association :use_of_cfdi, input_html: { class: 'custom-select custom-select-sm' } %>
                                    </div>
                                  </div>
                                </div>
@@ -53,56 +67,22 @@
                         <div class="form-group row">
                            <div class="col-md-12">
                               <div class="form-row">
- 
-
                                  <div class="col-lg-6 mb-6">
-                                   
                                    <div class="form-group">
                                      <%= sale.association :payment_method, input_html: { class: 'custom-select custom-select-sm' } %>
                                    </div>
                                  </div>
                                  <div class="col-lg-6 mb-6">
-                                   
                                    <div class="form-group">
                                      <%= sale.association :payment_way, input_html: { class: 'custom-select custom-select-sm' } %>
                                    </div>
                                  </div>
-
                               </div>
                           </div>
                         </div>
-                        <div class="form-group row">
-                           <div class="col-md-12">
-                              <div class="form-row">
-                                 <div class="col-lg-6 mb-6">
-                                   <div class="form-group">
-                                     <%= sale.association :use_of_cfdi, input_html: { class: 'custom-select custom-select-sm' } %>
-                                   </div>
-                                 </div>
-                              </div>
-                          </div>
-                        </div>   
-
                       </br>
                         <% end %>
 <!--end pay-->
-                        <div class="form-group row">
-                          <div class="col-md-12">
-                            <div class="form-row">
-                              <div class="col-lg-8 mb-8">
-                                <%= form.association :customer, input_html: { class: 'custom-select custom-select-sm' } %>
-                              </div>
-                              <div class="col-lg-4 mb-4">
-                                </br>
-                               <%= link_to new_admin_customer_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
-                                 <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
-                               <%end%>                                  
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </br>
                         <div class="form-group row">
                           <div class="col-md-12">
                             <div class="form-row">
@@ -110,13 +90,11 @@
                                 <label for="validationServer03"><b>Términos y condiciones</b></label>
                                 <%= form.text_area :condition, class: "form-control", rows: 10 %>
                               </div>
-
                             </div>
                           </div>
 
                         </div>
                       </br>
-
                           <!-- begin my product -->
                               <!-- Table Products -->
                       <h4 class="box-title m-t-40">Productos y/o Servicios</h4>
@@ -125,9 +103,7 @@
                       <div class="row">
                         <div class="col-sm-6">
                           <div class="form-group">
-                            <div id="open_modal" class="btn btn-success ml-auto">
-                              <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
-                            </div>
+
                           </div>
                         </div>
                         <div class="col-sm-6">
@@ -235,7 +211,7 @@
                         <div class="float-right">
                         <%= form.submit class: "btn btn-primary" %>
 
-                        <%= link_to admin_quotations_path, :class => "btn btn-secondary" do %>
+                        <%= link_to admin_quotations_path, :class => "btn btn-danger" do %>
                             Cancelar
                         <%end%>     
                         </div>

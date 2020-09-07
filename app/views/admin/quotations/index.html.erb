@@ -14,12 +14,12 @@
                         <thead>
                            <tr>
                               <th data-column-id="id" data-type="numeric">ID</th>
-                              <th data-column-id="name">Folio</th>
-                              <th data-column-id="rfc" data-order="desc">Customer</th>
-                              <th data-column-id="business_name" data-order="desc">Total <small>(antes de impuesto)</small></th>
-                              <th data-column-id="status" data-order="desc">Status</th>
+                              <th data-column-id="name"><%= t("quotations.folio")%></th>
+                              <th data-column-id="rfc" data-order="desc"><%= t("quotations.customer")%></th>
+                              <th data-column-id="business_name" data-order="desc"><%= t("quotations.total")%> <small>(antes de impuesto)</small></th>
+                              <th data-column-id="status" data-order="desc"><%= t("quotations.state")%></th>
                               <th data-column-id="commands" data-formatter="commands" data-sortable="false">
-                                 <div class="text-left">Commands</div>
+                                 <div class="text-left"><%= t("commands")%></div>
                               </th>
                            </tr>
                         </thead>

@@ -107,15 +107,15 @@ class Admin::ServiceOrdersController < ApplicationController
           @service_order.diagnosis.images.attach(image)
         end
       end
-      if params[:service_order][:diagnosis_attributes][:is_done] == "1"
-        ServiceOrderMailer.with(service_order: @service_order).service_order_done.deliver_later
-      end
     end
     
     respond_to do |format|
       if @service_order.update(service_order_params)
         format.html { redirect_to [:admin, @service_order], notice: 'Service order was successfully updated.' }
         format.json { render :show, status: :ok, location: @service_order }
+        if params[:service_order][:diagnosis_attributes][:is_done] == "1" && @service_order.state == "diagnosed"
+          ServiceOrderMailer.with(service_order: @service_order).service_order_done.deliver_later
+        end
       else
         if @service_order.state == "diagnosed"
           if params[:service_order][:diagnosis_attributes][:sale_attributes].present?

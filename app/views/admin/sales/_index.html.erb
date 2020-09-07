@@ -1,7 +1,7 @@
 <% if @collection.each do |object| %>
 <tr>
         <td scope="row" ><%= object.id %></td>
-        <td><%= object.record_type %></td>
+        <td><%= t(object.record_type) %></td>
         <td><%= object.folio %></td>
         <td><%= object.payment_method.name %></td>
         <td><%= object.payment_way.name %></td>
@@ -11,12 +11,12 @@
             <% end %>
 
             <% unless object.deleted_at? %>
-                <span class="badge badge-<%= object.state %>"><%= object.state %></span>
+                <span class="badge badge-<%= object.state %>"><%= t(object.state) %></span>
             <% end %>
         </td>
         <td>
-            <span class="badge badge-<%= object.bill_state %>"><%= object.bill_state %></span><br>
-            <span class="badge badge-<%= object.cancellation_state %>"><%= object.cancellation_state %></span>
+            <span class="badge badge-<%= object.bill_state %>"><%= t(object.bill_state) %></span><br>
+            <span class="badge badge-<%= object.cancellation_state %>"><%= t(object.cancellation_state) %></span>
         </td>
 
         <td>
@@ -81,6 +81,3 @@
 <% end.empty? %>
   <h3>No hay resultados</h3>
 <% end %>
-
-
-

@@ -2,16 +2,12 @@ class ServiceOrder < ApplicationRecord
   belongs_to :customer
   belongs_to :product
   belongs_to :user, foreign_key: "created_by_id"
-
   has_many :orders_types
   has_many :type_service_orders, through: :orders_types
-
   has_many :order_accessories
   accepts_nested_attributes_for :order_accessories, reject_if: :all_blank, allow_destroy: true
-
   has_many_base64_attached :images
   accepts_nested_attributes_for :images_attachments, allow_destroy: true
-
   has_one :diagnosis, inverse_of: :service_order, touch: true
   accepts_nested_attributes_for :diagnosis, reject_if: :all_blank, allow_destroy: true
 
@@ -25,6 +21,8 @@ class ServiceOrder < ApplicationRecord
   before_validation :cancel_invoice , on: :request_cancel_invoice_to_diagnosis, if: Proc.new { self.diagnosis.sale.bill_state == "invoiced" }
   before_validation :cancellation_state_invoice , on: :request_cancellation_state_invoice_to_diagnosis, if: Proc.new { self.diagnosis.sale.bill_state == "valid" }
 
+  validates :date_admission, presence: true
+  
   def erase_sale
     @sale = Sale.find_by(id: self.diagnosis.sale.id)
     @sale.update(deleted_at: Time.now)

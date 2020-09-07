@@ -2,7 +2,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Folio:</strong>
+  <strong><%= t("quotations.folio")%>:</strong>
   <%= @quotation.folio %>
 </p>
 <p>
@@ -19,53 +19,52 @@
 </p>
 
 <p>
-  <strong>Adjustment total:</strong>
+  <strong><%= t("quotations.adjustment_total")%>:</strong>
   <%= @quotation.adjustment_total %>
 </p>
 
 <% if @quotation.is_tax %>
   <p>
-    <strong>Total:</strong>
+    <strong><%= t("quotations.total")%>:</strong>
     <%= @quotation.total %>
   </p>
     
   <p>
-    <strong>Tax:</strong>
+    <strong><%= t("quotations.tax")%>:</strong>
     <%= @quotation.tax %>
   </p>
 
   <p>
-    <strong>Tax total:</strong>
+    <strong><%= t("quotations.tax_total")%>:</strong>
     <%= @quotation.tax_total %>
   </p>
-
   <p>
-    <strong>Tax item total:</strong>
+    <strong><%= t("quotations.tax_item_total")%>:</strong>
     <%= @quotation.tax_item_total %>
   </p>
 <% end %>
 <p>
-  <strong>State:</strong>
-  <%= @quotation.state %>
+  <strong><%= t("quotations.state")%>:</strong>
+  <%= t(@quotation.state) %>
 </p>
 
 <p>
-  <strong>Validity:</strong>
+  <strong><%= t("quotations.validity")%>:</strong>
   <%= @quotation.validity %>
 </p>
 
 <p>
-  <strong>Currency:</strong>
+  <strong><%= t("quotations.currency")%>:</strong>
   <%= @quotation.currency ? @quotation.currency.abbreviation : "N/A" %>
 </p>
 
 <p>
-  <strong>Exchange rate:</strong>
+  <strong><%= t("quotations.exchange_rate")%>:</strong>
   <%= @quotation.exchange_rate %>
 </p>
 
 <p>
-  <strong>Customer:</strong>
+  <strong><%= t("quotations.customer")%>:</strong>
   <%= @quotation.customer ? @quotation.customer.name : "N/A" %>
 </p>
 <p>
@@ -83,13 +82,13 @@
     
 
 <p>
-  <strong>Condition:</strong>
+  <strong><%= t("quotations.condition")%>:</strong>
   <%= @quotation.condition %>
 </p>
 
 <p>
-  <strong>Created by:</strong>
-  <%= @quotation.created_by_id %>
+  <strong><%= t("quotations.created_by")%>:</strong>
+  <%= @quotation.user.name %> <%= @quotation.user.lastname %>
 </p>
 
 <h4>Productos</h4>
@@ -102,11 +101,11 @@
 <% end %>
 
 <p>
-  <strong>Canceled at:</strong>
+  <strong><%= t("quotations.deleted_at")%>:</strong>
   <%= @quotation.deleted_at %>
 </p>
 
 </div>
 <div class="modal-footer"> 
-     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
 </div>

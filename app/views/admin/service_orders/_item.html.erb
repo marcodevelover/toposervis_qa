@@ -133,7 +133,7 @@
             <ul class="errors"></ul>
           </div>
           <div class="form-group">
-            <label class="control-label"><%= t('sale_note_has_products.product')%></label>
+            <label class="control-label"><%= t('diagnosis.product')%></label>
              <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" id="note_product" style="width: 100%">
             </select>
           </div>
@@ -154,7 +154,7 @@
           </div>
 
           <div class="form-group">
-            <label class="control-label"><%= t('sale_note_has_products.quantity')%></label>
+            <label class="control-label"><%= t('diagnosis.quantity')%></label>
             <input type="number" class="form-control" id="note_quantity" onblur="setTotal()" value="0"> 
           </div>
 
@@ -185,14 +185,14 @@
             </div>
           </div>
           <div class="form-group jump">
-            <label class="control-label"><%= t('sale_note_has_products.total')%></label>
+            <label class="control-label"><%= t('diagnosis.total')%></label>
             <input type="text" class="form-control" id="note_total" disabled="disabled"> 
           </div>
 
       </div>
       <div class="modal-footer">
-        <div type="button" class="btn btn-default waves-effect" data-dismiss="modal"><%= t('cancel')%></div>
-        <div id="sbm_product_item" type="button" class="btn btn-success waves-effect waves-light"><%= t('add')%></div>
+        <div id="sbm_product_item" type="button" class="btn btn-primary waves-effect waves-light"><%= t('add')%></div>
+        <div type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><%= t('cancel')%></div>
       </div>
     </div>
   </div>

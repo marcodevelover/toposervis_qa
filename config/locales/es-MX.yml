@@ -188,7 +188,7 @@ es:
     state: Estatus
     date: Fecha
     created_by: Creado por
-    deleted_at: Cancelado el
+    deleted_at: Eliminado el
     created_at_lt: Rango de Fecha inicial
     created_at_gt: Rango de Fecha final
   users: 
@@ -205,7 +205,7 @@ es:
     confirm_delete: "Si, eliminar este usuario"
     create_user: "Crear usuario"
     email: "Correo electrónico" 
-    last_name: "Apellido"
+    lastname: "Apellido"
     name: "Nombre"
     New_user: "Nuevo usuario"
     no_confirm_delete: "No"
@@ -240,9 +240,38 @@ es:
     has_saipro_user: ¿Cuenta con usuario en SAIPRO?
   quotations:
     folio: Folio
+    quantity: Cantidad
+    product: Producto
+    customer: Cliente
+    total: Total
+    state: Estatus
+    subtotal: subtotal
+    adjustment_total: Descuento total
+    tax: Impuesto
+    tax_total: Impuesto total
+    tax_item_total: Impuesto produto total
+    condition: Condición
+    created_by: Creado por
+    deleted_at: Eliminado el
+    validity: Vigencia
+    currency: Moneda
+    exchange_rate: Tipo de cambio
   service_orders:
     folio: Folio
     product: Producto
+    date_admission: Fecha de admisión
+    customer: Cliente
+    serie: Serie
+    brand: Marca
+    model: Modelo
+    observation: Observaciones
+    created_by: Creado por
+    deleted_at: Eliminado el
+    state: Estatus
+  diagnosis:
+    product: Producto
+    total: Total
+    quantity: Cantidad
   providers:
     name: Nombre
     rfc: RFC
@@ -264,6 +293,27 @@ es:
   accessories:
     name: Nombre
     description: Descripción
+  orders:
+    folio: Folio
+    date: Fecha
+    product: Producto
+    quantity: Cantidad
+    observation: Observaciones
+    exchange_rate: Tipo de cambio
+    subtotal: Subtotal
+    total: Total
+    adjustment_total: Descuento total
+    tax: Impuesto
+    tax_total: Impuesto total
+    state: Estatus
+    created_by: Creado por
+    deleted_at: Eliminado el
+    customer: Cliente
+    currency: Moneda
+  sales:
+    folio: Folio
+    state: Estatus
+    deleted_at: Eliminado el
   units:
     name: Nombre
     description: Descripción
@@ -458,6 +508,8 @@ es:
           attributes:
             customer:
               required: no puede estar en blanco
+            currency:
+              required: no puede estar en blanco
         sale:
           attributes:
             payment_method:
@@ -466,13 +518,19 @@ es:
               required: no puede estar en blanco
             customer:
               required: no puede estar en blanco
+            use_of_cfdi:
+              required: no puede estar en blanco
         order:
           attributes:
             customer:
               required: no puede estar en blanco
+            currency:
+              required: no puede estar en blanco
         service_order:
           attributes:
             customer:
+              required: no puede estar en blanco
+            product:
               required: no puede estar en blanco
         product:
           attributes:
@@ -482,12 +540,21 @@ es:
               required: no puede estar en blanco
             provider:
               required: no puede estar en blanco
+        diagnosis:
+          attributes:
+            diagnosis_type:
+              required: no puede estar en blanco
+        user:
+          attributes:
+            role:
+              required: no puede estar en blanco
     models:
       Ransack::Search: 'Búsqueda'
       Comment: Mensaje
       User: Usuario
       comment: Mensaje 
-      user: Usuario
+      user: usuario
+      User: Usuario
       request: Solicitud
       user_type: Tipo de Usuario
       Enterprise: Empresa
@@ -496,6 +563,12 @@ es:
       Provider: Proveedor
       purchase: entrada
       Purchase: Entrada
+      quotation: cotización
+      Quotation: Cotización
+      order: orden de venta
+      Order: Orden de venta
+      service_order: orden de servicio
+      ServiceOrder: Orden de servicio
     attributes: 
       sale:
         payment_method: Formas de pago
@@ -513,6 +586,8 @@ es:
         brand: Marca
         model: Modelo
         type_service_orders: Tipo de servicios
+      diagnosis:
+        diagnosis_type_id: Tipo de diagnostico
       purchase:
         receipt_type: Tipo de recibo
         entry_code: Código de entrada
@@ -538,7 +613,7 @@ es:
         description: Descripción
       user:
         email: Correo eletrónico
-        last_name: Apellido
+        lastname: Apellido
         last_sign_in_at: Última sesión
         name: Nombre
         role_id: Rol
@@ -546,7 +621,8 @@ es:
         password_confirmation: Confirmar contraseña
         enterprise_id: Empresa
         branch_id: Sucursal
-        collaborators_in_other_branch: "Colaboradores en otras sucursales:"
+        phone: Teléfono
+        customers: Cliente
       directory:
         message_text: Mensaje
         attachments: Archivos
@@ -789,6 +865,18 @@ es:
   active: Activo
   deleted: Baja
   cancel: Cancelar
+  sold: Vendido
+  diagnosed: Diagnosticado
+  done: Finalizado
+  delivered: Entregado
+  payment: pagado
+  pending: pendiente
+  invoiced: facturado
+  canceled: cancelado
+  accepted: aceptado
+  Quotation: Cotización
+  Order: Orden de venta
+  Diagnosis: Diagnostico
   choose_from_select: -- Seleccionar --
   currency_symbol: $
   new_agreed_hours: Nuevo horario

@@ -3,6 +3,7 @@ $("ul.errors").html("")
   <% @object.errors.full_messages.each do |message| %>
     $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
   <% end %>
+  $("#mainModal").animate({ scrollTop: 0 }, 'slow')
 <% else %> 
   $("#object-modal").modal("hide") 
 <% end %>

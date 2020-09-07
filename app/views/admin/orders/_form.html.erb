@@ -14,17 +14,20 @@
                                   <label class="form-label">Fecha</label>
                                   <div class="form-group"> 
                                     <%= form.text_field :date, class: "form-control" , placeholder: "Vigencia", type: 'date', value: (form.object.date ? form.object.date.to_date : '')%>
+                                    <%= form.error :date, id: 'date_error' %>
                                   </div>  
                                 </div> 
                                  <div class="col-lg-4 mb-4">
                                    <%= form.label :currency_id, class: "col-form-label"%>
                                    <div class="form-group">
                                      <%= form.collection_select :currency_id, Currency.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
+                                     <%= form.error :currency, id: 'currency_error' %>
                                    </div>
                                  </div>
                                  <div class="col-lg-4 mb-4x">
                                         <%= form.label :exchange_rate, class: "col-form-label"%> *
                                         <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true, readonly: true %>
+                                        <%= form.error :exchange_rate, id: 'exchange_rate_error' %>
                                  </div>
                               </div>
                           </div>
@@ -240,7 +243,7 @@
                         <div class="float-right">
                         <%= form.submit class: "btn btn-primary" %>
 
-                        <%= link_to admin_orders_path, :class => "btn btn-secondary" do %>
+                        <%= link_to admin_orders_path, :class => "btn btn-danger" do %>
                             Cancelar
                         <%end%>     
                         </div>
@@ -266,7 +269,7 @@
             <ul class="errors"></ul>
           </div>
           <div class="form-group">
-            <label class="control-label"><%= t('order_note_has_products.product')%></label>
+            <label class="control-label"><%= t('orders.product')%></label>
              <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" id="note_product" style="width: 100%">
             </select>
           </div>
@@ -287,7 +290,7 @@
           </div>
 
           <div class="form-group">
-            <label class="control-label"><%= t('order_note_has_products.quantity')%></label>
+            <label class="control-label"><%= t('orders.quantity')%></label>
             <input type="number" class="form-control" id="note_quantity" onblur="setTotal()" value="0"> 
           </div>
 
@@ -318,14 +321,14 @@
             </div>
           </div>
           <div class="form-group jump">
-            <label class="control-label"><%= t('order_note_has_products.total')%></label>
+            <label class="control-label"><%= t('orders.total')%></label>
             <input type="text" class="form-control" id="note_total" disabled="disabled"> 
           </div>
 
       </div>
       <div class="modal-footer">
-        <div type="button" class="btn btn-default waves-effect" data-dismiss="modal"><%= t('cancel')%></div>
-        <div id="sbm_product" type="button" class="btn btn-success waves-effect waves-light"><%= t('add')%></div>
+        <div id="sbm_product" type="button" class="btn btn-primary waves-effect waves-light"><%= t('add')%></div>
+        <div type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><%= t('cancel')%></div>
       </div>
     </div>
   </div>

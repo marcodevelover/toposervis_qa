@@ -2,12 +2,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Folio:</strong>
+  <strong><%= t("service_orders.folio")%>:</strong>
   <%= @service_order.folio %>
 </p>
 
 <p>
-  <strong>Fecha de admisión:</strong>
+  <strong><%= t("service_orders.date_admission")%>:</strong>
   <%= @service_order.date_admission %>
 </p>
 
@@ -19,29 +19,29 @@
 <% end %>
 
 <p>
-  <strong>Cliente:</strong>
+  <strong><%= t("service_orders.customer")%>:</strong>
   <%= @service_order.customer ? @service_order.customer.name : "N/A" %>
 </p>
 
 <p>
 <p>
-  <strong>Producto:</strong>
+  <strong><%= t("service_orders.product")%>:</strong>
   <%= @service_order.product ? @service_order.product.name : "N/A" %>
 </p>
 <p>
-  <strong>Serie:</strong>
+  <strong><%= t("service_orders.serie")%>:</strong>
   <%= @service_order.serie %>
 </p>
 <p>
-  <strong>Marca:</strong>
+  <strong><%= t("service_orders.brand")%>:</strong>
   <%= @service_order.brand %>
 </p>
 <p>
-  <strong>Modelo:</strong>
+  <strong><%= t("service_orders.model")%>:</strong>
   <%= @service_order.model %>
 </p>
 <p>
-  <strong>Observaciones:</strong>
+  <strong><%= t("service_orders.observation")%>:</strong>
   <%= @service_order.observation %>
 </p>
 <p>
@@ -74,8 +74,8 @@
 </p>
 
 <p>
-  <strong>Created by:</strong>
-  <%= @service_order.user.name %>
+  <strong><%= t("service_orders.created_by")%>:</strong>
+  <%= @service_order.user.name %> <%= @service_order.user.lastname %>
 </p>
 
 <hr>
@@ -126,11 +126,11 @@
 <% end %>
 
 <p>
-  <strong>Canceled at:</strong>
+  <strong><%= t("service_orders.deleted_at")%>:</strong>
   <%= @service_order.deleted_at %>
 </p>
 
 </div>
 <div class="modal-footer"> 
-     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
 </div>

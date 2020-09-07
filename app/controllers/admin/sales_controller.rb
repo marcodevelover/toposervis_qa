@@ -4,7 +4,7 @@ class Admin::SalesController < ApplicationController
   respond_to :html, :json
 
   def page_name
-     @page_name = "Ventas"
+     @page_name = "Facturación"
   end
   # GET /sales
   # GET /sales.json

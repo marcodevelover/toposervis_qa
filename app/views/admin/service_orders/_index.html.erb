@@ -12,7 +12,7 @@
             <% end %>
 
             <% unless object.deleted_at? %>
-                <span class="badge badge-<%= object.state %>"><%= object.state %></span>
+                <span class="badge badge-<%= object.state %>"><%= t(object.state) %></span>
             <% end %>
         </td>
 
