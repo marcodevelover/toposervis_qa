@@ -2,57 +2,57 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= t("providers.name")%>:</strong>
   <%= @provider.name %>
 </p>
 
 <p>
-  <strong>Rfc:</strong>
+  <strong><%= t("providers.rfc")%>:</strong>
   <%= @provider.rfc %>
 </p>
 
 <p>
-  <strong>Business name:</strong>
+  <strong><%= t("providers.business_name")%>:</strong>
   <%= @provider.business_name %>
 </p>
 
 <p>
-  <strong>street:</strong>
+  <strong><%= t("provider_addresses.street")%>:</strong>
   <%= @provider.provider_address.street %>
 </p>
 
 <p>
-  <strong>number:</strong>
+  <strong><%= t("provider_addresses.number")%>:</strong>
   <%= @provider.provider_address.number %>
 </p>
 
 <p>
-  <strong>crossing:</strong>
+  <strong><%= t("provider_addresses.crossing")%>:</strong>
   <%= @provider.provider_address.crossing %>
 </p>
 
 <p>
-  <strong>postcode:</strong>
+  <strong><%= t("provider_addresses.postcode")%>:</strong>
   <%= @provider.provider_address.postcode %>
 </p>
 
 <p>
-  <strong>colony:</strong>
+  <strong><%= t("provider_addresses.colony")%>:</strong>
   <%= @provider.provider_address.colony %>
 </p>
 
 <p>
-  <strong>town:</strong>
+  <strong><%= t("provider_addresses.town")%>:</strong>
   <%= @provider.provider_address.town %>
 </p>
 
 <p>
-  <strong>state:</strong>
+  <strong><%= t("provider_addresses.state")%>:</strong>
   <%= @provider.provider_address.state %>
 </p>
 
 <p>
-  <strong>country:</strong>
+  <strong><%= t("provider_addresses.country")%>:</strong>
   <%= @provider.provider_address.country %>
 </p>
 
@@ -60,32 +60,32 @@
 <% @provider.provider_contacts.each do |contact| %>
   <hr>
   <p>
-    <strong>Contact name:</strong>
+    <strong><%= t("provider_contacts.name")%>:</strong>
     <%= contact.name %>
   </p>
 
   <p>
-    <strong>Department:</strong>
+    <strong><%= t("provider_contacts.department")%>:</strong>
     <%= contact.department %>
   </p>
 
   <p>
-    <strong>Phone:</strong>
+    <strong><%= t("provider_contacts.phone")%>:</strong>
     <%= contact.phone %>
   </p>
 
   <p>
-    <strong>Extension:</strong>
+    <strong><%= t("provider_contacts.extension")%>:</strong>
     <%= contact.extension %>
   </p>
 
   <p>
-    <strong>Cellphone:</strong>
+    <strong><%= t("provider_contacts.cellphone")%>:</strong>
     <%= contact.cellphone %>
   </p>
 
   <p>
-    <strong>Email:</strong>
+    <strong><%= t("provider_contacts.email")%>:</strong>
     <%= contact.email %>
   </p>
   <hr>
@@ -93,38 +93,38 @@
 <% end %>
 
 <p>
-  <strong>beneficiary:</strong>
+  <strong><%= t("provider_banks.beneficiary")%>:</strong>
   <%= @provider.provider_bank.beneficiary %>
 </p>
 
 <p>
-  <strong>account:</strong>
+  <strong><%= t("provider_banks.account")%>:</strong>
   <%= @provider.provider_bank.account %>
 </p>
 
 <p>
-  <strong>clabe:</strong>
+  <strong><%= t("provider_banks.clabe")%>:</strong>
   <%= @provider.provider_bank.clabe %>
 </p>
 
 <p>
-  <strong>bank_name:</strong>
+  <strong><%= t("provider_banks.bank_name")%>:</strong>
   <%= @provider.provider_bank.bank_name %>
 </p>
 
 <p>
-  <strong>currency:</strong>
+  <strong><%= t("provider_banks.currency")%>:</strong>
   <%= @provider.provider_bank.currency %>
 </p>
 
 <p>
-  <strong>Deleted at:</strong>
+  <strong><%= t("providers.deleted_at")%>:</strong>
   <%= @provider.deleted_at %>
 </p>
 
 </div>
 <div class="modal-footer"> 
-     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
 </div> 
 
 <div id="modal-holder" ></div>

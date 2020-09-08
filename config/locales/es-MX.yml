@@ -172,7 +172,11 @@ es:
       disaprobbe: Rechazar
       activate: Activar
 
-    
+  accessories:
+    name: Nombre
+    description: Descripción
+    state: Estatus
+    deleted_at: Eliminado el    
   departments:
     name: Nombre
     enterprise_id: Empresa
@@ -236,8 +240,8 @@ es:
     curp: Curp
     imss: IMSS
     lastname: Apellido
-    status: Estado
-    has_saipro_user: ¿Cuenta con usuario en SAIPRO?
+    status: Estatus
+    role: Rol
   quotations:
     folio: Folio
     quantity: Cantidad
@@ -276,21 +280,52 @@ es:
     name: Nombre
     rfc: RFC
     business_name: Razón social
+    deleted_at: Eliminado el
+  provider_addresses:
+    street: Calle
+    number: Número
+    crossing: Cruzamientos
+    postcode: Código postal
+    colony: Colonia
+    town: Ciudad
+    state: Estado
+    country: País
+  provider_contacts:
+    name: Nombre
+    department: Departamento
+    phone: Teléfono
+    extension: Extensión
+    cellphone: Celular
+    email: Correo eletrónico
+  provider_banks:
+    beneficiary: Beneficiario
+    account: Cuenta
+    clabe: CLABE
+    bank_name: Nombre del banco
+    currency:  Moneda
   customers:
     name: Nombre
     rfc: RFC
     business_name: Razón social
-  product_lines:
-    name: Nombre
-    description: Descripción
-  type_service_orders:
-    name: Nombre
-    description: Descripción
+    state: Estatus
+  customer_contacts:
+    name: Nombre contacto
+    department: Departamento
+    phone: Teléfono
+    extension: Extensión
+    cellphone: Celular
+    email: Correo eletrónico
   currencies:
     name: Nombre
     description: Descripción
     abbreviation: Abreviación
-  accessories:
+    exchange_rate: Tipo de cambio
+    state: Estatus
+    deleted_at: Eliminado el
+  product_lines:
+    name: Nombre
+    description: Descripción
+  type_service_orders:
     name: Nombre
     description: Descripción
   orders:
@@ -551,8 +586,12 @@ es:
     models:
       Ransack::Search: 'Búsqueda'
       Comment: Mensaje
+      accessory: accesorio
+      Accessory: Accesorio
       User: Usuario
       comment: Mensaje 
+      currency: moneda
+      Currency: Moneda
       user: usuario
       User: Usuario
       request: Solicitud
@@ -560,6 +599,7 @@ es:
       Enterprise: Empresa
       Department: Departamento
       Category: Categoríax
+      provider: proveedor
       Provider: Proveedor
       purchase: entrada
       Purchase: Entrada
@@ -569,7 +609,14 @@ es:
       Order: Orden de venta
       service_order: orden de servicio
       ServiceOrder: Orden de servicio
+      customer: cliente
+      Customer: Cliente
     attributes: 
+      accessory:
+        name: Nombre
+        description: Descripción
+        state: Estatus
+        deleted_at: Eliminado el
       sale:
         payment_method: Formas de pago
         payment_way: Métodos de pago
@@ -623,6 +670,33 @@ es:
         branch_id: Sucursal
         phone: Teléfono
         customers: Cliente
+      provider:
+        name: Nombre
+        rfc: RFC
+        business_name: Razón social
+        deleted_at: Eliminado el
+      provider_address:
+        street: Calle
+        number: Número
+        crossing: Cruzamientos
+        postcode: Código postal
+        colony: Colonia
+        town: Ciudad
+        state: Estado
+        country: País
+      provider_contact:
+        name: Nombre
+        department: Departamento
+        phone: Teléfono
+        extension: Extensión
+        cellphone: Celular
+        email: Correo eletrónico
+      provider_bank:
+        beneficiary: Beneficiario
+        account: Cuenta
+        clabe: CLABE
+        bank_name: Nombre del banco
+        currency: Moneda
       directory:
         message_text: Mensaje
         attachments: Archivos
@@ -645,8 +719,38 @@ es:
         enterprise_was_successfully_created: Sucursal a sido creado exitosamente
         enterprise_was_successfully_updated: Sucursal a sido actualizado exitosamente
         title: "Sucursales" 
-
-
+      customer:
+        name: Nombre
+        rfc: RFC
+        business_name: Razón social
+        deleted_at: Elimiando el
+      customer_contact:
+        name: Nombre contacto
+        department: Departamento
+        phone: Teléfono
+        extension: Extensión
+        cellphone: Celular
+        email: Correo eletrónico
+      customer_address:
+        street: Calle
+        number: Número
+        crossing: Cruzamientos
+        postcode: Código postal
+        colony: Colonia
+        town: Ciudad
+        state: Estado
+        country: País
+      customer_bank:
+        beneficiary: Beneficiario
+        account: Cuenta
+        clabe: CLABE
+        bank_name: Nombre del banco
+        currency: Moneda
+      currency:
+        name: Nombre
+        description: Descripción
+        abbreviation: Abreviación
+        exchange_rate: Tipo de cambio
   #translation actions used to save in database (table: permissions) as description 
   date:
     abbr_day_names:

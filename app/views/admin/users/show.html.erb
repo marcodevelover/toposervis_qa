@@ -1,33 +1,31 @@
 <div class="modal-body">
-
 <p>
-  <strong>Name:</strong>
+  <strong><%= t("users.name")%>:</strong>
   <%= @user.name %>
 </p>
 
 <p>
-  <strong>Lastname:</strong>
+  <strong><%= t("users.lastname")%>:</strong>
   <%= @user.lastname %>
 </p>
 
 <p>
-  <strong>Phone:</strong>
+  <strong><%= t("users.phone")%>:</strong>
   <%= @user.phone %>
 </p>
 
 <p>
-  <strong>Role:</strong>
+  <strong><%= t("users.role")%>:</strong>
   <%= @user.role.description %>
 </p>
-
 <p>
-  <strong>Deleted at:</strong>
+  <strong><%= t("users.deleted_at")%>:</strong>
   <%= @user.deleted_at %>
 </p>
 
 </div>
 <div class="modal-footer"> 
-     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
 </div> 
 
 <div id="modal-holder" ></div>

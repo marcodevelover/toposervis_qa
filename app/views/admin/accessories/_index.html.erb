@@ -3,7 +3,7 @@
         <td scope="row" ><%= object.id %></td>
         <td><%= object.name %></td>
         <td><%= object.description %></td>
-        <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activado</span>".html_safe %></td>
+        <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activo</span>".html_safe %></td>
         <td>
         	<%= link_to [:admin, object], :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
         		<em class="fas fa-info-circle"></em> 

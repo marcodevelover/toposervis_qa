@@ -14,12 +14,12 @@
                         <thead>
                            <tr>
                               <th data-column-id="id" data-type="numeric">ID</th>
-                              <th data-column-id="name">Name</th>
-                              <th data-column-id="lastname" data-order="desc">Last Name</th>
-                              <th data-column-id="email" data-order="desc">Email</th>
-                              <th data-column-id="status" data-order="desc">Status</th>
+                              <th data-column-id="name"><%= t("users.name")%></th>
+                              <th data-column-id="lastname" data-order="desc"><%= t("users.lastname")%></th>
+                              <th data-column-id="email" data-order="desc"><%= t("users.email")%></th>
+                              <th data-column-id="status" data-order="desc"><%= t("users.status")%></th>
                               <th data-column-id="commands" data-formatter="commands" data-sortable="false">
-                                 <div class="text-left">Commands</div>
+                                 <div class="text-left"><%= t :commands %></div>
                               </th>
                            </tr>
                         </thead>
@@ -33,4 +33,3 @@
                   </div>
                </div>
             </div>
-        
