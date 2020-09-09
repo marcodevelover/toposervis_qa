@@ -328,6 +328,8 @@ es:
   type_service_orders:
     name: Nombre
     description: Descripción
+    deleted_at: Eliminado el
+    state: Estatus
   orders:
     folio: Folio
     date: Fecha
@@ -353,6 +355,10 @@ es:
     name: Nombre
     description: Descripción
     abbreviation: Abreviación
+    state: Estatus
+    deleted_at: Eliminado el
+    unit_key: Clave SAT
+    unit_description: Descripción SAT
   category_types:
     name: Nombre
     description: Descripción
@@ -365,6 +371,38 @@ es:
   payment_ways:
     name: Nombre
     description: Descripción
+  products:
+    name: Nombre
+    brand: Marca
+    model: Modelo
+    description: Descripción
+    comment: Comentario
+    product_line: Línea
+    unit: Unidad
+    provider: Proveedor
+    deleted_at: Elimiando el
+    state: Estatus
+    stock: Existencia
+  product_variants:
+    code: Código
+    code_alternative: Código alternativo
+    stocking_time: Tiempo de almacen
+    cost_price: Costo
+    currency: Moneda
+    amount_public: Precio público
+    amount_provider: Precio proveedor
+    amount_shipping: Precio envio
+    stock_min: Existencia mínimo
+    stock_max: Existencia máxico
+    product: Producto
+    deleted_at: Eliminado el
+    product_key: Clave SAT
+    product_description: Descripción SAT
+    state: Estatus
+  products_accessories:
+    product: Producto
+    accessory: Accesorio
+    quantity: Cantidad
   categories:
     name: Nombre
     description: Descripción
@@ -575,6 +613,10 @@ es:
               required: no puede estar en blanco
             provider:
               required: no puede estar en blanco
+        product_variant:
+          attributes:
+            currency:
+              required: no puede estar en blanco
         diagnosis:
           attributes:
             diagnosis_type:
@@ -601,6 +643,8 @@ es:
       Category: Categoríax
       provider: proveedor
       Provider: Proveedor
+      product: producto
+      Product: Producto
       purchase: entrada
       Purchase: Entrada
       quotation: cotización
@@ -611,6 +655,12 @@ es:
       ServiceOrder: Orden de servicio
       customer: cliente
       Customer: Cliente
+      unit: unidad
+      Unit: Unidad
+      type_service_order: tipo de orden de servicio
+      TypeServiceOrder: Tipo de orden de servicio
+      product_variant: imágen de producto
+      ProductVariant: Imágen de producto
     attributes: 
       accessory:
         name: Nombre
@@ -644,8 +694,37 @@ es:
         currency_id: Moneda
         exchange_rate: Tipo de cambio
         customer: Cliente
-      product_variant: 
+      product:
+        name: Nombre
+        brand: Marca
+        model: Modelo
+        description: Descripción
+        comment: Comentario
+        product_line_id: Línea
+        unit_id: Unidad
+        provider_id: Proveedor
+        deleted_at: Elimiando el
+        state: Estatus
+        stock: Existencia
+      product_variant:
+        code: Código
+        code_alternative: Código alternativo
+        stocking_time: Tiempo de almacen
+        cost_price: Costo
+        currency_id: Moneda
+        amount_public: Precio público
+        amount_provider: Precio proveedor
+        amount_shipping: Precio envio
+        stock_min: Existencia mínimo
+        stock_max: Existencia máxico
+        product: Producto
+        deleted_at: Eliminado el
         product_key: Clave SAT
+        product_description: Descripción SAT
+      products_accessory:
+        product_id: Producto
+        accessory_id: Accesorio
+        quantity: Cantidad
       department: 
         name: Nombre
         enterprise_id: Departamento  
@@ -670,6 +749,14 @@ es:
         branch_id: Sucursal
         phone: Teléfono
         customers: Cliente
+      unit:
+        name: Nombre
+        description: Descripción
+        abbreviation: Abreviación
+        state: Estatus
+        deleted_at: Eliminado el
+        unit_key: Clave SAT
+        unit_description: Descripción SAT
       provider:
         name: Nombre
         rfc: RFC
@@ -751,6 +838,11 @@ es:
         description: Descripción
         abbreviation: Abreviación
         exchange_rate: Tipo de cambio
+      type_service_order:
+        name: Nombre
+        description: Descripción
+        deleted_at: Eliminado el
+        state: Estatus
   #translation actions used to save in database (table: permissions) as description 
   date:
     abbr_day_names:

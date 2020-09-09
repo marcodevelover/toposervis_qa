@@ -2,20 +2,20 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= t("type_service_orders.name")%>:</strong>
   <%= @type_service_order.name %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong><%= t("type_service_orders.description")%>:</strong>
   <%= @type_service_order.description %>
 </p>
 
 <p>
-  <strong>Deleted at:</strong>
+  <strong><%= t("type_service_orders.deleted_at")%>:</strong>
   <%= @type_service_order.deleted_at %>
 </p>
 </div>
 <div class="modal-footer"> 
-     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
 </div> 

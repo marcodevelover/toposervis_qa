@@ -11,7 +11,7 @@
   </div>
 
   <div class="form-group">
-        <%= form.label :brand, class: "col-form-label"%> *
+        <%= form.label :brand, class: "col-form-label"%>
         <%= form.text_field :brand, class: "form-control", type: "text", required: true %>
   </div>
 
@@ -62,7 +62,7 @@
    <div class="clearfix">
       <div class="float-right">
         <%= form.submit class: "btn btn-primary" %>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t('cancel')%></button>
       </div>
    </div>
 </div>

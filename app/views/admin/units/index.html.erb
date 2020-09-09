@@ -14,12 +14,12 @@
                         <thead>
                            <tr>
                               <th data-column-id="id" data-type="numeric">ID</th>
-                              <th data-column-id="name">Name</th>
-                              <th data-column-id="abbreviation" data-order="desc">Abbreviation</th>
-                              <th data-column-id="abbreviation" data-order="desc">Clave SAT</th>
-                              <th data-column-id="status" data-order="desc">Status</th>
+                              <th data-column-id="name"><%= t("units.name")%></th>
+                              <th data-column-id="abbreviation" data-order="desc"><%= t("units.abbreviation")%></th>
+                              <th data-column-id="abbreviation" data-order="desc"><%= t("units.unit_key")%></th>
+                              <th data-column-id="status" data-order="desc"><%= t("units.state")%></th>
                               <th data-column-id="commands" data-formatter="commands" data-sortable="false">
-                                 <div class="text-left">Commands</div>
+                                 <div class="text-left"><%= t :commands %></div>
                               </th>
                            </tr>
                         </thead>

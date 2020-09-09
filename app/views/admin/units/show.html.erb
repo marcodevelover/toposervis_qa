@@ -1,31 +1,35 @@
 <div class="modal-body">
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= t("units.name")%>:</strong>
   <%= @unit.name %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong><%= t("units.description")%>:</strong>
   <%= @unit.description %>
 </p>
 <p>
-  <strong>Clave SAT:</strong>
+  <strong><%= t("units.unit_key")%>:</strong>
   <%= @unit.unit_key %>
 </p>
 <p>
-  <strong>Abbreviation:</strong>
+  <strong><%= t("units.unit_description")%>:</strong>
+  <%= @unit.unit_key %>
+</p>
+<p>
+  <strong><%= t("units.abbreviation")%>:</strong>
   <%= @unit.abbreviation %>
 </p>
 
 <p>
-  <strong>Deleted at:</strong>
+  <strong><%= t("units.deleted_at")%>:</strong>
   <%= @unit.deleted_at %>
 </p>
 
 </div>
 <div class="modal-footer"> 
-     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
 </div> 
 
 <div id="modal-holder" ></div>

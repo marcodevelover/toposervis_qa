@@ -26,98 +26,98 @@
 <% end %>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= t("products.name")%>:</strong>
   <%= @product.name %>
 </p>
 
 <p>
-  <strong>Existencias:</strong>
+  <strong><%= t("products.stock")%>:</strong>
   <%= @product.product_variants.first.stock_item.stock.round %>
 </p>
 
 <p>
-  <strong>Brand:</strong>
+  <strong><%= t("products.brand")%>:</strong>
   <%= @product.brand %>
 </p>
 
 <p>
-  <strong>Model:</strong>
+  <strong><%= t("products.model")%>:</strong>
   <%= @product.model %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong><%= t("products.description")%>:</strong>
   <%= @product.description %>
 </p>
 
 <p>
-  <strong>Comment:</strong>
+  <strong><%= t("products.comment")%>:</strong>
   <%= @product.comment %>
 </p>
 
 <p>
-  <strong>Product line:</strong>
+  <strong><%= t("products.product_line")%>:</strong>
   <%= @product.product_line.name %>
 </p>
 
 <p>
-  <strong>Unit:</strong>
+  <strong><%= t("products.unit")%>:</strong>
   <%= @product.unit.name %>
 </p>
 
 <p>
-  <strong>Provider:</strong>
+  <strong><%= t("products.provider")%>:</strong>
   <%= @product.provider.name %>
 </p>
 <hr>
 <strong>Costos y Precios</strong>
 <p>
-  <strong>Currency:</strong>
+  <strong><%= t("product_variants.currency")%>:</strong>
   <%= @product.product_variants.first.currency.abbreviation %>
 </p>
 
 <p>
-  <strong>Code:</strong>
+  <strong><%= t("product_variants.code")%>:</strong>
   <%= @product.product_variants.first.code %>
 </p>
 
 <p>
-  <strong>Code alternative:</strong>
+  <strong><%= t("product_variants.code_alternative")%>:</strong>
   <%= @product.product_variants.first.code_alternative %>
 </p>
 
 <p>
-  <strong>Stocking time:</strong>
+  <strong><%= t("product_variants.stocking_time")%>:</strong>
   <%= @product.product_variants.first.stocking_time %>
 </p>
 
 <p>
-  <strong>Cost price:</strong>
+  <strong><%= t("product_variants.cost_price")%>:</strong>
   <%= @product.product_variants.first.cost_price %>
 </p>
 
 <p>
-  <strong>Amount public:</strong>
+  <strong><%= t("product_variants.amount_public")%>::</strong>
   <%= @product.product_variants.first.amount_public %>
 </p>
 
 <p>
-  <strong>Amount provider:</strong>
+  <strong><%= t("product_variants.amount_provider")%>:</strong>
   <%= @product.product_variants.first.amount_provider %>
 </p>
 
 <p>
-  <strong>Amount shipping:</strong>
+  <strong><%= t("product_variants.amount_shipping")%>:</strong>
   <%= @product.product_variants.first.amount_shipping %>
 </p>
 
 <p>
-  <strong>Stock min:</strong>
+  <strong><%= t("product_variants.stock_min")%>:</strong>
   <%= @product.product_variants.first.stock_min %>
 </p>
 
 <p>
-  <strong>Stock max:</strong>
+  <strong><%= t("product_variants.stock_max")%>:</strong>
   <%= @product.product_variants.first.stock_max %>
 </p>
 <hr>
@@ -125,24 +125,24 @@
 <% @product.products_accessories.each do |accessory| %>
 
 <p>
-  <strong>Accessory:</strong>
+  <strong><%= t("products_accessories.accessory")%>:</strong>
   <%= accessory.accessory.name %>
 </p>
 
 <p>
-  <strong>Quantity:</strong>
+  <strong><%= t("products_accessories.quantity")%>:</strong>
   <%= accessory.quantity %>
 </p>
 
 <% end %>
 <hr>
 <p>
-  <strong>Deleted at:</strong>
+  <strong><%= t("products.deleted_at")%>:</strong>
   <%= @product.deleted_at %>
 </p>
 </div>
 <div class="modal-footer"> 
-     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
 </div> 
 
 <div id="modal-holder" ></div>
