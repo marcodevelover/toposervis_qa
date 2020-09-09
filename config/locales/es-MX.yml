@@ -446,16 +446,6 @@ es:
     avalible_info: Datos de contacto
     requirements_info: ¿Cómo disfrutar el beneficio?
     status: Estado
-  events:
-    name: Nombre
-    enterprise_id: Empresa
-    short_description: Descripción corta
-    description: Descripción
-    date: Fecha del evento
-    place: Lugar o dirección
-    image: Imagen
-    status: Estado
-    end_date: Fecha fin
   promotions:
     name: Nombre
     enterprise_id: Empresa
@@ -478,6 +468,16 @@ es:
     new_enterprise:  "Nueva Empresa" 
     delete_enterprise:  Eliminar Empresa
     delete_message: Está seguro que desea eliminar   
+  receipt_types:
+    name: Nombre
+    description: Descripción
+    deleted_at: Eliminado el
+    state: Estatus
+  entry_codes:
+    name: Nombre
+    description: Descripción
+    deleted_at: Eliminado el
+    state: Estatus
 
 # roles
   rol:
@@ -659,6 +659,10 @@ es:
       PaymentWay: Forma de pago
       payment_method: método de pago
       PaymentMethod: Método de pago
+      receipt_type: tipos de comprobante
+      ReceiptType: Tipos de comprobante
+      entry_code: códigos de entrada
+      EntryCode: Códigos de entrada
     attributes: 
       accessory:
         name: Nombre
@@ -877,6 +881,16 @@ es:
       payment_way:
         name: Nombre
         description: Descripción
+        name: Nombre
+        description: Descripción
+        deleted_at: Eliminado el
+        state: Estatus
+      receipt_type:
+        name: Nombre
+        description: Descripción
+        deleted_at: Eliminado el
+        state: Estatus
+      entry_code:
         name: Nombre
         description: Descripción
         deleted_at: Eliminado el

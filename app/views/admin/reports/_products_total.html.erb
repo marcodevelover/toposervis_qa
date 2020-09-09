@@ -28,7 +28,7 @@
                                   <td><%= object.brand %></td>
                                   <td><%= object.model %></td>
                                   <td><%= object.product_variants.first.stock_item.blank? ? 0 : object.product_variants.first.stock_item.stock.round %></td>
-                                  <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activado</span>".html_safe %></td>
+                                  <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activo</span>".html_safe %></td>
                                   <td>
                           </tr>
                         <% end.empty? %>
