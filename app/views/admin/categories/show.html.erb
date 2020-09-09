@@ -1,28 +1,28 @@
 <div class="modal-body">
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= t("categories.name")%>:</strong>
   <%= @category.name %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong><%= t("categories.description")%>:</strong>
   <%= @category.description %>
 </p>
 
 <p>
-  <strong>Type:</strong>
+  <strong><%= t("categories.category_type")%>:</strong>
   <%= @category.category_type.name %>
 </p>
 
 <p>
-  <strong>Deleted at:</strong>
+  <strong><%= t("categories.deleted_at")%>:</strong>
   <%= @category.deleted_at %>
 </p>
 
 </div>
 <div class="modal-footer"> 
-     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
 </div> 
 
 <div id="modal-holder" ></div>

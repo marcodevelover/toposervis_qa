@@ -365,6 +365,8 @@ es:
   diagnosis_types:
     name: Nombre
     description: Descripción
+    deleted_at: Eliminado el
+    state: Estatus
   payment_methods:
     name: Nombre
     description: Descripción
@@ -406,9 +408,20 @@ es:
   categories:
     name: Nombre
     description: Descripción
+    category_type: Categoría
+    deleted_at: Eliminado el
+    state: Estatus
+  category_types:
+    name: Nombre
+    description: Descripción
+    deleted_at: Eliminado el
+    state: Estatus
   subcategories:
     name: Nombre
     description: Descripción
+    category_type: Categoría
+    deleted_at: Eliminado el
+    state: Estatus
   partners:
     name: Nombre
     partner_image: Imagen
@@ -453,55 +466,7 @@ es:
     new_enterprise:  "Nueva Empresa" 
     delete_enterprise:  Eliminar Empresa
     delete_message: Está seguro que desea eliminar   
-  collaborators:
-    id: ID
-    full_name: Nombre Completo
-    hire_date: Fecha de contratación    
-    request_type: "Tipo de Solicitud"    
-    job: Puesto
-    branch: Sucursal 
-    name: Nombre
-    lastname: Apellido
-    interview_father: Padre
-    assignations: Asignado a 
-    warning_multiple: Advertencia, existen más de 1 asignaciones para este colaborador
-  quests: 
-    id: ID 
-    description: "Descripción"   
-    confirm_delete: "Si, eliminar esta Sucursal" 
-    no_confirm_delete: "No" 
-    quest_was_successfully_created: Sucursal a sido creado exitosamente
-    quest_was_successfully_updated: Sucursal a sido actualizado exitosamente
-    title: "Encuestas"                                               
-    new_quest:  "Nueva Encuesta"  
-    actions: Acciones
-    enterprise: "Empresa"    
-    branch: "Sucursal"
-    confirm_delete: "Si, eliminar este usuario"
-    create_user: "Crear usuario"
-    email: "Correo electrónico" 
-    lastname: "Apellido"
-    name: "Nombre"
-    New_user: "Nuevo usuario"
-    no_confirm_delete: "No"
-    password: "Contraseña"
-    password_confirmation: "Confirmar contraseña"
-    profile: "Perfil"
-    job: "Puesto"
-    user: "Usuario"    
-    user_was_successfully_created: Usuario a sido creado exitosamente
-    user_was_successfully_updated: Usuario a sido actualizado exitosamente
-    title: "Usuarios"    
-    new_user:  "Nuevo Usuario" 
-    delete_user:  Eliminar Usuario
-    delete_message: Está seguro que desea eliminar 
-    close: Cerrar
-    show: Mostrar
-    assign: Asignar
-    private: Privada
-    questions:
-      description: Descripción
-    
+
 # roles
   rol:
     name: Nombre
@@ -625,12 +590,24 @@ es:
           attributes:
             role:
               required: no puede estar en blanco
+        category:
+          attributes:
+            category_type:
+              required: no puede estar en blanco
+        subcategory:
+          attributes:
+            category:
+              required: no puede estar en blanco
     models:
       Ransack::Search: 'Búsqueda'
       Comment: Mensaje
       accessory: accesorio
       Accessory: Accesorio
       User: Usuario
+      category_type: tipo de categoria
+      CategoryType: Tipo de categoria
+      diagnosis_type: tipo de diagnostico
+      DiagnosisType: Tipo de diagnostico
       comment: Mensaje 
       currency: moneda
       Currency: Moneda
@@ -640,7 +617,10 @@ es:
       user_type: Tipo de Usuario
       Enterprise: Empresa
       Department: Departamento
-      Category: Categoríax
+      category: categoría
+      Category: Categoría
+      subcategory: subcategoría
+      Subcategory: Subcategoría
       provider: proveedor
       Provider: Proveedor
       product: producto
@@ -806,6 +786,23 @@ es:
         enterprise_was_successfully_created: Sucursal a sido creado exitosamente
         enterprise_was_successfully_updated: Sucursal a sido actualizado exitosamente
         title: "Sucursales" 
+      category:
+        name: Nombre
+        description: Descripción
+        category_type_id: Categoría
+        deleted_at: Eliminado el
+        state: Estatus
+      category_type:
+        name: Nombre
+        description: Descripción
+        deleted_at: Eliminado el
+        state: Estatus
+      subcategory:
+        name: Nombre
+        description: Descripción
+        category_type: Categoría
+        deleted_at: Eliminado el
+        state: Estatus
       customer:
         name: Nombre
         rfc: RFC
@@ -843,6 +840,12 @@ es:
         description: Descripción
         deleted_at: Eliminado el
         state: Estatus
+      diagnosis_type:
+        name: Nombre
+        description: Descripción
+        deleted_at: Eliminado el
+        state: Estatus
+
   #translation actions used to save in database (table: permissions) as description 
   date:
     abbr_day_names:
