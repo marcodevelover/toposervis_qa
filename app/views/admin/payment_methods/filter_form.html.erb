@@ -1,13 +1,10 @@
-  
-	 <%= search_form_for [:admin, @q], remote:true do |f| %> 
-  			
+  	 <%= search_form_for [:admin, @q], remote:true do |f| %> 
 			<div class="modal-body">
 				<div class="form-group">
 					<div class="form-group"> 
 						<label class="form-label"><%= t("payment_methods.name")%></label>
 						<div class="form-group">
 							<%= search_field_tag  "q[name_cont]",nil,class: "form-control", placeholder: t('payment_methods.name'), width: '100%'%>
- 
 						</div>
 					</div>
 					<div class="form-group"> 
@@ -16,12 +13,10 @@
 							<%= search_field_tag "q[description_cont]",nil,class: "form-control" , placeholder: t('payment_methods.description') %>
 						</div>
 					</div>
-					 
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= submit_tag t('search'),class: 'btn btn-info waves-effect' %> 
-				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancelar</button>
+				<%= submit_tag t('search'),class: 'btn btn-primary waves-effect' %> 
+				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cancelar</button>
 			</div>
 		<% end %>
- 

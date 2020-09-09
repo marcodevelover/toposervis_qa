@@ -14,10 +14,10 @@
                         <thead>
                            <tr>
                               <th data-column-id="id" data-type="numeric">ID</th>
-                              <th data-column-id="name">Name</th>
-                              <th data-column-id="status" data-order="desc">Status</th>
+                              <th data-column-id="name"><%= t("payment_ways.name")%></th>
+                              <th data-column-id="status" data-order="desc"><%= t("payment_ways.state")%></th>
                               <th data-column-id="commands" data-formatter="commands" data-sortable="false">
-                                 <div class="text-left">Commands</div>
+                                 <div class="text-left"><%= t :commands %></div>
                               </th>
                            </tr>
                         </thead>

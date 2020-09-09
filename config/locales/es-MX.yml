@@ -260,6 +260,12 @@ es:
     validity: Vigencia
     currency: Moneda
     exchange_rate: Tipo de cambio
+  conditions:
+    name: Nombre
+    description: Descripción
+    deleted_at: Eliminado el
+    state: Estatus
+    default: Predeterminado
   service_orders:
     folio: Folio
     product: Producto
@@ -370,9 +376,15 @@ es:
   payment_methods:
     name: Nombre
     description: Descripción
+    deleted_at: Eliminado el
+    state: Estatus
   payment_ways:
     name: Nombre
     description: Descripción
+    name: Nombre
+    description: Descripción
+    deleted_at: Eliminado el
+    state: Estatus
   products:
     name: Nombre
     brand: Marca
@@ -607,6 +619,8 @@ es:
       category_type: tipo de categoria
       CategoryType: Tipo de categoria
       diagnosis_type: tipo de diagnostico
+      condition: términos y condiciones
+      Condition: Términos y condiciones
       DiagnosisType: Tipo de diagnostico
       comment: Mensaje 
       currency: moneda
@@ -641,6 +655,10 @@ es:
       TypeServiceOrder: Tipo de orden de servicio
       product_variant: imágen de producto
       ProductVariant: Imágen de producto
+      payment_way: forma de pago
+      PaymentWay: Forma de pago
+      payment_method: método de pago
+      PaymentMethod: Método de pago
     attributes: 
       accessory:
         name: Nombre
@@ -841,6 +859,24 @@ es:
         deleted_at: Eliminado el
         state: Estatus
       diagnosis_type:
+        name: Nombre
+        description: Descripción
+        deleted_at: Eliminado el
+        state: Estatus
+      condition:
+        name: Nombre
+        description: Descripción
+        deleted_at: Eliminado el
+        state: Estatus
+        default: Predeterminado
+      payment_method:
+        name: Nombre
+        description: Descripción
+        deleted_at: Eliminado el
+        state: Estatus
+      payment_way:
+        name: Nombre
+        description: Descripción
         name: Nombre
         description: Descripción
         deleted_at: Eliminado el

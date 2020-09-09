@@ -1,26 +1,19 @@
 <div class="modal-body">
-
 <p>
-  <strong>Name:</strong>
+  <strong><%= t("payment_ways.name")%>:</strong>
   <%= @payment_way.name %>
 </p>
-
 <p>
-  <strong>Description:</strong>
+  <strong><%= t("payment_ways.description")%>:</strong>
   <%= @payment_way.description %>
 </p>
 
 <p>
-  <strong>Deleted at:</strong>
+  <strong><%= t("payment_ways.deleted_at")%>:</strong>
   <%= @payment_way.deleted_at %>
 </p>
-
-
 </div>
 <div class="modal-footer"> 
-     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
 </div> 
-
 <div id="modal-holder" ></div>
-
-

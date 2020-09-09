@@ -1,29 +1,25 @@
 <div class="modal-body">
-
 <p>
-  <strong>Name:</strong>
+  <strong><%= t("conditions.name")%>:</strong>
   <%= @condition.name %>
 </p>
-
 <p>
-  <strong>Description:</strong>
+  <strong><%= t("conditions.description")%>:</strong>
   <%= @condition.description %>
 </p>
 
 <p>
-  <strong>Default:</strong>
+  <strong><%= t("conditions.default")%>:</strong>
   <%= @condition.default %>
 </p>
 
 <p>
-  <strong>Deleted at:</strong>
+  <strong><%= t("conditions.deleted_at")%>:</strong>
   <%= @condition.deleted_at %>
 </p>
-
-
 </div>
 <div class="modal-footer"> 
-     <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t(:close) %></button>
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
 </div> 
 
 <div id="modal-holder" ></div>
