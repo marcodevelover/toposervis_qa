@@ -13,7 +13,7 @@ class Customer < ApplicationRecord
 	has_many :users, through: :users_customers
 
 	validates :name, presence: true
-	validates :customer_contacts, :presence => true
+	#validates :customer_contacts, :presence => true
 
 	scope :active, -> { where('deleted_at IS NULL')}
 
