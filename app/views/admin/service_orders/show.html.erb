@@ -110,11 +110,11 @@
                 <tr>
                   <td>
                     <b>Contacto:</b>
-                    <%= @service_order.customer.customer_contacts.first.name %><br>
+                    <%= @service_order.customer.customer_contacts.nil? ? @service_order.customer.customer_contacts.first.name : "----"%><br>
                     <b>Compañia:</b>
                     <%= @service_order.customer.business_name %><br>
                     <b>E-mail:</b>
-                    <%= @service_order.customer.customer_contacts.first.email %><br>
+                    <%= @service_order.customer.customer_contacts.nil? ? @service_order.customer.customer_contacts.first.email : "----"%><br>
                     <% if @service_order.diagnosis.sale.present? %>
                     <b>Método de pago:</b>
                     <%= @service_order.diagnosis.sale.payment_method.name %><br>
@@ -374,11 +374,11 @@
                 <tr>
                   <td>
                     <b>Contacto:</b>
-                    <%= @service_order.customer.customer_contacts.first.name %><br>
+                    <%= @service_order.customer.customer_contacts.nil? ? @service_order.customer.customer_contacts.first.name : "----" %><br>
                     <b>Compañia:</b>
                     <%= @service_order.customer.business_name %><br>
                     <b>E-mail:</b>
-                    <%= @service_order.customer.customer_contacts.first.email %>
+                    <%= @service_order.customer.customer_contacts.nil? ? @service_order.customer.customer_contacts.first.email : "----" %>
                   </td>
                   <td>
                     <b>Orden de servicio</b><br>
