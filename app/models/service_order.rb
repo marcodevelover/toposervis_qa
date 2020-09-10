@@ -60,6 +60,7 @@ class ServiceOrder < ApplicationRecord
         ext_invoice = FacturapiRuby::Invoices.create(
                         customer:       {
                                             "legal_name": self.customer.business_name,
+                                            "email": self.customer.customer_contacts.first.email,
                                             "tax_id": self.customer.rfc
                                         },
                         items:          (@items.map { |s| { quantity: s.quantity, 
