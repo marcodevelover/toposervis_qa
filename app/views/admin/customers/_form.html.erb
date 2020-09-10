@@ -11,7 +11,7 @@
   </div>
 
   <div class="form-group">
-        <%= form.label :rfc, class: "col-form-label"%> *
+        <%= form.label :rfc, class: "col-form-label"%>
         <%= form.text_field :rfc, class: "form-control", type: "text", required: true %>
   </div>
   <div class="form-group">
@@ -24,7 +24,9 @@
         <%= form.text_field :business_name , class: "form-control", type: "text" %>
   </div>
 
-  <%= form.fields_for :customer_address_attributes do |f| %>
+
+<%= form.fields_for :customer_address, (@customer.customer_address.nil? ? CustomerAddress.new : @customer.customer_address) do |f| %>
+
   <div class="form-group">
         <%= f.label :street, class: "col-form-label"%>
         <%= f.text_field :street , class: "form-control", type: "text" %>
@@ -73,7 +75,8 @@
 
   <%= link_to_add_fields "Agregar Contacto", form, :customer_contacts %>
 
-  <%= form.fields_for :customer_bank_attributes do |f| %>
+
+  <%= form.fields_for :customer_bank, (@customer.customer_bank.nil? ? CustomerBank.new : @customer.customer_bank) do |f| %>
   <div class="form-group">
         <%= f.label :beneficiary, class: "col-form-label"%>
         <%= f.text_field :beneficiary , class: "form-control", type: "text" %>
