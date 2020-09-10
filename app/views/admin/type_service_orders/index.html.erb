@@ -7,6 +7,11 @@
                 <%= link_to filter_form_admin_type_service_orders_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
                   <em class="fa mr-2 fas fa-search"></em>Buscar
                 <%end%>
+                <%= sort_link(@q, "exportar", :format => "xlsx") do %>
+                <div class="btn btn-success">
+                <em class="fa fa-file-excel"></em> Exportar
+                </div>
+                <% end%>
                </div>
                <div class="card-body">
                   <div class="table-responsive bootgrid">

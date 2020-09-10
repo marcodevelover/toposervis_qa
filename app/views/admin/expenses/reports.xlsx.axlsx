@@ -1,5 +1,5 @@
 wb = xlsx_package.workbook #create excel book
-wb.add_worksheet(name: "Orden de ventas") do |sheet|
+wb.add_worksheet(name: "Egresos") do |sheet|
   sps_img = File.expand_path(Rails.root+'app/assets/images/pdf/logo.png')
     sheet.add_image(:image_src => sps_img) do |image|
       image.start_at 0, 0
@@ -17,21 +17,25 @@ wb.add_worksheet(name: "Orden de ventas") do |sheet|
   hedears = Hash.new.tap do |head|
     head[:id] = "ID"
     head[:folio] = "Folio"
-    head[:customer] = "Cliente"
-    head[:total] = "Total"
-    head[:state] = "Estatus"
+    head[:date] = "Fecha"
+    head[:account] = "Cuenta"
+    head[:category_type] = "Tipo de categoria"
+    head[:payment_method] = "Método de pago"
+    head[:provider] = "Proveedor"
   end
   sheet.add_row hedears.values, :style => header
   
-  @collection.each do |order|
-    data = Hash.new.tap do |datos|
-      datos[:id] = order.id
-      datos[:folio] = order.sale.folio
-      datos[:customer] = order.customer.business_name
-      datos[:total] = number_to_currency(order.total)
-      datos[:state] = t(order.state)
+  @collection.each do |expense|
+    receptorDomicilio = Hash.new.tap do |datos|
+      datos[:id] = expense.id
+      datos[:folio] = expense.folio
+      datos[:date] = expense.date
+      datos[:account] = expense.account.name
+      datos[:category_type] = expense.category_type.name
+      datos[:payment_method] = expense.payment_method.name
+      datos[:provider] = expense.provider.name
     end  
-    sheet.add_row data.values, :style => border
+    sheet.add_row receptorDomicilio.values, :style => border
   end
   
 end

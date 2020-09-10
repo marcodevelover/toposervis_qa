@@ -28,8 +28,8 @@ wb.add_worksheet(name: "Cotizaciones") do |sheet|
       datos[:id] = quotation.id
       datos[:folio] = quotation.folio
       datos[:customer] = quotation.customer.name
-      datos[:total] = quotation.total
-      datos[:state] = quotation.state
+      datos[:total] = number_to_currency(quotation.total)
+      datos[:state] = t(quotation.state)
     end  
     sheet.add_row receptorDomicilio.values, :style => border
   end

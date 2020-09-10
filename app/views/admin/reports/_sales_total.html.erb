@@ -24,7 +24,7 @@
                         <% if @collection.each do |object| %>
                           <tr>
                                   <td scope="row" ><%= object.id %></td>
-                                  <td><%= object.record_type %></td>
+                                  <td><%= t(object.record_type) %></td>
                                   <td><%= object.folio %></td>
                                   <td><%= object.payment_method.name %></td>
                                   <td><%= object.payment_way.name %></td>
@@ -34,7 +34,7 @@
                                       <% end %>
 
                                       <% unless object.deleted_at? %>
-                                          <span class="badge badge-<%= object.state %>"><%= object.state %></span>
+                                          <span class="badge badge-<%= object.state %>"><%= t(object.state) %></span>
                                       <% end %>
                                   </td>
                           </tr>

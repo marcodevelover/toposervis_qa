@@ -1,5 +1,5 @@
 wb = xlsx_package.workbook #create excel book
-wb.add_worksheet(name: "Orden de ventas") do |sheet|
+wb.add_worksheet(name: "Clientes") do |sheet|
   sps_img = File.expand_path(Rails.root+'app/assets/images/pdf/logo.png')
     sheet.add_image(:image_src => sps_img) do |image|
       image.start_at 0, 0
@@ -16,22 +16,22 @@ wb.add_worksheet(name: "Orden de ventas") do |sheet|
 
   hedears = Hash.new.tap do |head|
     head[:id] = "ID"
-    head[:folio] = "Folio"
-    head[:customer] = "Cliente"
-    head[:total] = "Total"
+    head[:name] = "Nombre"
+    head[:rfc] = "RFC"
+    head[:business_name] = "Razón social"
     head[:state] = "Estatus"
   end
   sheet.add_row hedears.values, :style => header
   
-  @collection.each do |order|
-    data = Hash.new.tap do |datos|
-      datos[:id] = order.id
-      datos[:folio] = order.sale.folio
-      datos[:customer] = order.customer.business_name
-      datos[:total] = number_to_currency(order.total)
-      datos[:state] = t(order.state)
+  @collection.each do |customer|
+    receptorDomicilio = Hash.new.tap do |datos|
+      datos[:id] = customer.id
+      datos[:name] = customer.name
+      datos[:rfc] = customer.rfc
+      datos[:business_name] = customer.business_name
+      datos[:state] = customer.deleted_at.nil? ? "Activo" : "Baja"
     end  
-    sheet.add_row data.values, :style => border
+    sheet.add_row receptorDomicilio.values, :style => border
   end
   
 end

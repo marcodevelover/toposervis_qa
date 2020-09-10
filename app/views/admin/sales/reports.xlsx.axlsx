@@ -1,5 +1,5 @@
 wb = xlsx_package.workbook #create excel book
-wb.add_worksheet(name: "Cotizaciones") do |sheet|
+wb.add_worksheet(name: "Ventas") do |sheet|
   sps_img = File.expand_path(Rails.root+'app/assets/images/pdf/logo.png')
     sheet.add_image(:image_src => sps_img) do |image|
       image.start_at 0, 0
@@ -27,11 +27,11 @@ wb.add_worksheet(name: "Cotizaciones") do |sheet|
   @collection.each do |sale|
     data = Hash.new.tap do |datos|
       datos[:id] = sale.id
-      datos[:record_type] = sale.record_type
+      datos[:record_type] = t(sale.record_type)
       datos[:folio] = sale.folio
       datos[:payment_method] = sale.payment_method.name
       datos[:payment_way] = sale.payment_way.name
-      datos[:state] = sale.state
+      datos[:state] = t(sale.state)
     end  
     sheet.add_row data.values, :style => border
   end

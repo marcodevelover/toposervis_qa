@@ -14,6 +14,7 @@ class Admin::ProvidersController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
+            format.xlsx {render xlsx: "reports", template: "admin/providers/reports.xlsx.axlsx"}
     end
   end
 
