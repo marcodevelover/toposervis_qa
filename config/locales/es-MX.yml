@@ -314,6 +314,22 @@ es:
     rfc: RFC
     business_name: Razón social
     state: Estatus
+    deleted_at: Eliminado el
+  customer_addresses:
+    street: Calle
+    number: Número
+    crossing: Cruzamientos
+    postcode: Código postal
+    colony: Colonia
+    town: Ciudad
+    state: Estado
+    country: País
+  customer_banks:
+    beneficiary: Beneficiario
+    account: Cuenta
+    clabe: CLABE
+    bank_name: Nombre del banco
+    currency: Moneda
   customer_contacts:
     name: Nombre contacto
     department: Departamento
