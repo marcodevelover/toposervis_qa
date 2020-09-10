@@ -1,3 +1,12 @@
+<style type="text/css">
+    .disabled-link{
+        cursor: default;
+        pointer-events: none;        
+        text-decoration: none;
+        color: grey;
+    }    
+</style>>
+
 <% if @collection.each do |object| %>
 <% if can? :read, object %>
 <tr>    
@@ -17,29 +26,39 @@
         </td>
 
         <td>
-            <% if can? :read, object %>
+            <% if can? :read, object%>
             <%= link_to show_from_modal_admin_service_order_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
                 <em class="fas fa-info-circle"></em> 
             <%end%>
             <%end%>
 
+<% if object.state == "active" %>
             <% if can? :update, object %>
         	<%= link_to edit_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
         		<em class="fa fa-edit"></em> 
         	<%end%>
             <% end %>
+<% end %>
 
+<% if object.state == "diagnosed" %>
             <% if can? :update, object %>
             <%= link_to diagnoses_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
                 <em class="fa fa-wrench"></em> 
             <%end%>
             <%end%>
+<% end %>
+
 
             <% if can? :update, object %>
             <%if object.diagnosis.present?%>
+
+<% if (object.state == "diagnosed" && object.diagnosis.is_done) || object.state == "sold" %>
             <%= link_to sales_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
                 <em class="fa-1x fas fa-shopping-cart"></em>
             <%end%>
+
+<% end %>
+
             <%end%>
             <%end%>
 
