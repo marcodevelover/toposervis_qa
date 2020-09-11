@@ -47,7 +47,7 @@
                           <div class="col-md-12">
                             <div class="form-row">
                               <div class="col-lg-8 mb-8">
-                              <%if @service_order.product %>
+                              <%unless @service_order.product %>
                                         <div class="form-group">
                                           <label class="control-label"><%= t('service_orders.product')%></label>
                                           <input class="form-control" type="text" value="<%= @service_order.product.name %>" readonly="readonly">
