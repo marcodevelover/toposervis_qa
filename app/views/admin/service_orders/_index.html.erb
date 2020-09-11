@@ -23,32 +23,32 @@
             <%end%>
             <%end%>
 
-<% if object.state == "active" %>
+
             <% if can? :update, object %>
         	<%= link_to edit_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
         		<em class="fa fa-edit"></em> 
         	<%end%>
             <% end %>
-<% end %>
 
-<% if object.state == "diagnosed" %>
+
+
             <% if can? :update, object %>
             <%= link_to diagnoses_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
                 <em class="fa fa-wrench"></em> 
             <%end%>
             <%end%>
-<% end %>
+
 
 
             <% if can? :update, object %>
             <%if object.diagnosis.present?%>
 
-<% if (object.state == "diagnosed" && object.diagnosis.is_done) || object.state == "sold" %>
+
             <%= link_to sales_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
                 <em class="fa-1x fas fa-shopping-cart"></em>
             <%end%>
 
-<% end %>
+
 
             <%end%>
             <%end%>
