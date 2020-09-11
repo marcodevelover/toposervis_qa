@@ -19,7 +19,20 @@ wb.add_worksheet(name: "Clientes") do |sheet|
     head[:name] = "Nombre"
     head[:rfc] = "RFC"
     head[:business_name] = "Razón social"
-    head[:state] = "Estatus"
+    head[:street] = "Calle"
+    head[:number] = "Número"
+    head[:crossing] = "Cruzamientos"
+    head[:postcode] = "Código postal"
+    head[:colony] = "Colonia"
+    head[:town] = "Ciudad"
+    head[:state] = "Estado"
+    head[:country] = "País"
+    head[:beneficiary] = "Beneficiario"
+    head[:account] = "Cuenta"
+    head[:clabe] = "CLABE"
+    head[:bank_name] = "Nombre del banco"
+    head[:currency] = "Moneda"
+    head[:status] = "Estatus"
   end
   sheet.add_row hedears.values, :style => header
   
@@ -29,7 +42,20 @@ wb.add_worksheet(name: "Clientes") do |sheet|
       datos[:name] = customer.name
       datos[:rfc] = customer.rfc
       datos[:business_name] = customer.business_name
-      datos[:state] = customer.deleted_at.nil? ? "Activo" : "Baja"
+      datos[:street] = customer.customer_address.street
+      datos[:number] = customer.customer_address.number
+      datos[:crossing] = customer.customer_address.crossing
+      datos[:postcode] = customer.customer_address.postcode
+      datos[:colony] = customer.customer_address.colony
+      datos[:town] = customer.customer_address.town
+      datos[:state] = customer.customer_address.state
+      datos[:country] = customer.customer_address.country
+      datos[:beneficiary] = customer.customer_bank.beneficiary
+      datos[:account] = customer.customer_bank.account
+      datos[:clabe] = customer.customer_bank.clabe
+      datos[:bank_name] = customer.customer_bank.bank_name
+      datos[:currency] = customer.customer_bank.currency
+      datos[:status] = customer.deleted_at.nil? ? "Activo" : "Baja"
     end  
     sheet.add_row receptorDomicilio.values, :style => border
   end
