@@ -1,4 +1,4 @@
 $(".index-collection").html("<%= escape_javascript(render '/admin/'+controller_name+'/index' ) %>") 
 $("#mainModal").modal("hide")
 $(".pagination").html("<%= j(render partial: 'admin/shared/paginate', locals: { objects: @objects } ) %>")
-$("a.sort_link").replaceWith('<%= sort_link(@q, "exportar a excel", :format => "xlsx") %>');
+$("a.sort_link").replaceWith('<%= sort_link(@q, "exportar", :format => "xlsx") do %><div class="btn btn-success"><em class="fa fa-file-excel"></em> Exportar</div><% end%>');
