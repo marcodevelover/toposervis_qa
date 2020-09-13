@@ -98,11 +98,11 @@
                 <tr>
                   <td>
                     <b>Contacto:</b>
-                    <%= @order.customer.customer_contacts.nil? ? @order.customer.customer_contacts.first.name : "----" %><br>
+                    <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.name %><br>
                     <b>Compañia:</b>
                     <%= @order.customer.business_name %><br>
                     <b>E-mail:</b>
-                    <%= @order.customer.customer_contacts.nil? ? @order.customer.customer_contacts.first.email : "----" %><br>
+                    <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.email %><br>
                     <b>Método de pago:</b>
                     <%= @order.sale.payment_method.name %><br>
                     <b>Forma de pago:</b>

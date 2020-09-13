@@ -74,11 +74,11 @@
     
     
     <b>Contacto:</b>
-    <%= @quotation.customer.customer_contacts.nil? ? @quotation.customer.customer_contacts.first.name : "----" %><br>
+    <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.name %><br>
     <b>Compañia:</b>
     <%= @quotation.customer.business_name %><br>
     <b>E-mail:</b>
-    <%= @quotation.customer.customer_contacts.nil? ? @quotation.customer.customer_contacts.first.email : "----" %><br>
+    <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.email %><br>
     
 
 <p>
