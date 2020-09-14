@@ -103,6 +103,7 @@ class Admin::ServiceOrdersController < ApplicationController
 
     if params[:service_order][:diagnosis_attributes].present?
       @service_order.diagnosis.nil? ? @service_order.build_diagnosis : @service_order.diagnosis
+      @service_order.diagnosis.currency_id = Currency.where(name: "MXN").first.id
       if params[:service_order][:diagnosis_attributes][:images].present?
           params[:service_order][:diagnosis_attributes][:images].each do |image|
           @service_order.diagnosis.images.attach(image)
