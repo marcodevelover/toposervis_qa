@@ -186,6 +186,15 @@ class Admin::ServiceOrdersController < ApplicationController
     end
   end
 
+  def users
+    @q = User.ransack(params[:q])
+    @users = @q.result(distinct: true)
+    total_count = @users.count
+    respond_to do |format|
+      format.json { render json: { total: total_count,  users: @users.map { |s| {id: s.id, name:  s.name, lastname: s.lastname, email: s.email } } } }
+    end
+  end
+
   def products
     @q = Product.ransack(params[:q])
     @products = @q.result(distinct: true)
@@ -269,7 +278,7 @@ class Admin::ServiceOrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_order_params
-      params.require(:service_order).permit(:date_admission, :customer_id, :product_id, :serie, :brand, :model, :observation, :deleted_at, :status,
+      params.require(:service_order).permit(:date_admission, :customer_id, :product_id, :serie, :brand, :model, :observation, :deleted_at, :status, :user_id,
         order_accessories_attributes: [ :id, :service_order_id, :accessory, :quantity, :_destroy ],
         type_service_order_ids: [], images_attachments_attributes: [:id, :_destroy],
         diagnosis_attributes: [ :id, :service_order_id, :date, :delivery_time, :date_delivery, :diagnosis_type_id, :subtotal, :adjustment_total, :tax_total, :total, :is_tax, :is_done, 

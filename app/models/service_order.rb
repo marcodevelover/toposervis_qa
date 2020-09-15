@@ -1,7 +1,8 @@
 class ServiceOrder < ApplicationRecord
   belongs_to :customer
   belongs_to :product
-  belongs_to :user, foreign_key: "created_by_id"
+  belongs_to :user, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :created_by, class_name: 'User', foreign_key: 'created_by_id'
   has_many :orders_types
   has_many :type_service_orders, through: :orders_types
   has_many :order_accessories
@@ -23,6 +24,10 @@ class ServiceOrder < ApplicationRecord
 
   validates :date_admission, presence: true
   
+  def users
+    [user, created_by]
+  end
+
   def erase_sale
     @sale = Sale.find_by(id: self.diagnosis.sale.id)
     @sale.update(deleted_at: Time.now)

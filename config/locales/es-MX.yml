@@ -271,6 +271,7 @@ es:
     product: Producto
     date_admission: Fecha de admisión
     customer: Cliente
+    user: Usuario
     serie: Serie
     brand: Marca
     model: Modelo
@@ -598,6 +599,8 @@ es:
               required: no puede estar en blanco
             product:
               required: no puede estar en blanco
+            user:
+              required: no puede estar en blanco
         product:
           attributes:
             product_line:
@@ -696,6 +699,7 @@ es:
         customer: Cliente
       service_order:
         customer: Cliente
+        user: Usuario
         product: Producto
         serie: Serie
         brand: Marca
