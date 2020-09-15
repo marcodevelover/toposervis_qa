@@ -8,10 +8,32 @@
 						</div>
 					</div>
 				</div>
+				<div class="form-group">
+					<div class="form-group"> 
+						<label class="form-label"><%= t("service_orders.serie")%></label>
+						<div class="form-group">
+							<%= search_field_tag  "q[serie_cont]",nil,class: "form-control", placeholder: t('service_orders.serie'), width: '100%'%>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-group"> 
+						<label class="form-label"><%= t("service_orders.customer")%></label>
+						<div class="form-group">
+							<%= search_field_tag  "q[customer_business_name_cont]",nil,class: "form-control", placeholder: t('service_orders.customer'), width: '100%'%>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-group"> 
+						<label class="form-label"><%= t("service_orders.state")%></label>
+			            <%=  select_tag "q[state_eq]" , options_for_select([["Selecciona", ""], ["Activo", "active"], ["Diagnostico", "diagnosed"], ["Vendido", "sold"], ["Entregado", "delivered"]]), class: 'custom-select custom-select-sm'
+                        %>
+					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<%= submit_tag t('search'),class: 'btn btn-primary waves-effect' %> 
 				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cancelar</button>
 			</div>
 		<% end %>
- 

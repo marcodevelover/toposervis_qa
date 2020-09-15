@@ -6,6 +6,7 @@
         <td><%= object.date_admission %></td>
         <td><%= object.customer ? object.customer.business_name : "N/A" %></td>
         <td><%= object.product ? object.product.name : "N/A" %></td>
+        <td><%= object.serie %></td>
         <td>
             <% if object.deleted_at? %>
                 <span class="badge badge-danger">Baja</span>
