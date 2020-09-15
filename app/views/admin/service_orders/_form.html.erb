@@ -63,6 +63,19 @@
 
                               </div>
                               <div class="col-lg-4 mb-4">
+
+                                <div class="row">
+                                  <div class="col-sm-6">
+                                    <div class="form-group">
+                                      <div id="open_modal" class="btn btn-success ml-auto">
+                                        <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+
                                 </br>
                               </div>
                             </div>
@@ -142,35 +155,38 @@
                       <hr>
                                                           
                       <div class="col-lg-12">
-                        <div class="white-box" id="">
-                          <table id="container_accessories" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+                        <div class="white-box">
+                          <table id="table_product" class="table table-bordered table-hover toggle-circle" data-page-size="7">
                             <thead id="product_head" >
                               <tr>
-                                <th class="text-center" data-field="product">Accesorio</th>
+                                <th class="text-center" data-field="product">Producto</th>
                                 <th class="text-center" data-field="quantity">Cantidad</th>
-                                
-                                <!--<th class="text-center" data-field="last_name" data-sort-ignore="true" class="min-width">Eliminar</th>-->
+                                <th class="text-center" data-field="last_name" data-sort-ignore="true" class="min-width">Eliminar</th>
                               </tr>
                             </thead>
-                            <tbody>
+                              <tbody>
+                                
                                 <%if @service_order.order_accessories.first %>
                                   <% @service_order.order_accessories.each_with_index do |item,index| %>
                                     <tr class="text-center" data-id="<%=item.id%>">
-                                      <td>
-                                      <%= item.accessory %><br>
-                                      </td>
                                       
                                       <td>
-                                        <input type="number" value="<%=item.quantity%>" name="service_order[order_accessories_attributes][<%=index%>][quantity]"  >
+                                      <%= item.accessory %>
                                       </td>
+                                      <td><%= item.quantity %></td>
 
+                                      <td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>
+
+                                        <input type="hidden" value="<%=item.accessory%>" name="service_order[order_accessories_attributes][<%=index%>][accessory]">
+                                      
+                                        <input type="hidden" value="<%=item.quantity%>" name="service_order[order_accessories_attributes][<%=index%>][quantity]">
+                                        
                                         <input type="hidden" value="<%=item.id%>" name="service_order[order_accessories_attributes][<%=index%>][id]">
-                                        <input type="hidden" value="<%=item.service_order_id%>" name="service_order[order_accessories_attributes][<%=index%>][service_order_id]">
                                     </tr>
                                   <%end%>
-                                <%end%>                              
-                            </tbody>
-                              
+                                <%end%>
+
+                              </tbody>
                           </table>
                         </div>
                       </div>
@@ -191,6 +207,48 @@
             </div>
             <!-- END card-->
 <% end %>
+
+<!-- Products /.modal -->
+<div id="note_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg ui-draggable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Accesorios</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+          <div class="bg-danger rounded" style="color:white; font-weight:bold;">
+            <ul class="errors"></ul>
+          </div>
+
+
+  <div class="form-group" id="category_types">
+    <label class="form-label"><%= t('products.name')%> producto</label>
+      <div class="form-group">
+        <%= select_tag :product_id, options_from_collection_for_select(Product.all, "id", "name",default_product(@product)), :class => "dynamic-select width-small", style: 'width: 100%;',prompt: t('choose_from_select') %>
+      </div>
+  </div>
+
+
+  <div class="form-group" id="products_accessories">
+    <label class="control-label"><%= t('accessories.name')%> accesorio</label>
+     <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" id="accessory" style="width: 100%">
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label"><%= t('purchases.quantity')%> de accesorio</label>
+    <input type="number" class="form-control" id="note_quantity" value="0"> 
+  </div>
+
+      </div>
+      <div class="modal-footer">
+        <div id="sbm_product" type="button" class="btn btn-primary waves-effect waves-light"><%= t('add')%></div>
+        <div type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><%= t('cancel')%></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
 
@@ -314,50 +372,265 @@ function formatRepo (repo) {
   $container.find(".select2-result-repository__id").append(repo.id);
   $container.find(".select2-result-repository__name").append(repo.name);
 
-/*add all accesories
-  var productCount = <%= @service_order.order_accessories.count.to_f %>;
-  var obj = repo.accessories;
-  if (obj == ""){
-    $( "#accessories" ).remove();
-  }
-
-  var tbl = $("<tbody/>").attr("id","accessories");
-  $("#container_accessories").append(tbl);
-  for(var i=0;i<obj.length;i++)
-  {
-      var tr="<tr class='text-center' data_id='"+productCount+"' >";
-      var td1="<td>"+obj[i]["name"]+"</td>";
-      var td2="<td><input type='number' value='0' name='service_order[order_accessories_attributes]["+productCount+"][quantity]'  ></td>"
-      var td3="<td><button type='button' class='btn btn-sm btn-icon btn-pure btn-outline btnDelete'><em class='fa-2x icon-close mr-2'></em></button></td></tr>";
-      var hidden="<input type='hidden' value="+obj[i]["name"]+" name='service_order[order_accessories_attributes]["+productCount+"][accessory]'  >"
-      
-     $("#accessories").append(tr+td1+td2+hidden); 
-     productCount += 1;
-    
-  } 
-*/
   return $container;
 }
 
 function formatRepoSelection (repo) {
-  if (repo.accessories !== undefined){
-    var productCount = <%= @service_order.order_accessories.count.to_f %>;
-    var obj = repo.accessories;
-    var tbl = $("<tbody/>").attr("id","accessories");
-    $("#container_accessories").html(tbl);
-    for(var i=0;i<obj.length;i++)
-    {
-        var tr="<tr class='text-center' data_id='"+productCount+"' >";
-        var td1="<td>"+obj[i]["name"]+"</td>";
-        var td2="<td><input type='number' value='0' name='service_order[order_accessories_attributes]["+productCount+"][quantity]'  ></td>"
-        var td3="<td><button type='button' class='btn btn-sm btn-icon btn-pure btn-outline btnDelete'><em class='fa-2x icon-close mr-2'></em></button></td></tr>";
-        var hidden="<input type='hidden' value="+obj[i]["name"]+" name='service_order[order_accessories_attributes]["+productCount+"][accessory]'  >"
-        
-       $("#accessories").append(tr+td1+td2+hidden); 
-       productCount += 1;
-      
-    } 
-  }
+  loadCategories();
   return repo.name || repo.text;
 }
+
+/*start select dependent*/
+
+function loadCategories(){
+    var value = service_order_product_id.value;
+    console.log(service_order_product_id.value)
+    $('#accessory').text('');
+    $.ajax({
+      url: '/admin/<%=controller_name%>/products_accessories',
+      dataType: 'json',
+      data : {
+        q: {
+          product_id_eq: value
+        }
+      },
+    }).done(function(data) {
+      $('#accessory').empty();
+      var newOption = new Option('', '', true, true);
+      $("#accessory").append(newOption).trigger('change');
+      $.each(data.products_accessories, function(i, item) {
+        var newState = new Option(item.text, item.id, true, true);
+        $("#accessory").append(newState).trigger('change');
+      });
+      $('#accessory').select2("val", "<%= 1 %>");
+    })
+  }
+
+  $('#accessory').select2({
+    placeholder:"<%= t('choose_from_select') %>",
+    allowClear: true
+  });
+
+  $('#product_id').select2();
+
+  $('#product_id').on("change", function() {
+    if ($('#product_id').select2('data') != null ) {
+      loadCategories();
+      $("#products_accessories").show();
+    }else{
+      console.log("b");
+      $("#products_accessories").hide();
+    }
+  });
+
+  if ($('#product_id').select2('data') != null ) {
+      loadCategories();      
+  }
+</script>
+
+<script type="text/javascript">
+  // Products methods ****
+  // variables
+  var product_rows = document.getElementById('table_product').getElementsByTagName("tr").length;
+  var productCount = 0;
+  var total = 0
+  
+  // Open modal
+  $("#open_modal").click(function(){
+     $("#note_modal").appendTo("body").modal('show');;
+  });
+  // OnclickListener obtiene los valores del formulario producto
+  $('#sbm_product').click(function(){
+    var item = {"accessory": $("#accessory option:selected").text(),
+                "quantity": $("#note_quantity").val()};
+                
+    var row = create_row(item);
+    if(validate()){
+      $('#table_product tbody').append(row);
+      $('#note_modal').modal('hide');
+      clearForm();
+      productCount += 1;
+      calculateTotal();
+    }
+  });
+  // Crea la fila
+  function create_row (item) {
+    if (item.discount_type == "Seleccionar"){
+      item.discount_type = "N/A";
+    }
+    var row = $('<tr class="text-center" data_id='+productCount+'><td>' + item.accessory + 
+                '</td><td>' + item.quantity +
+                '<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>' +
+                '</td>' + create_row_input(item) +
+                '</tr>');
+    return row;
+  }
+  // Crea los hidden fields, obtenidos en el formulario
+  function create_row_input(item){
+    var input =
+    '<input type="hidden" value="'+item.accessory+'" name="service_order[order_accessories_attributes]['+productCount+'][accessory]" >' +
+    '<input type="hidden" value="'+item.quantity+'" name="service_order[order_accessories_attributes]['+productCount+'][quantity]" >';
+    
+    return input;
+  }
+  // Establece el total en el formulario
+  function setTotal() {
+    var quantity = $("#note_quantity").val();
+    var price = $("#note_unit_price").val();
+    $("#note_total").val(quantity*price);
+  }
+  // Determina el tipo de descuento
+  function selectDiscount(){
+    setTotal();
+    var typeDiscount = $("#note_factor option:selected").text();
+    if(typeDiscount == "Importe"){
+      valueImport();
+    }
+    if(typeDiscount == "Porcentaje"){
+      valueFactor();
+    }
+  }
+  // Calcula el total con descuento del tipo Importe
+  function valueImport(){
+    var total = $("#note_total").val();
+    var discount = $("#note_discount").val();
+    $("#note_total").val(total-discount);
+  } 
+  // Calcula el total con descuento del tipo Porcentaje
+  function valueFactor(){
+    var currentTotal = $("#note_total").val();
+    var discount = $("#note_discount").val();
+    var factor = currentTotal * (discount/100);
+    $("#note_total").val(currentTotal-factor);
+    $("#note_discount").val(factor);
+  }
+  // Validaciones
+  function validate(){
+    $("#note_modal").animate({ scrollTop: 0 }, 'slow');
+    $("ul.errors").html("");
+    var validate = true;
+    var errors = [];
+    if($("#note_product").val() == 0){
+      validate = false;
+      errors.push("Seleccione un producto");
+    }
+    if($("#note_quantity").val() == 0){
+      validate = false;
+      errors.push("La cantidad debe ser mayor a 0");
+    }
+    if($("#note_unit_price").val() == 0){
+      validate = false;
+      errors.push("Precio unitario debe ser mayor a 0");
+    }
+    if(isDiscount()){
+      if($("#note_factor").val() == ""){
+      validate = false;
+      errors.push("Seleccione un tipo de descuento");
+      }
+      if($("#note_discount").val() == 0){
+        validate = false;
+        errors.push("Valor de descuento debe ser mayor a 0");
+      }
+    }
+    if(validate){
+      return true;
+    }else{
+      $.each( errors, function( key, value ) {
+        // Display errors
+        $("ul.errors").append($("<li />").html(value))
+      });
+    }
+  }
+  // Determina si se aplica la validacion de descuento
+  function isDiscount(){
+    if ($(".show-fields").is(".d-none")) {
+      return false;
+    }else{
+      return true;
+    }
+  }
+  // Elimina la fila seleccionada
+  $("#table_product").on('click', '.btnDelete', function () {
+    var productID = $(this).closest('tr').data("id");
+    if (productID != null){
+      generateOnDestroy(productID);
+    }
+    $(this).closest('tr').remove();
+    calculateTotal();
+  });
+  // Enviar item para eliminar
+  function generateOnDestroy(id){
+    var itemDestroy = '<tr><input type="hidden" value="1" name="service_order[order_accessories_attributes]['+productCount+'][_destroy]">'+
+      '<input type="hidden" value="'+id+'" service_order[order_accessories_attributes]['+productCount+'][id]"><tr>';
+    $('#table_product tbody').append(itemDestroy);
+    productCount +=1;
+  }
+  // Toggle discount inputs
+  $(".btn-hide label").click(function(){
+    if ($(".show-fields").is(".d-none")) {
+      $(".show-fields").toggle(5,function(){
+        $(".show-fields").removeClass("d-none");
+      });
+    }else{
+      $(".show-fields").toggle("slow",function(){
+        $(".show-fields").addClass("d-none");
+        $("#note_factor").val("");
+        $("#note_discount").val("0");
+        setTotal();
+      });
+    }
+  });
+  // Clear the form
+  function clearForm(){
+    $("#note_product").val(null).trigger('change');;
+    $("#name").val("");
+    $("#unit").val("");
+    $("#number_serie").val("");
+    $("#number_procedure").val("");
+    $("#number_part").val("");
+    $("#observation").val("");
+    $("#note_quantity").val("0");
+    $("#note_unit_price").val("0");
+    $("#note_factor").val("");
+    $("#note_discount").val("0");
+    $("#note_total").val("0");
+  }
+
+  // Calculate importe
+  function calculateTotal(){
+    total = 0;
+    tax_total = 0;
+    var product = 0;
+    total_with_tax = 0
+    $('#table_product > tbody  > tr').each(function() {
+      var product_total = $(this).find(".row_total_price").html();
+      if(product_total != null){
+        product = parseFloat(product_total,10);
+        total += product;
+        tax_total = total * 0.16
+        total_with_tax = total + tax_total
+      }
+    });
+
+    total_discount = 0;
+    var discount = 0;
+    $('#table_product > tbody  > tr').each(function() {
+      var product_discount = $(this).find(".row_total_discount").html();
+      if(product_discount != null){
+        discount = parseFloat(product_discount);
+        total_discount += discount;
+      }
+    });
+
+    $("#total_sale").val(total);
+    $("#tax_total").val(tax_total);
+    $("#total_with_tax").val(total_with_tax);
+    $("#adjustment_total").val(total_discount);
+  }
+
+  // End products ****
+</script>
+
+<script type="text/javascript">
+  
 </script>
