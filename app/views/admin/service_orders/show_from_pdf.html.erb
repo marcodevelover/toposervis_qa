@@ -1,3 +1,4 @@
+
 <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
           <tr class="top">
@@ -30,17 +31,22 @@
                   <td>
                   	<b>Contacto:</b>
                     <%= @service_order.customer.customer_contacts.blank? ?  "----" : @service_order.customer.customer_contacts.first.name %><br>
+                    <b>Teléfono:</b>
+                    <%= @service_order.customer.customer_contacts.blank? ?  "----" : @service_order.customer.customer_contacts.first.phone %><br>
+                    <b>E-mail:</b>
+                    <%= @service_order.customer.customer_contacts.blank? ?  "----" : @service_order.customer.customer_contacts.first.email %><br>
                     <b>Compañia:</b>
                     <%= @service_order.customer.business_name %><br>
-                    <b>E-mail:</b>
-                    <%= @service_order.customer.customer_contacts.blank? ?  "----" : @service_order.customer.customer_contacts.first.email %>
+                    <b>RFC:</b>
+                    <%= @service_order.customer.rfc %>
+
                   </td>
                   <td>
                   	<h3>Orden de servicio</h3>
                   	<b>Folio:</b>
-                    <h5><%= @service_order.folio %></h5>
+                    <h5 class="blue"><%= @service_order.folio %></h5>
                     <b>Fecha:</b>
-                    <h5><%= @service_order.created_at.strftime("%d-%m-%Y") %></h5>
+                    <h5 class="blue"><%= @service_order.created_at.strftime("%d-%m-%Y") %></h5>
                   </td>
 
                 </tr>
@@ -87,7 +93,7 @@
             <td colspan="5">Manifiesto que los accesorios y observaciones señaladas del equipo al momento de la entrega a <br>
               TOPOSERVIS S DE RL DE CV son de mi entero conocimiento.<br>
             * El tiempo de emisión del diagnóstico es de 2 días.<br>
-            * Equipo revisado no autorizado tiene un costo de $500.00 MXN + IVA para estaciones totales y $250.00 MXN + IVA para niveles.<br>
+            * Equipo revisado no autorizado tiene un costo de <b>$500.00 MXN </b>+ IVA para estaciones totales y <b>$250.00 MXN</b> + IVA para niveles.<br>
             </td>
           </tr>  
 
