@@ -38,8 +38,11 @@ class Admin::UsersController < ApplicationController
   # POST /admin/users.json
   def create
     @user = User.new(user_params)
-
+    @password = params[:user][:password]
     respond_modal_action_with(@user)
+    if @user.save
+      UserMailer.create_user(@user, @password).deliver_later
+    end
   end
 
   # PATCH/PUT /admin/users/1
