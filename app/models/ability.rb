@@ -39,7 +39,7 @@ class Ability
       can :manage, :dashboard
     elsif user.role.name == "customer"
         cannot :manage, :all
-        can :read, ServiceOrder, :customer_id => user.customers.blank? ? user.customers.build : user.customers.first.id
+        can :read, ServiceOrder, :user_id
         can :show_from_modal, ServiceOrder
         can :show_from_pdf, ServiceOrder
         can :filter_form, ServiceOrder

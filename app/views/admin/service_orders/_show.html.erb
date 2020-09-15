@@ -23,6 +23,11 @@
 <% end %>
 
 <p>
+  <strong>Usuario:</strong>
+  <%= @service_order.user.name %> <%= @service_order.user.lastname %>
+</p>
+
+<p>
   <strong>Cliente:</strong>
   <%= @service_order.customer ? @service_order.customer.name : "N/A" %>
 </p>
@@ -79,7 +84,7 @@
 
 <p>
   <strong>Created by:</strong>
-  <%= @service_order.user.name %>
+  <%= @service_order.created_by.name %> <%= @service_order.created_by.lastname %>
 </p>
 
 
