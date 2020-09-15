@@ -36,11 +36,11 @@
                     <%= @service_order.customer.customer_contacts.blank? ?  "----" : @service_order.customer.customer_contacts.first.email %>
                   </td>
                   <td>
-                  	<h3>Orden de servicio</h3><br>
+                  	<h3>Orden de servicio</h3>
                   	<b>Folio:</b>
-                    <%= @service_order.folio %><br>
+                    <h5><%= @service_order.folio %></h5>
                     <b>Fecha:</b>
-                    <%= @service_order.created_at.strftime("%d-%m-%Y") %>
+                    <h5><%= @service_order.created_at.strftime("%d-%m-%Y") %></h5>
                   </td>
 
                 </tr>
@@ -52,7 +52,7 @@
             <td colspan="5"><b>Producto:</b> <%= @service_order.product.name %></td>
           </tr>
           <tr>
-            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @service_order.product.name %></b> marca <b><%= @service_order.brand %></b> modelo <b><%= @service_order.model %></b> con número de serie <b><%= @service_order.serie %></b> para su revisión y diagnostico.</br> <b>Accesorios que incluye:</b></td>
+            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @service_order.product.name %></b> marca <b><%= @service_order.brand %></b> modelo <b><%= @service_order.model %></b> con número de serie <b><%= @service_order.serie %></b> para su revisión y diagnostico.</br> <b>Comentarios: </b><%= @service_order.observation %> </br><b>Accesorios que incluye:</b></td>
           </tr>          
 
           <tr class="heading">
