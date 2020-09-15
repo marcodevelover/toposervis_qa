@@ -42,7 +42,6 @@
 
                         </div>
                       </br>
-
                         <div class="form-group row">
                           <div class="col-md-12">
                             <div class="form-row">
@@ -60,30 +59,24 @@
                                           <%= form.error :product, id: 'product_error' %>
                                         </div>
                               <% end %>
-
                               </div>
                               <div class="col-lg-4 mb-4">
-
                                 <div class="row">
                                   <div class="col-sm-6">
                                     <div class="form-group">
+                                      </br>
                                       <div id="open_modal" class="btn btn-success ml-auto">
                                         <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-
-
-
                                 </br>
                               </div>
                             </div>
                           </div>
-
                         </div>
                       </br>
-
                         <div class="form-group row">
                            <div class="col-md-12">
                               <div class="form-row">
@@ -91,18 +84,14 @@
                                         <%= form.label :serie, class: "col-form-label"%>
                                         <%= form.text_field :serie, class: "form-control", type: "text", required: true %>
                                  </div>
-
                                   <div class="col-lg-4 mb-4x">
                                         <%= form.label :brand, class: "col-form-label"%>
                                         <%= form.text_field :brand, class: "form-control", type: "text", required: true %>
                                  </div>
-
                                  <div class="col-lg-4 mb-4x">
                                         <%= form.label :model, class: "col-form-label"%>
                                         <%= form.text_field :model, class: "form-control", type: "text", required: true %>
                                  </div>                              
-
-
                               </div>
                           </div>
                         </div>
@@ -190,8 +179,6 @@
                           </table>
                         </div>
                       </div>
-                      
-
                      <div class="clearfix">
                         <div class="float-right">
                         <%= form.submit class: "btn btn-primary" %>
@@ -220,27 +207,15 @@
           <div class="bg-danger rounded" style="color:white; font-weight:bold;">
             <ul class="errors"></ul>
           </div>
-
-
-  <div class="form-group" id="category_types">
-    <label class="form-label"><%= t('products.name')%> producto</label>
-      <div class="form-group">
-        <%= select_tag :product_id, options_from_collection_for_select(Product.all, "id", "name",default_product(@product)), :class => "dynamic-select width-small", style: 'width: 100%;',prompt: t('choose_from_select') %>
-      </div>
-  </div>
-
-
-  <div class="form-group" id="products_accessories">
-    <label class="control-label"><%= t('accessories.name')%> accesorio</label>
-     <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" id="accessory" style="width: 100%">
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label class="control-label"><%= t('purchases.quantity')%> de accesorio</label>
-    <input type="number" class="form-control" id="note_quantity" value="0"> 
-  </div>
-
+          <div class="form-group" id="products_accessories">
+            <label class="control-label"><%= t('accessories.name')%> accesorio</label>
+             <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" id="accessory" style="width: 100%">
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label"><%= t('purchases.quantity')%> de accesorio</label>
+            <input type="number" class="form-control" id="note_quantity" value="0"> 
+          </div>
       </div>
       <div class="modal-footer">
         <div id="sbm_product" type="button" class="btn btn-primary waves-effect waves-light"><%= t('add')%></div>
@@ -629,8 +604,4 @@ function loadCategories(){
   }
 
   // End products ****
-</script>
-
-<script type="text/javascript">
-  
 </script>

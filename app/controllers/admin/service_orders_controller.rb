@@ -115,8 +115,10 @@ class Admin::ServiceOrdersController < ApplicationController
       if @service_order.update(service_order_params)
         format.html { redirect_to [:admin, @service_order], notice: 'Service order was successfully updated.' }
         format.json { render :show, status: :ok, location: @service_order }
-        if params[:service_order][:diagnosis_attributes][:is_done] == "1" && @service_order.state == "diagnosed"
-          ServiceOrderMailer.with(service_order: @service_order).service_order_done.deliver_later
+        if @service_order.state == "diagnosed"
+          if params[:service_order][:diagnosis_attributes][:is_done] == "1"
+            ServiceOrderMailer.with(service_order: @service_order).service_order_done.deliver_later
+          end
         end
       else
         if @service_order.state == "diagnosed"
@@ -202,6 +204,15 @@ class Admin::ServiceOrdersController < ApplicationController
     total_count = @product_variants.count
     respond_to do |format|
       format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, unit_price: s.amount_public, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, image: s.first_image } } } }
+    end
+  end
+
+  def products_accessories
+    @q = ProductsAccessory.ransack(params[:q])
+    @products_accessories = @q.result(distinct: true)
+    total_count = @products_accessories.count
+    respond_to do |format|
+      format.json { render json: { total: total_count,  products_accessories: @products_accessories.map { |s| {id: s.id, text: s.accessory.name } } } }
     end
   end
 
