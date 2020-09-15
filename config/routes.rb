@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get :delete, on: :member
       get :filter_form, on: :collection
       get :customers, on: :collection
+      get :random_password, on: :collection
     end
     resources :providers do
       get :delete, on: :member

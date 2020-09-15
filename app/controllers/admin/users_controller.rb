@@ -85,6 +85,14 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def random_password
+    chars = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
+    password = chars.sort_by { rand }.join[0...8]
+    respond_to do |format|
+      format.json { render json: { random_password: password}}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

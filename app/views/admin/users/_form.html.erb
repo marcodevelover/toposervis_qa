@@ -10,9 +10,15 @@
         <%= form.text_field :email, class: "form-control", type: "email", required: true %>
   </div>
 
+
+  <div class="form-group">
+    <button type="button" class="btn btn-primary" id="submit_time">Generar contraseña</button>
+  </div>
+
+
   <div class="form-group">
         <%= form.label :password, class: "col-form-label"%> *
-        <%= form.text_field :password, class: "form-control", type: "password", required: true %>
+        <%= form.text_field :password, class: "form-control", type: "text", required: true %>
   </div>
 
   <div class="form-group">
@@ -36,8 +42,6 @@
       <%= form.collection_select :role_id, Role.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
     </div>
   </div>
-
-
 
  <div class="form-group">
    <%= form.label :customers, class: "col-form-label"%>
@@ -119,4 +123,21 @@ function formatRepoSelection (repo) {
   return repo.name || repo.text;
 }
 
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $( "#submit_time" ).click(function() {
+      var url = "/admin/<%=controller_name%>/random_password";
+      $.ajax({
+        method: "GET",
+        url: url,
+        dataType: "JSON",
+        success: function (data) { 
+          console.log(data.random_password);
+          $("#user_password").val(data.random_password);
+        }
+      })
+    });
+  });
 </script>
