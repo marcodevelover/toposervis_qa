@@ -279,6 +279,8 @@ es:
     created_by: Creado por
     deleted_at: Eliminado el
     state: Estatus
+    is_done: ¿Listo?
+    is_authorized: ¿Autorizado?
   diagnosis:
     product: Producto
     total: Total

@@ -74,6 +74,7 @@ class Admin::ServiceOrdersController < ApplicationController
       if @service_order.save
         format.html { redirect_to [:admin, @service_order], notice: 'Service order was successfully created.' }
         format.json { render :show, status: :created, location: @service_order }
+        ServiceOrderMailer.with(service_order: @service_order).service_order_create.deliver_later
       else
         format.html { render :new }
         format.json { render json: @service_order.errors, status: :unprocessable_entity }
@@ -155,6 +156,7 @@ class Admin::ServiceOrdersController < ApplicationController
 
   def output
     respond_modal_for_output_with(@service_order,true)
+    ServiceOrderMailer.with(service_order: @service_order).service_order_delivered.deliver_later
   end
 
   # PUT /service_orders/1
@@ -281,7 +283,7 @@ class Admin::ServiceOrdersController < ApplicationController
       params.require(:service_order).permit(:date_admission, :customer_id, :product_id, :serie, :brand, :model, :observation, :deleted_at, :status, :user_id,
         order_accessories_attributes: [ :id, :service_order_id, :accessory, :quantity, :_destroy ],
         type_service_order_ids: [], images_attachments_attributes: [:id, :_destroy],
-        diagnosis_attributes: [ :id, :service_order_id, :date, :delivery_time, :date_delivery, :diagnosis_type_id, :subtotal, :adjustment_total, :tax_total, :total, :is_tax, :is_done, 
+        diagnosis_attributes: [ :id, :service_order_id, :date, :delivery_time, :date_delivery, :diagnosis_type_id, :subtotal, :adjustment_total, :tax_total, :total, :is_tax, :is_done, :is_authorized,
           images_attachments_attributes: [:id, :_destroy],
           sale_attributes: [:id, :folio, :payment_method_id, :payment_way_id, :use_of_cfdi_id, :state, :_destroy],
           diagnosis_descriptions_attributes: [:id, :diagnosis_id, :description, :created_by_id, :deleted_at, :_destroy],

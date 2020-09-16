@@ -87,6 +87,17 @@
 <h4>Diagnostico</h4>
 
 <% unless @service_order.diagnosis.nil? %>
+
+      <p>
+        <strong>¿Esta listo?</strong>
+        <%= t(@service_order.diagnosis.is_done) %>
+      </p>
+
+      <p>
+        <strong>¿Esta autorizado?</strong>
+        <%= t(@service_order.diagnosis.is_authorized) %>
+      </p>
+
       <p>
         <strong>Fecha de diagnostico:</strong>
         <%= @service_order.diagnosis.date %>

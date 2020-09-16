@@ -4,7 +4,7 @@
                       <h4 class="box-title m-t-40">Captura de Productos y/o Servicios</h4>
 
                       <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-3">
                           <div class="form-group">
                             <div id="open_modal_item" class="btn btn-success ml-auto">
                               <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
@@ -21,6 +21,12 @@
                           <div class="form-group">
                               ¿El servico está listo?
                               <%= f.input :is_done, inline_label: 'Si', as: :boolean %>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                              ¿El servico está autorizado?
+                              <%= f.input :is_authorized, inline_label: 'Si', as: :boolean %>
                           </div>
                         </div>
                       </div>

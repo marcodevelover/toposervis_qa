@@ -3,10 +3,12 @@
 <tr>    
         <td scope="row" ><%= object.id %></td>
         <td><%= object.folio %></td>
-        <td><%= object.date_admission %></td>
+        <td><%= object.date_admission.to_formatted_s(:db)  %></td>
         <td><%= object.customer ? object.customer.business_name : "N/A" %></td>
         <td><%= object.product ? object.product.name : "N/A" %></td>
         <td><%= object.serie %></td>
+        <td><span class="badge badge-active"><%= object.diagnosis.blank? ? "" : t(object.diagnosis.is_done) %></span></td>
+        <td><span class="badge badge-active"><%= object.diagnosis.blank? ? "" : t(object.diagnosis.is_authorized) %></span></td>
         <td>
             <% if object.deleted_at? %>
                 <span class="badge badge-danger">Baja</span>
