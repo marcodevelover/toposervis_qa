@@ -26,13 +26,13 @@
             <%end%>
             <%end%>
 
-
+<% unless object.state == "diagnosed" %>
             <% if can? :update, object %>
         	<%= link_to edit_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
         		<em class="fa fa-edit"></em> 
         	<%end%>
             <% end %>
-
+<% end %>
 
 
             <% if can? :update, object %>
