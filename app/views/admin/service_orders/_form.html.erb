@@ -476,7 +476,7 @@ function loadCategories(){
   // Products methods ****
   // variables
   var product_rows = document.getElementById('table_product').getElementsByTagName("tr").length;
-  var productCount = 0;
+  var productCount = <%= @service_order.order_accessories.count.to_f %>;
   var total = 0
   
   // Open modal
@@ -605,7 +605,7 @@ function loadCategories(){
   // Enviar item para eliminar
   function generateOnDestroy(id){
     var itemDestroy = '<tr><input type="hidden" value="1" name="service_order[order_accessories_attributes]['+productCount+'][_destroy]">'+
-      '<input type="hidden" value="'+id+'" service_order[order_accessories_attributes]['+productCount+'][id]"><tr>';
+      '<input type="hidden" value="'+id+'"name="service_order[order_accessories_attributes]['+productCount+'][id]"><tr>';
     $('#table_product tbody').append(itemDestroy);
     productCount +=1;
   }
