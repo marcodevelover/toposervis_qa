@@ -70,7 +70,7 @@ class Admin::CustomersController < ApplicationController
     params[:per_page] = 10
     
     @q = Customer.search(params[:q])
-    @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])  
+    @collection = @q.result(:distinct => true).order('id DESC').page(params[:page]).per(params[:per_page])  
   end
 
   private
@@ -83,7 +83,7 @@ class Admin::CustomersController < ApplicationController
     def customer_params
       params.require(:customer).permit(
         :name, :rfc, :business_name, :deleted_at, 
-        customer_address_attributes: [ :id, :street, :number, :crossing, :postcode, :colony, :town, :state, :country, :deleted_at ],
+        customer_address_attributes: [ :id, :street, :number, :interior_number, :crossing, :postcode, :colony, :town, :state, :country, :deleted_at ],
         customer_contacts_attributes: [ :id, :name, :department, :phone, :extension, :cellphone, :email, :_destroy ],
         customer_bank_attributes: [ :id, :beneficiary, :account, :clabe, :bank_name, :currency ]
         )

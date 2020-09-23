@@ -327,6 +327,7 @@ es:
     town: Ciudad
     state: Estado
     country: País
+    interior_number: Número interior
   customer_banks:
     beneficiary: Beneficiario
     account: Cuenta
@@ -868,6 +869,7 @@ es:
         town: Ciudad
         state: Estado
         country: País
+        interior_number: Número interior
       customer_bank:
         beneficiary: Beneficiario
         account: Cuenta

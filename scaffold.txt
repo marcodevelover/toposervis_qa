@@ -159,6 +159,8 @@ rails g migration AddColumsCurrencyToDiagnoses currency_id:integer
 rails g migration AddColumsUserToServiceOrder user_id:integer
 
 rails g migration AddColumsIsAuthorizedToDiagnoses is_authorized:boolean
+
+rails g migration AddColumsInteriorNumberToCustomerAddresses InteriorNumber:string
 ------
 
 Documentation
