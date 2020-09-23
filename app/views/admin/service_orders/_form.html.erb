@@ -32,7 +32,11 @@
                               <div class="col-lg-8 mb-8">
                                 <%= form.association :user, input_html: { class: 'custom-select custom-select-sm' } %>
                               </div>
-                              <div class="col-lg-4 mb-4">                                
+                              <div class="col-lg-4 mb-4">
+                                </br>
+                               <%= link_to new_admin_user_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                                 <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
+                               <%end%>                                  
                               </div>
                             </div>
                           </div>
@@ -301,7 +305,7 @@ $("#service_order_user_id").select2({
     delay: 250,
     data: function (params) {
       return {
-        q: {email_or_name_or_lastname_cont: params.term}, // search term
+        q: {email_or_name_or_lastname_or_company_cont: params.term}, // search term
         page: params.page
       };
     },
@@ -340,7 +344,7 @@ function formatRepo (repo) {
         "<div class='select2-result-repository__email'>Correo: </div>" +
         "<div class='select2-result-repository__name'>Nombre: </div>" +
         "<div class='select2-result-repository__lastname'>Apellido: </div>" +
-        
+        "<div class='select2-result-repository__company'>Empresa: </div>" +
       "</div>" +
     "</div>"
   );
@@ -349,6 +353,7 @@ function formatRepo (repo) {
   $container.find(".select2-result-repository__email").append(repo.email);
   $container.find(".select2-result-repository__name").append(repo.name);
   $container.find(".select2-result-repository__lastname").append(repo.lastname);
+  $container.find(".select2-result-repository__company").append(repo.company);
   
   return $container;
 }

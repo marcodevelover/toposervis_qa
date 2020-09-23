@@ -76,7 +76,7 @@ class Admin::UsersController < ApplicationController
     params[:per_page] = 10
     
     @q = User.search(params[:q])
-    @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])  
+    @collection = @q.result(:distinct => true).order('id DESC').page(params[:page]).per(params[:per_page])  
   end
 
   def customers
@@ -104,6 +104,6 @@ class Admin::UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :password, :name, :lastname, :phone, :deleted_at, :role_id, :customer_ids)
+      params.require(:user).permit(:email, :password, :name, :lastname, :phone, :deleted_at, :company, :role_id, :customer_ids)
     end
 end

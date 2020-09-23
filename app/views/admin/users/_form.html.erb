@@ -37,6 +37,17 @@
   </div>
 
   <div class="form-group">
+    <select id="customers" class="custom-select custom-select-sm" style="width: 100%">
+
+    </select>
+  </div>
+
+  <div class="form-group">
+        <%= form.label :company, class: "col-form-label"%>
+        <%= form.text_field :company, class: "form-control", type: "text" %>
+  </div>
+
+  <div class="form-group">
     <%= form.label :role_id, class: "col-form-label"%>
     <div class="form-group">
       <%= form.collection_select :role_id, Role.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
@@ -60,7 +71,7 @@
 
 <script type="text/javascript">
 
-$("#user_customer_ids").select2({
+$("#customers").select2({
   ajax: {
     url: '/admin/<%=controller_name%>/customers',
     dataType: 'json',
@@ -103,17 +114,22 @@ function formatRepo (repo) {
     "<div class='select2-result-repository clearfix'>" +
       "<div class='select2-result-repository__meta'>" +
         "<div class='select2-result-repository__abbreviation'>Nombre: </div>" +
+        "<div class='select2-result-repository__rfc'>RFC: </div>" +
+        "<div class='select2-result-repository__business_name'>Razón social: </div>" +
       "</div>" +
     "</div>"
   );
 
 
   $container.find(".select2-result-repository__abbreviation").append(repo.name);
+  $container.find(".select2-result-repository__rfc").append(repo.rfc);
+  $container.find(".select2-result-repository__business_name").append(repo.business_name);
   
   return $container;
 }
 
 function formatRepoSelection (repo) {
+  $("#user_company").val(repo.business_name);
   return repo.name || repo.text;
 }
 

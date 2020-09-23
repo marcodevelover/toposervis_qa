@@ -193,7 +193,7 @@ class Admin::ServiceOrdersController < ApplicationController
     @users = @q.result(distinct: true)
     total_count = @users.count
     respond_to do |format|
-      format.json { render json: { total: total_count,  users: @users.map { |s| {id: s.id, name:  s.name, lastname: s.lastname, email: s.email } } } }
+      format.json { render json: { total: total_count,  users: @users.map { |s| {id: s.id, name:  s.name, lastname: s.lastname, email: s.email, company: s.company } } } }
     end
   end
 

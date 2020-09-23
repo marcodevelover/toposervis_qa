@@ -204,7 +204,6 @@ es:
     users_list: Lista de Usuarios
     user_image: Imagen de usuario
     actions: Acciones
-    enterprise: "Empresa"    
     branch: "Sucursal"
     confirm_delete: "Si, eliminar este usuario"
     create_user: "Crear usuario"
@@ -242,6 +241,7 @@ es:
     lastname: Apellido
     status: Estatus
     role: Rol
+    company: Empresa
   quotations:
     folio: Folio
     quantity: Cantidad
@@ -774,6 +774,7 @@ es:
         branch_id: Sucursal
         phone: Teléfono
         customers: Cliente
+        company: Empresa
       unit:
         name: Nombre
         description: Descripción
