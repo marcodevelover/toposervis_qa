@@ -1,3 +1,4 @@
+
 <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
           <tr class="top">
@@ -27,14 +28,17 @@
             <td colspan="5">
               <table>
                 <tr>
-                  <td>
-                  	<b>Contacto:</b>
-                    
-                    <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.name %><br>
+                  <td class="top">
                     <b>Compañia:</b>
-                    <%= @quotation.customer.business_name %><br>
+                    <%= @quotation.customer.business_name.blank? ? "----" : @quotation.customer.business_name %><br>
+                    <b>RFC:</b>
+                    <%= @quotation.customer.rfc.blank? ? "----" : @quotation.customer.rfc %><br>
+                  	<b>Contacto:</b>
+                    <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.name.blank? ? "----" : @quotation.customer.customer_contacts.first.name %><br>
+                    <b>Teléfono:</b>
+                    <%= @quotation.customer.customer_contacts.blank? ?  "----" : @quotation.customer.customer_contacts.first.phone.blank? ? "----" : @quotation.customer.customer_contacts.first.phone %><br>
                     <b>E-mail:</b>
-                    <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.email %><br>
+                    <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.email.blank? ? "----" : @quotation.customer.customer_contacts.first.email %><br>
                     
                     <% if @quotation.sale.present? %>
                     <b>Método de pago:</b>
@@ -44,19 +48,19 @@
                     <% end %>
                   </td>
 
-                  <td>
+                  <td class="top">
                     <% if @quotation.sale.present?%>
-                    <b>Nota de venta</b><br>
+                    <h3>Nota de venta</h3>
                     <b>Folio:</b>
-                    <%= @quotation.sale.folio %><br>
+                    <b class="blue"><%= @quotation.sale.folio %></b><br>
                     <b>Fecha:</b>
-                    <%= @quotation.sale.created_at.strftime("%d-%m-%Y") %><br>
+                    <b class="blue"><%= @quotation.sale.created_at.strftime("%d-%m-%Y") %></b><br>
                     <% end %>                    
-                  	<h3>Cotización</h3><br>
+                  	<h3>Cotización</h3>
                   	<b>Folio:</b>
-                    <%= @quotation.folio %><br>
+                    <b class="blue"><%= @quotation.folio %></b><br>
                     <b>Fecha:</b>
-                    <%= @quotation.created_at.strftime("%d-%m-%Y") %>
+                    <b class="blue"><%= @quotation.created_at.strftime("%d-%m-%Y") %></b>
                   </td>
 
                 </tr>
@@ -65,11 +69,11 @@
           </tr>
 
           <tr class="heading">
-            <td>Concepto</td>
-            <td class="right">Unidad</td>
-            <td class="right">Precio</td>
-            <td class="right">Cantidad</td>
-            <td>Total</td>
+            <td class="center">Concepto</td>
+            <td style="text-align: center;">Unidad</td>
+            <td class="center">Precio</td>
+            <td class="center">Cantidad</td>
+            <td class="center">Total</td>
           </tr>
 
           <% @quotation.items.each do |item| %>
@@ -79,25 +83,23 @@
                     <small><%= item.extended_description %></small>
                 </td>
 
-                <td class="right">
+                <td style="text-align: center;">
                     <%= item.unit %>
                 </td>
 
-                <td class="right">
+                <td class="center">
                     <%= number_to_currency(item.unit_price) %>
                 </td>
 
-                <td class="right">
+                <td class="center">
                     x <%= item.quantity %>
                 </td>
 
-                <td>
+                <td class="center">
                     <%= number_to_currency(item.unit_price * item.quantity) %>
                 </td>
             </tr>
           <% end %>
-
-
 
           <tr>
             <td colspan="5"></td>
@@ -125,7 +127,7 @@
             <% end %>
           </tr>
 
-          <tr class="heading">
+          <tr>
             <td colspan="3"></td>
             <td><b>TOTAL:</b></td>
             <td>

@@ -27,24 +27,28 @@
             <td colspan="5">
               <table>
                 <tr>
-                  <td>
-                  	<b>Contacto:</b>
-                    <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.name %><br>
+                  <td class="top">
                     <b>Compañia:</b>
-                    <%= @order.customer.business_name %><br>
+                    <%= @order.customer.business_name.blank? ? "----" : @order.customer.business_name %><br>
+                    <b>RFC:</b>
+                    <%= @order.customer.rfc.blank? ? "----" : @order.customer.rfc %><br>
+                  	<b>Contacto:</b>
+                    <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.name.blank? ? "----" : @order.customer.customer_contacts.first.name %><br>
+                    <b>Teléfono:</b>
+                    <%= @order.customer.customer_contacts.blank? ?  "----" : @order.customer.customer_contacts.first.phone.blank? ? "----" : @order.customer.customer_contacts.first.phone %><br>
                     <b>E-mail:</b>
-                    <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.email %><br>
+                    <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.email.blank? ? "----" : @order.customer.customer_contacts.first.email %><br>
                     <b>Método de pago:</b>
                     <%= @order.sale.payment_method.name %><br>
                     <b>Forma de pago:</b>
                     <%= @order.sale.payment_way.name %>
                   </td>
-                  <td>
-                  	<h3>Nota de venta</h3><br>
+                  <td class="top">
+                  	<h3>Nota de venta</h3>
                   	<b>Folio:</b>
-                    <%= @order.sale.folio %><br>
+                    <b class="blue"><%= @order.sale.folio %></b><br>
                     <b>Fecha:</b>
-                    <%= @order.created_at.strftime("%d-%m-%Y") %>
+                    <b class="blue"><%= @order.created_at.strftime("%d-%m-%Y") %></b><br>
                   </td>
 
                 </tr>
@@ -53,11 +57,11 @@
           </tr>
 
           <tr class="heading">
-            <td>Concepto</td>
-            <td class="right">Unidad</td>
-            <td class="right">Precio</td>
-            <td class="right">Cantidad</td>
-            <td>Total</td>
+            <td class="center">Concepto</td>
+            <td style="text-align: center;">Unidad</td>
+            <td class="center">Precio</td>
+            <td class="center">Cantidad</td>
+            <td class="center">Total</td>
           </tr>
 
           <% @order.items.each do |item| %>
@@ -67,19 +71,19 @@
                     <small><%= item.extended_description %></small>
                 </td>
 
-                <td class="right">
+                <td style="text-align: center;">
                     <%= item.unit %>
                 </td>
 
-                <td class="right">
+                <td class="center">
                     <%= number_to_currency(item.unit_price) %>
                 </td>
 
-                <td class="right">
+                <td class="center">
                     x <%= item.quantity %>
                 </td>
 
-                <td>
+                <td class="center">
                     <%= number_to_currency(item.unit_price * item.quantity) %>
                 </td>
             </tr>
@@ -94,14 +98,14 @@
           <tr>
             <td colspan="3"></td>
             <td><b>Subtotal</b></td>
-            <td><%= number_to_currency(@order.subtotal) %></td>
+            <td class="center"><%= number_to_currency(@order.subtotal) %></td>
           </tr>
 
           <tr>
             <td colspan="3"></td>
             <% if @order.adjustment_total != 0 %>
             <td><b>Descuento</b></td>
-            <td>- <%= number_to_currency(@order.adjustment_total) %></td>
+            <td class="center">- <%= number_to_currency(@order.adjustment_total) %></td>
             <% end %>
           </tr>
 
@@ -109,14 +113,14 @@
             <td colspan="3"></td>
             <% if @order.is_tax %>
             <td><b>Impuesto (<%= (@order.tax * 100).to_i %>%)</b></td>
-            <td>+ <%= number_to_currency(@order.tax_total) %></td>
+            <td class="center">+ <%= number_to_currency(@order.tax_total) %></td>
             <%end%>
           </tr>
 
-          <tr class="heading">
+          <tr>
             <td colspan="3"></td>
             <td><b>TOTAL:</b></td>
-            <td>
+            <td class="center">
                <% if @order.is_tax %>
                <b><%= number_to_currency(@order.total) %></b>
                <%else%>

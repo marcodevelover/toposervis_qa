@@ -27,13 +27,17 @@
             <td colspan="5">
               <table>
                 <tr>
-                  <td>
-                  	<b>Contacto:</b>
-                    <%= @diagnosis.service_order.customer.customer_contacts.blank? ? "----" : @diagnosis.service_order.customer.customer_contacts.first.name %><br>
+                  <td class="top">
                     <b>Compañia:</b>
-                    <%= @diagnosis.service_order.customer.business_name %><br>
+                    <%= @diagnosis.service_order.customer.business_name.blank? ? "----" : @diagnosis.service_order.customer.business_name %><br>
+                    <b>RFC:</b>
+                    <%= @diagnosis.service_order.customer.rfc.blank? ? "----" : @diagnosis.service_order.customer.rfc %><br>
+                  	<b>Contacto:</b>
+                    <%= @diagnosis.service_order.customer.customer_contacts.blank? ? "----" : @diagnosis.service_order.customer.customer_contacts.first.name.blank? ? "----" : @diagnosis.service_order.customer.customer_contacts.first.name %><br>
+                    <b>Teléfono:</b>
+                    <%= @diagnosis.service_order.customer.customer_contacts.blank? ?  "----" : @diagnosis.service_order.customer.customer_contacts.first.phone.blank? ? "----" : @diagnosis.service_order.customer.customer_contacts.first.phone %><br>
                     <b>E-mail:</b>
-                    <%= @diagnosis.service_order.customer.customer_contacts.blank? ? "----" : @diagnosis.service_order.customer.customer_contacts.first.email %>
+                    <%= @diagnosis.service_order.customer.customer_contacts.blank? ? "----" : @diagnosis.service_order.customer.customer_contacts.first.email.blank? ? "----" : @diagnosis.service_order.customer.customer_contacts.first.email %><br>
                     <% if @diagnosis.sale.present? %>
                     <b>Método de pago:</b>
                     <%= @diagnosis.sale.payment_method.name %><br>
@@ -41,19 +45,19 @@
                     <%= @diagnosis.sale.payment_way.name %>            
                     <% end %>
                   </td>
-                  <td>
+                  <td class="top">
                     <% if @diagnosis.sale.present?%>
-                    <h3>Nota de venta</h3><br>
+                    <h3>Orden de salida</h3>
                     <b>Folio:</b>
-                    <%= @diagnosis.sale.folio %><br>
+                    <b class="blue"><%= @diagnosis.sale.folio %></b><br>
                     <b>Fecha:</b>
-                    <%= @diagnosis.sale.created_at.strftime("%d-%m-%Y") %><br>
+                    <b class="blue"><%= @diagnosis.sale.created_at.strftime("%d-%m-%Y") %></b><br>
                     <% end %>
-                  	<b>Orden de servicio</b><br>
+                  	<h3>Orden de servicio</h3>
                   	<b>Folio:</b>
-                    <%= @diagnosis.service_order.folio %><br>
+                    <b class="blue"><%= @diagnosis.service_order.folio %></b><br>
                     <b>Fecha:</b>
-                    <%= @diagnosis.service_order.created_at.strftime("%d-%m-%Y") %>
+                    <b class="blue"><%= @diagnosis.service_order.created_at.strftime("%d-%m-%Y") %></b><br>
                   </td>
 
                 </tr>
@@ -65,13 +69,13 @@
             <td colspan="5"><b>Producto:</b> <%= @diagnosis.service_order.product.name %></td>
           </tr>
           <tr>
-            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @diagnosis.service_order.product.name %></b> marca <b><%= @diagnosis.service_order.brand %></b> modelo <b><%= @diagnosis.service_order.model %></b> con número de serie <b><%= @diagnosis.service_order.serie %></b> para su revisión y diagnostico.</br> <b>Accesorios que incluye:</b></td>
+            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @diagnosis.service_order.product.name %></b> marca <b><%= @diagnosis.service_order.brand %></b> modelo <b><%= @diagnosis.service_order.model %></b> con número de serie <b><%= @diagnosis.service_order.serie %></b> para su revisión y diagnostico.</br><br> <b>Accesorios que incluye:</b><br></td>
           </tr>          
 
           <tr class="heading">
             
-            <td class="left" colspan="3">Accesorios</td>
-            <td class="right" colspan="2">Cantidad</td>
+            <td class="center" colspan="3">Accesorios</td>
+            <td style="text-align: center;" colspan="2">Cantidad</td>
             
           </tr> 
 
@@ -84,7 +88,7 @@
                     
                 </td>
 
-                <td class="right" colspan="2">
+                <td style="text-align: center;" colspan="2">
                     <%= item.quantity %>
                 </td>
                 
@@ -93,12 +97,12 @@
           <% end %>
 <!--diagnosis-->
           <tr>
-            <td colspan="5" style="text-align: center;"><b>Diagnostico</b></td>
+            <td colspan="5" style="text-align: left;"><br><b>Diagnostico:</b></td>
           </tr>         
 
           <tr class="heading">
             
-            <td class="left" colspan="5">Descripción</td>
+            <td class="center" colspan="5">Descripción del diagnostico</td>
             
             
           </tr> 
@@ -118,15 +122,15 @@
 <!--end diagnosis-->
 <!--diagnosis items-->
           <tr>
-            <td colspan="5" style="text-align: center;"><b>Presupuesto</b></td>
+            <td colspan="5" style="text-align: left;"><br><b>Presupuesto:</b></td>
           </tr>         
 
           <tr class="heading">
-            <td>Concepto</td>
-            <td class="right">Unidad</td>
-            <td class="right">Precio</td>
-            <td class="right">Cantidad</td>
-            <td>Total</td>
+            <td class="center">Concepto</td>
+            <td class="center">Unidad</td>
+            <td class="center">Precio</td>
+            <td class="center">Cantidad</td>
+            <td class="center">Total</td>
           </tr>
 
           <% @diagnosis.items.each do |item| %>
@@ -136,19 +140,19 @@
                     <small><%= item.extended_description %></small>
                 </td>
 
-                <td class="right">
+                <td class="center">
                     <%= item.unit %>
                 </td>
 
-                <td class="right">
+                <td class="center">
                     <%= number_to_currency(item.unit_price) %>
                 </td>
 
-                <td class="right">
+                <td class="center">
                     x <%= item.quantity %>
                 </td>
 
-                <td>
+                <td class="center">
                     <%= number_to_currency(item.unit_price * item.quantity) %>
                 </td>
             </tr>
@@ -163,14 +167,14 @@
           <tr>
             <td colspan="3"></td>
             <td><b>Subtotal</b></td>
-            <td><%= number_to_currency(@diagnosis.subtotal) %></td>
+            <td class="center"><%= number_to_currency(@diagnosis.subtotal) %></td>
           </tr>
 
           <tr>
             <td colspan="3"></td>
             <% if @diagnosis.adjustment_total != 0 %>
             <td><b>Descuento</b></td>
-            <td>- <%= number_to_currency(@diagnosis.adjustment_total) %></td>
+            <td class="center">- <%= number_to_currency(@diagnosis.adjustment_total) %></td>
             <% end %>
           </tr>
 
@@ -178,14 +182,14 @@
             <td colspan="3"></td>
             <% if @diagnosis.is_tax %>
             <td><b>Impuesto (<%= (@diagnosis.tax * 100).to_i %>%)</b></td>
-            <td>+ <%= number_to_currency(@diagnosis.tax_total) %></td>
+            <td class="center">+ <%= number_to_currency(@diagnosis.tax_total) %></td>
             <% end %>
           </tr>
 
-          <tr class="heading">
+          <tr>
             <td colspan="3"></td>
             <td><b>TOTAL:</b></td>
-            <td>
+            <td class="center">
                <% if @diagnosis.is_tax %>
                <b><%= number_to_currency(@diagnosis.total) %></b>
                <%else%>
@@ -199,7 +203,13 @@
 
           <tr>
             <td colspan="5"></td>
-          </tr> 
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
           <tr>
             <td colspan="5"></td>
           </tr>
