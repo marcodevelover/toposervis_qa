@@ -35,7 +35,7 @@
                               <div class="col-lg-4 mb-4">
                                 </br>
                                <%= link_to new_admin_user_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
-                                 <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
+                                 <em class="fa fa-plus-circle fa-fw mr-1"></em><%=t("add")%>
                                <%end%>                                  
                               </div>
                             </div>
@@ -52,7 +52,7 @@
                               <div class="col-lg-4 mb-4">
                                 </br>
                                <%= link_to new_admin_customer_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
-                                 <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
+                                 <em class="fa fa-plus-circle fa-fw mr-1"></em><%=t("add")%>
                                <%end%>                                  
                               </div>
                             </div>
@@ -74,7 +74,7 @@
                                     <div class="form-group">
                                       </br>
                                       <div id="open_modal" class="btn btn-success ml-auto">
-                                        <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
+                                        <em class="fa fa-search fa-fw mr-1"></em><%=t("add_accessories")%>
                                       </div>
                                     </div>
                                   </div>
@@ -85,70 +85,14 @@
                           </div>
                         </div>
                       </br>
-                        <div class="form-group row">
-                           <div class="col-md-12">
-                              <div class="form-row">
-                                 <div class="col-lg-4 mb-4x">
-                                        <%= form.label :serie, class: "col-form-label"%>
-                                        <%= form.text_field :serie, class: "form-control", type: "text", required: true %>
-                                 </div>
-                                  <div class="col-lg-4 mb-4x">
-                                        <%= form.label :brand, class: "col-form-label"%>
-                                        <%= form.text_field :brand, class: "form-control", type: "text", required: true %>
-                                 </div>
-                                 <div class="col-lg-4 mb-4x">
-                                        <%= form.label :model, class: "col-form-label"%>
-                                        <%= form.text_field :model, class: "form-control", type: "text", required: true %>
-                                 </div>                              
-                              </div>
-                          </div>
-                        </div>
-                        </br>
-                    
-                        <div class="form-group row">
-                           <div class="col-md-12">
-                              <div class="form-row">
-                                 <div class="col-lg-12 mb-12x">
-                                        <%= form.file_field :images, multiple: true, class: "mb-1 btn btn-outline-secondary" %>
-                                 </div>
 
-                              </div>
-                          </div>
-                        </div>
-                        </br>
 
-                         <% if @service_order.images.attached? %>
-                          <div class="form-group row" >
-                          <%= form.fields_for :images_attachments do |f| %>
-                                    <div class="col-md-3">
-                                      <%= image_tag f.object.variant(resize_to_limit: [300, 300]) %>
-                                    </div> 
-                                    <div class="col-md-3">
-                                      <div class="col-md-12">
-                                        <label>Eliminar</label> <%= f.check_box :_destroy    %>
-                                      </div>
-                                    </div>     
-                          <% end %>
-                          </div>    
-                        <% end %>
 
-                        <div class="form-group row">
-                          <div class="col-md-12">
-                            <div class="form-row">
-                              <div class="col-lg-12 mb-12">
-                                <label for="validationServer03"><b>Observaciones</b></label>
-                                <%= form.text_area :observation, class: "form-control", rows: 10 %>
-                              </div>
 
-                            </div>
-                          </div>
-
-                        </div>
-                      </br>
 
                           <!-- begin my product -->
                               <!-- Table Products -->
-                      <h4 class="box-title m-t-40">Accesorios</h4>
+                      <h4 class="box-title m-t-40"> <%= t("product_accessories") %></h4>
                       <hr>
                                                           
                       <div class="col-lg-12">
@@ -187,6 +131,86 @@
                           </table>
                         </div>
                       </div>
+
+                      <br>
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="form-group row">
+                           <div class="col-md-12">
+                              <div class="form-row">
+                                 <div class="col-lg-4 mb-4x">
+                                        <%= form.label :serie, class: "col-form-label"%>
+                                        <%= form.text_field :serie, class: "form-control", type: "text", required: true %>
+                                 </div>
+                                  <div class="col-lg-4 mb-4x">
+                                        <%= form.label :brand, class: "col-form-label"%>
+                                        <%= form.text_field :brand, class: "form-control", type: "text", required: true %>
+                                 </div>
+                                 <div class="col-lg-4 mb-4x">
+                                        <%= form.label :model, class: "col-form-label"%>
+                                        <%= form.text_field :model, class: "form-control", type: "text", required: true %>
+                                 </div>                              
+                              </div>
+                          </div>
+                        </div>
+                        </br>
+                    
+                        <div class="form-group row">
+                           <div class="col-md-12">
+                              <div class="form-row">
+                                  <div class="col-lg-3 mb-3x">
+                                        <span class="fa fa-upload mr-2"></span><label class="string optional col-form-label" for="service_order_serie"><%=t("select_images")%></label><br>
+                                        <small><%=t("max_size")%></small>
+                                  </div>
+                                  <div class="col-lg-9 mb-9x"> 
+                                        <%= form.file_field :images, multiple: true, class: "mb-1 btn btn-outline-secondary", accept: "image/png, .jpeg, .jpg, image/gif" %>
+                                        <%= form.error :images, id: 'images_error' %>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        </br>
+
+                         <% if @service_order.images.attached? %>
+                          <div class="form-group row" >
+                          <%= form.fields_for :images_attachments do |f| %>
+                                    <div class="col-md-3">
+                                      <%= image_tag f.object.variant(resize_to_limit: [300, 300]) %>
+                                    </div> 
+                                    <div class="col-md-3">
+                                      <div class="col-md-12">
+                                        <label>Eliminar</label> <%= f.check_box :_destroy    %>
+                                      </div>
+                                    </div>     
+                          <% end %>
+                          </div>    
+                        <% end %>
+
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <div class="form-row">
+                              <div class="col-lg-12 mb-12">
+                                <label for="validationServer03"><b>Observaciones</b></label>
+                                <%= form.text_area :observation, class: "form-control", rows: 10 %>
+                              </div>
+
+                            </div>
+                          </div>
+
+                        </div>
+                      </br>
+
+
                      <div class="clearfix">
                         <div class="float-right">
                         <%= form.submit class: "btn btn-primary" %>
@@ -410,7 +434,6 @@ function formatRepo (repo) {
       "<div class='select2-result-repository__meta'>" +
         "<div class='select2-result-repository__id'>ID: </div>" +
         "<div class='select2-result-repository__name'>Nombre: </div>" +
-        "<div class='select2-result-repository__aa'>aa: </div>" +
       "</div>" +
     "</div>"
   );

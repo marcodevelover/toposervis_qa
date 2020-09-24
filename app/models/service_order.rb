@@ -23,6 +23,7 @@ class ServiceOrder < ApplicationRecord
   before_validation :cancellation_state_invoice , on: :request_cancellation_state_invoice_to_diagnosis, if: Proc.new { self.diagnosis.sale.bill_state == "valid" }
 
   validates :date_admission, presence: true
+  validates :images, blob: { content_type: ['image/jpg', 'image/jpeg', 'image/png'], size_range: 1..5.megabytes }
   
   def users
     [user, created_by]

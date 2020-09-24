@@ -23,6 +23,12 @@
  
 es: 
   add: Agregar
+  add_accessories: Accesorios
+  add_customers: Clientes
+  add_users: Usuarios
+  select_images: Seleccione los archivos de imágen
+  max_size: Máximo 5 MB
+  product_accessories: Accesorios del producto
   email_availible: Email Disponible
   email_already_taken: Email electrónico ya ha sido tomado
   email_not_exist:  Email no existe
@@ -604,6 +610,8 @@ es:
               required: no puede estar en blanco
             user:
               required: no puede estar en blanco
+            images:
+              max_size_error: tamaño excedido, debe ser menor a 5 MB
         product:
           attributes:
             product_line:
