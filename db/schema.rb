@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_23_144805) do
+ActiveRecord::Schema.define(version: 2020_09_24_194714) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 2020_09_23_144805) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "activity_descriptions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "diagnosis_id", null: false
+    t.string "description"
+    t.integer "created_by_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["diagnosis_id"], name: "index_activity_descriptions_on_diagnosis_id"
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -664,6 +674,7 @@ ActiveRecord::Schema.define(version: 2020_09_23_144805) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "activity_descriptions", "diagnoses"
   add_foreign_key "categories", "category_types"
   add_foreign_key "customer_addresses", "customers"
   add_foreign_key "customer_banks", "customers"

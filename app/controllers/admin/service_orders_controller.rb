@@ -287,6 +287,7 @@ class Admin::ServiceOrdersController < ApplicationController
           images_attachments_attributes: [:id, :_destroy],
           sale_attributes: [:id, :folio, :payment_method_id, :payment_way_id, :use_of_cfdi_id, :state, :_destroy],
           diagnosis_descriptions_attributes: [:id, :diagnosis_id, :description, :created_by_id, :deleted_at, :_destroy],
+          activity_descriptions_attributes: [:id, :diagnosis_id, :description, :created_by_id, :deleted_at, :_destroy],
           items_attributes: [ :id, :product_variant_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy ]
           ]
         )

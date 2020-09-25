@@ -28,6 +28,7 @@
                                   <label class="form-label">Tiempo de diagnostico</label>
                                   <div class="form-group"> 
                                     <%= f.text_field :delivery_time, class: "form-control" %>
+                                    <%= f.error :delivery_time, id: 'delivery_time_error' %>
                                   </div>  
                                 </div> 
 
@@ -46,10 +47,12 @@
                         <!-- start img-->
                         <div class="form-group row">
                            <div class="col-md-12">
-                            <label class="form-label">Imágenes</label>
+                            <span class="fa fa-upload mr-2"></span><label class="form-label"><%=t("select_images")%></label>
+                            <small><%=t("max_size")%></small>
                               <div class="form-row">
                                  <div class="col-lg-12 mb-12x">
                                         <%= f.file_field :images, multiple: true, class: "mb-1 btn btn-outline-secondary" %>
+                                        <%= f.error :images, id: 'images_error' %>
                                  </div>
 
                               </div>
@@ -128,6 +131,8 @@
 
                       <%= render "item", f:f%>
 
+                      <%= render "activity", f:f%>
+
   <% end %>                
 
                      <div class="clearfix">
@@ -170,6 +175,35 @@
       </div>
       <div class="modal-footer">
         <div id="sbm_product" type="button" class="btn btn-primary waves-effect waves-light"><%= t('add')%></div>
+        <div type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><%= t('cancel')%></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Activity /.modal -->
+<div id="note_modal_activity" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg ui-draggable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Procedimiento</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+          <div class="bg-danger rounded" style="color:white; font-weight:bold;">
+            <ul class="errors_"></ul>
+          </div>
+
+
+          <div class="form-group">
+            <label class="control-label">Descripción</label>
+            <input type="text" class="form-control" id="description_activity"> 
+          </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <div id="sbm_product_activity" type="button" class="btn btn-primary waves-effect waves-light"><%= t('add')%></div>
         <div type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><%= t('cancel')%></div>
       </div>
     </div>
@@ -260,6 +294,94 @@
   // Clear the form
   function clearForm(){
     $("#description").val("");
+  }
+
+  // End products ****
+</script>
+<script type="text/javascript">
+  // Products methods ****
+  // variables
+  var product_rows = document.getElementById('table_activity').getElementsByTagName("tr").length;
+  var productCount = <%= @service_order.diagnosis.activity_descriptions.count.to_f %>;
+  var username ="<%= current_user.name %> <%= current_user.lastname %>"; 
+  
+  // Open modal
+  $("#open_modal_activity").click(function(){
+     $("#note_modal_activity").appendTo("body").modal('show');;
+  });
+  // OnclickListener obtiene los valores del formulario producto
+  $('#sbm_product_activity').click(function(){
+    var item = {
+                "description": $("#description_activity").val()
+                };
+    var row = create_row_(item);
+    if(validate_()){
+      $('#table_activity tbody').append(row);
+      $('#note_modal_activity').modal('hide');
+      clearForm_();
+      productCount += 1;
+      
+    }
+  });
+  // Crea la fila
+  function create_row_ (item) {
+    var row = $('<tr class="text-center" data_id='+productCount+'><td>' + item.description + 
+                '</td>' +
+                '<td>'+ username +'</td>' +
+                '<td></td>' +
+                '<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>' +
+                '</td>' + create_row_input_(item) +
+                '</tr>');
+    return row;
+  }
+  // Crea los hidden fields, obtenidos en el formulario
+  function create_row_input_(item){
+    var input =
+    '<input type="hidden" value="'+<%= current_user.id %>+'" name="service_order[diagnosis_attributes][activity_descriptions_attributes]['+productCount+'][created_by_id]" >' +
+    '<input type="hidden" value="'+item.description+'" name="service_order[diagnosis_attributes][activity_descriptions_attributes]['+productCount+'][description]" >';
+    return input;
+  }
+
+  // Validaciones
+  function validate_(){
+    $("#note_modal_activity").animate({ scrollTop: 0 }, 'slow');
+    $("ul.errors_").html("");
+    var validate = true;
+    var errors = [];
+    if($("#description_activity").val() == ""){
+      validate = false;
+      errors.push("Agregue una descripción");
+    }
+    if(validate){
+      return true;
+    }else{
+      $.each( errors, function( key, value ) {
+        // Display errors
+        $("ul.errors_").append($("<li />").html(value))
+      });
+    }
+  }
+
+  // Elimina la fila seleccionada
+  $("#table_activity").on('click', '.btnDelete', function () {
+    var productID = $(this).closest('tr').data("id");
+    if (productID != null){
+      generateOnDestroy_(productID);
+    }
+    $(this).closest('tr').remove();
+    calculateTotal();
+  });
+  // Enviar item para eliminar
+  function generateOnDestroy_(id){
+    var itemDestroy = '<tr><input type="hidden" value="1" name="service_order[diagnosis_attributes][activity_descriptions_attributes]['+productCount+'][_destroy]">'+
+      '<input type="hidden" value="'+id+'" name="service_order[diagnosis_attributes][activity_descriptions_attributes]['+productCount+'][id]"><tr>';
+    $('#table_activity tbody').append(itemDestroy);
+    productCount +=1;
+  }
+
+  // Clear the form
+  function clearForm_(){
+    $("#description_activity").val("");
   }
 
   // End products ****

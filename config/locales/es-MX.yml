@@ -628,6 +628,8 @@ es:
           attributes:
             diagnosis_type:
               required: no puede estar en blanco
+            images:
+              max_size_error: tamaño excedido, debe ser menor a 5 MB
         user:
           attributes:
             role:
@@ -1147,7 +1149,8 @@ es:
   active: Activo
   deleted: Baja
   cancel: Cancelar
-  sold: Vendido
+  sold: Finalizado
+  in_repair: En reparación
   diagnosed: Diagnosticado
   done: Finalizado
   delivered: Entregado

@@ -68,7 +68,7 @@
         <%= render 'provider_contact_fields', f: f %>
   <% end %>
 
-  <%= link_to_add_fields "Agregar Contacto", form, :provider_contacts %>
+  <%= link_to_add_fields "<em class='fa fa-plus-circle fa-fw mr-1'></em><b>Clic para agregar datos de contacto</b>".html_safe, form, :provider_contacts %>
 
   <%= form.fields_for :provider_bank, (@provider.provider_bank.nil? ? ProviderBank.new : @provider.provider_bank) do |f| %>
   

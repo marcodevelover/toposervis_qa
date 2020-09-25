@@ -14,6 +14,7 @@ class ServiceOrder < ApplicationRecord
 
   before_create :set_folio, :set_state
   before_update :update_state, if: Proc.new { self.diagnosis.present? }
+
   #before_update :update_state_sale, if: Proc.new { self.diagnosis.sale.present? }
   
   # active, diagnosed, done, sold, delivered
@@ -23,7 +24,7 @@ class ServiceOrder < ApplicationRecord
   before_validation :cancellation_state_invoice , on: :request_cancellation_state_invoice_to_diagnosis, if: Proc.new { self.diagnosis.sale.bill_state == "valid" }
 
   validates :date_admission, presence: true
-  validates :images, blob: { content_type: ['image/jpg', 'image/jpeg', 'image/png'], size_range: 1..5.megabytes }
+  validates :images, blob: { content_type: ['image/jpg', 'image/jpeg', 'image/png'], size_range: 1..6.megabytes }
   
   def users
     [user, created_by]
@@ -51,6 +52,12 @@ class ServiceOrder < ApplicationRecord
     case @state
     when "active"
       self.state = "diagnosed"
+    when "diagnosed"
+      if self.diagnosis.is_authorized
+        self.state = "in_repair"
+      else
+        self.state = "diagnosed"
+      end
     when "done"
       self.state = "sold"
     else

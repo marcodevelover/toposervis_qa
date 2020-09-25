@@ -232,3 +232,17 @@ a.badge-expired:focus, a.badge-expired.focus {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(240, 80, 80, 0.5);
 }
+
+/* in_repair */
+.badge-in_repair {
+  color: #fff;
+  background-color: #fad732;
+}
+a.badge-in_repair:hover, a.badge-in_repair:focus {
+  color: #fff;
+  background-color: #ec2121;
+}
+a.badge-in_repair:focus, a.badge-in_repair.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(240, 80, 80, 0.5);
+}

@@ -166,6 +166,10 @@ rails g migration AddColumsCompanyToUser company:string
 
 ------
 
+rails g model ActivityDescription diagnosis:references description:string created_by_id:integer deleted_at:datetime
+
+
+------
 Documentation
 
 -- Quotation --
