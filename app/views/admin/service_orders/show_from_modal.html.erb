@@ -19,8 +19,16 @@
 <% end %>
 
 <p>
-  <strong><%= t("service_orders.user")%>:</strong>
+  <strong><%= t("users.contact")%>:</strong>
   <%= @service_order.user.name %> <%= @service_order.user.lastname %>
+</p>
+<p>
+  <strong><%= t("users.phone")%>:</strong>
+  <%= @service_order.user.blank? ?  "----" : @service_order.user.phone %>
+</p>
+<p>
+  <strong><%= t("users.email")%>:</strong>
+  <%= @service_order.user.blank? ?  "----" : @service_order.user.email %>
 </p>
 
 <p>

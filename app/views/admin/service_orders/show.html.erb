@@ -109,12 +109,16 @@
               <table>
                 <tr>
                   <td>
-                    <b>Contacto:</b>
-                    <%= @service_order.customer.customer_contacts.blank? ? "----" : @service_order.customer.customer_contacts.first.name%><br>
                     <b>Compañia:</b>
-                    <%= @service_order.customer.business_name %><br>
+                    <%= @service_order.customer.business_name.blank? ? "----" : @service_order.customer.business_name %><br>
+                    <b>RFC:</b>
+                    <%= @service_order.customer.rfc.blank? ? "----" : @service_order.customer.rfc %><br>
+                    <b>Contacto:</b>
+                    <%= @service_order.user.blank? ?  "----" : @service_order.user.name + " " + @service_order.user.lastname %><br>
+                    <b>Teléfono:</b>
+                    <%= @service_order.user.blank? ?  "----" : @service_order.user.phone %><br>
                     <b>E-mail:</b>
-                    <%= @service_order.customer.customer_contacts.blank? ? "----" : @service_order.customer.customer_contacts.first.email %><br>
+                    <%= @service_order.user.blank? ?  "----" : @service_order.user.email %><br>                 
                     <% if @service_order.diagnosis.sale.present? %>
                     <b>Método de pago:</b>
                     <%= @service_order.diagnosis.sale.payment_method.name %><br>
@@ -373,12 +377,16 @@
               <table>
                 <tr>
                   <td>
-                    <b>Contacto:</b>
-                    <%= @service_order.customer.customer_contacts.blank? ? "----" : @service_order.customer.customer_contacts.first.name %><br>
                     <b>Compañia:</b>
-                    <%= @service_order.customer.business_name %><br>
+                    <%= @service_order.customer.business_name.blank? ? "----" : @service_order.customer.business_name %><br>
+                    <b>RFC:</b>
+                    <%= @service_order.customer.rfc.blank? ? "----" : @service_order.customer.rfc %><br>
+                    <b>Contacto:</b>
+                    <%= @service_order.user.blank? ?  "----" : @service_order.user.name + " " + @service_order.user.lastname %><br>
+                    <b>Teléfono:</b>
+                    <%= @service_order.user.blank? ?  "----" : @service_order.user.phone %><br>
                     <b>E-mail:</b>
-                    <%= @service_order.customer.customer_contacts.blank? ? "----" : @service_order.customer.customer_contacts.first.email %>
+                    <%= @service_order.user.blank? ?  "----" : @service_order.user.email %><br>
                   </td>
                   <td>
                     <b>Orden de servicio</b><br>

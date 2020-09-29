@@ -248,6 +248,7 @@ es:
     status: Estatus
     role: Rol
     company: Empresa
+    contact: Contacto
   quotations:
     folio: Folio
     quantity: Cantidad
