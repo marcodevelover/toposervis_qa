@@ -114,13 +114,11 @@
                                       <td>
                                       <%= item.accessory %>
                                       </td>
-                                      <td><%= item.quantity %></td>
+                                      <td><input type="text" value="<%=item.quantity%>" name="service_order[order_accessories_attributes][<%=index%>][quantity]" class="form-control" size="1"></td>
 
                                       <td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>
 
                                         <input type="hidden" value="<%=item.accessory%>" name="service_order[order_accessories_attributes][<%=index%>][accessory]">
-                                      
-                                        <input type="hidden" value="<%=item.quantity%>" name="service_order[order_accessories_attributes][<%=index%>][quantity]">
                                         
                                         <input type="hidden" value="<%=item.id%>" name="service_order[order_accessories_attributes][<%=index%>][id]">
                                     </tr>
@@ -531,7 +529,7 @@ function loadCategories(){
       item.discount_type = "N/A";
     }
     var row = $('<tr class="text-center" data_id='+productCount+'><td>' + item.accessory + 
-                '</td><td>' + item.quantity +
+                '</td><td>' + '<input type="text" value="'+item.quantity+'" name="service_order[order_accessories_attributes]['+productCount+'][quantity]" class="form-control" size="1">' +
                 '<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>' +
                 '</td>' + create_row_input(item) +
                 '</tr>');
@@ -540,9 +538,7 @@ function loadCategories(){
   // Crea los hidden fields, obtenidos en el formulario
   function create_row_input(item){
     var input =
-    '<input type="hidden" value="'+item.accessory+'" name="service_order[order_accessories_attributes]['+productCount+'][accessory]" >' +
-    '<input type="hidden" value="'+item.quantity+'" name="service_order[order_accessories_attributes]['+productCount+'][quantity]" >';
-    
+    '<input type="hidden" value="'+item.accessory+'" name="service_order[order_accessories_attributes]['+productCount+'][accessory]" >';
     return input;
   }
   // Establece el total en el formulario
