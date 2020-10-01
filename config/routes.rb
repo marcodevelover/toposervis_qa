@@ -101,6 +101,7 @@ Rails.application.routes.draw do
     end    
     resources :diagnoses do
       get :show_from_pdf, on: :member
+      get :output_pdf, on: :member
     end
     resources :service_orders do
       get :delete, on: :member

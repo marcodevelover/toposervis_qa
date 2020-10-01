@@ -77,6 +77,12 @@
                     <%end%>
                     <% end %>
 
+                    <% if object.diagnosis.present? && object.diagnosis.sale.present? %>
+                    <%= link_to output_pdf_admin_diagnosis_path(object.diagnosis.id, format: :pdf), :class => "dropdown-item", target: :_blank do %>
+                        Orden de salida
+                    <%end%>
+                    <% end %>
+
                </div>
             <%end%>
 

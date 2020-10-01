@@ -1,6 +1,6 @@
 class Admin::DiagnosesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_diagnosis, only: [:show, :edit, :update, :destroy, :show_from_pdf]
+  before_action :set_diagnosis, only: [:show, :edit, :update, :destroy, :show_from_pdf, :output_pdf]
 
   # GET /diagnoses
   # GET /diagnoses.json
@@ -20,6 +20,25 @@ class Admin::DiagnosesController < ApplicationController
             render pdf: "orden_servicio_" + @diagnosis.service_order.folio,
             
             template: "admin/diagnoses/show_from_pdf.html.erb",
+            
+            layout: "pdf.html",
+            viewport_size: '1280x1024',
+            margin:  {   
+                         bottom: 40,
+                         
+                         },
+            footer:  {   html: {   template: "admin/diagnoses/footer_pdf.html.erb"}}
+        end
+    end
+  end
+
+  def output_pdf
+    respond_to do |format|
+        format.html
+        format.pdf do
+            render pdf: "orden_salida_" + @diagnosis.service_order.folio,
+            
+            template: "admin/diagnoses/output_pdf.html.erb",
             
             layout: "pdf.html",
             viewport_size: '1280x1024',

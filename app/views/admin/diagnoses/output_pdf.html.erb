@@ -49,7 +49,7 @@
                   </td>
                   <td class="top">
                     <% if @diagnosis.sale.present?%>
-                    <h3>Nota de venta</h3>
+                    <h3>Orden de salida</h3>
                     <b>Folio:</b>
                     <b class="blue"><%= @diagnosis.sale.folio %></b><br>
                     <b>Fecha:</b>
@@ -71,7 +71,7 @@
             <td colspan="5"><b>Producto:</b> <%= @diagnosis.service_order.product.name %></td>
           </tr>
           <tr>
-            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @diagnosis.service_order.product.name %></b> marca <b><%= @diagnosis.service_order.brand %></b> modelo <b><%= @diagnosis.service_order.model %></b> con número de serie <b><%= @diagnosis.service_order.serie %></b> para su revisión y diagnostico.</br><br> <b>Accesorios que incluye:</b><br></td>
+            <td colspan="5">Por este medio manifiesto recibir el equipo&nbsp;<b><%= @diagnosis.service_order.product.name %></b> marca <b><%= @diagnosis.service_order.brand %></b> modelo <b><%= @diagnosis.service_order.model %></b> con número de serie <b><%= @diagnosis.service_order.serie %></b>.</br><br> <b>Accesorios que incluye:</b><br></td>
           </tr>          
 
           <tr class="heading">
