@@ -21,6 +21,7 @@
                                   <label class="form-label">Fecha de diagnostico</label>
                                   <div class="form-group"> 
                                     <%= f.text_field :date, class: "form-control" , placeholder: "Fecha", type: 'date', value: (f.object.date ? f.object.date.to_date : '')%>
+                                    <%= f.error :date, id: 'date_error' %>
                                   </div>  
                                 </div> 
 
@@ -32,14 +33,13 @@
                                   </div>  
                                 </div> 
 
-                                 <div class="col-lg-4 mb-4">
-                                  <%= f.label :diagnosis_type_id, class: "col-form-label"%>
+                                <div class="col-lg-4 mb-4">
+                                  <%= f.label :diagnosis_type_id, class: "form-label"%>
                                   <div class="form-group">
-                                    <%= f.collection_select :diagnosis_type_id, DiagnosisType.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
+                                    <%= f.collection_select :diagnosis_type_ids, DiagnosisType.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm", multiple: true}  %>
                                     <%= f.error :diagnosis_type, id: 'diagnosis_type_error' %>
                                   </div> 
-                                 </div>
-
+                                </div>
                               </div>
                           </div>
                         </div>
@@ -385,4 +385,9 @@
   }
 
   // End products ****
+</script>
+<script type="text/javascript">
+$('#service_order_diagnosis_attributes_diagnosis_type_ids').select2({
+  placeholder: 'Selecciona una o más opciones'
+});  
 </script>

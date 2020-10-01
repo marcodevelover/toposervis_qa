@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_24_194714) do
+ActiveRecord::Schema.define(version: 2020_10_01_174355) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -152,7 +152,6 @@ ActiveRecord::Schema.define(version: 2020_09_24_194714) do
     t.datetime "date"
     t.string "delivery_time"
     t.datetime "date_delivery"
-    t.bigint "diagnosis_type_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.decimal "subtotal", precision: 18, scale: 6
@@ -164,8 +163,16 @@ ActiveRecord::Schema.define(version: 2020_09_24_194714) do
     t.boolean "is_done"
     t.integer "currency_id"
     t.boolean "is_authorized"
-    t.index ["diagnosis_type_id"], name: "index_diagnoses_on_diagnosis_type_id"
     t.index ["service_order_id"], name: "index_diagnoses_on_service_order_id"
+  end
+
+  create_table "diagnoses_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "diagnosis_id", null: false
+    t.bigint "diagnosis_type_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["diagnosis_id"], name: "index_diagnoses_types_on_diagnosis_id"
+    t.index ["diagnosis_type_id"], name: "index_diagnoses_types_on_diagnosis_type_id"
   end
 
   create_table "diagnosis_descriptions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -679,8 +686,9 @@ ActiveRecord::Schema.define(version: 2020_09_24_194714) do
   add_foreign_key "customer_addresses", "customers"
   add_foreign_key "customer_banks", "customers"
   add_foreign_key "customer_contacts", "customers"
-  add_foreign_key "diagnoses", "diagnosis_types"
   add_foreign_key "diagnoses", "service_orders"
+  add_foreign_key "diagnoses_types", "diagnoses"
+  add_foreign_key "diagnoses_types", "diagnosis_types"
   add_foreign_key "diagnosis_descriptions", "diagnoses"
   add_foreign_key "expense_amounts", "expenses"
   add_foreign_key "expenses", "accounts"

@@ -169,6 +169,9 @@ rails g migration AddColumsCompanyToUser company:string
 rails g model ActivityDescription diagnosis:references description:string created_by_id:integer deleted_at:datetime
 
 
+rails g model DiagnosesTypes diagnosis:references diagnosis_type:references
+rails g migration DeleteColumsDiagnosisTypeId diagnosis_type_id:integer
+
 ------
 Documentation
 

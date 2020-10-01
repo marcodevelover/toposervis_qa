@@ -117,11 +117,21 @@
       </p>
 
       <p>
-        <strong>Tipo de diagnostico:</strong>
-        <%= @service_order.diagnosis.diagnosis_type.name %>
-      </p>
+      <% unless @service_order.diagnosis.diagnoses_types.blank? %>
+      <strong>Tipo de diagnostico:</strong>
+      <div class="form-group row" >
+      <% @service_order.diagnosis.diagnoses_types.each do |f| %>
+                <div class="col-md-3">
+                  <%= f.diagnosis_type.name %>
+                </div>    
+      <% end %>
+      </div> 
+      <% end %> 
+      <p>
+        
       <p>
       <% if @service_order.diagnosis.images.attached? %>
+      <strong>Imágenes de diagnostico:</strong>
       <div class="form-group row" >
       <% @service_order.diagnosis.images.each do |f| %>
                 <div class="col-md-6">
