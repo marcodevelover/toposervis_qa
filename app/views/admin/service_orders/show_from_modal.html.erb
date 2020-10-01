@@ -128,7 +128,7 @@
       </div> 
       <% end %> 
       <p>
-        
+
       <p>
       <% if @service_order.diagnosis.images.attached? %>
       <strong>Imágenes de diagnostico:</strong>
@@ -156,6 +156,88 @@
       </table>
       <% end %>
       </p>
+
+
+<!--diagnosis items-->
+<table class="table table-bordered table-hover toggle-circle">
+          <tr>
+            <td colspan="5" style="text-align: left;"><br><b>Presupuesto:</b></td>
+          </tr>         
+
+          <tr class="heading">
+            <td class="center">Concepto</td>
+            <td class="center">Unidad</td>
+            <td class="center">Precio</td>
+            <td class="center">Cantidad</td>
+            <td class="center">Total</td>
+          </tr>
+
+          <% @service_order.diagnosis.items.each do |item| %>
+            <tr class="item">
+                <td>
+                    <%= item.name %><br>
+                    <small><%= item.extended_description %></small>
+                </td>
+
+                <td class="center">
+                    <%= item.unit %>
+                </td>
+
+                <td class="center">
+                    <%= number_to_currency(item.unit_price) %>
+                </td>
+
+                <td class="center">
+                    x <%= item.quantity %>
+                </td>
+
+                <td class="center">
+                    <%= number_to_currency(item.unit_price * item.quantity) %>
+                </td>
+            </tr>
+          <% end %>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>Subtotal</b></td>
+            <td class="center"><%= number_to_currency(@service_order.diagnosis.subtotal) %></td>
+          </tr>
+
+          <% if @service_order.diagnosis.adjustment_total != 0 %>
+          <tr>
+            <td colspan="3"></td>
+            
+            <td><b>Descuento</b></td>
+            <td class="center">- <%= number_to_currency(@service_order.diagnosis.adjustment_total) %></td>
+            
+          </tr>
+          <% end %>
+
+          <% if @service_order.diagnosis.is_tax %>
+          <tr>
+            <td colspan="3"></td>
+            
+            <td><b>Impuesto (<%= (@service_order.diagnosis.tax * 100).to_i %>%)</b></td>
+            <td class="center">+ <%= number_to_currency(@service_order.diagnosis.tax_total) %></td>
+            
+          </tr>
+          <% end %>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>TOTAL:</b></td>
+            <td class="center">
+               <% if @service_order.diagnosis.is_tax %>
+               <b><%= number_to_currency(@service_order.diagnosis.total) %></b>
+               <%else%>
+               <b><%= number_to_currency(@service_order.diagnosis.subtotal) %></b>
+               <%end%>
+            </td>
+          </tr>
+</table>
+<!--end diagnosis items-->
+
+
 
       <p>
       <% if @service_order.diagnosis.diagnosis_descriptions %>
