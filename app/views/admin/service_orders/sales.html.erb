@@ -32,9 +32,20 @@
                                 </div> 
 
                                  <div class="col-lg-4 mb-4">
-                                  <strong><%= f.label :diagnosis_type_id, class: "col-form-label"%></strong>
+                                  <strong><%= f.label :diagnosis_type_id, class: "form-label"%></strong>
                                   <div class="form-group">
-                                    <label class="form-label"><%= @service_order.diagnosis.diagnosis_type.name %></label>
+                                    
+                                    <% unless @service_order.diagnosis.diagnoses_types.blank? %>
+                                    
+                                    <div class="form-group row" >
+                                    <% @service_order.diagnosis.diagnoses_types.each do |f| %>
+                                              
+                                                <%= f.diagnosis_type.name %><br>
+                                              
+                                    <% end %>
+                                    </div> 
+                                    <% end %> 
+                                                                  
                                  
                                   </div> 
                                  </div>

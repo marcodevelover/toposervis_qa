@@ -1,17 +1,17 @@
 swal({
-    title: 'Are you sure?',
+    title: '¿Estas seguro?',
     text: 'Desea borrar este registro!',
     icon: 'warning',
     buttons: {
         cancel: {
-            text: 'No, cancel!',
+            text: 'No, cancelar!',
             value: null,
             visible: true,
             className: "",
             closeModal: false
         },
         confirm: {
-            text: 'Yes, delete it!',
+            text: 'Si, eliminar!',
             value: true,
             visible: true,
             className: "bg-danger",
@@ -21,7 +21,7 @@ swal({
 }).then(function(isConfirm) {
 
     if (isConfirm) {
-        swal('Deleted!', 'Tu registro se ha dado de baja.', 'success');
+        swal('Eliminado!', 'Tu registro se ha dado de baja.', 'success');
         $.ajax({
                 url: "/admin/<%=controller_name%>/<%=@object.id%>/",
                 type: "DELETE",  
@@ -29,11 +29,11 @@ swal({
                     swal("done", "changes_saved", "success");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    swal("Error deleting!", "Please try again", "error");
+                    swal("Error eliminando!", "Por favor intenta de nuevo", "error");
                 }
             });                
     } else {
-        swal('Cancelled', 'Your file is safe :)', 'error');
+        swal('Cancelado', 'No se realizaron los cambios', 'error');
     }
 
     });

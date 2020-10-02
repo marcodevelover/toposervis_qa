@@ -156,7 +156,6 @@ class Admin::ServiceOrdersController < ApplicationController
 
   def output
     respond_modal_for_output_with(@service_order,true)
-    ServiceOrderMailer.with(service_order: @service_order).service_order_delivered.deliver_later
   end
 
   # PUT /service_orders/1
@@ -165,6 +164,7 @@ class Admin::ServiceOrdersController < ApplicationController
     @object = @service_order
     respond_to do |format|
           if @object.save  
+            ServiceOrderMailer.with(service_order: @service_order).service_order_delivered.deliver_later
             search
             @objects= @collection
             format.js  { render "admin/shared/save.js.erb", layout: false, content_type: 'text/javascript' }
