@@ -55,8 +55,8 @@
                     <b>Fecha:</b>
                     <b class="blue"><%= @diagnosis.sale.created_at.strftime("%d-%m-%Y") %></b><br>
                     <% end %>
-                  	<h3>Orden de servicio</h3>
-                  	<b>Folio:</b>
+                    <h3>Orden de servicio</h3>
+                    <b>Folio:</b>
                     <b class="blue"><%= @diagnosis.service_order.folio %></b><br>
                     <b>Fecha:</b>
                     <b class="blue"><%= @diagnosis.service_order.created_at.strftime("%d-%m-%Y") %></b><br>
@@ -160,8 +160,6 @@
             </tr>
           <% end %>
 
-
-
           <tr>
             <td colspan="5"></td>
           </tr>
@@ -199,8 +197,11 @@
                <%end%>
             </td>
           </tr>
-
 <!--end diagnosis items-->
+        </table>
+</div>
+<div class="invoice-box nobreak">
+        <table cellpadding="0" cellspacing="0">
           <tr>
             <td colspan="5"></td>
           </tr>
@@ -247,9 +248,5 @@
             <td colspan="3" style="text-align: center"><strong>Cliente</strong></td>
             <td colspan="3" style="text-align: center"><strong>Toposervis S de RL de CV</strong></td>
           </tr>
-              </table>
-            </td>
-          </tr>          
-          
         </table>
-    </div>
+</div>

@@ -5,8 +5,25 @@
   <title>pdf</title>
   <%= stylesheet_link_tag wicked_pdf_asset_base64("pdf") %>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style type="text/css">
+	div.alwaysbreak { page-break-before: always; }
+	div.nobreak:before { clear:both; }
+	div.nobreak{ page-break-inside: avoid;}  
+  </style>
+  <script>
+    function number_pages() {
+      var vars={};
+      var x=document.location.search.substring(1).split('&');
+      for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = decodeURIComponent(z[1]);}
+      var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+      for(var i in x) {
+        var y = document.getElementsByClassName(x[i]);
+        for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+      }
+    }
+  </script>
 </head>
-<body>
+<body onload="number_pages()">
   <%= yield %>
 </body>
 </html>
