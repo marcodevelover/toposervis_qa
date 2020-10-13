@@ -25,6 +25,7 @@
 
                </div>
                <div class="card-body">
+<a href="#" data-toggle="tooltip" title="Hooray!">Hover over me</a>
 
                   <div class="table-responsive bootgrid">
                      <table class="table table-striped" id="bootgrid-command" >
@@ -36,7 +37,7 @@
                               <th data-column-id="customer" data-order="desc"><%= t("service_orders.customer")%></th>
                               <th data-column-id="product" data-order="desc"><%= t("service_orders.product")%></th>
                               <th data-column-id="product" data-order="desc"><%= t("service_orders.serie")%></th>
-                              <th data-column-id="status" data-order="desc"><%= t("service_orders.is_authorized")%></th>
+                              <th data-column-id="status" data-order="desc"><%= t("sales.state_payment")%></th>
                               <th data-column-id="status" data-order="desc"><%= t("service_orders.state")%></th>
                               <th data-column-id="commands" data-formatter="commands" data-sortable="false">
                                  <div class="text-left"><%= t :commands %></div>
@@ -60,3 +61,8 @@
                 
                </div>
             </div>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>

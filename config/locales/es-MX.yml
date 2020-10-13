@@ -383,6 +383,7 @@ es:
   sales:
     folio: Folio
     state: Estatus
+    state_payment: Estatus pago
     deleted_at: Eliminado el
   units:
     name: Nombre

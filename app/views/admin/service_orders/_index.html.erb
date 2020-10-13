@@ -7,7 +7,7 @@
         <td><%= object.customer ? object.customer.business_name : "N/A" %></td>
         <td><%= object.product ? object.product.name : "N/A" %></td>
         <td><%= object.serie %></td>
-        <td><span class="badge badge-active"><%= object.diagnosis.blank? ? "" : t(object.diagnosis.is_authorized) %></span></td>
+        <td><span class="badge badge-active"><%= object.diagnosis.blank? ? "" : object.diagnosis.sale.blank? ? "" : t(object.diagnosis.sale.state) %></span></td>
         <td>
             <% if object.deleted_at? %>
                 <span class="badge badge-danger">Baja</span>
