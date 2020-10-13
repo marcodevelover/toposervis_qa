@@ -11,6 +11,7 @@ require("@rails/ujs").start()
 // require("channels")
 
 //--- Bootstrap
+require("pooper");
 import 'bootstrap';
 
 import appInit from './angle/app.init.js';
