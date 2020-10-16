@@ -409,6 +409,7 @@ es:
     state: Estatus
   payment_methods:
     name: Nombre
+    payment_method_key: Clave SAT
     description: Descripción
     deleted_at: Eliminado el
     state: Estatus
@@ -416,6 +417,7 @@ es:
     name: Nombre
     description: Descripción
     name: Nombre
+    payment_way_key: Clave SAT
     description: Descripción
     deleted_at: Eliminado el
     state: Estatus
@@ -703,6 +705,8 @@ es:
       ReceiptType: Tipos de comprobante
       entry_code: códigos de entrada
       EntryCode: Códigos de entrada
+      Sale: Facturación
+      sale: facturación
     attributes: 
       accessory:
         name: Nombre

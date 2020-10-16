@@ -9,6 +9,13 @@
                 <em class="fa fa-file-excel"></em> Exportar
                 </div>
                 <% end%>
+                <br><br>
+                <div class="form-group">
+                <%= search_form_for [:admin, @q] do |f| %>
+                  <%= f.search_field :folio_cont, class: "form-control", placeholder: t('search') %><br>
+                  <%= f.submit class: "btn btn-success waves-effect"%>
+                <% end %>
+                </div>
                </div>
                <div class="card-body">
                   <div class="table-responsive bootgrid">
@@ -18,6 +25,7 @@
                               <th data-column-id="id" data-type="numeric">ID</th>
                               <th data-column-id="name">Origen</th>
                               <th data-column-id="rfc" data-order="desc">Folio</th>
+                              <th data-column-id="rfc" data-order="desc">Folio origen</th>
                               <th data-column-id="business_name" data-order="desc">Método de pago</th>
                               <th data-column-id="business_name" data-order="desc">Forma de pago</th>
                               <th data-column-id="status" data-order="desc">Estatus</th>

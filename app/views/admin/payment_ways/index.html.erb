@@ -12,6 +12,13 @@
                 <em class="fa fa-file-excel"></em> Exportar
                 </div>
                 <% end%>
+                <br><br>
+                <div class="form-group">
+                <%= search_form_for [:admin, @q] do |f| %>
+                  <%= f.search_field :name_or_description_or_payment_way_key_cont, class: "form-control", placeholder: t('search') %><br>
+                  <%= f.submit class: "btn btn-success waves-effect"%>
+                <% end %>
+                </div>
                </div>
                <div class="card-body">
                   <div class="table-responsive bootgrid">
@@ -20,6 +27,7 @@
                            <tr>
                               <th data-column-id="id" data-type="numeric">ID</th>
                               <th data-column-id="name"><%= t("payment_ways.name")%></th>
+                              <th data-column-id="name"><%= t("payment_ways.payment_way_key")%></th>
                               <th data-column-id="status" data-order="desc"><%= t("payment_ways.state")%></th>
                               <th data-column-id="commands" data-formatter="commands" data-sortable="false">
                                  <div class="text-left"><%= t :commands %></div>
