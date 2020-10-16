@@ -81,6 +81,12 @@ es:
   category: Categoría
   category_module: Categorías
   categories: Categorías
+  information: Información
+  service_order: Orden de servicio
+  to_diagnose: Diagnostico
+  sale_order: Nota de venta 
+  delever: Entregar
+  remove: Eliminar
   shared:
     validation:
       size_validation: El número de imágenes ingresadas es mayor a los 10MB permitidos

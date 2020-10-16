@@ -11,7 +11,6 @@ require("@rails/ujs").start()
 // require("channels")
 
 //--- Bootstrap
-require("pooper");
 import 'bootstrap';
 
 import appInit from './angle/app.init.js';
@@ -29,13 +28,12 @@ import $ from 'jquery'
 global.$ = $
 global.jQuery = $
 
-require('jquery-ui');
-
-
-
-
 import 'sweetalert';
 import 'select2';
 
 require("chartkick")
 require("chart.js")
+
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
