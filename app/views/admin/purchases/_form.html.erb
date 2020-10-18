@@ -406,7 +406,7 @@ $("#purchase_provider_id").select2({
     delay: 250,
     data: function (params) {
       return {
-        q: {business_name_or_rfc_cont: params.term}, // search term
+        q: {name_or_business_name_or_rfc_cont: params.term}, // search term
         page: params.page
       };
     },
