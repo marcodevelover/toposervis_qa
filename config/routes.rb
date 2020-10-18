@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'reports/sales_total', to: 'reports#sales_total', as: 'reports_sales'
     get 'reports/products_total', to: 'reports#products_total', as: 'reports_products'
     get 'reports/kardex', to: 'reports#kardex', as: 'reports_kardex'
+    post  'quotations/:id/sale', :to => 'quotations#sale', as: :sale
     resources :users do
       get :delete, on: :member
       get :filter_form, on: :collection

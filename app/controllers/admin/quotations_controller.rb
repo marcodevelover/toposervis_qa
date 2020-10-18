@@ -96,6 +96,23 @@ class Admin::QuotationsController < ApplicationController
     end
   end
 
+  def sale
+    if params[:quotation][:sale_attributes].present?
+      @quotation.sale.nil? ? @quotation.build_sale : @quotation.sale
+      @quotation.sale.created_by_id = current_user.id
+    end
+
+    respond_to do |format|
+      if @quotation.update(quotation_params)
+        format.html { redirect_to [:admin, @quotation], notice: 'Quotation was successfully updated.' }
+        format.json { render :show, status: :ok, location: @quotation }
+      else
+        format.html { render :sales }
+        format.json { render json: @quotation.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def delete
     respond_modal_for_delete_with(@quotation,true)
   end

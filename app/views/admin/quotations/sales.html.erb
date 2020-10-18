@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @quotation]) do |form| %>
+<%= simple_form_for([:admin, @quotation], :url => {controller: 'quotations', action: 'sale'},:method => :post) do |form| %>
   <%= form.error_notification %>
   <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
             <!-- START card-->
@@ -50,7 +50,7 @@
 
                                  <div class="col-lg-6 mb-6">
                                    <div class="form-group">
-                                     <% @states  = ["", "payment", "pending"]  %>
+                                     <% @states  = [["",""], ["Pagado","payment"], ["Pendiente", "pending"] ] %>
                                      <%= sale.input :state, collection: @states, selected: @quotation.sale.state, input_html: { class: 'custom-select custom-select-sm' } %>                                      
                                    </div>
                                  </div>
