@@ -5,15 +5,15 @@
         <td><%= object.payment_method_key %></td>
         <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activo</span>".html_safe %></td>
         <td>
-        	<%= link_to [:admin, object], :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
+        	<%= link_to [:admin, object], :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('information') }   do %>
         		<em class="fas fa-info-circle"></em> 
         	<%end%>
 
-        	<%= link_to edit_admin_payment_method_path(object), :class => "btn btn-sm btn-info", data: { modal: true }   do %>
+        	<%= link_to edit_admin_payment_method_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('edit') }   do %>
         		<em class="fa fa-edit"></em> 
         	<%end%>
         		
-        	<%= link_to delete_admin_payment_method_path(object), :class => "btn btn-sm btn-danger", remote: true   do %>
+        	<%= link_to delete_admin_payment_method_path(object), :class => "btn btn-sm btn-danger", remote: true, data: { toggle: 'tooltip', placement: 'top', original_title: t('remove') }   do %>
         		<em class="fa fa-trash fa-fw"></em>
         	<%end%>           		
         </td>

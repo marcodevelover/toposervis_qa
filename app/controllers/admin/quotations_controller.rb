@@ -96,7 +96,7 @@ class Admin::QuotationsController < ApplicationController
     end
   end
 
-  def sale
+  def to_sell
     if params[:quotation][:sale_attributes].present?
       @quotation.sale.nil? ? @quotation.build_sale : @quotation.sale
       @quotation.sale.created_by_id = current_user.id

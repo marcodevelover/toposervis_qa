@@ -14,19 +14,19 @@
             <% end %>
         </td>
         <td>
-            <%= link_to show_from_modal_admin_purchase_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
+            <%= link_to show_from_modal_admin_purchase_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('information') }   do %>
                 <em class="fas fa-info-circle"></em> 
             <%end%>
 
-        	<%= link_to edit_admin_purchase_path(object), :class => "btn btn-sm btn-info" do %>
+        	<%= link_to edit_admin_purchase_path(object), :class => "btn btn-sm btn-info", data: { toggle: 'tooltip', placement: 'top', original_title: t('edit') } do %>
         		<em class="fa fa-edit"></em> 
         	<%end%>    
 
-            <%= link_to show_from_pdf_admin_purchase_path(object, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+            <%= link_to show_from_pdf_admin_purchase_path(object, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank, data: { toggle: 'tooltip', placement: 'top', original_title: t('print') } do %>
                 <em class="fas fa-print"></em> 
             <%end%>
         		
-        	<%= link_to delete_admin_purchase_path(object), :class => "btn btn-sm btn-danger", remote: true   do %>
+        	<%= link_to delete_admin_purchase_path(object), :class => "btn btn-sm btn-danger", remote: true, data: { toggle: 'tooltip', placement: 'top', original_title: t('remove') }   do %>
         		<em class="fa fa-trash fa-fw"></em>
         	<%end%>           		
         </td>

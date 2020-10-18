@@ -9,15 +9,15 @@
         <td><%= object.provider.name %></td>
         <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activo</span>".html_safe %></td>
         <td>
-            <%= link_to show_from_modal_admin_expense_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
+            <%= link_to show_from_modal_admin_expense_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('information') }   do %>
                 <em class="fas fa-info-circle"></em> 
             <%end%>
 
-            <%= link_to edit_admin_expense_path(object), :class => "btn btn-sm btn-info" do %>
+            <%= link_to edit_admin_expense_path(object), :class => "btn btn-sm btn-info", data: { toggle: 'tooltip', placement: 'top', original_title: t('edit') } do %>
                 <em class="fa fa-edit"></em> 
             <%end%>
             <% unless object.deleted_at?%>
-        	<%= link_to delete_admin_expense_path(object), :class => "btn btn-sm btn-danger", remote: true   do %>
+        	<%= link_to delete_admin_expense_path(object), :class => "btn btn-sm btn-danger", remote: true, data: { toggle: 'tooltip', placement: 'top', original_title: t('remove') }   do %>
         		<em class="fa fa-trash fa-fw"></em>
         	<%end%>    
             <%end%>       		

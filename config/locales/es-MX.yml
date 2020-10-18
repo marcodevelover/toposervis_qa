@@ -87,6 +87,10 @@ es:
   sale_order: Nota de venta 
   delever: Entregar
   remove: Eliminar
+  print: Imprimir
+  bill: Facturación
+  add_images: Imágenes
+  add_accessories: Accesorios
   shared:
     validation:
       size_validation: El número de imágenes ingresadas es mayor a los 10MB permitidos

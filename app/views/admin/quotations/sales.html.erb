@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @quotation], :url => {controller: 'quotations', action: 'sale'},:method => :post) do |form| %>
+<%= simple_form_for([:admin, @quotation], :url => {controller: 'quotations', action: 'to_sell'},:method => :post) do |form| %>
   <%= form.error_notification %>
   <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
             <!-- START card-->
