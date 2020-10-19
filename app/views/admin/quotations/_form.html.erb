@@ -348,7 +348,7 @@ $("#note_product").select2({
     delay: 250,
     data: function (params) {
       return {
-        q: {code_or_product_name_cont: params.term}, // search term
+        q: {code_or_product_name_or_product_model_or_product_brand_cont: params.term}, // search term
         page: params.page
       };
     },
@@ -384,6 +384,9 @@ function formatRepo (repo) {
     "<div class='select2-result-repository clearfix'>" +
       "<div class='select2-result-repository__meta'>" +
         "<div class='select2-result-repository__id'>ID: </div>" +
+        "<div class='select2-result-repository__name'>Nombre: </div>" +
+        "<div class='select2-result-repository__model'>Modelo: </div>" +
+        "<div class='select2-result-repository__brand'>Marca: </div>" +
         "<div class='select2-result-repository__code'>Código: </div>" +
         "<div class='select2-result-repository__unit_price'>Precio unitario: </div>" +
         "<div class='select2-result-repository__stock'>Existencias: </div>" +
@@ -393,6 +396,9 @@ function formatRepo (repo) {
 
 
   $container.find(".select2-result-repository__id").append(repo.id);
+  $container.find(".select2-result-repository__name").append(repo.product_name);
+  $container.find(".select2-result-repository__model").append(repo.product_model);
+  $container.find(".select2-result-repository__brand").append(repo.product_brand);
   $container.find(".select2-result-repository__code").append(repo.code);
   $container.find(".select2-result-repository__unit_price").append(repo.unit_price);
   $container.find(".select2-result-repository__stock").append(repo.stock);
@@ -422,7 +428,7 @@ function formatRepoSelection (repo) {
         console.log('Lo lamentamos, debe seleccionar al menos una MONEDA');
     }
   }
-  return repo.code || repo.text;
+  return repo.product_name || repo.text;
 }
 
 </script>
