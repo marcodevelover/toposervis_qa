@@ -22,7 +22,7 @@ class Diagnosis < ApplicationRecord
   accepts_nested_attributes_for :sale
 
   before_create :set_tax
-  before_update :update_state_for_sale, if: Proc.new { self.sale.present? && self.is_done}
+  ###move in form, diagnoses before_update :update_state_for_sale, if: Proc.new { self.sale.present? && self.is_done}
 
   validates :date, presence: true
   
@@ -34,9 +34,10 @@ class Diagnosis < ApplicationRecord
     self.tax = Tax.where(default: true).first.value
   end  
 
-  def update_state_for_sale
-    @service_order = ServiceOrder.find_by(id: self.service_order.id)
-    @service_order.update(state: 'done')
-  end    
+  ####move in form, diagnoses
+  #def update_state_for_sale
+  #  @service_order = ServiceOrder.find_by(id: self.service_order.id)
+  #  @service_order.update(state: 'done')
+  #end    
 
 end

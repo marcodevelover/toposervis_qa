@@ -58,7 +58,7 @@
             <%end%>
 
             <% if can? :update, object %>
-                <% if object.state == "sold" %>
+                <% if object.diagnosis.present? && object.diagnosis.sale.present? && object.state == "sold"  %>
                 <%= link_to output_admin_service_order_path(object), :class => "btn btn-sm btn-info", remote: true, data: { toggle: 'tooltip', placement: 'top', original_title: t('deliver') }   do %>
                     <em class="fa fa-share"></em> 
                 <% end %>
@@ -79,7 +79,7 @@
                     <%end%>
                     <% end %>
 
-                    <% if object.diagnosis.present? && object.diagnosis.sale.present? %>
+                    <% if object.diagnosis.present? && object.diagnosis.sale.present? && object.state == "delivered"%>
                     <%= link_to output_pdf_admin_diagnosis_path(object.diagnosis.id, format: :pdf), :class => "dropdown-item", target: :_blank do %>
                         Orden de salida
                     <%end%>

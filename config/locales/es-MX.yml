@@ -85,7 +85,7 @@ es:
   service_order: Orden de servicio
   to_diagnose: Diagnostico
   sale_order: Nota de venta 
-  delever: Entregar
+  deliver: Entregar
   remove: Eliminar
   print: Imprimir
   bill: Facturación

@@ -105,6 +105,12 @@ class Admin::ServiceOrdersController < ApplicationController
     if params[:service_order][:diagnosis_attributes].present?
       @service_order.diagnosis.nil? ? @service_order.build_diagnosis : @service_order.diagnosis
       @service_order.diagnosis.currency_id = Currency.where(name: "MXN").first.id
+
+      if params[:service_order][:diagnosis_attributes][:is_done] == "1"
+        @service_order.state = "sold"
+        ServiceOrderMailer.with(service_order: @service_order).service_order_done.deliver_later
+      end
+      
       if params[:service_order][:diagnosis_attributes][:images].present?
           params[:service_order][:diagnosis_attributes][:images].each do |image|
           @service_order.diagnosis.images.attach(image)
@@ -116,13 +122,8 @@ class Admin::ServiceOrdersController < ApplicationController
       if @service_order.update(service_order_params)
         format.html { redirect_to [:admin, @service_order], notice: 'Service order was successfully updated.' }
         format.json { render :show, status: :ok, location: @service_order }
-        if @service_order.state == "diagnosed"
-          if params[:service_order][:diagnosis_attributes][:is_done] == "1"
-            ServiceOrderMailer.with(service_order: @service_order).service_order_done.deliver_later
-          end
-        end
       else
-        if @service_order.state == "diagnosed"
+        if @service_order.state == "sold"
           if params[:service_order][:diagnosis_attributes][:sale_attributes].present?
             format.html { render :sales }
           end
@@ -280,7 +281,7 @@ class Admin::ServiceOrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_order_params
-      params.require(:service_order).permit(:date_admission, :customer_id, :product_id, :serie, :brand, :model, :observation, :deleted_at, :status, :user_id,
+      params.require(:service_order).permit(:date_admission, :customer_id, :product_id, :serie, :brand, :model, :observation, :deleted_at, :status, :user_id, :state,
         order_accessories_attributes: [ :id, :service_order_id, :accessory, :quantity, :_destroy ],
         type_service_order_ids: [], images_attachments_attributes: [:id, :_destroy],
         diagnosis_attributes: [ :id, :service_order_id, :date, :delivery_time, :date_delivery, :subtotal, :adjustment_total, :tax_total, :total, :is_tax, :is_done, :is_authorized,
