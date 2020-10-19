@@ -91,6 +91,10 @@ es:
   bill: Facturación
   add_images: Imágenes
   add_accessories: Accesorios
+  sign_in_to_continue: INICIA SESIÓN PARA CONTINUAR
+  password_reset: RESTABLECIMIENTO DE CONTRASEñA
+  remember_me: Recordarme
+  forgot_your_password?: ¿Olvidaste tu contraseña?
   shared:
     validation:
       size_validation: El número de imágenes ingresadas es mayor a los 10MB permitidos
