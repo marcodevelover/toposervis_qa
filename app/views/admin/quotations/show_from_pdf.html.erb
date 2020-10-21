@@ -98,7 +98,7 @@
                 </td>
 
                 <td class="center">
-                    <%= number_to_currency(item.unit_price * item.quantity) %>
+                    <%= number_to_currency(item.unit_price * item.quantity) %> <%= item.currency %>
                 </td>
             </tr>
           <% end %>
@@ -110,14 +110,14 @@
           <tr>
             <td colspan="3"></td>
             <td><b>Subtotal</b></td>
-            <td><%= number_to_currency(@quotation.subtotal) %></td>
+            <td class="center"><%= number_to_currency(@quotation.subtotal) %></td>
           </tr>
 
           <tr>
             <td colspan="3"></td>
             <% if @quotation.adjustment_total != 0 %>
             <td><b>Descuento</b></td>
-            <td>- <%= number_to_currency(@quotation.adjustment_total) %></td>
+            <td class="center">- <%= number_to_currency(@quotation.adjustment_total) %></td>
             <% end %>
           </tr>
 
@@ -125,18 +125,18 @@
             <td colspan="3"></td>
             <% if @quotation.is_tax %>
             <td><b>Impuesto (<%= (@quotation.tax * 100).to_i %>%)</b></td>
-            <td>+ <%= number_to_currency(@quotation.tax_total) %></td>
+            <td class="center">+ <%= number_to_currency(@quotation.tax_total) %></td>
             <% end %>
           </tr>
 
           <tr>
             <td colspan="3"></td>
             <td><b>TOTAL:</b></td>
-            <td>
+            <td class="center">
               <% if @quotation.is_tax %>
-              <b><%= number_to_currency(@quotation.total) %></b>
+              <b><%= number_to_currency(@quotation.total) %> <%= @quotation.currency.name %></b>
               <%else%>
-              <b><%= number_to_currency(@quotation.subtotal) %></b>
+              <b><%= number_to_currency(@quotation.subtotal) %> <%= @quotation.currency.name %></b>
               <%end%>
             </td>
           </tr>

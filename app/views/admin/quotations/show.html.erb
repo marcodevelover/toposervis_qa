@@ -145,7 +145,7 @@
             <td class="right">Unidad</td>
             <td class="right">Precio</td>
             <td class="right">Cantidad</td>
-            <td>Total</td>
+            <td style="text-align: center">Total</td>
           </tr>
 
           <% @quotation.items.each do |item| %>
@@ -167,8 +167,8 @@
                     x <%= item.quantity %>
                 </td>
 
-                <td>
-                    <%= number_to_currency(item.unit_price * item.quantity) %>
+                <td style="text-align: center">
+                    <%= number_to_currency(item.unit_price * item.quantity) %> <%= item.currency %>
                 </td>
             </tr>
           <% end %>
@@ -182,14 +182,14 @@
           <tr>
             <td colspan="3"></td>
             <td><b>Subtotal</b></td>
-            <td><%= number_to_currency(@quotation.subtotal) %></td>
+            <td style="text-align: center"><%= number_to_currency(@quotation.subtotal) %></td>
           </tr>
 
           <tr>
             <td colspan="3"></td>
             <% if @quotation.adjustment_total != 0 %>
             <td><b>Descuento</b></td>
-            <td>- <%= number_to_currency(@quotation.adjustment_total) %></td>
+            <td style="text-align: center">- <%= number_to_currency(@quotation.adjustment_total) %></td>
             <% end %>
           </tr>
 
@@ -197,19 +197,29 @@
             <td colspan="3"></td>
             <% if @quotation.is_tax %>
             <td><b>Impuesto (<%= (@quotation.tax * 100).to_i %>%)</b></td>
-            <td>+ <%= number_to_currency(@quotation.tax_total) %></td>
+            <td style="text-align: center">+ <%= number_to_currency(@quotation.tax_total) %></td>
             <%end%>
           </tr>
 
           <tr class="heading">
             <td colspan="3"></td>
             <td><b>TOTAL:</b></td>
-            <td>
+            <td style="text-align: center">
                <% if @quotation.is_tax %>
                <b><%= number_to_currency(@quotation.total) %></b>
                <%else%>
                <b><%= number_to_currency(@quotation.subtotal) %></b>
                <%end%>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td></td>
+            <td style="text-align: center">
+               <small><i>
+                <%= @quotation.currency.blank? ? "" : "Totales expresados en #{@quotation.currency.name}" %>
+                </i></small>
             </td>
           </tr>
 
