@@ -386,7 +386,7 @@ function formatRepo (repo) {
   $container.find(".select2-result-repository__model").append(repo.product_model);
   $container.find(".select2-result-repository__brand").append(repo.product_brand);
   $container.find(".select2-result-repository__code").append(repo.code);
-  $container.find(".select2-result-repository__unit_price").append(repo.unit_price);
+  $container.find(".select2-result-repository__unit_price").append(repo.unit_price + repo.exchange_name);
   $container.find(".select2-result-repository__stock").append(repo.stock);
 
   return $container;
