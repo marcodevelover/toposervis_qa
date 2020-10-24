@@ -95,6 +95,7 @@ es:
   password_reset: RESTABLECIMIENTO DE CONTRASEñA
   remember_me: Recordarme
   forgot_your_password?: ¿Olvidaste tu contraseña?
+  tracking: Rastreo de servicio
   shared:
     validation:
       size_validation: El número de imágenes ingresadas es mayor a los 10MB permitidos
@@ -1168,6 +1169,7 @@ es:
   action_update: Acciones que permiten actualizar registros    
   activate: Activar
   active: Activo
+  received: Recibido
   deleted: Baja
   cancel: Cancelar
   sold: Finalizado
