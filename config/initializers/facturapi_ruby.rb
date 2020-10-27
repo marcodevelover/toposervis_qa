@@ -1,3 +1,3 @@
 FacturapiRuby.configure do |config|
-  config.api_key = 'sk_test_9WJx4jBMbw6PQ4rEALx085q8270ykZrQ'
+  config.api_key = 'sk_live_zjlmR4P9rGyxlnOG2PK5Y8BNbDMWg0pk'
 end
