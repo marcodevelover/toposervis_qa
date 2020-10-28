@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_01_174355) do
+ActiveRecord::Schema.define(version: 2020_10_28_165549) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -375,7 +375,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_174355) do
     t.string "name"
     t.string "brand"
     t.string "model"
-    t.string "description"
+    t.text "description"
     t.string "comment"
     t.bigint "product_line_id", null: false
     t.bigint "unit_id", null: false
