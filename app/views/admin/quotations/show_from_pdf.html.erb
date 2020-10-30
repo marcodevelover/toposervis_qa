@@ -114,6 +114,18 @@
             <tr class="item">
 
                 <td style="text-align: left;">
+                    
+                    
+                    <% if item.product_variant.product.brand %>
+                      MARCA:
+                      <%= item.product_variant.product.brand %>;
+                    <% end %>
+
+                    <% if item.product_variant.product.model %>
+                      MODELO:
+                      <%= item.product_variant.product.model %>
+                      <br>
+                    <% end %>
                     <small>
                     <ul class="no-indentation">
                     <% item.product_variant.product.products_accessories.each do |accessory| %>
