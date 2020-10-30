@@ -1,3 +1,5 @@
+
+
 <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
           <tr class="top">
@@ -70,7 +72,9 @@
           </tr>
 
           <tr class="heading">
-            <td class="center">Concepto</td>
+            
+            <td style="text-align: center;">Concepto</td>
+            
             <td style="text-align: center;">Unidad</td>
             <td class="center">Precio</td>
             <td class="center">Cantidad</td>
@@ -78,10 +82,15 @@
           </tr>
 
           <% @quotation.items.each do |item| %>
-            <tr class="item">
-                <td>
+            <tr class="item-no-border">
+
+                <td style="text-align: left;">
+                  <% if  !(item.product_variant.product_variant_images.blank?) %>
+                    <%= image_tag item.product_variant.product_variant_images.first.image.variant(resize_to_limit: [150, 150]) %>
+                  <%end%>
                     <%= item.name %><br>
                     <small><%= item.extended_description %></small>
+
                 </td>
 
                 <td style="text-align: center;">
@@ -94,10 +103,52 @@
 
                 <td class="center">
                     <%= item.quantity %>
+
                 </td>
 
                 <td class="center">
                     <%= number_to_currency(item.unit_price * item.quantity) %> <%= item.currency %>
+                </td>
+            </tr>
+
+            <tr class="item">
+
+                <td style="text-align: left;">
+                    <small>
+                    <ul class="no-indentation">
+                    <% item.product_variant.product.products_accessories.each do |accessory| %>
+                      <% if accessory.quantity != 0%>
+                        <li><%= accessory.accessory.name %></li>
+                      <%end%>
+                    <% end %>
+                    </ul>
+                    </small>
+                </td>
+
+
+                <td style="text-align: center;">
+                    
+                </td>
+
+                <td class="center">
+                    
+                </td>
+
+                <td class="center">
+                    
+                    <small>
+                    <ul class="no-style">
+                    <% item.product_variant.product.products_accessories.each do |accessory| %>
+                      <% if accessory.quantity != 0%>
+                        <li><%= accessory.quantity %></li>
+                      <%end%>
+                    <% end %>
+                    </ul>
+                    </small>
+                </td>
+
+                <td class="center">
+                    
                 </td>
             </tr>
           <% end %>
@@ -145,12 +196,13 @@
               <table>
                 <tr>
                   <td>
-                  	<td><b>Términos de venta:</b></td>
+                  	<b>Términos de venta:</b>
                   </td>
+                </tr>
+                <tr>
                   <td>
-                  	<%= @quotation.condition %>
+                    <%= @quotation.condition %>
                   </td>
-
                 </tr>
               </table>
             </td>

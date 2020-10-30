@@ -64,8 +64,14 @@ text-transform: uppercase;
 .invoice-box table tr.item td{
     border-bottom: 1px solid #eee;
 }
+.invoice-box table tr.item-no-border td{
+    border-bottom: 1px solid #fff;
+}
 
 .invoice-box table tr.item.last td {
+    border-bottom: none;
+}
+.invoice-box table tr.item-no-border.last td {
     border-bottom: none;
 }
 
@@ -208,6 +214,16 @@ table tr td.top{
 }
 table tr td.center{
     text-align: center;
+}
+
+.no-style {
+  list-style: none;
+  padding-left: 0;
+}
+
+.no-indentation {
+  list-style-position: 
+  inside; padding-left: 0;
 }
 
 // @media only screen and (max-width: 600px) {
