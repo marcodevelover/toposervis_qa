@@ -1,15 +1,13 @@
-
 <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
           <tr class="top">
             <td colspan="5">
               <table>
                 <tr>
-                  <td class="title">
+                  <td class="title" style="width:25%">
                     <%= wicked_pdf_image_tag 'pdf/logo.png' %>
                   </td>
-
-                  <td>
+                  <td style="text-align: center; width:50%" class="top">
                     <strong>Toposervis S de RL de CV</strong>
                     <br>
                     <span>RFC: TOP160404KU0</span>
@@ -20,6 +18,21 @@
                     <br>
                     <span>Tel. 01 (800) 890 9383, (999) 4 29 82 78</span>
                     <br>
+                  </td>
+                  <td style="text-align: center; width:25%">
+                    <br>
+                    <% if @quotation.sale.present?%>
+                    <strong>Nota de venta</strong><br>
+                    <b>Folio:</b>
+                    <b class="blue"><%= @quotation.sale.folio %></b><br>
+                    <b>Fecha:</b>
+                    <b class="blue"><%= @quotation.sale.created_at.strftime("%d-%m-%Y") %></b><br>
+                    <% end %>                    
+                    <strong>Cotización</strong><br>
+                    <b>Folio:</b>
+                    <b class="blue"><%= @quotation.folio %></b><br>
+                    <b>Fecha:</b>
+                    <b class="blue"><%= @quotation.created_at.strftime("%d-%m-%Y") %></b>
                   </td>
                 </tr>
               </table>
@@ -49,21 +62,6 @@
                     <b>Forma de pago:</b>
                     <%= @quotation.sale.payment_way.name %>            
                     <% end %>
-                  </td>
-
-                  <td class="top">
-                    <% if @quotation.sale.present?%>
-                    <h3>Nota de venta</h3>
-                    <b>Folio:</b>
-                    <b class="blue"><%= @quotation.sale.folio %></b><br>
-                    <b>Fecha:</b>
-                    <b class="blue"><%= @quotation.sale.created_at.strftime("%d-%m-%Y") %></b><br>
-                    <% end %>                    
-                  	<h3>Cotización</h3>
-                  	<b>Folio:</b>
-                    <b class="blue"><%= @quotation.folio %></b><br>
-                    <b>Fecha:</b>
-                    <b class="blue"><%= @quotation.created_at.strftime("%d-%m-%Y") %></b>
                   </td>
 
                 </tr>

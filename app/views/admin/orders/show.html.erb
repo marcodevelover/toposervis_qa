@@ -73,11 +73,10 @@
             <td colspan="5">
               <table>
                 <tr>
-                  <td class="title">
-                    <%= image_tag 'pdf/logo.png' %>
+                  <td class="title" style="width:25%">
+                    <%= wicked_pdf_image_tag 'pdf/logo.png' %>
                   </td>
-
-                  <td>
+                  <td style="text-align: center; width:50%" class="top">
                     <strong>Toposervis S de RL de CV</strong>
                     <br>
                     <span>RFC: TOP160404KU0</span>
@@ -88,6 +87,14 @@
                     <br>
                     <span>Tel. 01 (800) 890 9383, (999) 4 29 82 78</span>
                     <br>
+                  </td>
+                  <td style="text-align: center; width:25%">
+                    <br>
+                    <strong>Nota de venta</strong><br>
+                    <b>Folio:</b>
+                    <%= @order.sale.folio %><br>
+                    <b>Fecha:</b>
+                    <%= @order.created_at.strftime("%d-%m-%Y") %>
                   </td>
                 </tr>
               </table>
@@ -111,14 +118,6 @@
                     <b>Forma de pago:</b>
                     <%= @order.sale.payment_way.name %>
                   </td>
-                  <td>
-                    <b>Nota de venta</b><br>
-                    <b>Folio:</b>
-                    <%= @order.sale.folio %><br>
-                    <b>Fecha:</b>
-                    <%= @order.created_at.strftime("%d-%m-%Y") %>
-                  </td>
-
                 </tr>
               </table>
             </td>
