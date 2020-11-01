@@ -80,7 +80,7 @@
               <table>
                 <tr>
                   <td class="title" style="width:25%">
-                    <%= wicked_pdf_image_tag 'pdf/logo.png' %>
+                    <%= image_tag 'pdf/logo.png' %>
                   </td>
                   <td style="text-align: center; width:50%" class="top">
                     <strong>Toposervis S de RL de CV</strong>
@@ -234,7 +234,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <%= @quotation.condition %>
+                    <%= raw @quotation.condition %>
                   </td>
                 </tr>
               </table>
