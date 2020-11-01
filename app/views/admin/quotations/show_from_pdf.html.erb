@@ -1,9 +1,7 @@
-
-
 <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
           <tr class="top">
-            <td colspan="5">
+            <td colspan="6">
               <table>
                 <tr>
                   <td class="title" style="width:25%">
@@ -43,7 +41,7 @@
         
 
           <tr class="information">
-            <td colspan="5">
+            <td colspan="6">
               <table>
                 <tr>
                   <td class="top">
@@ -72,8 +70,9 @@
           </tr>
 
           <tr class="heading">
-            
+            <td style="text-align: center;">Imagen</td>
             <td style="text-align: center;">Concepto</td>
+            
             
             <td style="text-align: center;">Unidad</td>
             <td class="center">Precio</td>
@@ -84,10 +83,18 @@
           <% @quotation.items.each do |item| %>
             <tr class="item-no-border">
 
-                <td style="text-align: left;">
+                <td style="text-align: center;">
+
                   <% if  !(item.product_variant.product_variant_images.blank?) %>
-                    <%= image_tag item.product_variant.product_variant_images.first.image.variant(resize_to_limit: [150, 150]) %>
+                    <%= image_tag item.product_variant.product_variant_images.first.image.variant(resize_to_limit: [100, 100]) %>
                   <%end%>
+
+
+                </td>
+
+                <td style="text-align: left;">
+
+
                     <%= item.name %><br>
                     <small><%= item.extended_description %></small>
 
@@ -113,18 +120,20 @@
 
             <tr class="item">
 
+                <td></td>
+
                 <td style="text-align: left;">
                     
                     
                     <% unless item.product_variant.product.brand.blank? %>
-                      MARCA:
+                     <small>MARCA:
                       <%= item.product_variant.product.brand %>;
-                    <% end %>
+                    <% end %></small>
 
                     <% unless item.product_variant.product.model.blank? %>
-                      MODELO:
+                      <small>MODELO:
                       <%= item.product_variant.product.model %>
-                      <br>
+                      </small><br>
                     <% end %>
                     <small>
                     <ul class="no-indentation">
@@ -166,17 +175,17 @@
           <% end %>
 
           <tr>
-            <td colspan="5"></td>
+            <td colspan="6"></td>
           </tr>
 
           <tr>
-            <td colspan="3"></td>
+            <td colspan="4"></td>
             <td><b>Subtotal</b></td>
             <td class="center"><%= number_to_currency(@quotation.subtotal) %></td>
           </tr>
 
           <tr>
-            <td colspan="3"></td>
+            <td colspan="4"></td>
             <% if @quotation.adjustment_total != 0 %>
             <td><b>Descuento</b></td>
             <td class="center">- <%= number_to_currency(@quotation.adjustment_total) %></td>
@@ -184,7 +193,7 @@
           </tr>
 
           <tr>
-            <td colspan="3"></td>
+            <td colspan="4"></td>
             <% if @quotation.is_tax %>
             <td><b>Impuesto (<%= (@quotation.tax * 100).to_i %>%)</b></td>
             <td class="center">+ <%= number_to_currency(@quotation.tax_total) %></td>
@@ -192,7 +201,7 @@
           </tr>
 
           <tr>
-            <td colspan="3"></td>
+            <td colspan="4"></td>
             <td><b>TOTAL:</b></td>
             <td class="center">
               <% if @quotation.is_tax %>
@@ -204,7 +213,7 @@
           </tr>
 
           <tr>
-            <td colspan="5">
+            <td colspan="6">
               <table>
                 <tr>
                   <td>
