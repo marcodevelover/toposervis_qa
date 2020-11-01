@@ -47,9 +47,10 @@ class Admin::QuotationsController < ApplicationController
   # GET /quotations/new
   def new
     @quotation = Quotation.new
-    @conditions = []
+    conditions = []
     Condition.condition_default.each do |condition|
-      @conditions << condition.description
+      conditions << condition.description
+      @conditions = conditions.join("<br>")
     end
     @quotation.condition = @conditions
 
