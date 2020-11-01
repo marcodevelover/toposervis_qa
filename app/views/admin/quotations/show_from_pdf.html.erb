@@ -116,12 +116,12 @@
                 <td style="text-align: left;">
                     
                     
-                    <% if item.product_variant.product.brand %>
+                    <% unless item.product_variant.product.brand.blank? %>
                       MARCA:
                       <%= item.product_variant.product.brand %>;
                     <% end %>
 
-                    <% if item.product_variant.product.model %>
+                    <% unless item.product_variant.product.model.blank? %>
                       MODELO:
                       <%= item.product_variant.product.model %>
                       <br>
