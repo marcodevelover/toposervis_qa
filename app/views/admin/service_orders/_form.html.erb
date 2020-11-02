@@ -451,9 +451,7 @@ function formatRepoSelection (repo) {
 /*start select dependent*/
 
 function loadCategories(){
-    var value = service_order_product_id.value;
-    console.log(service_order_product_id.value)
-    console.log("a")
+    var value = service_order_product_id.value || 0;
     $('#accessory').text('');
     $.ajax({
       url: '/admin/<%=controller_name%>/products_accessories',
