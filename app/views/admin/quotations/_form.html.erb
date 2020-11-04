@@ -623,7 +623,7 @@ function formatRepoSelection (repo) {
     $("ul.errors").html("");
     var validate = true;
     var errors = [];
-    if($("#note_product").val() == 0){
+    /*if($("#note_product").val() == 0){
       validate = false;
       errors.push("Seleccione un producto");
     }
@@ -634,7 +634,7 @@ function formatRepoSelection (repo) {
     if($("#note_unit_price").val() == 0){
       validate = false;
       errors.push("Precio unitario debe ser mayor a 0, Seleccione tipo de cambio");
-    }
+    }*/
     if(isDiscount()){
       if($("#note_factor").val() == ""){
       validate = false;
