@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_28_165549) do
+ActiveRecord::Schema.define(version: 2020_11_09_225215) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -75,6 +75,17 @@ ActiveRecord::Schema.define(version: 2020_10_28_165549) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ckeditor_assets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "data_file_name", null: false
+    t.string "data_content_type"
+    t.integer "data_file_size"
+    t.string "data_fingerprint"
+    t.string "type", limit: 30
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type"], name: "index_ckeditor_assets_on_type"
   end
 
   create_table "conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -367,6 +378,7 @@ ActiveRecord::Schema.define(version: 2020_10_28_165549) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "product_key"
     t.string "product_description"
+    t.boolean "is_service_order"
     t.index ["currency_id"], name: "index_product_variants_on_currency_id"
     t.index ["product_id"], name: "index_product_variants_on_product_id"
   end
@@ -383,6 +395,7 @@ ActiveRecord::Schema.define(version: 2020_10_28_165549) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_service_order"
     t.index ["product_line_id"], name: "index_products_on_product_line_id"
     t.index ["provider_id"], name: "index_products_on_provider_id"
     t.index ["unit_id"], name: "index_products_on_unit_id"

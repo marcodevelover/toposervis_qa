@@ -1282,7 +1282,7 @@ es:
         one: "%{model} no pudo guardarse debido a 1 error"
         other: "%{model} no pudo guardarse debido a %{count} errores"
   exceeded: excedido
-  finalized: finalizado
+  finalized: Vendido
   generic_categories: Categorías generales
   hash_tag: "#"
   hours: horas

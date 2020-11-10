@@ -15,12 +15,13 @@
   <%= @service_order.date_admission %>
 </p>
 
-<% @service_order.orders_types.each do |type| %>
-  <p>
-    <strong>Tipo de servicio:</strong>
-    <%= type.type_service_order.name %>
-  </p>
+<strong>Tipo de servicio:</strong>
+<p>
+  <% total_orders_types = @service_order.orders_types.count - 1 %>
+<% @service_order.orders_types.each_with_index do |type, e| %>
+    <%= type.type_service_order.name %><%= total_orders_types == e ? "." : "," %>
 <% end %>
+</p>
 
 <p>
   <strong>Usuario:</strong>
@@ -51,7 +52,7 @@
 </p>
 <p>
   <strong>Observaciones:</strong>
-  <%= @service_order.observation %>
+  <%= raw @service_order.observation %>
 </p>
 <p>
 

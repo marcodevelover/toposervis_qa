@@ -136,6 +136,12 @@
 
 <% end %>
 <hr>
+
+<p>
+  <strong>¿El producto o servicio es para Ordenes de servicio?:</strong>
+  <%= t(@product.is_service_order) %>
+</p>
+
 <p>
   <strong><%= t("products.deleted_at")%>:</strong>
   <%= @product.deleted_at %>

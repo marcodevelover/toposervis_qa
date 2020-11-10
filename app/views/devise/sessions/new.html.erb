@@ -7,6 +7,16 @@
             </div>
             <div class="card-body">
                <p class="text-center py-2"><%= t("sign_in_to_continue")%>.</p>
+
+               
+               <% if flash.alert %>
+               <div id=”error_explanation”>
+                <p>
+                 <%= flash.alert %>
+                </p>
+               </div>
+              <% end %>                
+               
                
                 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                   <div class="form-group">

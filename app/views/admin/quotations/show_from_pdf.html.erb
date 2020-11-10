@@ -92,7 +92,19 @@
                 </td>
 
                 <td style="text-align: left;">
-                    <%= item.name %><br>
+                    <%= item.name %>
+                    <% unless item.product_variant.product.brand.blank? %>
+                     <small>MARCA:
+                      <%= item.product_variant.product.brand %>;
+                    <% end %></small>
+
+                    <% unless item.product_variant.product.model.blank? %>
+                      <small>MODELO:
+                      <%= item.product_variant.product.model %>
+                      </small><br>
+                    <% end %>
+                    <small>
+                    <br>
                     <small><%= item.extended_description %></small>
                 </td>
 
@@ -119,19 +131,7 @@
                 <td></td>
 
                 <td style="text-align: left;">
-                    
-                    
-                    <% unless item.product_variant.product.brand.blank? %>
-                     <small>MARCA:
-                      <%= item.product_variant.product.brand %>;
-                    <% end %></small>
-
-                    <% unless item.product_variant.product.model.blank? %>
-                      <small>MODELO:
-                      <%= item.product_variant.product.model %>
-                      </small><br>
-                    <% end %>
-                    <small>
+                    <small>INCLUYE:</small>
                     <ul class="no-indentation">
                     <% item.product_variant.product.products_accessories.each do |accessory| %>
                       <% if accessory.quantity != 0%>
@@ -175,9 +175,14 @@
           </tr>
 
           <tr>
-            <td colspan="4"></td>
-            <td><b>Subtotal</b></td>
-            <td class="center"><%= number_to_currency(@quotation.subtotal) %></td>
+            <td colspan="4">
+              
+
+
+
+            </td>
+            <td class="bottom"><b>Subtotal</b></td>
+            <td class="center bottom"><%= number_to_currency(@quotation.subtotal) %></td>
           </tr>
 
           <tr>
@@ -189,7 +194,19 @@
           </tr>
 
           <tr>
-            <td colspan="4"></td>
+            <td colspan="4">
+
+              <table>
+                <tr>
+                  <td>
+                    <b>Términos de venta:</b>
+                  </td>
+                </tr>
+
+              </table>            
+
+
+            </td>
             <% if @quotation.is_tax %>
             <td><b>Impuesto (<%= (@quotation.tax * 100).to_i %>%)</b></td>
             <td class="center">+ <%= number_to_currency(@quotation.tax_total) %></td>
@@ -197,9 +214,21 @@
           </tr>
 
           <tr>
-            <td colspan="4"></td>
-            <td><b>TOTAL:</b></td>
-            <td class="center">
+            <td colspan="4">
+
+              <table>
+
+                <tr>
+                  <td>
+                    <%= raw @quotation.condition %>
+                  </td>
+                </tr>
+              </table>
+
+
+            </td>
+            <td class="top"><b>TOTAL:</b></td>
+            <td class="center top">
               <% if @quotation.is_tax %>
               <b><%= number_to_currency(@quotation.total) %> <%= @quotation.currency.name %></b>
               <%else%>
@@ -208,22 +237,7 @@
             </td>
           </tr>
 
-          <tr>
-            <td colspan="6">
-              <table>
-                <tr>
-                  <td>
-                  	<b>Términos de venta:</b>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <%= raw @quotation.condition %>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+
               </table>
             </td>
           </tr>          

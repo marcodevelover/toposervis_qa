@@ -56,6 +56,11 @@
         <%= render 'product_variant_fields', f: f %>
   <% end %>
 
+  <div class="form-group">
+        ¿El producto o servicio es para Ordenes de servicio?
+        <%= form.input :is_service_order, inline_label: 'Si', as: :boolean %>
+  </div>
+
    <div class="required">* Required fields</div>
 </div>
 <div class="modal-footer">
