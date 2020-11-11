@@ -199,7 +199,7 @@ class Admin::ServiceOrdersController < ApplicationController
   end
 
   def products
-    @q = Product.ransack(params[:q])
+    @q = Product.where(is_service_order: true).ransack(params[:q])
     @products = @q.result(distinct: true)
     total_count = @products.count
     total_accessories = @products.first.accessories.count
