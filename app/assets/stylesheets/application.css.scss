@@ -365,3 +365,14 @@ a.badge-in_repair:focus, a.badge-in_repair.focus {
 .border-gray {
     border-color: #cfdbe2 !important;
 }
+
+@media (max-width: 576px) { 
+  .steps .step {
+      width: 33% !important;
+  }
+}
+@media (max-width: 768px) { 
+.steps .step {
+    width: 33% !important;
+  }
+}
