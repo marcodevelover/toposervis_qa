@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_09_225215) do
+ActiveRecord::Schema.define(version: 2020_11_12_193426) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_225215) do
 
   create_table "activity_descriptions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "diagnosis_id", null: false
-    t.string "description"
+    t.text "description"
     t.integer "created_by_id"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
