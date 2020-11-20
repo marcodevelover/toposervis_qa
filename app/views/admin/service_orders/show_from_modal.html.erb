@@ -275,7 +275,7 @@
           <tr>
             <td colspan="3"></td>
             
-            <td><b>Impuesto (<%= (@service_order.diagnosis.tax * 100).to_i %>%)</b></td>
+            <td><b>I.V.A. (<%= (@service_order.diagnosis.tax * 100).to_i %>%)</b></td>
             <td class="center">+ <%= number_to_currency(@service_order.diagnosis.tax_total) %></td>
             
           </tr>

@@ -208,7 +208,7 @@
 
             </td>
             <% if @quotation.is_tax %>
-            <td><b>Impuesto (<%= (@quotation.tax * 100).to_i %>%)</b></td>
+            <td><b>I.V.A. (<%= (@quotation.tax * 100).to_i %>%)</b></td>
             <td class="center">+ <%= number_to_currency(@quotation.tax_total) %></td>
             <% end %>
           </tr>

@@ -116,7 +116,7 @@
           <tr>
             <td colspan="3"></td>
             <% if @order.is_tax %>
-            <td><b>Impuesto (<%= (@order.tax * 100).to_i %>%)</b></td>
+            <td><b>I.V.A. (<%= (@order.tax * 100).to_i %>%)</b></td>
             <td class="center">+ <%= number_to_currency(@order.tax_total) %></td>
             <%end%>
           </tr>
