@@ -27,7 +27,7 @@ class Admin::ServiceOrdersController < ApplicationController
         format.html
         format.pdf do
             render pdf: "orden_servicio_" + @service_order.folio,
-            
+            #header:  {   html: {   template: "admin/service_orders/header_pdf.html.erb"}},
             template: "admin/service_orders/show_from_pdf.html.erb",
             layout: "pdf.html",
             viewport_size: '1280x1024',

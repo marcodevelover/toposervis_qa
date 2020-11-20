@@ -126,9 +126,11 @@
             <td><b>TOTAL:</b></td>
             <td class="center">
                <% if @order.is_tax %>
-               <b><%= number_to_currency(@order.total) %></b>
+               <b><%= number_to_currency(@order.total) %> <%= @order.currency.name %></b>
+               <br><%= @order.total.to_words %>
                <%else%>
-               <b><%= number_to_currency(@order.subtotal) %></b>
+               <b><%= number_to_currency(@order.subtotal) %> <%= @order.currency.name %></b>
+               <br><%= @order.subtotal.to_words %> <%= @order.currency.name %>
                <%end%>
             </td>
           </tr>

@@ -21,18 +21,13 @@
                   </td>
                   <td style="text-align: center; width:25%">
                     <br>
-                    <% if @diagnosis.sale.present?%>
                     <strong>Orden de salida</strong><br>
-                    <b>Folio:</b>
-                    <b class="blue"><%= @diagnosis.sale.folio %></b><br>
-                    <b>Fecha:</b>
-                    <b class="blue"><%= @diagnosis.sale.created_at.strftime("%d-%m-%Y") %></b><br>
-                    <% end %>
-                    <strong>Orden de servicio</strong><br>
                     <b>Folio:</b>
                     <b class="blue"><%= @diagnosis.service_order.folio %></b><br>
                     <b>Fecha:</b>
-                    <b class="blue"><%= @diagnosis.service_order.created_at.strftime("%d-%m-%Y") %></b><br>
+                    <% if @diagnosis.sale.present?%>
+                    <b class="blue"><%= @diagnosis.sale.created_at.strftime("%d-%m-%Y") %></b><br>
+                    <% end %>
                   </td>
                 </tr>
               </table>
@@ -193,9 +188,11 @@
             <td><b>TOTAL:</b></td>
             <td class="center">
                <% if @diagnosis.is_tax %>
-               <b><%= number_to_currency(@diagnosis.total) %></b>
+               <b><%= number_to_currency(@diagnosis.total) %> <%= @diagnosis.currency.name %></b>
+               <br><%= @diagnosis.total.to_words %> <%= @diagnosis.currency.name %>
                <%else%>
-               <b><%= number_to_currency(@diagnosis.subtotal) %></b>
+               <b><%= number_to_currency(@diagnosis.subtotal) %> <%= @diagnosis.currency.name %></b>
+               <br><%= @diagnosis.subtotal.to_words %> <%= @diagnosis.currency.name %>
                <%end%>
             </td>
           </tr>
