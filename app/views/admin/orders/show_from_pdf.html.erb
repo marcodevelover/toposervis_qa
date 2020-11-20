@@ -116,7 +116,7 @@
           <tr>
             <td colspan="3"></td>
             <% if @order.is_tax %>
-            <td><b>Impuesto (<%= (@order.tax * 100).to_i %>%)</b></td>
+            <td><b>I.V.A. (<%= (@order.tax * 100).to_i %>%)</b></td>
             <td class="center">+ <%= number_to_currency(@order.tax_total) %></td>
             <%end%>
           </tr>
@@ -127,10 +127,10 @@
             <td class="center">
                <% if @order.is_tax %>
                <b><%= number_to_currency(@order.total) %> <%= @order.currency.name %></b>
-               <br><%= @order.total.to_words %>
+               <br><%= @order.total.to_words %> <%= @order.currency.abbreviation %>
                <%else%>
                <b><%= number_to_currency(@order.subtotal) %> <%= @order.currency.name %></b>
-               <br><%= @order.subtotal.to_words %> <%= @order.currency.name %>
+               <br><%= @order.subtotal.to_words %> <%= @order.currency.abbreviation %>
                <%end%>
             </td>
           </tr>
