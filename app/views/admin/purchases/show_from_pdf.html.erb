@@ -109,6 +109,7 @@
             <td><b>TOTAL:</b></td>
             <td class="center">
                <b><%= number_to_currency(@purchase.total) %></b>
+               <br><%= @purchase.total.to_words %>
             </td>
           </tr>
               </table>

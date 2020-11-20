@@ -10,6 +10,10 @@
                 <em class="fas fa-info-circle"></em> 
             <%end%>
 
+             <%= link_to admin_order_path(object), :class => "btn btn-sm btn-info", data: { toggle: 'tooltip', placement: 'top', original_title: t('bill') } do %>
+                <em class="fa-1x fas fa-external-link-alt"></em>
+             <%end%>
+
             <%= link_to show_from_pdf_admin_order_path(object, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank, data: { toggle: 'tooltip', placement: 'top', original_title: t('print') } do %>
                 <em class="fas fa-print"></em> 
             <%end%>
