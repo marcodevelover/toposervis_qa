@@ -171,7 +171,7 @@
                                         <small><%=t("max_size")%></small>
                                   </div>
                                   <div class="col-lg-9 mb-9x"> 
-                                        <%= form.file_field :images, multiple: true, class: "mb-1 btn btn-outline-secondary", accept: "image/png, .jpeg, .jpg, image/gif" %>
+                                        <%= form.file_field :images, multiple: true, class: "multi with-preview", maxlength: "3", accept: "image/png, .jpeg, .jpg, image/gif" %>
                                         <%= form.error :images, id: 'images_error' %>
                                   </div>
                               </div>

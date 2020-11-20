@@ -51,7 +51,7 @@
                             <small><%=t("max_size")%></small>
                               <div class="form-row">
                                  <div class="col-lg-12 mb-12x">
-                                        <%= f.file_field :images, multiple: true, class: "mb-1 btn btn-outline-secondary" %>
+                                        <%= f.file_field :images, multiple: true, class: "multi with-preview", maxlength: "3" %>
                                         <%= f.error :images, id: 'images_error' %>
                                  </div>
 
