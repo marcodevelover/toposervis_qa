@@ -1,43 +1,6 @@
 <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
-          <tr class="top">
-            <td colspan="6">
-              <table>
-                <tr>
-                  <td class="title" style="width:25%">
-                    <%= wicked_pdf_image_tag 'pdf/logo.png' %>
-                  </td>
-                  <td style="text-align: center; width:50%" class="top">
-                    <strong>Toposervis S de RL de CV</strong>
-                    <br>
-                    <span>RFC: TOP160404KU0</span>
-                    <br>
-                    <span>Calle 42 No.264 x 41A y 41C, C.P. 97203 </span>
-                    <br>
-                    <span>Francisco de Montejo III Mérida,Yucatán </span>
-                    <br>
-                    <span>Tel. 01 (800) 890 9383, (999) 4 29 82 78</span>
-                    <br>
-                  </td>
-                  <td style="text-align: center; width:25%">
-                    <br>
-                    <% if @quotation.sale.present?%>
-                    <strong>Nota de venta</strong><br>
-                    <b>Folio:</b>
-                    <b class="blue"><%= @quotation.sale.folio %></b><br>
-                    <b>Fecha:</b>
-                    <b class="blue"><%= @quotation.sale.created_at.strftime("%d-%m-%Y") %></b><br>
-                    <% end %>                    
-                    <strong>Cotización</strong><br>
-                    <b>Folio:</b>
-                    <b class="blue"><%= @quotation.folio %></b><br>
-                    <b>Fecha:</b>
-                    <b class="blue"><%= @quotation.created_at.strftime("%d-%m-%Y") %></b>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+
         
 
           <tr class="information">
@@ -84,7 +47,7 @@
             <tr class="item-no-border">
 
                 <td style="text-align: center;">
-                  <% if  !(item.product_variant.product_variant_images.blank?) %>
+                  <% if  (item.product_variant.product_variant_images.blank?) %>
                     <%= image_tag item.product_variant.product_variant_images.first.image.variant(resize_to_limit: [100, 100]) %>
                   <%else%>
                     <%= wicked_pdf_image_tag 'pdf/sin-fotografia.png' %>
