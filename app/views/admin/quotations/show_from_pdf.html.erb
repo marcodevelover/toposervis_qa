@@ -85,7 +85,7 @@
 
                 <td style="text-align: center;">
                   <% if  (item.product_variant.product_variant_images.blank?) %>
-                    <%= image_tag item.product_variant.product_variant_images.first.image.variant(resize_to_limit: [100, 100]) %>
+                    <%= wicked_pdf_image_tag 'pdf/sin-fotografia.png' %>
                   <%else%>
                     <%= wicked_pdf_image_tag 'pdf/sin-fotografia.png' %>
                   <%end%>
