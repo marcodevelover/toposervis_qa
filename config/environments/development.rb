@@ -55,6 +55,16 @@ Rails.application.configure do
 
   config.action_view.embed_authenticity_token_in_remote_forms = true
 
+  config.active_storage.variable_content_types = %w(
+    image/png
+    image/gif
+    image/jpg
+    image/jpeg
+    image/webp
+    image/vnd.adobe.photoshop
+    image/vnd.microsoft.icon
+  )
+
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
