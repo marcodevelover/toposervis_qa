@@ -89,6 +89,16 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  config.active_storage.variable_content_types = %w(
+    image/png
+    image/gif
+    image/jpg
+    image/jpeg
+    image/webp
+    image/vnd.adobe.photoshop
+    image/vnd.microsoft.icon
+  )
+
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
   # middleware. The `delay` is used to determine how long to wait after a write
