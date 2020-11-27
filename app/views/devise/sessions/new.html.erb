@@ -8,7 +8,9 @@
             <div class="card-body">
                <p class="text-center py-2"><%= t("sign_in_to_continue")%>.</p>
 
-               
+               <div id=”error_explanation”>
+               <p><%= notice %></p>
+               </div>
                <% if flash.alert %>
                <div id=”error_explanation”>
                 <p>
