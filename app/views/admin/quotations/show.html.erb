@@ -158,7 +158,7 @@
                             <b>RFC:</b><br>
                             <%= @quotation.customer.blank? ? "" : @quotation.customer.rfc %><br>
                             <b>Uso del CFDI:</b><br>
-                            <%= @quotation.sale.blank? ? "" : @quotation.sale.use_of_cfdi.cfdi_key - @quotation.sale.use_of_cfdi.name %><br>
+                            <%= @quotation.sale.blank? ? "" : @quotation.sale.use_of_cfdi.cfdi_key + " - " + @quotation.sale.use_of_cfdi.name %><br>
                         </p>
                      </div>
                   </div>
