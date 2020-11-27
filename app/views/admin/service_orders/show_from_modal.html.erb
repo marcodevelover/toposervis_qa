@@ -11,7 +11,9 @@
             <div class="w-100 text-center py-1 px-2"><span class='text-medium'><%= t("service_orders.state")%>:</span> <%= t(@service_order.state) %></div>
             <div class="w-100 text-center py-1 px-2"><span class='text-medium'>Tiempo de diagnostico estimado:</span> <%= @service_order.diagnosis.blank? ? "" :@service_order.diagnosis.delivery_time %></div>
           </div>
-          <div class="card-body">
+
+
+          <div class="card-body d-none d-sm-block">
             <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
               <div class="step <%= @service_order.state == "active" || @service_order.state == "diagnosed" || @service_order.state == "in_repair" || @service_order.state == "sold" || @service_order.state == "delivered" ? "completed" : "" %>">
                 <div class="step-icon-wrap">
@@ -45,6 +47,96 @@
               </div>
             </div>
           </div>
+
+
+
+
+
+
+
+          <div class="card-body d-block d-sm-none">
+                     <div class="card-body">
+                        <div class="d-flex align-items-center">
+                           <div class="w-100" data-toggle="tooltip" data-title="Health" data-original-title="" title="">
+                              <div class="progress progress-xs m-0">
+                                 <div class="progress-bar bg-info" style="width:22%"></div>
+                              </div>
+                           </div>
+                           <div class="wd-xxs text-right">
+
+
+                              <% if @service_order.state == "active"%>
+                                <div class="text-bold text-muted">20%</div>
+                              <% end %>
+
+                              <% if @service_order.state == "diagnosed"%>
+                                <div class="text-bold text-muted">40%</div>
+                              <% end %>
+
+
+                              <% if @service_order.state == "in_repair"%>
+                                <div class="text-bold text-muted">60%</div>
+                              <% end %>
+
+                              <% if @service_order.state == "sold"%>
+                                <div class="text-bold text-muted">80%</div>
+                              <% end %>
+
+                              <% if @service_order.state == "delivered" %>
+                                <div class="text-bold text-muted">100%</div>
+                              <% end %>
+
+                           </div>
+                        </div>
+                     </div>
+                     <table class="table">
+                        <tbody>
+                           <tr>
+                              <td><i class="fa-1x icon-note"></i> <strong>Recibido</strong></td>
+                              <td>
+                                <% if @service_order.state == "active" || @service_order.state == "diagnosed" || @service_order.state == "in_repair" || @service_order.state == "sold" || @service_order.state == "delivered" %>
+                                <i class="fa fa-check"></i>
+                                <% end %>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td><i class="fa-1x icon-wrench"></i> <strong>Diagnosticado</strong></td>
+                              <td>
+                                <% if @service_order.state == "diagnosed" || @service_order.state == "in_repair" || @service_order.state == "sold" || @service_order.state == "delivered"%>
+                                <i class="fa fa-check"></i>
+                                <% end %>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td><i class="fa-1x icon-settings"></i> <strong>En reparación</strong></td>
+                              <td>
+                                <% if @service_order.state == "in_repair" || @service_order.state == "sold" || @service_order.state == "delivered"%>
+                                <i class="fa fa-check"></i>
+                                <% end %>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td><i class="fa-1x icon-check"> <strong>Finalizado</strong></td>
+                              <td>
+                                <% if @service_order.state == "sold" || @service_order.state == "delivered" %>
+                                <i class="fa fa-check"></i>
+                                <% end %>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td><i class="fa-1x icon-action-redo"> <strong>Entregado</strong></td>
+                              <td>
+                                <% if @service_order.state == "delivered" %>
+                                <i class="fa fa-check"></i>
+                                <% end %>
+                              </td>
+                           </tr>
+
+                        </tbody>
+                     </table>
+          </div>
+
+
         </div>
       </div>
 

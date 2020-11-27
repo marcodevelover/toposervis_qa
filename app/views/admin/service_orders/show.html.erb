@@ -20,7 +20,9 @@
             <a class="btn btn-sm btn-info" target="_blank" href="https://portalsat.plataforma.sat.gob.mx/ConsultaRFC/" >
                 <em class="fa-1x mr-2 fas fa-external-link-alt"></em> Verificar RFC
             </a>
-
+            <div id="open_modal" class="btn btn-sm btn-info">
+              <em class="fas fa-question"></em> 
+            </div>
 <% if @service_order.diagnosis.sale %>
             <% if @service_order.diagnosis.sale.bill_state.blank? && @service_order.diagnosis.is_tax %>
             <%= link_to bill_admin_service_order_path(@service_order), :class => "btn btn-sm btn-info", remote: true   do %>
@@ -89,16 +91,7 @@
                     <%= image_tag 'pdf/logo.png' %>
                   </td>
                   <td style="text-align: center; width:50%" class="top">
-                    <strong>Toposervis S de RL de CV</strong>
-                    <br>
-                    <span>RFC: TOP160404KU0</span>
-                    <br>
-                    <span>Calle 42 No.264 x 41A y 41C, C.P. 97203 </span>
-                    <br>
-                    <span>Francisco de Montejo III Mérida,Yucatán </span>
-                    <br>
-                    <span>Tel. 01 (800) 890 9383, (999) 4 29 82 78</span>
-                    <br>
+
                   </td>
                   <td style="text-align: center; width:25%">
                     <br>
@@ -148,6 +141,77 @@
             </td>
           </tr>
 
+
+
+
+          <tr class="information">
+            <td colspan="5">
+              <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mb-3 border-secondary">
+                       <div class="card-header bg-secondary">Datos de contacto</div>
+                       <div class="card-body">
+                          <p class="card-text">
+                            <b>Compañia:</b>
+                            <%= @service_order.customer.business_name.blank? ? "----" : @service_order.customer.business_name %><br>
+                            <b>RFC:</b>
+                            <%= @service_order.customer.rfc.blank? ? "----" : @service_order.customer.rfc %><br>
+                            <b>Contacto:</b>
+                            <%= @service_order.user.blank? ?  "----" : @service_order.user.name + " " + @service_order.user.lastname %><br>
+                            <b>Teléfono:</b>
+                            <%= @service_order.user.blank? ?  "----" : @service_order.user.phone %><br>
+                            <b>E-mail:</b>
+                            <%= @service_order.user.blank? ?  "----" : @service_order.user.email %><br>   
+                          </p>
+                       </div>
+                    </div>
+                 </div>
+               </div>
+            </td>
+          </tr>
+          <tr class="information">
+            <td colspan="5">
+              <div class="row">
+              <div class="col-lg-6">
+                  <div class="card mb-3 border-secondary">
+                     <div class="card-header bg-secondary">Emisor</div>
+                     <div class="card-body">
+                        <p class="card-text">
+                            <b>Razón Social:</b><br>
+                            TOPOSERVIS<br>
+                            <b>RFC:</b><br>
+                            TOP160404KU0<br>
+                            <b>Domicilio:</b><br>
+                            Calle 42 No.264 x 41A y 41C, C.P. 97203<br>
+                            Francisco de Montejo III Mérida,Yucatán<br>
+                            <b>Régimen F.:</b><br>
+                            General de Ley Personas<br>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+              <div class="col-lg-6">
+                  <div class="card mb-3 border-secondary">
+                     <div class="card-header bg-secondary">Receptor</div>
+                     <div class="card-body">
+                        <p class="card-text">
+                            <b>Razón Social:</b><br>
+                            <%= @service_order.customer.blank? ? "" : @service_order.customer.business_name %><br>
+                            <b>RFC:</b><br>
+                            <%= @service_order.customer.blank? ? "" : @service_order.customer.rfc %><br>
+                            <% unless @service_order.diagnosis && @service_order.diagnosis.sale.blank? %>
+                            <b>Uso del CFDI:</b><br>
+                            <%= @service_order.diagnosis.sale.use_of_cfdi.blank? ? "" : @service_order.diagnosis.sale.use_of_cfdi.cfdi_key + " - " + @service_order.diagnosis.sale.use_of_cfdi.name %><br>
+                            <% end %>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               </div>
+
+            </td>
+          </tr>
+
           <tr>
             <td colspan="5"><b>Producto:</b> <%= @service_order.product.name %></td>
           </tr>
@@ -155,7 +219,7 @@
             <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @service_order.product.name %></b> marca <b><%= @service_order.brand %></b> modelo <b><%= @service_order.model %></b> con número de serie <b><%= @service_order.serie %></b> para su revisión y diagnostico.</br> <b>Accesorios que incluye:</b></td>
           </tr>          
 
-          <tr class="heading">
+          <tr class="bg-secondary">
             
             <td class="left" colspan="3">Accesorios</td>
             <td class="right" colspan="2">Cantidad</td>
@@ -183,7 +247,7 @@
             <td colspan="5" style="text-align: center;"><b>Diagnostico</b></td>
           </tr>         
 
-          <tr class="heading">
+          <tr class="bg-secondary">
             
             <td class="left" colspan="5">Descripción</td>
             
@@ -205,38 +269,50 @@
 <!--end diagnosis description-->
 
 <!--diagnosis items-->
+<tr>
+  <td colspan="5">
+    <table>
           <tr>
             <td colspan="5" style="text-align: center;"><b>Presupuesto</b></td>
           </tr>         
 
-          <tr class="heading">
+          <tr class="bg-secondary">
+            <td>Clave ProdServ</td>
             <td>Concepto</td>
-            <td class="right">Unidad</td>
-            <td class="right">Precio</td>
-            <td class="right">Cantidad</td>
-            <td>Total</td>
+            <td style="text-align: center;">Unidad</td>
+            <td style="text-align: center;">Precio</td>
+            <td style="text-align: center;">Cantidad</td>
+            <td style="text-align: center;">Total</td>
           </tr>
 
           <% @service_order.diagnosis.items.each do |item| %>
             <tr class="item">
                 <td>
+                    <%= item.product_variant.product_key %>
+                </td>
+                <td>
                     <%= item.name %><br>
                     <small><%= item.extended_description %></small>
                 </td>
 
-                <td class="right">
+                <td style="text-align: center;">
+                    <%unless item.product_variant.product.unit.blank? %>
+                    <%= item.product_variant.product.unit.unit_key %>
+                    <% else %>
+                    ----
+                    <% end %>
                     <%= item.unit %>
                 </td>
 
-                <td class="right">
+                <td style="text-align: center;">
                     <%= number_to_currency(item.unit_price) %>
                 </td>
 
-                <td class="right">
+                <td style="text-align: center;">
                     <%= item.quantity %>
                 </td>
 
-                <td>
+                <td style="text-align: center;">
                     <%= number_to_currency(item.unit_price * item.quantity) %>
                 </td>
             </tr>
@@ -251,7 +327,7 @@
           <tr>
             <td colspan="3"></td>
             <td><b>Subtotal</b></td>
-            <td><%= number_to_currency(@service_order.diagnosis.subtotal) %></td>
+            <td style="text-align: center; width: 10%"><%= number_to_currency(@service_order.diagnosis.subtotal) %></td>
           </tr>
 
           <tr>
@@ -266,14 +342,14 @@
             <td colspan="3"></td>
             <% if @service_order.diagnosis.is_tax %>
             <td><b>I.V.A. (<%= (@service_order.diagnosis.tax * 100).to_i %>%)</b></td>
-            <td>+ <%= number_to_currency(@service_order.diagnosis.tax_total) %></td>
+            <td style="text-align: center; width: 10%">+ <%= number_to_currency(@service_order.diagnosis.tax_total) %></td>
             <% end %>
           </tr>
 
-          <tr class="heading">
+          <tr>
             <td colspan="3"></td>
             <td><b>TOTAL:</b></td>
-            <td>
+            <td style="text-align: center; width: 10%">
               <% if @service_order.diagnosis.is_tax %>
                <b><%= number_to_currency(@service_order.diagnosis.total) %></b>
                <%else%>
@@ -281,9 +357,61 @@
                <%end%>
             </td>
           </tr>
-
+    </table>
+  </td>
+</tr>
 <!--end diagnosis items-->
+<tr class="information">
+  <td colspan="5">
+    <div class="row">
+      <div class="col-lg-3">
+          <div class="card mb-3 border-secondary">
+             <div class="card-body">
+                <p class="card-text">
+                  <b>Forma de pago:</b><br>
 
+                  <% if @service_order.diagnosis.present? && @service_order.diagnosis.sale.present? %>
+                    <%= @service_order.diagnosis.sale.payment_way.name %>            
+                  <% end %> 
+
+                </p>
+             </div>
+          </div>
+      </div>
+      <div class="col-lg-3">
+          <div class="card mb-3 border-secondary">
+             <div class="card-body">
+                <b>Método de pago:</b><br>
+                  <% if @service_order.diagnosis.present? && @service_order.diagnosis.sale.present? %>
+                    <%= @service_order.diagnosis.sale.payment_method.name %>
+                  <% end %> 
+             </div>
+          </div>
+      </div>
+      <div class="col-lg-3">
+          <div class="card mb-3 border-secondary">
+             <div class="card-body">
+                <b>Moneda:</b><br>
+                <% if @service_order.diagnosis.present? %>
+                <%= @service_order.diagnosis.currency.name %>
+                <% end %> 
+             </div>
+          </div>
+      </div>
+      <div class="col-lg-3">
+          <div class="card mb-3 border-secondary">
+             <div class="card-body">
+                <b>Tipo de cambio:</b><br>
+                <% if @service_order.diagnosis.present? %>
+                1.0 <!-- HARD CODE -->
+                <% end %> 
+             </div>
+          </div>
+      </div>
+     </div>
+
+  </td>
+</tr>
 
           <tr>
             <td colspan="5"></td>
@@ -488,7 +616,7 @@
 </div> <!--card card-default -->
 
 <!-- end service order -->
-
+<%= render 'admin/shared/help' %>
 
 
 
@@ -717,3 +845,8 @@
     text-align: left;
 }  
 </style>
+<script type="text/javascript">
+  $("#open_modal").click(function(){
+     $("#note_modal").appendTo("body").modal('show');;
+  });
+</script>

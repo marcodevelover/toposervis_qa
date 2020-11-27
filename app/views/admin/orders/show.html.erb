@@ -33,7 +33,9 @@
                 <em class="fa-1x far fa-money-bill-alt"></em> Verificar cancelación
             <% end %>
             <% end %>
-             
+            <div id="open_modal" class="btn btn-sm btn-info">
+              <em class="fas fa-question"></em> 
+            </div>             
             <% unless @order.sale.bill_key.blank? %>
             <button class="btn dropdown-toggle btn-info" type="button" data-toggle="dropdown" aria-expanded="false"><em class="fa-1x fas fa-download"></em></button>
                <div class="dropdown-menu" role="menu" style="">
@@ -77,16 +79,7 @@
                     <%= image_tag 'pdf/logo.png' %>
                   </td>
                   <td style="text-align: center; width:50%" class="top">
-                    <strong>Toposervis S de RL de CV</strong>
-                    <br>
-                    <span>RFC: TOP160404KU0</span>
-                    <br>
-                    <span>Calle 42 No.264 x 41A y 41C, C.P. 97203 </span>
-                    <br>
-                    <span>Francisco de Montejo III Mérida,Yucatán </span>
-                    <br>
-                    <span>Tel. 01 (800) 890 9383, (999) 4 29 82 78</span>
-                    <br>
+
                   </td>
                   <td style="text-align: center; width:25%">
                     <br>
@@ -100,53 +93,111 @@
               </table>
             </td>
           </tr>
-        
 
           <tr class="information">
             <td colspan="5">
-              <table>
-                <tr>
-                  <td>
-                    <b>Contacto:</b>
-                    <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.name %><br>
-                    <b>Compañia:</b>
-                    <%= @order.customer.business_name %><br>
-                    <b>E-mail:</b>
-                    <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.email %><br>
-                    <b>Método de pago:</b>
-                    <%= @order.sale.payment_method.name %><br>
-                    <b>Forma de pago:</b>
-                    <%= @order.sale.payment_way.name %>
-                  </td>
-                </tr>
-              </table>
+              <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mb-3 border-secondary">
+                       <div class="card-header bg-secondary">Datos de contacto</div>
+                       <div class="card-body">
+                          <p class="card-text">
+                            <b>Contacto:</b>
+                            <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.name %><br>
+                            <b>Compañia:</b>
+                            <%= @order.customer.business_name %><br>
+                            <b>E-mail:</b>
+                            <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.email %><br>
+                          </p>
+                       </div>
+                    </div>
+                 </div>
+               </div>
+            </td>
+          </tr>
+          <tr class="information">
+            <td colspan="5">
+              <div class="row">
+              <div class="col-lg-6">
+                  <div class="card mb-3 border-secondary">
+                     <div class="card-header bg-secondary">Emisor</div>
+                     <div class="card-body">
+                        <p class="card-text">
+                            <b>Razón Social:</b><br>
+                            TOPOSERVIS<br>
+                            <b>RFC:</b><br>
+                            TOP160404KU0<br>
+                            <b>Domicilio:</b><br>
+                            Calle 42 No.264 x 41A y 41C, C.P. 97203<br>
+                            Francisco de Montejo III Mérida,Yucatán<br>
+                            <b>Régimen F.:</b><br>
+                            General de Ley Personas<br>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+              <div class="col-lg-6">
+                  <div class="card mb-3 border-secondary">
+                     <div class="card-header bg-secondary">Receptor</div>
+                     <div class="card-body">
+                        <p class="card-text">
+                            <b>Razón Social:</b><br>
+                            <%= @order.customer.blank? ? "" : @order.customer.business_name %><br>
+                            <b>RFC:</b><br>
+                            <%= @order.customer.blank? ? "" : @order.customer.rfc %><br>
+                            <b>Uso del CFDI:</b><br>
+                            <% unless @order.sale.blank? %>
+                            <%= @order.sale.use_of_cfdi.blank? ? "" : @order.sale.use_of_cfdi.cfdi_key + " - " + @order.sale.use_of_cfdi.name %><br>
+                            <% end %>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               </div>
+
             </td>
           </tr>
 
-          <tr class="heading">
-            <td>Concepto</td>
-            <td class="right">Unidad</td>
-            <td class="right">Precio</td>
-            <td class="right">Cantidad</td>
+
+
+<tr>
+  <td colspan="5">
+    <table>
+
+
+          <tr class="bg-secondary">
+            <td>Clave ProdServ</td>
+            <td style="text-align: center;">Concepto</td>
+            <td style="text-align: center;">Unidad</td>
+            <td style="text-align: center;">Precio</td>
+            <td style="text-align: center;">Cantidad</td>
             <td>Total</td>
           </tr>
 
           <% @order.items.each do |item| %>
             <tr class="item">
                 <td>
+                    <%= item.product_variant.product_key %>
+                </td>
+                <td style="text-align: center;">
                     <%= item.name %><br>
                     <small><%= item.extended_description %></small>
                 </td>
 
-                <td class="right">
+                <td style="text-align: center;">
+                    <%unless item.product_variant.product.unit.blank? %>
+                    <%= item.product_variant.product.unit.unit_key %>
+                    <% else %>
+                    ----
+                    <% end %>
                     <%= item.unit %>
                 </td>
 
-                <td class="right">
+                <td style="text-align: center;">
                     <%= number_to_currency(item.unit_price) %>
                 </td>
 
-                <td class="right">
+                <td style="text-align: center;">
                     <%= item.quantity %>
                 </td>
 
@@ -155,7 +206,10 @@
                 </td>
             </tr>
           <% end %>
-
+    
+    </table>
+  </td>
+</tr>
 
 
           <tr>
@@ -165,14 +219,14 @@
           <tr>
             <td colspan="3"></td>
             <td><b>Subtotal</b></td>
-            <td><%= number_to_currency(@order.subtotal) %></td>
+            <td style="text-align: center; width: 10%"><%= number_to_currency(@order.subtotal) %></td>
           </tr>
 
           <tr>
             <td colspan="3"></td>
             <% if @order.adjustment_total != 0 %>
             <td><b>Descuento</b></td>
-            <td>- <%= number_to_currency(@order.adjustment_total) %></td>
+            <td style="text-align: center; width: 10%">- <%= number_to_currency(@order.adjustment_total) %></td>
             <% end %>
           </tr>
 
@@ -180,19 +234,67 @@
             <td colspan="3"></td>
             <% if @order.is_tax %>
             <td><b>I.V.A. (<%= (@order.tax * 100).to_i %>%)</b></td>
-            <td>+ <%= number_to_currency(@order.tax_total) %></td>
+            <td style="text-align: center; width: 10%">+ <%= number_to_currency(@order.tax_total) %></td>
             <%end%>
           </tr>
 
-          <tr class="heading">
+          <tr>
             <td colspan="3"></td>
             <td><b>TOTAL:</b></td>
-            <td>
+            <td style="text-align: center; width: 10%">
                <% if @order.is_tax %>
                <b><%= number_to_currency(@order.total) %></b>
                <%else%>
                <b><%= number_to_currency(@order.subtotal) %></b>
                <%end%>
+            </td>
+          </tr>
+
+          <tr class="information">
+            <td colspan="5">
+              <div class="row">
+                <div class="col-lg-3">
+                    <div class="card mb-3 border-secondary">
+                       <div class="card-body">
+                          <p class="card-text">
+                            <b>Forma de pago:</b><br>
+
+                            <% if @order.sale.present? %>
+                              <%= @order.sale.payment_way.name %>            
+                            <% end %> 
+
+                          </p>
+                       </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card mb-3 border-secondary">
+                       <div class="card-body">
+                          <b>Método de pago:</b><br>
+                            <% if @order.sale.present? %>
+                              <%= @order.sale.payment_method.name %>
+                            <% end %> 
+                       </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card mb-3 border-secondary">
+                       <div class="card-body">
+                          <b>Moneda:</b><br>
+                          <%= @order.currency.name %>
+                       </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card mb-3 border-secondary">
+                       <div class="card-body">
+                          <b>Tipo de cambio:</b><br>
+                          <%= @order.exchange_rate %>
+                       </div>
+                    </div>
+                </div>
+               </div>
+
             </td>
           </tr>
 
@@ -216,7 +318,7 @@
     </div>
 </div>
 </div>
-
+<%= render 'admin/shared/help' %>
 <style type="text/css">
 // Place all the styles related to the Conditions controller here.
 // They will automatically be included in application.css.
@@ -442,3 +544,8 @@
     text-align: left;
 }  
 </style>
+<script type="text/javascript">
+  $("#open_modal").click(function(){
+     $("#note_modal").appendTo("body").modal('show');;
+  });
+</script>
