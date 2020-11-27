@@ -157,8 +157,10 @@
                             <%= @quotation.customer.blank? ? "" : @quotation.customer.business_name %><br>
                             <b>RFC:</b><br>
                             <%= @quotation.customer.blank? ? "" : @quotation.customer.rfc %><br>
+                            <% unless @quotation.sale.blank? %>
                             <b>Uso del CFDI:</b><br>
-                            <%= @quotation.sale.blank? ? "" : @quotation.sale.use_of_cfdi.cfdi_key + " - " + @quotation.sale.use_of_cfdi.name %><br>
+                            <%= @quotation.sale.use_of_cfdi.blank? ? "" : @quotation.sale.use_of_cfdi.cfdi_key + " - " + @quotation.sale.use_of_cfdi.name %><br>
+                            <% end %>
                         </p>
                      </div>
                   </div>
