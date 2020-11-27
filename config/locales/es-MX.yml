@@ -82,6 +82,8 @@ es:
   category_module: Categorías
   categories: Categorías
   information: Información
+  help: Ayuda
+  invoice_information: Para poder emitir una factura es necesario que la información del documento este completa, Razón Social, RFC, Uso de CFDI e información de productos/servicios con sus respectivas claves SAT.
   service_order: Orden de servicio
   to_diagnose: Diagnostico
   sale_order: Nota de venta 
