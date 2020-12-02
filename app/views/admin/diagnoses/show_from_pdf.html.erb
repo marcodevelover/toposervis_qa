@@ -157,7 +157,7 @@
                <br><%= @diagnosis.total.to_words %> <%= @diagnosis.currency.abbreviation %>
                <%else%>
                <b><%= number_to_currency(@diagnosis.subtotal) %> <%= @diagnosis.currency.name %></b>
-               <br><% unless @diagnosis.subtotal.to_words.blank? %> <%= @diagnosis.subtotal.to_words %> <% end %> <%= @diagnosis.currency.abbreviation %>
+               <br><% unless @diagnosis.subtotal.blank? %> <%= @diagnosis.subtotal.to_words %> <% end %> <%= @diagnosis.currency.abbreviation %>
                <%end%>
             </td>
           </tr>
