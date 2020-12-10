@@ -127,6 +127,7 @@ GEM
     groupdate (5.0.0)
       activesupport (>= 5)
     htmlentities (4.3.4)
+    humanize (2.5.0)
     i18n (1.7.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.10.3)
@@ -175,7 +176,6 @@ GEM
       mini_portile2 (~> 2.4.0)
     nokogiri (1.10.4-x64-mingw32)
       mini_portile2 (~> 2.4.0)
-    number_to_words (1.2.1)
     orm_adapter (0.5.0)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
@@ -311,13 +311,13 @@ DEPENDENCIES
   devise
   facturapi_ruby!
   groupdate
+  humanize
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
   kaminari
   listen (>= 3.0.5, < 3.2)
   mini_magick
   mysql2
-  number_to_words
   puma (~> 3.11)
   rails (~> 6.0.0)
   ransack

@@ -231,10 +231,10 @@
             <td class="center top">
               <% if @quotation.is_tax %>
               <b><%= number_to_currency(@quotation.total) %> <%= @quotation.currency.name %></b>
-              <br><%= @quotation.total.to_words %> <%= @quotation.currency.abbreviation %>
+              <br><%= @quotation.total.humanize %> <%= @quotation.currency.abbreviation %>
               <%else%>
               <b><%= number_to_currency(@quotation.subtotal) %> <%= @quotation.currency.name %></b>
-              <br><%= @quotation.subtotal.to_words %> <%= @quotation.currency.abbreviation %>
+              <br><%= @quotation.subtotal.humanize %> <%= @quotation.currency.abbreviation %>
               <%end%>
             </td>
           </tr>
