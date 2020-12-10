@@ -127,10 +127,10 @@
             <td class="center">
                <% if @order.is_tax %>
                <b><%= number_to_currency(@order.total) %> <%= @order.currency.name %></b>
-               <br><%= @order.total.to_words %> <%= @order.currency.abbreviation %>
+               <br><%= @order.total.humanize %> <%= @order.currency.abbreviation %>
                <%else%>
                <b><%= number_to_currency(@order.subtotal) %> <%= @order.currency.name %></b>
-               <br><%= @order.subtotal.to_words %> <%= @order.currency.abbreviation %>
+               <br><%= @order.subtotal.humanize %> <%= @order.currency.abbreviation %>
                <%end%>
             </td>
           </tr>
