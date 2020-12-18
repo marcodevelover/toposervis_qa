@@ -84,6 +84,7 @@ Rails.application.routes.draw do
       get :filter_form, on: :collection
       get :show_from_modal, on: :member
       get :show_from_pdf, on: :member
+      get :note_from_pdf, on: :member
       get :sales, on: :member
       get :bill, on: :member
       put :invoice, on: :member
