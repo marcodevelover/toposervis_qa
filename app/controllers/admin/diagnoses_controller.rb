@@ -1,6 +1,6 @@
 class Admin::DiagnosesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_diagnosis, only: [:show, :edit, :update, :destroy, :show_from_pdf, :output_pdf]
+  before_action :set_diagnosis, only: [:show, :edit, :update, :destroy, :show_from_pdf, :output_pdf, :note_from_pdf]
 
   # GET /diagnoses
   # GET /diagnoses.json
@@ -50,6 +50,26 @@ class Admin::DiagnosesController < ApplicationController
         end
     end
   end
+
+  def note_from_pdf
+    respond_to do |format|
+        format.html
+        format.pdf do
+            render pdf: "nota_de_venta_" + @diagnosis.service_order.folio,
+            header:  {   html: {   template: "admin/diagnoses/note_header_pdf.html.erb"}},
+            template: "admin/diagnoses/note_from_pdf.html.erb",
+            
+            layout: "pdf.html",
+            viewport_size: '1280x1024',
+            margin:  {   
+                         bottom: 40,
+                         
+                         }
+            #footer:  {   html: {   template: "admin/diagnoses/footer_pdf.html.erb"}}
+        end
+    end
+  end
+
   # GET /diagnoses/new
   def new
     @diagnosis = Diagnosis.new

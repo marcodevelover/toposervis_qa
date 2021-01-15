@@ -105,6 +105,7 @@ Rails.application.routes.draw do
     resources :diagnoses do
       get :show_from_pdf, on: :member
       get :output_pdf, on: :member
+      get :note_from_pdf, on: :member
     end
     resources :service_orders do
       get :delete, on: :member
@@ -149,6 +150,7 @@ Rails.application.routes.draw do
       put :cancel_invoice, on: :member
       get :request_cancellation_state_invoice, on: :member
       put :cancellation_state_invoice, on: :member
+      get :note_from_pdf, on: :member
     end
     resources :sales do
       get :filter_form, on: :collection
