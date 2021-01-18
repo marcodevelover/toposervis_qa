@@ -1,0 +1,216 @@
+<div class="invoice-box nobreak">
+        <table cellpadding="0" cellspacing="0">
+
+          <tr class="information">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td class="top">
+                    <b>Compañia:</b>
+                    <%= @diagnosis.service_order.customer.business_name.blank? ? "----" : @diagnosis.service_order.customer.business_name %><br>
+                    <b>RFC:</b>
+                    <%= @diagnosis.service_order.customer.rfc.blank? ? "----" : @diagnosis.service_order.customer.rfc %><br>
+                    <b>Contacto:</b>
+                    <%= @diagnosis.service_order.user.blank? ?  "----" : @diagnosis.service_order.user.name + " " + @diagnosis.service_order.user.lastname %><br>
+                    <b>Teléfono:</b>
+                    <%= @diagnosis.service_order.user.blank? ?  "----" : @diagnosis.service_order.user.phone %><br>
+                    <b>E-mail:</b>
+                    <%= @diagnosis.service_order.user.blank? ?  "----" : @diagnosis.service_order.user.email %><br>
+                    <% if @diagnosis.sale.present? %>
+                    <b>Método de pago:</b>
+                    <%= @diagnosis.sale.payment_method.name %><br>
+                    <b>Forma de pago:</b>
+                    <%= @diagnosis.sale.payment_way.name %>            
+                    <% end %>
+                  </td>
+
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="5"><b>Producto:</b> <%= @diagnosis.service_order.product.name %></td>
+          </tr>
+          <tr>
+            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @diagnosis.service_order.product.name %></b> marca <b><%= @diagnosis.service_order.brand %></b> modelo <b><%= @diagnosis.service_order.model %></b> con número de serie <b><%= @diagnosis.service_order.serie %></b> para su revisión y diagnostico.</br><br> <b>Accesorios que incluye:</b><br></td>
+          </tr>          
+
+          <tr class="heading">
+            
+            <td class="center" colspan="3">Accesorios</td>
+            <td style="text-align: center;" colspan="2">Cantidad</td>
+            
+          </tr> 
+
+          <% @diagnosis.service_order.order_accessories.where.not(quantity: 0).each do |item| %>
+            
+            <tr class="item">
+                
+                <td colspan="3">
+                    <%= item.accessory %><br>
+                    
+                </td>
+
+                <td style="text-align: center;" colspan="2">
+                    <%= item.quantity %>
+                </td>
+                
+            </tr>
+            
+          <% end %>
+<!--diagnosis-->
+          <tr>
+            <td colspan="5" style="text-align: left;"><br><h4>Diagnostico:</h4></td>
+          </tr>         
+
+          <tr class="heading">
+            
+            <td class="center" colspan="5">Descripción del diagnostico</td>
+            
+            
+          </tr> 
+
+          <% @diagnosis.diagnosis_descriptions.each do |item| %>
+            
+            <tr class="item">
+                
+                <td colspan="5">
+                    <%= item.description %><br>
+                </td>
+                
+            </tr>
+            
+          <% end %>
+
+<!--end diagnosis-->
+<!--diagnosis items-->
+          <tr>
+            <td colspan="5" style="text-align: left;"><br><b>Presupuesto:</b></td>
+          </tr>         
+
+          <tr class="heading">
+            <td class="center">Concepto</td>
+            <td class="center">Unidad</td>
+            <td class="center">Precio</td>
+            <td class="center">Cantidad</td>
+            <td class="center">Total</td>
+          </tr>
+
+          <% @diagnosis.items.each do |item| %>
+            <tr class="item">
+                <td>
+                    <%= item.name %><br>
+                    <small><%= item.extended_description %></small>
+                </td>
+
+                <td class="center">
+                    <%= item.unit %>
+                </td>
+
+                <td class="center">
+                    <%= number_to_currency(item.unit_price) %>
+                </td>
+
+                <td class="center">
+                    <%= item.quantity %>
+                </td>
+
+                <td class="center">
+                    <%= number_to_currency(item.unit_price * item.quantity) %>
+                </td>
+            </tr>
+          <% end %>
+
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>Subtotal</b></td>
+            <td class="center"><%= number_to_currency(@diagnosis.subtotal) %></td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <% if @diagnosis.adjustment_total != 0 %>
+            <td><b>Descuento</b></td>
+            <td class="center">- <%= number_to_currency(@diagnosis.adjustment_total) %></td>
+            <% end %>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <% if @diagnosis.is_tax %>
+            <td><b>I.V.A. (<%= (@diagnosis.tax * 100).to_i %>%)</b></td>
+            <td class="center">+ <%= number_to_currency(@diagnosis.tax_total) %></td>
+            <% end %>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>TOTAL:</b></td>
+            <td class="center">
+               <% if @diagnosis.is_tax %>
+               <b><%= number_to_currency(@diagnosis.total) %> <%= @diagnosis.currency.name %></b>
+               <br><%= @diagnosis.total.humanize %> <%= @diagnosis.currency.abbreviation %>
+               <%else%>
+               <b><%= number_to_currency(@diagnosis.subtotal) %> <%= @diagnosis.currency.name %></b>
+               <br><% unless @diagnosis.subtotal.blank? %> <%= @diagnosis.subtotal.humanize %> <% end %> <%= @diagnosis.currency.abbreviation %>
+               <%end%>
+            </td>
+          </tr>
+<!--end diagnosis items-->
+        </table>
+</div>
+<div class="invoice-box nobreak">
+        <table cellpadding="0" cellspacing="0">
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+
+          <tr>
+            <td colspan="5">Manifiesto que los accesorios y observaciones señaladas del equipo al momento de la entrega a
+              TOPOSERVIS S DE RL DE CV son de mi entero conocimiento.<br>
+            </td>
+          </tr>  
+
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+
+          <tr>
+            <td colspan="3" style="text-align: center"><strong>_________________________________</strong></td>
+            <td colspan="3" style="text-align: center"><strong>_________________________________</strong></td>
+          </tr>          
+          <tr>
+            <td colspan="3" style="text-align: center"><strong>Cliente</strong></td>
+            <td colspan="3" style="text-align: center"><strong>Toposervis S de RL de CV</strong></td>
+          </tr>
+        </table>
+</div>

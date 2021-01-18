@@ -1,0 +1,39 @@
+<style type="text/css">
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+
+<div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td class="title" style="width:25%">
+                    <%= wicked_pdf_image_tag 'pdf/logo.png' %>
+                  </td>
+                  <td style="text-align: center; width:25%;" class="top">
+                    
+                  </td>
+                  <td style="text-align: left; width:50%">
+                    <% if @diagnosis.sale.present?%>
+                    <strong>Nota de venta</strong><br>
+                    <b>Folio:</b>
+                    <b class="blue"><%= @diagnosis.sale.folio %></b><br>
+                    <b>Fecha:</b>
+                    <b class="blue"><%= @diagnosis.sale.created_at.strftime("%d-%m-%Y") %></b><br>
+                    <% end %>   
+
+                    <strong>Nota de venta</strong><br>
+                    <b>Folio:</b>
+                    <b class="blue"><%= @diagnosis.service_order.folio %></b><br>
+                    <b>Fecha:</b>
+                    <b class="blue"><%= @diagnosis.service_order.updated_at.strftime("%d-%m-%Y") %></b><br>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+</div>
