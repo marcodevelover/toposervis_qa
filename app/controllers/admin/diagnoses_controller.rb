@@ -56,7 +56,7 @@ class Admin::DiagnosesController < ApplicationController
         format.html
         format.pdf do
             render pdf: "nota_de_venta_" + @diagnosis.service_order.folio,
-            header:  {   html: {   template: "admin/diagnoses/note_header_pdf.html.erb"}},
+            #header:  {   html: {   template: "admin/diagnoses/note_header_pdf.html.erb"}},
             template: "admin/diagnoses/note_from_pdf.html.erb",
             
             layout: "pdf.html",

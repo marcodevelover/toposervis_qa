@@ -17,8 +17,8 @@
                          <div class="card-header bg-secondary font-white border-radius-no-bottom">Nota de venta</div>
                          <div class="card-body">
                             <p class="card-text" style="text-align: center;">
-                              <% if @quotation.sale.present?%>
-                              <b class="blue" ><%= @quotation.sale.folio %></b>
+                              <% if @order.sale.present?%>
+                              <b class="blue" ><%= @order.sale.folio %></b>
                               <% end %>
                             </p>
                          </div>
@@ -28,16 +28,16 @@
                   <div class="row">
                     <div class="col-md-12">
                       <p class="card-text">
-                        <% if @quotation.sale.present?%>
+                        <% if @order.sale.present?%>
                         <b>Fecha de emisión:</b>
-                        <b class="blue"><%= @quotation.sale.created_at.strftime("%d-%m-%Y") %></b><br>
+                        <b class="blue"><%= @order.sale.created_at.strftime("%d-%m-%Y") %></b><br>
                         <% end %>                    
                         <b>Documento origen:</b>
-                        <b class="blue">Cotización</b><br>
+                        <b class="blue">Venta</b><br>
                         <b>Folio:</b>
-                        <b class="blue"><%= @quotation.folio %></b><br>
+                        <b class="blue"><%= @order.sale.folio %></b><br>
                         <b>Fecha:</b>
-                        <b class="blue"><%= @quotation.created_at.strftime("%d-%m-%Y") %></b>
+                        <b class="blue"><%= @order.created_at.strftime("%d-%m-%Y") %></b>
                       </p>
                    </div>
                   </div>
@@ -74,12 +74,12 @@
                      <div class="card-body">
                         <p class="card-text">
                             <b>Razón Social:</b>
-                            <%= @quotation.customer.blank? ? "" : @quotation.customer.business_name %><br>
+                            <%= @order.customer.blank? ? "" : @order.customer.business_name %><br>
                             <b>RFC:</b>
-                            <%= @quotation.customer.blank? ? "" : @quotation.customer.rfc %><br>
-                            <% unless @quotation.sale.blank? %>
+                            <%= @order.customer.blank? ? "" : @order.customer.rfc %><br>
+                            <% unless @order.sale.blank? %>
                             <b>Uso del CFDI:</b>
-                            <%= @quotation.sale.use_of_cfdi.blank? ? "" : @quotation.sale.use_of_cfdi.cfdi_key + " - " + @quotation.sale.use_of_cfdi.name %><br>
+                            <%= @order.sale.use_of_cfdi.blank? ? "" : @order.sale.use_of_cfdi.cfdi_key + " - " + @order.sale.use_of_cfdi.name %><br>
                             <% end %>
                         </p>
                      </div>
@@ -99,7 +99,7 @@
             <td class="center">Importe</td>
           </tr>
 
-          <% @quotation.items.each do |item| %>
+          <% @order.items.each do |item| %>
             <tr class="item-no-border">
 
                 <td style="text-align: center;">
@@ -199,8 +199,8 @@
                               
                                 <b>Forma de pago:</b><br>
 
-                                <% if @quotation.sale.present? %>
-                                  <%= @quotation.sale.payment_way.name %>            
+                                <% if @order.sale.present? %>
+                                  <%= @order.sale.payment_way.name %>            
                                 <% end %> 
 
                               
@@ -211,8 +211,8 @@
                         <div class="mb-3 border-secondary">
                            <div class="card-body">
                               <b>Método de pago:</b><br>
-                                <% if @quotation.sale.present? %>
-                                  <%= @quotation.sale.payment_method.name %>
+                                <% if @order.sale.present? %>
+                                  <%= @order.sale.payment_method.name %>
                                 <% end %> 
                            </div>
                         </div>
@@ -221,7 +221,7 @@
                         <div class="mb-3 border-secondary">
                            <div class="card-body">
                               <b>Moneda:</b><br>
-                              <%= @quotation.currency.name %>
+                              <%= @order.currency.name %>
                            </div>
                         </div>
                     </div>
@@ -229,7 +229,7 @@
                         <div class="mb-3 border-secondary">
                            <div class="card-body">
                               <b>Tipo de cambio:</b><br>
-                              <%= @quotation.exchange_rate %>
+                              <%= @order.exchange_rate %>
                            </div>
                         </div>
                     </div>
@@ -240,18 +240,18 @@
               </table>
             </td>
             <td class="bottom" ><b>Subtotal</b></td>
-            <td class="center bottom"><%= number_to_currency(@quotation.subtotal) %></td>
+            <td class="center bottom"><%= number_to_currency(@order.subtotal) %></td>
           </tr>
 
           <tr>
-            <td><% if @quotation.adjustment_total != 0 %><b>Descuento</b> <%end%></td>
-            <td class="center"><% if @quotation.adjustment_total != 0 %>- <%= number_to_currency(@quotation.adjustment_total) %><%end%></td>
+            <td><% if @order.adjustment_total != 0 %><b>Descuento</b> <%end%></td>
+            <td class="center"><% if @order.adjustment_total != 0 %>- <%= number_to_currency(@order.adjustment_total) %><%end%></td>
           </tr>
           <tr>
             </td>
-            <% if @quotation.is_tax %>
-            <td><b>I.V.A. (<%= (@quotation.tax * 100).to_i %>%)</b></td>
-            <td class="center">+ <%= number_to_currency(@quotation.tax_total) %></td>
+            <% if @order.is_tax %>
+            <td><b>I.V.A. (<%= (@order.tax * 100).to_i %>%)</b></td>
+            <td class="center">+ <%= number_to_currency(@order.tax_total) %></td>
             <% end %>
           </tr>
           <tr>
@@ -260,12 +260,12 @@
                 <tr>
                   <td>
                     <b>IMPORTE CON LETRA:</b>
-                    <% if @quotation.is_tax %>
+                    <% if @order.is_tax %>
                     
-                    <br><%= @quotation.total.humanize %> <%= @quotation.currency.abbreviation %>
+                    <br><%= @order.total.humanize %> <%= @order.currency.abbreviation %>
                     <%else%>
                     
-                    <br><%= @quotation.subtotal.humanize %> <%= @quotation.currency.abbreviation %>
+                    <br><%= @order.subtotal.humanize %> <%= @order.currency.abbreviation %>
                     <%end%>
                   </td> 
                 </tr>
@@ -273,11 +273,11 @@
             </td>
             <td class="top"><b>TOTAL:</b></td>
             <td class="center top">
-              <% if @quotation.is_tax %>
-              <b><%= number_to_currency(@quotation.total) %> <%= @quotation.currency.name %></b>
+              <% if @order.is_tax %>
+              <b><%= number_to_currency(@order.total) %> <%= @order.currency.name %></b>
               
               <%else%>
-              <b><%= number_to_currency(@quotation.subtotal) %> <%= @quotation.currency.name %></b>
+              <b><%= number_to_currency(@order.subtotal) %> <%= @order.currency.name %></b>
               
               <%end%>
             </td>

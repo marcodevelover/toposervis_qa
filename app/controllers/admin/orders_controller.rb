@@ -1,6 +1,6 @@
 class Admin::OrdersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :bill, :invoice, :cancel_invoice, :request_cancellation_state_invoice, :cancellation_state_invoice]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :note_from_pdf, :bill, :invoice, :cancel_invoice, :request_cancellation_state_invoice, :cancellation_state_invoice]
   respond_to :html, :json
 
   def page_name
@@ -36,6 +36,23 @@ class Admin::OrdersController < ApplicationController
                          
                          },
             footer:  {   html: {   template: "admin/orders/footer_pdf.html.erb"}}
+        end
+    end
+  end
+
+  def note_from_pdf
+    respond_to do |format|
+        format.html
+        format.pdf do
+            render pdf: "nota_de_venta_" + @order.sale.folio,
+            template: "admin/orders/note_from_pdf.html.erb",
+            layout: "pdf.html",
+            viewport_size: '1280x1024',
+            margin:  {   
+                         bottom: 40,
+                         
+                      }
+            #footer:  {   html: {   template: "admin/quotations/footer_pdf.html.erb"}}
         end
     end
   end
