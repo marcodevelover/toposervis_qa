@@ -21,6 +21,12 @@
             <a class="btn btn-sm btn-info" target="_blank" href="https://portalsat.plataforma.sat.gob.mx/ConsultaRFC/" >
                 <em class="fa-1x mr-2 fas fa-external-link-alt"></em> Verificar RFC
             </a>
+            
+            <% if @quotation.sale.present? %>
+            <%= link_to note_from_pdf_admin_quotation_path(@quotation, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+                Vista previa
+            <%end%>
+            <% end %>
 
             <% if @quotation.sale.bill_state.blank? && @quotation.is_tax   %>
             <%= link_to bill_admin_quotation_path(@quotation), :class => "btn btn-sm btn-info", remote: true   do %>
