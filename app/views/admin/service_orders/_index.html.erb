@@ -86,10 +86,12 @@
                     <%= link_to output_pdf_admin_diagnosis_path(object.diagnosis.id, format: :pdf), :class => "dropdown-item", target: :_blank do %>
                         Orden de salida
                     <%end%>
-                    <%= link_to note_from_pdf_admin_diagnosis_path(object, format: :pdf), :class => "dropdown-item", target: :_blank do %>
+                    <%end%>
+
+                    <% if object.diagnosis.present? && object.diagnosis.sale.present?%>
+                    <%= link_to note_from_pdf_admin_diagnosis_path(object.diagnosis.id, format: :pdf), :class => "dropdown-item", target: :_blank do %>
                         Nota de venta
                     <% end %>
-
                     <%end%>
                </div>
             <%end%>

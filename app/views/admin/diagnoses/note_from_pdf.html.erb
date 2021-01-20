@@ -1,107 +1,132 @@
-<div class="invoice-box nobreak">
+<div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
-
-          <tr class="information">
-            <td colspan="5">
+          <tr class="top">
+            <td colspan="6">
               <table>
                 <tr>
-                  <td class="top">
-                    <b>Compañia:</b>
-                    <%= @diagnosis.service_order.customer.business_name.blank? ? "----" : @diagnosis.service_order.customer.business_name %><br>
-                    <b>RFC:</b>
-                    <%= @diagnosis.service_order.customer.rfc.blank? ? "----" : @diagnosis.service_order.customer.rfc %><br>
-                    <b>Contacto:</b>
-                    <%= @diagnosis.service_order.user.blank? ?  "----" : @diagnosis.service_order.user.name + " " + @diagnosis.service_order.user.lastname %><br>
-                    <b>Teléfono:</b>
-                    <%= @diagnosis.service_order.user.blank? ?  "----" : @diagnosis.service_order.user.phone %><br>
-                    <b>E-mail:</b>
-                    <%= @diagnosis.service_order.user.blank? ?  "----" : @diagnosis.service_order.user.email %><br>
-                    <% if @diagnosis.sale.present? %>
-                    <b>Método de pago:</b>
-                    <%= @diagnosis.sale.payment_method.name %><br>
-                    <b>Forma de pago:</b>
-                    <%= @diagnosis.sale.payment_way.name %>            
-                    <% end %>
+                  <td class="title" style="width:25%">
+                    <%= wicked_pdf_image_tag 'pdf/logo.png' %>
                   </td>
+                  <td style="text-align: center; width:25%" class="top">
+                  </td>
+                  <td style="text-align: left; width:50%">
 
+                  <div class="row">
+                    <div class="col-md-6 offset-md-6">
+                      <div class="card mb-3 border-radius">
+                         <div class="card-header bg-secondary font-white border-radius-no-bottom">Nota de venta</div>
+                         <div class="card-body">
+                            <p class="card-text" style="text-align: center;">
+                              <% if @diagnosis.sale.present?%>
+                              
+                              <b class="blue" ><%= @diagnosis.sale.folio %></b>
+                              <% end %>
+                            </p>
+                         </div>
+                      </div>
+                   </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p class="card-text">
+                        <% if @diagnosis.sale.present?%>
+                        <b>Fecha de emisión:</b>
+                        <b class="blue"><%= @diagnosis.sale.created_at.strftime("%d-%m-%Y") %></b><br>
+                        <% end %>                    
+                        <b>Documento origen:</b>
+                        <b class="blue">Orden de servicio</b><br>
+                        <b>Folio:</b>
+                        <b class="blue"><%= @diagnosis.service_order.folio %></b><br>
+                        <b>Fecha:</b>
+                        <b class="blue"><%= @diagnosis.created_at.strftime("%d-%m-%Y") %></b>
+                      </p>
+                   </div>
+                  </div>
+                  </td>
                 </tr>
               </table>
             </td>
           </tr>
 
-          <tr>
-            <td colspan="5"><b>Producto:</b> <%= @diagnosis.service_order.product.name %></td>
+          <tr class="information">
+            <td colspan="6">
+              <div class="row">
+              <div class="col-lg-6">
+                  <div class="card mb-3 border-radius">
+                     <div class="card-header bg-secondary font-white border-radius-no-bottom">Emisor</div>
+                     <div class="card-body">
+                        <p class="card-text">
+                            <b>Razón Social:</b>
+                            TOPOSERVIS S de RL de CV<br>
+                            <b>RFC:</b>
+                            TOP160404KU0<br>
+                            <b>Domicilio:</b>
+                            Calle 42 No.264 x 41A y 41C, C.P. 97203
+                            Francisco de Montejo III Mérida,Yucatán<br>
+                            <b>Régimen F.:</b>
+                            General de Ley Personas<br>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+              <div class="col-lg-6">
+                  <div class="card mb-3 border-radius">
+                     <div class="card-header bg-secondary font-white border-radius-no-bottom">Receptor</div>
+                     <div class="card-body">
+                        <p class="card-text">
+                            <b>Razón Social:</b>
+                            <%= @diagnosis.service_order.customer.blank? ? "" : @diagnosis.service_order.customer.business_name %><br>
+                            <b>RFC:</b>
+                            <%= @diagnosis.service_order.customer.blank? ? "" : @diagnosis.service_order.customer.rfc %><br>
+                            <% unless @diagnosis.sale.blank? %>
+                            <b>Uso del CFDI:</b>
+                            <%= @diagnosis.sale.use_of_cfdi.blank? ? "" : @diagnosis.sale.use_of_cfdi.cfdi_key + " - " + @diagnosis.sale.use_of_cfdi.name %><br>
+                            <% end %>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               </div>
+
+            </td>
           </tr>
-          <tr>
-            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @diagnosis.service_order.product.name %></b> marca <b><%= @diagnosis.service_order.brand %></b> modelo <b><%= @diagnosis.service_order.model %></b> con número de serie <b><%= @diagnosis.service_order.serie %></b> para su revisión y diagnostico.</br><br> <b>Accesorios que incluye:</b><br></td>
-          </tr>          
-
-          <tr class="heading">
-            
-            <td class="center" colspan="3">Accesorios</td>
-            <td style="text-align: center;" colspan="2">Cantidad</td>
-            
-          </tr> 
-
-          <% @diagnosis.service_order.order_accessories.where.not(quantity: 0).each do |item| %>
-            
-            <tr class="item">
-                
-                <td colspan="3">
-                    <%= item.accessory %><br>
-                    
-                </td>
-
-                <td style="text-align: center;" colspan="2">
-                    <%= item.quantity %>
-                </td>
-                
-            </tr>
-            
-          <% end %>
-<!--diagnosis-->
-          <tr>
-            <td colspan="5" style="text-align: left;"><br><h4>Diagnostico:</h4></td>
-          </tr>         
-
-          <tr class="heading">
-            
-            <td class="center" colspan="5">Descripción del diagnostico</td>
-            
-            
-          </tr> 
-
-          <% @diagnosis.diagnosis_descriptions.each do |item| %>
-            
-            <tr class="item">
-                
-                <td colspan="5">
-                    <%= item.description %><br>
-                </td>
-                
-            </tr>
-            
-          <% end %>
-
-<!--end diagnosis-->
-<!--diagnosis items-->
-          <tr>
-            <td colspan="5" style="text-align: left;"><br><b>Presupuesto:</b></td>
-          </tr>         
-
-          <tr class="heading">
-            <td class="center">Concepto</td>
-            <td class="center">Unidad</td>
-            <td class="center">Precio</td>
+        
+          <tr class="bg-secondary font-white border-radius-no-bottom">
+            <td style="text-align: center;">Clave ProdServ</td>
+            <td style="text-align: center;">Concepto</td>
             <td class="center">Cantidad</td>
-            <td class="center">Total</td>
+            <td style="text-align: center;">Unidad</td>
+            <td class="center">Precio unitario</td>
+            <td class="center">Importe</td>
           </tr>
 
           <% @diagnosis.items.each do |item| %>
-            <tr class="item">
-                <td>
-                    <%= item.name %><br>
+            <tr class="item-no-border">
+
+                <td style="text-align: center;">
+                  <%= item.product_variant.product_key %>
+                </td>
+
+                <td style="text-align: left;">
+                    <%= item.name %>
+                    <% unless item.product_variant.product.brand.blank? %>
+                     <small>MARCA:
+                      <%= item.product_variant.product.brand %>;
+                    <% end %></small>
+
+                    <% unless item.product_variant.product.model.blank? %>
+                      <small>MODELO:
+                      <%= item.product_variant.product.model %>
+                      </small><br>
+                    <% end %>
+                    <small>
+                    <br>
                     <small><%= item.extended_description %></small>
+                </td>
+
+                <td style="text-align: center;">
+                    
+                    <%= item.quantity %>
                 </td>
 
                 <td class="center">
@@ -110,107 +135,162 @@
 
                 <td class="center">
                     <%= number_to_currency(item.unit_price) %>
+
                 </td>
 
                 <td class="center">
-                    <%= item.quantity %>
+                    <%= number_to_currency(item.unit_price * item.quantity) %> <%= item.currency %>
+                </td>
+            </tr>
+
+            <tr class="item">
+
+                <td></td>
+
+                <td style="text-align: left;">
+                    <small>INCLUYE:</small>
+                    <ul class="no-indentation">
+                    <% item.product_variant.product.products_accessories.each do |accessory| %>
+                      <% if accessory.quantity != 0%>
+                        <li><%= accessory.accessory.name %></li>
+                      <%end%>
+                    <% end %>
+                    </ul>
+                    </small>
+                </td>
+
+
+                <td style="text-align: center;">
                 </td>
 
                 <td class="center">
-                    <%= number_to_currency(item.unit_price * item.quantity) %>
+                </td>
+
+                <td class="center">
+                    
+                    <small>
+                    <ul class="no-style">
+                    <% item.product_variant.product.products_accessories.each do |accessory| %>
+                      <% if accessory.quantity != 0%>
+                        <li><%= accessory.quantity %></li>
+                      <%end%>
+                    <% end %>
+                    </ul>
+                    </small>
+                </td>
+
+                <td class="center">
                 </td>
             </tr>
           <% end %>
 
           <tr>
-            <td colspan="5"></td>
+            <td colspan="6"></td>
           </tr>
 
           <tr>
-            <td colspan="3"></td>
-            <td><b>Subtotal</b></td>
-            <td class="center"><%= number_to_currency(@diagnosis.subtotal) %></td>
+            <td colspan="4" rowspan="3">
+              <table>
+              <tr class="information">
+                <td colspan="6">
+                  <div class="row">
+                    <div class="col-lg-3">
+                        <div class="mb-3 border-secondary">
+                           <div class="card-body">
+                              
+                                <b>Forma de pago:</b><br>
+
+                                <% if @diagnosis.sale.present? %>
+                                  <%= @diagnosis.sale.payment_way.name %>            
+                                <% end %> 
+
+                              
+                           </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="mb-3 border-secondary">
+                           <div class="card-body">
+                              <b>Método de pago:</b><br>
+                                <% if @diagnosis.sale.present? %>
+                                  <%= @diagnosis.sale.payment_method.name %>
+                                <% end %> 
+                           </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="mb-3 border-secondary">
+                           <div class="card-body">
+                              <b>Moneda:</b><br>
+                              <%= @diagnosis.currency.name %>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="mb-3 border-secondary">
+                           <div class="card-body">
+                              <b>Tipo de cambio:</b><br>
+                              <!--hard code -->
+                              1.0
+                              <!--hard code -->
+                           </div>
+                        </div>
+                    </div>
+                   </div>
+
+                </td>
+              </tr>
+              </table>
+            </td>
+            <td class="bottom" ><b>Subtotal</b></td>
+            <td class="center bottom"><%= number_to_currency(@diagnosis.subtotal) %></td>
           </tr>
 
           <tr>
-            <td colspan="3"></td>
-            <% if @diagnosis.adjustment_total != 0 %>
-            <td><b>Descuento</b></td>
-            <td class="center">- <%= number_to_currency(@diagnosis.adjustment_total) %></td>
-            <% end %>
+            <td><% if @diagnosis.adjustment_total != 0 %><b>Descuento</b> <%end%></td>
+            <td class="center"><% if @diagnosis.adjustment_total != 0 %>- <%= number_to_currency(@diagnosis.adjustment_total) %><%end%></td>
           </tr>
-
           <tr>
-            <td colspan="3"></td>
+            </td>
             <% if @diagnosis.is_tax %>
             <td><b>I.V.A. (<%= (@diagnosis.tax * 100).to_i %>%)</b></td>
             <td class="center">+ <%= number_to_currency(@diagnosis.tax_total) %></td>
             <% end %>
           </tr>
-
           <tr>
-            <td colspan="3"></td>
-            <td><b>TOTAL:</b></td>
-            <td class="center">
-               <% if @diagnosis.is_tax %>
-               <b><%= number_to_currency(@diagnosis.total) %> <%= @diagnosis.currency.name %></b>
-               <br><%= @diagnosis.total.humanize %> <%= @diagnosis.currency.abbreviation %>
-               <%else%>
-               <b><%= number_to_currency(@diagnosis.subtotal) %> <%= @diagnosis.currency.name %></b>
-               <br><% unless @diagnosis.subtotal.blank? %> <%= @diagnosis.subtotal.humanize %> <% end %> <%= @diagnosis.currency.abbreviation %>
-               <%end%>
+            <td colspan="4">
+              <table>
+                <tr>
+                  <td>
+                    <b>IMPORTE CON LETRA:</b>
+                    <% if @diagnosis.is_tax %>
+                    
+                    <br><%= @diagnosis.total.humanize %> <%= @diagnosis.currency.abbreviation %>
+                    <%else%>
+                    
+                    <br><%= @diagnosis.subtotal.humanize %> <%= @diagnosis.currency.abbreviation %>
+                    <%end%>
+                  </td> 
+                </tr>
+              </table>
+            </td>
+            <td class="top"><b>TOTAL:</b></td>
+            <td class="center top">
+              <% if @diagnosis.is_tax %>
+              <b><%= number_to_currency(@diagnosis.total) %> <%= @diagnosis.currency.name %></b>
+              
+              <%else%>
+              <b><%= number_to_currency(@diagnosis.subtotal) %> <%= @diagnosis.currency.name %></b>
+              
+              <%end%>
             </td>
           </tr>
-<!--end diagnosis items-->
-        </table>
-</div>
-<div class="invoice-box nobreak">
-        <table cellpadding="0" cellspacing="0">
           <tr>
-            <td colspan="5"></td>
+            <td colspan="6"> <p style="text-align: center;"><br><br>Este comprobante no tiene validez fiscal.<p></td>
           </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-
-          <tr>
-            <td colspan="5">Manifiesto que los accesorios y observaciones señaladas del equipo al momento de la entrega a
-              TOPOSERVIS S DE RL DE CV son de mi entero conocimiento.<br>
+              </table>
             </td>
-          </tr>  
-
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-
-          <tr>
-            <td colspan="3" style="text-align: center"><strong>_________________________________</strong></td>
-            <td colspan="3" style="text-align: center"><strong>_________________________________</strong></td>
           </tr>          
-          <tr>
-            <td colspan="3" style="text-align: center"><strong>Cliente</strong></td>
-            <td colspan="3" style="text-align: center"><strong>Toposervis S de RL de CV</strong></td>
-          </tr>
+          
         </table>
-</div>
+    </div>

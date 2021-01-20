@@ -23,6 +23,14 @@
             <div id="open_modal" class="btn btn-sm btn-info">
               <em class="fas fa-question"></em> 
             </div>
+
+            <% if @service_order.diagnosis.present? && @service_order.diagnosis.sale.present? %>
+            <%= link_to note_from_pdf_admin_diagnosis_path(@service_order.diagnosis.id, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+                Vista previa
+            <%end%>
+            <% end %>
+
+
 <% if @service_order.diagnosis.sale %>
             <% if @service_order.diagnosis.sale.bill_state.blank? && @service_order.diagnosis.is_tax %>
             <%= link_to bill_admin_service_order_path(@service_order), :class => "btn btn-sm btn-info", remote: true   do %>
