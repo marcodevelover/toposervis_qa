@@ -189,10 +189,10 @@
             <td class="center">
                <% if @diagnosis.is_tax %>
                <b><%= number_to_currency(@diagnosis.total) %> <%= @diagnosis.currency.name %></b>
-               <br><%= @diagnosis.total.humanize %> <%= @diagnosis.currency.abbreviation %>
+               <br><%= @diagnosis.total.to_f.to_words precision: 2 %> <%= @diagnosis.currency.abbreviation %>
                <%else%>
                <b><%= number_to_currency(@diagnosis.subtotal) %> <%= @diagnosis.currency.name %></b>
-               <br><%= @diagnosis.subtotal.humanize %> <%= @diagnosis.currency.abbreviation %>
+               <br><%= @diagnosis.subtotal.to_f.to_words precision: 2 %> <%= @diagnosis.currency.abbreviation %>
                <%end%>
             </td>
           </tr>
