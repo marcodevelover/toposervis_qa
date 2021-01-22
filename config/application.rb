@@ -1,7 +1,6 @@
 require_relative 'boot'
 
 require 'rails/all'
-require 'humanize'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -44,9 +43,4 @@ module Angle
                                 ]
 
   end
-end
-
-Humanize.configure do |config|
-  config.default_locale = :es  # [:en, :es, :fr, :tr, :de, :id], default: :en
-  config.decimals_as = :number # [:digits, :number], default: :digits
 end

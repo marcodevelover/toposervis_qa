@@ -262,10 +262,10 @@
                     <b>IMPORTE CON LETRA:</b>
                     <% if @order.is_tax %>
                     
-                    <br><%= @order.total.humanize %> <%= @order.currency.abbreviation %>
+                    <br><%= @order.total.to_f.to_words precision: 2 %> <%= @order.currency.abbreviation %>
                     <%else%>
                     
-                    <br><%= @order.subtotal.humanize %> <%= @order.currency.abbreviation %>
+                    <br><%= @order.subtotal.to_f.to_words precision: 2 %> <%= @order.currency.abbreviation %>
                     <%end%>
                   </td> 
                 </tr>

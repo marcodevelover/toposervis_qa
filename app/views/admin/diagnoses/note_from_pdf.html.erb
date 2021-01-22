@@ -265,10 +265,10 @@
                     <b>IMPORTE CON LETRA:</b>
                     <% if @diagnosis.is_tax %>
                     
-                    <br><%= @diagnosis.total.humanize %> <%= @diagnosis.currency.abbreviation %>
+                    <br><%= @diagnosis.total.to_f.to_words precision: 2 %> <%= @diagnosis.currency.abbreviation %>
                     <%else%>
                     
-                    <br><%= @diagnosis.subtotal.humanize %> <%= @diagnosis.currency.abbreviation %>
+                    <br><%= @diagnosis.subtotal.to_f.to_words precision: 2 %> <%= @diagnosis.currency.abbreviation %>
                     <%end%>
                   </td> 
                 </tr>
