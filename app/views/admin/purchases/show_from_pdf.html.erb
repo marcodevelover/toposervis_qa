@@ -109,7 +109,7 @@
             <td><b>TOTAL:</b></td>
             <td class="center">
                <b><%= number_to_currency(@purchase.total) %></b>
-               <br><%= @purchase.total.to_f.to_words precision: 2 %>
+               <br><%= @purchase.total.to_f.round(2).to_words precision: 2 %>
             </td>
           </tr>
               </table>
