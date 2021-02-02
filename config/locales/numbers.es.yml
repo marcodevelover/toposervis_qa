@@ -47,10 +47,10 @@ es:
     micro: [_, tenths, hundredths, thousandths, millionths, billionths, trillionths, quadrillionths, quintillionths, sextillionths, septillionths, octillionths, nonillionths, decillionths, undecillionths, duodecillionths, tredecillionths, quattuordecillionths]
     tenths:
       one: décima
-      other: centavos
+      other: 
     hundredths:
       one: centésima
-      other: centavos
+      other: 
     thousandths:
       one: milésima
       other: milésimas
@@ -96,7 +96,7 @@ es:
     quattuordecillionths:
       one: milseptillonésima
       other: milseptillonésimas
-    micro_separator: con
+    micro_separator: pesos con
     micro_prefix:
       tens: diez
       hundreds: cien
