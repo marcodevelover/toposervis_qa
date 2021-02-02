@@ -46,11 +46,11 @@ es:
     quattuordecillions: mil septillones
     micro: [_, tenths, hundredths, thousandths, millionths, billionths, trillionths, quadrillionths, quintillionths, sextillionths, septillionths, octillionths, nonillionths, decillionths, undecillionths, duodecillionths, tredecillionths, quattuordecillionths]
     tenths:
-      one: ''
-      other: ''
+      one: _
+      other: _
     hundredths:
-      one: ''
-      other: ''
+      one: _
+      other: _
     thousandths:
       one: milésima
       other: milésimas
