@@ -2,8 +2,8 @@ es:
   numbers:
     ones:
       apocopated: un
-      male: [cero, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve]
-      female: [cero, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve]
+      male: [cero, un, dos, tres, cuatro, cinco, seis, siete, ocho, nueve]
+      female: [cero, un, dos, tres, cuatro, cinco, seis, siete, ocho, nueve]
     teens: [_, once, doce, trece, catorce, quince, dieciséis, diecisiete, dieciocho, diecinueve]
     tens: [_, diez, veinte, treinta, cuarenta, cincuenta, sesenta, setenta, ochenta, noventa]
     twenties:
@@ -46,11 +46,11 @@ es:
     quattuordecillions: mil septillones
     micro: [_, tenths, hundredths, thousandths, millionths, billionths, trillionths, quadrillionths, quintillionths, sextillionths, septillionths, octillionths, nonillionths, decillionths, undecillionths, duodecillionths, tredecillionths, quattuordecillionths]
     tenths:
-      one: _
-      other: _
+      one:  ''
+      other:  ''
     hundredths:
-      one: _
-      other: _
+      one:  ''
+      other:  ''
     thousandths:
       one: milésima
       other: milésimas

@@ -170,10 +170,10 @@
               
               <% if @quotation.is_tax %>
               
-              <br><%= @quotation.total.to_f.round(2).to_words %> <%= @quotation.total.to_f.round(2) % 1 != 0 ? "" : "PESOS" %> <%= sprintf('%02d', (@quotation.total.frac * 100).round(2)) %><%= @quotation.currency.abbreviation %>
+              <br><%= @quotation.total.to_f.round(2).to_words precision: 2%> <%= @quotation.total.to_f.round(2) % 1 != 0 ? "" : "PESOS" %> <%= sprintf('%02d', (@quotation.total.frac * 100).round(2)) %><%= @quotation.currency.abbreviation %>
               <%else%>
               
-              <br><%= @quotation.subtotal.to_f.round(2).to_words %> <%= @quotation.total.to_f.round(2) % 1 != 0 ? "" : "PESOS" %> <%= sprintf('%02d', (@quotation.total.frac * 100).round(2)) %><%= @quotation.currency.abbreviation %>
+              <br><%= @quotation.subtotal.to_f.round(2).to_words precision: 2%> <%= @quotation.total.to_f.round(2) % 1 != 0 ? "" : "PESOS" %> <%= sprintf('%02d', (@quotation.total.frac * 100).round(2)) %><%= @quotation.currency.abbreviation %>
               <%end%>
 
 
