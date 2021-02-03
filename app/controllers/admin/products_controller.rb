@@ -72,9 +72,9 @@ class Admin::ProductsController < ApplicationController
     respond_modal_with @q 
   end
 
-  def search(per_page = 10)
+  def search()
     params[:q] ||= {} 
-    params[:per_page] = 10
+    #params[:per_page] = 10  ####default set to 25, can export all products
     
     @q = Product.search(params[:q])
     @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])  

@@ -93,8 +93,20 @@
                       </small>
                     <% end %>
                     <small>
-                    <br>
-                    <small><%= item.extended_description %></small>
+                    
+                    
+                    <% unless item.extended_description.blank? %>
+                      <br><small><%= item.extended_description %></small>
+                    <% end %>
+
+
+                    <% unless item.product_variant.product.description.blank? %>
+                      <br><small><%= item.product_variant.product.description %></small>
+                    <% end %>
+
+                    <% unless item.product_variant.product.comment.blank? %>
+                      <br><small><%= item.product_variant.product.comment %></small>
+                    <% end %>
                     
                 </td>
 
