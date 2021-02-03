@@ -448,7 +448,7 @@ es:
     code: Código
     code_alternative: Código alternativo
     stocking_time: Tiempo de almacen
-    cost_price: Costo
+    cost_price: Precio proveedor
     currency: Moneda
     amount_public: Precio público
     amount_provider: Precio proveedor
@@ -769,7 +769,7 @@ es:
         code: Código
         code_alternative: Código alternativo
         stocking_time: Tiempo de almacen
-        cost_price: Costo
+        cost_price: Precio proveedor
         currency_id: Moneda
         amount_public: Precio público
         amount_provider: Precio proveedor
