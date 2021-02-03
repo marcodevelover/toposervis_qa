@@ -4,4 +4,5 @@ class Condition < ApplicationRecord
   	validates :description, presence: true
 
 	scope :condition_default, -> { where(default: true) }
+	scope :active, -> { where('deleted_at IS NULL')}
 end
