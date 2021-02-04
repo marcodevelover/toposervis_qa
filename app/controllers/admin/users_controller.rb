@@ -80,7 +80,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def customers
-    @q = Customer.ransack(params[:q])
+    @q = Customer.active.ransack(params[:q])
     @customers = @q.result(distinct: true)
     total_count = @customers.count
     respond_to do |format|

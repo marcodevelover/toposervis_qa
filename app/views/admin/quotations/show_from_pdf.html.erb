@@ -46,8 +46,21 @@
                     <%= @quotation.customer.rfc.blank? ? "----" : @quotation.customer.rfc %><br>
                   	<b>Contacto:</b>
                     <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.name.blank? ? "----" : @quotation.customer.customer_contacts.first.name %><br>
+                    
+
+                  <% unless @quotation.customer.customer_contacts.blank? || @quotation.customer.customer_contacts.first.phone.blank?%>
                     <b>Teléfono:</b>
                     <%= @quotation.customer.customer_contacts.blank? ?  "----" : @quotation.customer.customer_contacts.first.phone.blank? ? "----" : @quotation.customer.customer_contacts.first.phone %><br>
+                  <% end %>         
+
+
+                  <% unless @quotation.customer.customer_contacts.blank? || @quotation.customer.customer_contacts.first.cellphone.blank? %>
+                    <b>Celular:</b>
+                    <%= @quotation.customer.customer_contacts.blank? ?  "----" : @quotation.customer.customer_contacts.first.cellphone.blank? ? "----" : @quotation.customer.customer_contacts.first.cellphone %><br>
+                  <% end %>   
+
+
+
                     <b>E-mail:</b>
                     <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.email.blank? ? "----" : @quotation.customer.customer_contacts.first.email %><br>
                   </td>
@@ -122,7 +135,7 @@
                 </td>
  
                 <td class="center" style="padding-bottom: 1px !important;">
-                    <%= number_to_currency(item.unit_price * item.quantity) %> <%= item.currency %>
+                    <%= number_to_currency(item.unit_price * item.quantity) %>
                 </td>
             </tr>
 

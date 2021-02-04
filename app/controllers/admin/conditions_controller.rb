@@ -68,7 +68,7 @@ class Admin::ConditionsController < ApplicationController
     params[:q] ||= {} 
     params[:per_page] = 10
     
-    @q = Condition.search(params[:q])
+    @q = Condition.active.search(params[:q])
     @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])  
   end
 

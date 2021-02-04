@@ -20,14 +20,34 @@
                                  <div class="col-lg-4 mb-4">
                                    <%= form.label :currency_id, class: "col-form-label"%>
                                    <div class="form-group">
-                                     <%= form.collection_select :currency_id, Currency.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
+
+
+                                  <% if form.object.item_ids.blank? %>
+                                     <%=  form.collection_select :currency_id, Currency.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
                                      <%= form.error :currency, id: 'currency_error' %>
+                                  <% else %>
+                                     <%= @quotation.currency.name %>
+                                  <% end %>
+
+
+
                                    </div>
                                  </div>
                                  <div class="col-lg-4 mb-4x">
+
+
+                                  <% if form.object.item_ids.blank? %>
                                         <%= form.label :exchange_rate, class: "col-form-label"%> *
                                         <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true %>
                                         <%= form.error :exchange_rate, id: 'exchange_rate_error' %>
+                                  <% else %>
+                                    <%= form.label :exchange_rate, class: "col-form-label"%>
+                                    <br><%= @quotation.exchange_rate %>
+                                  <% end %>
+
+
+
+
                                  </div>
                               </div>
                           </div>
@@ -431,6 +451,8 @@ function formatRepoSelection (repo) {
   $("#name").val(repo.product_name);
   $("#unit").val(repo.unit);
   $("#currency_name").val(quotation_currency_text);
+  $("#note_quantity").val(0);
+  $("#note_total").val(0);
   
   if(quotation_currency_text == repo.exchange_name){
     $("#note_unit_price").val(repo.unit_price);
@@ -635,6 +657,14 @@ function formatRepoSelection (repo) {
       validate = false;
       errors.push("Precio unitario debe ser mayor a 0, Seleccione tipo de cambio");
     }*/
+    if(quotation_currency_id.value == ''){
+      validate = false;
+      errors.push("Debe seleccionar al menos una MONEDA");
+    }
+    if(quotation_currency_id.value != $("#note_product").val()){
+      validate = false;
+      errors.push("No se pueden usar diferentes tipos de MONEDAS");
+    }
     if(isDiscount()){
       if($("#note_factor").val() == ""){
       validate = false;
@@ -703,7 +733,7 @@ function formatRepoSelection (repo) {
     $("#note_unit_price").val("0");
     $("#note_factor").val("");
     $("#note_discount").val("0");
-    $("#note_total").val("0");
+    $("#note_total").val("");
   }
 
   // Calculate importe

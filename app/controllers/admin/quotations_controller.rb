@@ -65,7 +65,7 @@ class Admin::QuotationsController < ApplicationController
   def new
     @quotation = Quotation.new
     conditions = []
-    Condition.condition_default.each do |condition|
+    Condition.condition_default.active.each do |condition|
       conditions << condition.description
       @conditions = conditions.join("<br>")
     end
@@ -148,7 +148,7 @@ class Admin::QuotationsController < ApplicationController
   end
 
   def customers
-    @q = Customer.ransack(params[:q])
+    @q = Customer.active.ransack(params[:q])
     @customers = @q.result(distinct: true)
     total_count = @customers.count
     respond_to do |format|
