@@ -22,12 +22,10 @@
                                    <div class="form-group">
 
 
-                                  <% if form.object.item_ids.blank? %>
+                                  
                                      <%=  form.collection_select :currency_id, Currency.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
                                      <%= form.error :currency, id: 'currency_error' %>
-                                  <% else %>
-                                     <%= @quotation.currency.name %>
-                                  <% end %>
+                               
 
 
 
@@ -36,14 +34,12 @@
                                  <div class="col-lg-4 mb-4x">
 
 
-                                  <% if form.object.item_ids.blank? %>
+                                  
                                         <%= form.label :exchange_rate, class: "col-form-label"%> *
                                         <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true %>
                                         <%= form.error :exchange_rate, id: 'exchange_rate_error' %>
-                                  <% else %>
-                                    <%= form.label :exchange_rate, class: "col-form-label"%>
-                                    <br><%= @quotation.exchange_rate %>
-                                  <% end %>
+                                  
+                                
 
 
 
