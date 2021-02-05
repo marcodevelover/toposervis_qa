@@ -106,46 +106,15 @@
                       </small>
                     <% end %>
                     
-                    <% unless item.extended_description.blank? %>
-                      <br><small><%= item.extended_description %></small>
-                    <% end %>
-
-
                     <% unless item.product_variant.product.description.blank? %>
                       <br><small><%= item.product_variant.product.description %></small>
                     <% end %>
 
-                    <% unless item.product_variant.product.comment.blank? %>
-                      <br><small><%= item.product_variant.product.comment %></small>
-                    <% end %>
-                    
-                </td>
 
-                <td style="text-align: center; padding-bottom: 1px !important;">
-                    <%= item.unit %>
-                </td>
 
-                <td class="center" style="padding-bottom: 1px !important;">
-                    <%= number_to_currency(item.unit_price) %>
-                </td>
-
-                <td class="center" style="padding-bottom: 1px !important;">
-                    <%= item.quantity %>
-
-                </td>
- 
-                <td class="center" style="padding-bottom: 1px !important;">
-                    <%= number_to_currency(item.unit_price * item.quantity) %>
-                </td>
-            </tr>
-
-            <tr class="item font-row-12">
-
-                <td style="padding-top: 1px !important;"></td>
-
-                <td style="text-align: left; padding-top: 1px !important;">
+                    <br>
                     <small>INCLUYE:</small>
-                    <ul class="no-indentation">
+                    <ul class="no-indentation" style="padding-bottom: 0px !important">
                     <% item.product_variant.product.products_accessories.each do |accessory| %>
                       <% if accessory.quantity != 0%>
                         <li><%= accessory.accessory.name %></li>
@@ -153,21 +122,54 @@
                     <% end %>
                     </ul>
                     </small>
-                </td>
+                
+
+                    
 
 
-                <td style="text-align: center; padding-top: 1px !important">
+
+
+
+
+
+
+                    <% unless item.product_variant.product.comment.blank? %>
+                      <br><small><%= item.product_variant.product.comment %></small>
+                    <% end %>
+
+                    <% unless item.product_variant.product.comment.blank? %>
+                      <br><small>TIEMPO DE GARANTÍA: <%= item.product_variant.stocking_time %></small>
+                    <% end %>
+
+
+                    <% unless item.extended_description.blank? %>
+                      <br><small><%= item.extended_description %></small>
+                    <% end %>
+
+
+
+
+
                     
                 </td>
 
-                <td class="center" style="padding-top: 1px !important;">
-                    
+                <td class="top" style="text-align: top; padding-bottom: 1px !important;">
+                    <%= item.unit %>
                 </td>
 
-                <td class="center" style="padding-top: 1px !important;">
-                    
+                <td class="top" style="padding-bottom: 1px !important;">
+                    <%= number_to_currency(item.unit_price) %>
+                </td>
+
+                <td class="top" style="padding-bottom: 1px !important;">
+                    <%= item.quantity %>
+                    <br>
+                    <br>
+                    <% unless item.product_variant.product.description.blank? %>
+                      <br>
+                    <% end %>
                     <small>
-                    <ul class="no-style">
+                    <ul class="no-style" style="padding-bottom: 0px !important">
                     <% item.product_variant.product.products_accessories.each do |accessory| %>
                       <% if accessory.quantity != 0%>
                         <li><%= accessory.quantity %></li>
@@ -175,12 +177,15 @@
                     <% end %>
                     </ul>
                     </small>
-                </td>
 
-                <td class="center" style="padding-top: 1px !important;">
-                    
+                </td>
+ 
+                <td class="center top" style="padding-bottom: 1px !important;">
+                    <%= number_to_currency(item.unit_price * item.quantity) %>
                 </td>
             </tr>
+
+
           <% end %>
 
           <tr>
