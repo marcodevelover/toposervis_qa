@@ -250,10 +250,10 @@
                     <b>IMPORTE CON LETRA:</b>
                     <% if @quotation.is_tax %>
                     
-                    <br><%= @quotation.total.to_f.round(2).to_words precision: 2 %> <%= sprintf('%02d', (@quotation.total.frac * 100).truncate) %><%= @quotation.currency.abbreviation %>
+                    <br><%= @quotation.total.to_i.round(2).to_words precision: 2 %> PESOS <%= sprintf('%02d', (@quotation.total.frac * 100).truncate) %><%= @quotation.currency.abbreviation %>
                     <%else%>
                     
-                    <br><%= @quotation.total.to_f.round(2).to_words precision: 2 %> <%= sprintf('%02d', (@quotation.total.frac * 100).truncate) %><%= @quotation.currency.abbreviation %>
+                    <br><%= @quotation.total.to_i.round(2).to_words precision: 2 %> PESOS <%= sprintf('%02d', (@quotation.total.frac * 100).truncate) %><%= @quotation.currency.abbreviation %>
                     <%end%>
                   </td> 
                 </tr>
