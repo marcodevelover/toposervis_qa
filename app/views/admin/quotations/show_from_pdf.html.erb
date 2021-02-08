@@ -94,23 +94,20 @@
                 </td>
 
                 <td style="text-align: left;" style="padding-bottom: 1px !important;">
-                    <small><b><%= item.name %></b></small>
+                    <b><%= item.name %></b>
                     <% unless item.product_variant.product.brand.blank? %>
-                     <small><b>MARCA:</b>
+                     <b>MARCA:</b>
                      <b><%= item.product_variant.product.brand %>;</b>
-                    <% end %></small>
+                    <% end %>
 
                     <% unless item.product_variant.product.model.blank? %>
-                      <small><b>MODELO:</b>
+                      <b>MODELO:</b>
                       <b><%= item.product_variant.product.model %></b>
-                      </small>
                     <% end %>
                     
                     <% unless item.product_variant.product.description.blank? %>
                       <br><small><%= item.product_variant.product.description %></small>
                     <% end %>
-
-
 
                     <br>
                     <small>INCLUYE:</small>
@@ -122,16 +119,6 @@
                     <% end %>
                     </ul>
                     </small>
-                
-
-                    
-
-
-
-
-
-
-
 
                     <% unless item.product_variant.product.comment.blank? %>
                       <br><small><%= item.product_variant.product.comment %></small>
