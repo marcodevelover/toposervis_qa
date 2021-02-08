@@ -120,7 +120,7 @@
 
           <tr class="font-row-12">
             <td colspan="4">
-              <%= @purchase.total.to_f.round(2).to_words precision: 2 %> PESOS <%= sprintf('%02d', (@purchase.total.frac * 100).round(2)) %><%= @purchase.currency.abbreviation %>
+              <%= @purchase.total.to_f.round(2).to_words precision: 2 %> <%= @purchase.currency.name == "MXN" ? "PESOS" : "DOLARES" %> <%= sprintf('%02d', (@purchase.total.frac * 100).round(2)) %><%= @purchase.currency.abbreviation %>
             </td>
             <td><b>TOTAL:</b></td>
             <td class="center">
