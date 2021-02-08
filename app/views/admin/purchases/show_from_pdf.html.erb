@@ -39,11 +39,11 @@
                 <tr>
                   <td class="top">
                     <b>Compañia:</b>
-                    <%= @purchase.provider.business_name %><br>
+                    <%= @purchase.provider.business_name.blank? ? "----" : @purchase.provider.business_name %><br>
                   	<b>Contacto:</b>
-                    <%= @purchase.provider.provider_contacts.first.name %><br>
+                    <%= @purchase.provider.provider_contacts.first.name.blank? ? "----" : @purchase.provider.provider_contacts.first.name %><br>
                     <b>E-mail:</b>
-                    <%= @purchase.provider.provider_contacts.first.email %><br>
+                    <%= @purchase.provider.provider_contacts.first.email.blank? ? "----" : @purchase.provider.provider_contacts.first.email %><br>
                     <b>Tipo de comprobante:</b>
                     <%= @purchase.receipt_type.name %><br>
                     <b>Código de entrada:</b>
