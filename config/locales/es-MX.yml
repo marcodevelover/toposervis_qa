@@ -444,10 +444,11 @@ es:
     deleted_at: Elimiando el
     state: Estatus
     stock: Existencia
+    required_serial_number: Requiere número de serie
   product_variants:
     code: Código
     code_alternative: Código alternativo
-    stocking_time: Tiempo de almacen
+    stocking_time: Tiempo de garantía
     cost_price: Precio proveedor
     currency: Moneda
     amount_public: Precio público
@@ -759,18 +760,19 @@ es:
         model: Modelo
         description: Descripción
         comment: Comentario
-        product_line_id: Línea
-        unit_id: Unidad
-        provider_id: Proveedor
+        product_line: Línea
+        unit: Unidad
+        provider: Proveedor
         deleted_at: Elimiando el
         state: Estatus
         stock: Existencia
+        required_serial_number: Requiere número de serie
       product_variant:
         code: Código
         code_alternative: Código alternativo
-        stocking_time: Tiempo de almacen
+        stocking_time: Tiempo de garantía
         cost_price: Precio proveedor
-        currency_id: Moneda
+        currency: Moneda
         amount_public: Precio público
         amount_provider: Precio proveedor
         amount_shipping: Precio envio
@@ -782,11 +784,11 @@ es:
         product_description: Descripción SAT
       products_accessory:
         product_id: Producto
-        accessory_id: Accesorio
+        accessory: Accesorio
         quantity: Cantidad
       department: 
         name: Nombre
-        enterprise_id: Departamento  
+        enterprise: Departamento  
       enterprise:
         name: Nombre
         logo_image: Logo 
@@ -1065,10 +1067,10 @@ es:
       empty: no puede estar vacío
       equal_to: debe ser igual a %{count}
       even: debe ser un número par
-      exclusion: está reservado
+      exclusion: no puede estar en blanco
       greater_than: debe ser mayor que %{count}
       greater_than_or_equal_to: debe ser mayor o igual que %{count}
-      inclusion: no está incluido en la lista
+      inclusion: no puede estar en blanco
       invalid: es inválido
       less_than: debe ser menor que %{count}
       less_than_or_equal_to: debe ser menor o igual que %{count}
@@ -1252,10 +1254,10 @@ es:
       empty: no puede estar vacío
       equal_to: debe ser igual a %{count}
       even: debe ser un número par
-      exclusion: está reservado
+      exclusion: no puede estar en blanco
       greater_than: debe ser mayor que %{count}
       greater_than_or_equal_to: debe ser mayor o igual que %{count}
-      inclusion: no está incluido en la lista
+      inclusion: no puede estar en blanco
       invalid: es inválido
       less_than: debe ser menor que %{count}
       less_than_or_equal_to: debe ser menor o igual que %{count}

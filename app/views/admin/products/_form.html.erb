@@ -61,6 +61,11 @@
         <%= form.input :is_service_order, inline_label: 'Si', as: :boolean %>
   </div>
 
+  <div class="form-group">
+        ¿Es obligatorio el número de serie? <small><i>Seleccione si desea hacer obligatorio este dato para entradas y salidas.</i></small>
+        <br><%= form.collection_radio_buttons :required_serial_number, [[true, 'Si'], [false, 'No']], :first, :last %>
+  </div>
+
    <div class="required">* Required fields</div>
 </div>
 <div class="modal-footer">
