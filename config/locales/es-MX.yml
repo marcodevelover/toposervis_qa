@@ -205,6 +205,7 @@ es:
     enterprise_id: Empresa
   purchases:
     folio: Folio
+    code_invoice: Código de la factura
     provider: Proveedor
     total: Total
     subtotal: Subtotal

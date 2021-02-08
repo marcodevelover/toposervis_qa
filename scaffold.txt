@@ -179,6 +179,8 @@ rails g migration AddColumsRequiredToProduct required_serial_number:boolean
 
 rails g model ProductStock product_variant_id:integer serial_number:string created_by_id:integer deleted_at:datetime
 
+rails g migration AddColumsCodeInvoiceToPurchases code_invoice:string
+
 
 --------
 Documentation

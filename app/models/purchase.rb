@@ -8,12 +8,19 @@ class Purchase < ApplicationRecord
   belongs_to :user, foreign_key: "created_by_id"
 
   validates :date, presence: true
-  validates :folio, presence: true
+  validates :code_invoice, presence: true
 
   accepts_nested_attributes_for :purchase_items, reject_if: :all_blank, allow_destroy: true
 
-  before_create :set_tax, :set_state, :set_exchange_rate, :add_stock
+  before_create :set_folio, :set_tax, :set_state, :set_exchange_rate, :add_stock
   before_update :remove_stock, if: Proc.new { deleted_at.present? }
+
+  def set_folio
+    @prefix = "P"
+    @date = Time.now
+    Purchase.last ? @number = Purchase.last.id : @number = 1
+    self.folio = "#{@prefix}#{@number.to_s.rjust(6, '0')}"
+  end
 
   def set_exchange_rate
     self.exchange_rate = 1.0 #need info#

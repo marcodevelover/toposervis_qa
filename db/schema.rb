@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_05_155802) do
+ActiveRecord::Schema.define(version: 2021_02_08_172020) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -519,6 +519,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_155802) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "code_invoice"
     t.index ["currency_id"], name: "index_purchases_on_currency_id"
     t.index ["entry_code_id"], name: "index_purchases_on_entry_code_id"
     t.index ["provider_id"], name: "index_purchases_on_provider_id"
