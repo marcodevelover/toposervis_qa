@@ -12,7 +12,7 @@ class Purchase < ApplicationRecord
 
   accepts_nested_attributes_for :purchase_items, reject_if: :all_blank, allow_destroy: true
 
-  before_create :set_folio, :set_tax, :set_state, :set_exchange_rate, :add_stock
+  before_create :set_folio, :set_tax, :set_state, :add_stock
   before_update :remove_stock, if: Proc.new { deleted_at.present? }
 
   def set_folio
@@ -21,10 +21,6 @@ class Purchase < ApplicationRecord
     Purchase.last ? @number = Purchase.last.id : @number = 1
     self.folio = "#{@prefix}#{@number.to_s.rjust(6, '0')}"
   end
-
-  def set_exchange_rate
-    self.exchange_rate = 1.0 #need info#
-  end    
 
   def set_tax
     self.tax = Tax.where(default: true).first.value

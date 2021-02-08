@@ -219,6 +219,7 @@ es:
     deleted_at: Eliminado el
     created_at_lt: Rango de Fecha inicial
     created_at_gt: Rango de Fecha final
+    currency: Moneda
   users: 
     department_id: Departamento/Sucursal
     id: ID
@@ -751,6 +752,7 @@ es:
         entry_code: Código de entrada
         folio: Folio
         provider: Proveedor
+        currency: Moneda
       order:
         currency_id: Moneda
         exchange_rate: Tipo de cambio
