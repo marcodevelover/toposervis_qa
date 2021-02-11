@@ -27,7 +27,7 @@
                     <b>Folio:</b>
                     <b class="blue"><%= @quotation.folio %></b><br>
                     <b>Fecha:</b>
-                    <b class="blue"><%= @quotation.created_at.strftime("%d-%m-%Y") %></b>
+                    <b class="blue"><%= @quotation.updated_at.strftime("%d-%m-%Y") %></b>
                   </td>
                 </tr>
               </table>
@@ -94,50 +94,38 @@
                 </td>
 
                 <td style="text-align: left;" style="padding-bottom: 1px !important;">
-                    <small><b><%= item.name %></b></small>
+                    <b><%= item.name %></b>
                     <% unless item.product_variant.product.brand.blank? %>
-                     <small><b>MARCA:</b>
+                     <b>MARCA:</b>
                      <b><%= item.product_variant.product.brand %>;</b>
-                    <% end %></small>
+                    <% end %>
 
                     <% unless item.product_variant.product.model.blank? %>
-                      <small><b>MODELO:</b>
+                      <b>MODELO:</b>
                       <b><%= item.product_variant.product.model %></b>
-                      </small>
                     <% end %>
                     
                     <% unless item.product_variant.product.description.blank? %>
                       <br><small><%= item.product_variant.product.description %></small>
                     <% end %>
 
-
-
                     <br>
                     <small>INCLUYE:</small>
                     <ul class="no-indentation" style="padding-bottom: 0px !important">
                     <% item.product_variant.product.products_accessories.each do |accessory| %>
                       <% if accessory.quantity != 0%>
-                        <li><%= accessory.accessory.name %></li>
+                        <small><li><%= accessory.accessory.name %></li></small>
                       <%end%>
                     <% end %>
                     </ul>
                     </small>
-                
-
-                    
-
-
-
-
-
-
-
+              
 
                     <% unless item.product_variant.product.comment.blank? %>
                       <br><small><b><%= item.product_variant.product.comment %></b></small>
                     <% end %>
 
-                    <% unless item.product_variant.product.comment.blank? %>
+                    <% unless item.product_variant.stocking_time.blank? %>
                       <br><small>TIEMPO DE GARANTÍA: <%= item.product_variant.stocking_time %></small>
                     <% end %>
 
@@ -145,11 +133,6 @@
                     <% unless item.extended_description.blank? %>
                       <br><small><%= item.extended_description %></small>
                     <% end %>
-
-
-
-
-
                     
                 </td>
 
