@@ -27,7 +27,7 @@
                     <b>Folio:</b>
                     <b class="blue"><%= @quotation.folio %></b><br>
                     <b>Fecha:</b>
-                    <b class="blue"><%= @quotation.created_at.strftime("%d-%m-%Y") %></b>
+                    <b class="blue"><%= @quotation.updated_at.strftime("%d-%m-%Y") %></b>
                   </td>
                 </tr>
               </table>
@@ -44,7 +44,7 @@
                     <%= @quotation.customer.business_name.blank? ? "----" : @quotation.customer.business_name %><br>
                     <b>RFC:</b>
                     <%= @quotation.customer.rfc.blank? ? "----" : @quotation.customer.rfc %><br>
-                  	<b>Contacto:</b>
+                    <b>Contacto:</b>
                     <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.name.blank? ? "----" : @quotation.customer.customer_contacts.first.name %><br>
                     
 
@@ -118,13 +118,12 @@
                       <%end%>
                     <% end %>
                     </ul>
-                    </small>
-
+                    
                     <% unless item.product_variant.product.comment.blank? %>
-                      <br><small><%= item.product_variant.product.comment %></small>
+                      <br><small><b><%= item.product_variant.product.comment %></b></small>
                     <% end %>
 
-                    <% unless item.product_variant.product.comment.blank? %>
+                    <% unless item.product_variant.stocking_time.blank? %>
                       <br><small>TIEMPO DE GARANTÍA: <%= item.product_variant.stocking_time %></small>
                     <% end %>
 
@@ -132,11 +131,6 @@
                     <% unless item.extended_description.blank? %>
                       <br><small><%= item.extended_description %></small>
                     <% end %>
-
-
-
-
-
                     
                 </td>
 

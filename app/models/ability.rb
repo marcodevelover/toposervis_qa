@@ -44,6 +44,8 @@ class Ability
         can :show_from_pdf, ServiceOrder
         can :filter_form, ServiceOrder
         can :show_from_pdf, Diagnosis
+        can :note_from_pdf, Diagnosis
+        can :output_pdf, Diagnosis
     end
 
   end
