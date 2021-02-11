@@ -74,7 +74,7 @@ class Admin::ServiceOrdersController < ApplicationController
       if @service_order.save
         format.html { redirect_to [:admin, @service_order], notice: 'Service order was successfully created.' }
         format.json { render :show, status: :created, location: @service_order }
-        ServiceOrderMailer.with(service_order: @service_order).service_order_create.deliver_later
+        #ServiceOrderMailer.with(service_order: @service_order).service_order_create.deliver_later
       else
         format.html { render :new }
         format.json { render json: @service_order.errors, status: :unprocessable_entity }
@@ -108,7 +108,7 @@ class Admin::ServiceOrdersController < ApplicationController
 
       if params[:service_order][:diagnosis_attributes][:is_done] == "1"
         @service_order.state = "sold"
-        ServiceOrderMailer.with(service_order: @service_order).service_order_done.deliver_later
+        #ServiceOrderMailer.with(service_order: @service_order).service_order_done.deliver_later
       end
       
       if params[:service_order][:diagnosis_attributes][:images].present?
@@ -165,7 +165,7 @@ class Admin::ServiceOrdersController < ApplicationController
     @object = @service_order
     respond_to do |format|
           if @object.save  
-            ServiceOrderMailer.with(service_order: @service_order).service_order_delivered.deliver_later
+            #ServiceOrderMailer.with(service_order: @service_order).service_order_delivered.deliver_later
             search
             @objects= @collection
             format.js  { render "admin/shared/save.js.erb", layout: false, content_type: 'text/javascript' }
