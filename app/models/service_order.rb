@@ -77,11 +77,11 @@ class ServiceOrder < ApplicationRecord
                                             "tax_id": self.customer.rfc
                                         },
                         items:          (@items.map { |s| { quantity: s.quantity, 
-                                                            product: { description: s.name + "PARA" +
+                                                            product: { description: s.name + " PARA " +
                                                                                     self.product.name +
-                                                                                    "MARCA" + self.brand +
-                                                                                    "MODELO" + self.model +
-                                                                                    "NÚMERO DE SERIE" + self.serie,
+                                                                                    " MARCA " + self.brand +
+                                                                                    " MODELO " + self.model +
+                                                                                    " NÚMERO DE SERIE " + self.serie,
                                                                        product_key: s.product_variant.product_key, 
                                                                        price: s.unit_price, 
                                                                        unit_key: s.product_variant.product.unit.unit_key,
