@@ -9,4 +9,6 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :products_accessories, reject_if: :all_blank, allow_destroy: true
 
   validates :name, presence: true
+  validates :required_serial_number, inclusion: [true, false]
+  
 end

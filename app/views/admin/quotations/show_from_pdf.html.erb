@@ -114,13 +114,11 @@
                     <ul class="no-indentation" style="padding-bottom: 0px !important">
                     <% item.product_variant.product.products_accessories.each do |accessory| %>
                       <% if accessory.quantity != 0%>
-                        <small><li><%= accessory.accessory.name %></li></small>
+                        <li><%= accessory.accessory.name %></li>
                       <%end%>
                     <% end %>
                     </ul>
-                    </small>
-              
-
+                    
                     <% unless item.product_variant.product.comment.blank? %>
                       <br><small><b><%= item.product_variant.product.comment %></b></small>
                     <% end %>
@@ -178,15 +176,7 @@
           <tr class="details font-row-12">
             <td colspan="4">
               
-              
-              <% if @quotation.is_tax %>
-              
-              <br><%= @quotation.total.to_i.round(2).to_words precision: 2%> PESOS <%= sprintf('%02d', (@quotation.total.frac * 100).round(2)) %><%= @quotation.currency.abbreviation %>
-              <%else%>
-              
-              <br><%= @quotation.subtotal.to_i.round(2).to_words precision: 2%> PESOS <%= sprintf('%02d', (@quotation.total.frac * 100).round(2)) %><%= @quotation.currency.abbreviation %>
-              <%end%>
-
+              <br><%= @quotation.total.to_i.round(2).to_words precision: 2%> <%= @quotation.currency.name == "MXN" ? "PESOS" : "DOLARES" %> <%= sprintf('%02d', (@quotation.total.frac * 100).round(2)) %><%= @quotation.currency.abbreviation %>
 
             </td>
             <td class="bottom"><b>Subtotal</b></td>
@@ -218,10 +208,8 @@
 
 
             </td>
-            <% if @quotation.is_tax %>
             <td><b>IVA <%= (@quotation.tax * 100).to_i %>%</b></td>
             <td class="center"> <%= number_to_currency(@quotation.tax_total) %></td>
-            <% end %>
           </tr>
 
           <tr class="details font-row-12">
@@ -240,13 +228,7 @@
             </td>
             <td class="top"><b>TOTAL:</b></td>
             <td class="center top">
-              <% if @quotation.is_tax %>
               <b><%= number_to_currency(@quotation.total) %> <%= @quotation.currency.name %></b>
-             
-              <%else%>
-              <b><%= number_to_currency(@quotation.subtotal) %> <%= @quotation.currency.name %></b>
-             
-              <%end%>
             </td>
           </tr>
 

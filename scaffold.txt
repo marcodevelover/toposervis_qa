@@ -173,6 +173,16 @@ rails g model DiagnosesTypes diagnosis:references diagnosis_type:references
 rails g migration DeleteColumsDiagnosisTypeId diagnosis_type_id:integer
 
 ------
+
+rails g migration AddColumsRequiredToProduct required_serial_number:boolean
+
+
+rails g model ProductStock product_variant_id:integer serial_number:string created_by_id:integer deleted_at:datetime
+
+rails g migration AddColumsCodeInvoiceToPurchases code_invoice:string
+
+
+--------
 Documentation
 
 -- Quotation --

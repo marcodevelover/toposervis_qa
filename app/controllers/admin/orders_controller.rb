@@ -128,10 +128,19 @@ class Admin::OrdersController < ApplicationController
 
   def product_variants
     @q = ProductVariant.ransack(params[:q])
-    @product_variants = @q.result(distinct: true)
+    @product_variants = @q.result(distinct: false)
     total_count = @product_variants.count
     respond_to do |format|
-      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, product_model: s.product.model, product_brand: s.product.brand, unit_price: s.amount_public, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, image: s.first_image } } } }
+      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, product_model: s.product.model, product_brand: s.product.brand, unit_price: s.amount_public, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, image: s.first_image, serial_number: s.product_stocks} } } }
+    end
+  end
+
+  def product_stocks
+    @q = ProductStock.ransack(params[:q])
+    @product_stocks = @q.result(distinct: true)
+    total_count = @product_stocks.count
+    respond_to do |format|
+      format.json { render json: { total: total_count,  product_stocks: @product_stocks.map { |s| {id: s.id, serial_number:  s.serial_number } } } }
     end
   end
 

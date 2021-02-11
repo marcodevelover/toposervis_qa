@@ -19,11 +19,17 @@
                                   </div>  
                                 </div> 
                                  <div class="col-lg-4 mb-4">
-                                   <%= form.association :receipt_type, input_html: { class: 'custom-select custom-select-sm' } %>
+                                  <%= form.label :currency, class: "col-form-label"%>
+                                  <div class="form-group">
+                                   <%=  form.collection_select :currency_id, Currency.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
+                                     <%= form.error :currency, id: 'currency_error' %>
+                                  </div>
                                    
                                  </div>
                                  <div class="col-lg-4 mb-4x">
-                                   <%= form.association :entry_code, input_html: { class: 'custom-select custom-select-sm' } %>
+                                    <%= form.label :exchange_rate, class: "col-form-label"%> *
+                                    <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true %>
+                                    <%= form.error :exchange_rate, id: 'exchange_rate_error' %>
                                  </div>
                               </div>
                           </div>
@@ -34,14 +40,25 @@
                           <div class="col-md-12">
                             <div class="form-row">
                               <div class="col-lg-4 mb-4">
-                                <label class="form-label">Folio</label>
+                                <label class="form-label">Código de la factura</label>
                                 <div class="form-group"> 
-                                <%= form.text_field :folio, class: "form-control" , placeholder: "Folio" %>
-                                <%= form.error :folio, id: 'folio_error' %>
+                                <%= form.text_field :code_invoice, class: "form-control" , placeholder: "Código de la fatura" %>
+                                <%= form.error :code_invoice, code_invoice: 'folio_error' %>
                                 </div>
                               </div>
+                             <div class="col-lg-4 mb-4">
+                              
+                               <%= form.association :receipt_type, input_html: { class: 'custom-select custom-select-sm' } %>
+                               
+                             </div>
+                             <div class="col-lg-4 mb-4x">
+                                
+                               <%= form.association :entry_code, input_html: { class: 'custom-select custom-select-sm' } %>
+                                
+                             </div>
 
                             </div>
+
                           </div>
 
                         </div>
@@ -201,6 +218,11 @@
             <label class="control-label"><%= t('sale_note_has_products.product')%></label>
              <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" id="note_product" style="width: 100%">
             </select>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">¿Requiere número de serie?</label>
+            <input type="text" class="form-control" id="required_serial_number" readonly="readonly"> 
           </div>
 
           <div class="form-group">
@@ -374,7 +396,7 @@ function formatRepo (repo) {
         "<div class='select2-result-repository__model'>Modelo: </div>" +
         "<div class='select2-result-repository__brand'>Marca: </div>" +
         "<div class='select2-result-repository__code'>Código: </div>" +
-        "<div class='select2-result-repository__unit_price'>Precio unitario: </div>" +
+        "<div class='select2-result-repository__unit_price'>Precio proveedor: </div>" +
         "<div class='select2-result-repository__stock'>Existencias: </div>" +
       "</div>" +
     "</div>"
@@ -386,7 +408,7 @@ function formatRepo (repo) {
   $container.find(".select2-result-repository__model").append(repo.product_model);
   $container.find(".select2-result-repository__brand").append(repo.product_brand);
   $container.find(".select2-result-repository__code").append(repo.code);
-  $container.find(".select2-result-repository__unit_price").append(repo.unit_price + repo.exchange_name);
+  $container.find(".select2-result-repository__unit_price").append(repo.amount_provider + repo.exchange_name);
   $container.find(".select2-result-repository__stock").append(repo.stock);
 
   return $container;
@@ -394,10 +416,30 @@ function formatRepo (repo) {
 
 function formatRepoSelection (repo) {
   // take the value of the currency
-  var purchase_exchange_rate = 1;
+  var quotation_exchange_rate = $("#purchase_exchange_rate").val();
+  var quotation_currency_text = $("#purchase_currency_id option:selected").text();
+
   $("#name").val(repo.product_name);
   $("#unit").val(repo.unit);
-  $("#note_unit_price").val(repo.unit_price * purchase_exchange_rate);
+  $("#note_unit_price").val(repo.amount_provider * quotation_exchange_rate);
+  $("#required_serial_number").val(repo.required_serial_number);
+
+  if(quotation_currency_text == repo.exchange_name){
+    $("#note_unit_price").val(repo.amount_provider);
+  }
+  if(quotation_currency_text != repo.exchange_name){
+    switch (quotation_currency_text) {
+      case 'MXN':
+        $("#note_unit_price").val(repo.amount_provider * quotation_exchange_rate);
+        break;
+      case 'USD':
+        $("#note_unit_price").val(repo.amount_provider * quotation_exchange_rate);
+        break;
+      default:
+        console.log('Lo lamentamos, debe seleccionar al menos una MONEDA');
+    }
+  }
+
   return repo.product_name || repo.text;
 }
 
@@ -600,6 +642,11 @@ function formatRepoSelection (repo) {
         errors.push("Valor de descuento debe ser mayor a 0");
       }
     }
+    if(required_serial_number.value == "true" && number_serie.value == ""){
+      validate = false;
+      errors.push("Número de serie no puede estar en blanco");
+    }
+
     if(validate){
       return true;
     }else{

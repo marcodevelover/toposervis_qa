@@ -1,7 +1,7 @@
 <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
           <tr class="top">
-            <td colspan="5">
+            <td colspan="6">
               <table>
                 <tr>
                   <td class="title" style="width:25%">
@@ -34,28 +34,33 @@
         
 
           <tr class="information">
-            <td colspan="5">
+            <td colspan="6">
               <table>
                 <tr>
                   <td class="top">
                     <b>Compañia:</b>
-                    <%= @purchase.provider.business_name %><br>
+                    <%= @purchase.provider.business_name.blank? ? "----" : @purchase.provider.business_name %><br>
                   	<b>Contacto:</b>
-                    <%= @purchase.provider.provider_contacts.first.name %><br>
+                    <%= @purchase.provider.provider_contacts.first.name.blank? ? "----" : @purchase.provider.provider_contacts.first.name %><br>
                     <b>E-mail:</b>
-                    <%= @purchase.provider.provider_contacts.first.email %><br>
+                    <%= @purchase.provider.provider_contacts.first.email.blank? ? "----" : @purchase.provider.provider_contacts.first.email %><br>
                     <b>Tipo de comprobante:</b>
                     <%= @purchase.receipt_type.name %><br>
                     <b>Código de entrada:</b>
-                    <%= @purchase.entry_code.name %>   
+                    <%= @purchase.entry_code.name %><br>
+                    <b>Código de la factura:</b>
+                    <%= @purchase.code_invoice %><br>
+                    <b>Creado por:</b>
+                    <%= @purchase.user.name %> <%= @purchase.user.lastname %>   
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
 
-          <tr class="heading">
-            <td class="center">Concepto</td>
+          <tr class="heading font-row-12">
+            <td style="text-align: center;">Imagen</td>
+            <td style="text-align: center;">Concepto</td>
             <td style="text-align: center;">Info. Producto</td>
             <td class="center">Precio</td>
             <td class="center">Cantidad</td>
@@ -63,8 +68,17 @@
           </tr>
 
           <% @purchase.purchase_items.each do |item| %>
-            <tr class="item">
-                <td>
+            <tr class="item font-row-12">
+
+                <td style="text-align: center; padding-bottom: 1px !important;">
+                  <% if  !(item.product_variant.product_variant_images.blank?) %>
+                    <%= image_tag item.product_variant.product_variant_images.first.image.variant(resize_to_limit: [100, 100]) %>
+                  <%else%>
+                    <%= wicked_pdf_image_tag 'pdf/sin-fotografia.png' %>
+                  <%end%>
+                </td>
+
+                <td style="text-align: center;">
                     <%= item.name %><br>
                     <small><%= item.observation %></small>
                 </td>
@@ -89,27 +103,28 @@
           <% end %>
 
           <tr>
-            <td colspan="5"></td>
+            <td colspan="6"></td>
           </tr>
 
-          <tr>
-            <td colspan="3"></td>
+          <tr class="font-row-12">
+            <td colspan="4"></td>
             <td><b>Subtotal</b></td>
             <td class="center"><%= number_to_currency(@purchase.subtotal) %></td>
           </tr>
 
-          <tr>
-            <td colspan="3"></td>
-            <td><b>I.V.A. (<%= (@purchase.tax * 100).to_i %>%)</b></td>
-            <td class="center">+ <%= number_to_currency(@purchase.tax_total) %></td>
+          <tr class="font-row-12">
+            <td colspan="4"></td>
+            <td><b>IVA <%= (@purchase.tax * 100).to_i %> %</b></td>
+            <td class="center"><%= number_to_currency(@purchase.tax_total) %></td>
           </tr>
 
-          <tr>
-            <td colspan="3"></td>
+          <tr class="font-row-12">
+            <td colspan="4">
+              <%= @purchase.total.to_f.round(2).to_words precision: 2 %> <%= @purchase.currency.name == "MXN" ? "PESOS" : "DOLARES" %> <%= sprintf('%02d', (@purchase.total.frac * 100).round(2)) %><%= @purchase.currency.abbreviation %>
+            </td>
             <td><b>TOTAL:</b></td>
             <td class="center">
-               <b><%= number_to_currency(@purchase.total) %></b>
-               <br><%= @purchase.total.to_f.round(2).to_words precision: 2 %>
+               <b><%= number_to_currency(@purchase.total) %> <%= @purchase.currency.name %></b>
             </td>
           </tr>
               </table>

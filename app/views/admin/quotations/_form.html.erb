@@ -449,14 +449,15 @@ function formatRepoSelection (repo) {
   $("#currency_name").val(quotation_currency_text);
   $("#note_quantity").val(0);
   $("#note_total").val(0);
-  
+
+
   if(quotation_currency_text == repo.exchange_name){
     $("#note_unit_price").val(repo.unit_price);
   }
   if(quotation_currency_text != repo.exchange_name){
     switch (quotation_currency_text) {
       case 'MXN':
-        $("#note_unit_price").val(repo.unit_price * repo.exchange_rate);
+        $("#note_unit_price").val(repo.unit_price * quotation_exchange_rate);
         break;
       case 'USD':
         $("#note_unit_price").val(repo.unit_price * quotation_exchange_rate);
