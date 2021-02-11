@@ -55,14 +55,14 @@
             </td>
           </tr>
 
-          <tr>
+          <tr class="font-row-12">
             <td colspan="5"><b>Producto:</b> <%= @service_order.product.name %></td>
           </tr>
-          <tr>
-            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @service_order.product.name %></b> marca <b><%= @service_order.brand %></b> modelo <b><%= @service_order.model %></b> con número de serie <b><%= @service_order.serie %></b> para su revisión y diagnostico.</br></br><b>Accesorios que incluye:</b><br></td>
+          <tr class="font-row-12">
+            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp; <b style="font-size: 16px"><%= @service_order.product.name %></b> marca <b style="font-size: 16px"><%= @service_order.brand %></b> modelo <b style="font-size: 16px"><%= @service_order.model %></b> con número de serie <b style="font-size: 16px"><%= @service_order.serie %></b> para su revisión y diagnostico.</br></br><b>Accesorios que incluye:</b><br></td>
           </tr>          
 
-          <tr class="heading">
+          <tr class="heading font-row-12">
             
             <td class="center" colspan="3">Accesorios</td>
             <td style="text-align: center;" colspan="2">Cantidad</td>
@@ -71,7 +71,7 @@
 
           <% @service_order.order_accessories.where.not(quantity: 0).each do |item| %>
             
-            <tr class="item">
+            <tr class="item font-row-12">
                 
                 <td colspan="3">
                     <%= item.accessory %>
@@ -86,7 +86,7 @@
           <% end %>          
         </table>
 </div>
-<div class="invoice-box nobreak">
+<div class="invoice-box nobreak font-row-12">
         <table cellpadding="0" cellspacing="0">
           <tr>
             <td colspan="5"></td>

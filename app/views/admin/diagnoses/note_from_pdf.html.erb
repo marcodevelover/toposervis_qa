@@ -120,8 +120,6 @@
                       </small><br>
                     <% end %>
                     <small>
-                    <br>
-                    <small><%= item.extended_description %></small>
                 </td>
 
                 <td style="text-align: center;">
@@ -194,46 +192,35 @@
               <tr class="information">
                 <td colspan="6">
                   <div class="row">
-                    <div class="col-lg-3">
-                        <div class="mb-3 border-secondary">
-                           <div class="card-body">
-                              
-                                <b>Forma de pago:</b><br>
-
+                    <div class="col-lg-12">
+                        <div class="mb-12 border-secondary">
+                                <b>Forma de pago:</b>
                                 <% if @diagnosis.sale.present? %>
                                   <%= @diagnosis.sale.payment_way.name %>            
                                 <% end %> 
-
-                              
                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="mb-3 border-secondary">
-                           <div class="card-body">
-                              <b>Método de pago:</b><br>
+                    
+                    <div class="col-lg-12">
+                        <div class="mb-12 border-secondary">
+                              <b>Método de pago:</b>
                                 <% if @diagnosis.sale.present? %>
                                   <%= @diagnosis.sale.payment_method.name %>
                                 <% end %> 
-                           </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="mb-3 border-secondary">
-                           <div class="card-body">
-                              <b>Moneda:</b><br>
+                    <div class="col-lg-12">
+                        <div class="mb-12 border-secondary">
+                              <b>Moneda:</b>
                               <%= @diagnosis.currency.name %>
-                           </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="mb-3 border-secondary">
-                           <div class="card-body">
-                              <b>Tipo de cambio:</b><br>
+                    <div class="col-lg-12">
+                        <div class="mb-12 border-secondary">
+                              <b>Tipo de cambio:</b>
                               <!--hard code -->
                               1.0
                               <!--hard code -->
-                           </div>
                         </div>
                     </div>
                    </div>
@@ -253,8 +240,8 @@
           <tr>
             </td>
             <% if @diagnosis.is_tax %>
-            <td><b>I.V.A. (<%= (@diagnosis.tax * 100).to_i %>%)</b></td>
-            <td class="center">+ <%= number_to_currency(@diagnosis.tax_total) %></td>
+            <td><b>IVA <%= (@diagnosis.tax * 100).to_i %>%</b></td>
+            <td class="center"><%= number_to_currency(@diagnosis.tax_total) %></td>
             <% end %>
           </tr>
           <tr>
