@@ -231,6 +231,16 @@
           </div>
 
           <div class="form-group">
+            <label class="control-label">Marca</label>
+            <input type="text" class="form-control" id="brand" readonly="readonly"> 
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Modelo</label>
+            <input type="text" class="form-control" id="model" readonly="readonly"> 
+          </div>
+
+          <div class="form-group">
             <label class="control-label">Unidad</label>
             <input type="text" class="form-control" id="unit" readonly="readonly"> 
           </div>
@@ -423,6 +433,8 @@ function formatRepoSelection (repo) {
   $("#unit").val(repo.unit);
   $("#note_unit_price").val(repo.amount_provider * quotation_exchange_rate);
   $("#required_serial_number").val(repo.required_serial_number);
+  $("#brand").val(repo.product_brand);
+  $("#model").val(repo.product_model);
 
   if(quotation_currency_text == repo.exchange_name){
     $("#note_unit_price").val(repo.amount_provider);
@@ -528,7 +540,9 @@ function formatRepoSelection (repo) {
     var item = {"product": $("#note_product option:selected").text(),
                 "code": $("#name").val(),
                 "product_variant_id": $("#note_product").val(), 
-                "name": $("#name").val(), 
+                "name": $("#name").val(),
+                "brand": $("#brand").val(), 
+                "model": $("#model").val(),
                 "number_serie": $("#number_serie").val(),
                 "number_procedure": $("#number_procedure").val(),
                 "number_part": $("#number_part").val(),
@@ -555,6 +569,7 @@ function formatRepoSelection (repo) {
       item.discount_type = "N/A";
     }
     var row = $('<tr class="text-center" data_id='+productCount+'><td>' + item.code + 
+                '</br><small>Marca:' + item.brand +'</small><small> Modelo:' + item.model +'</small>' +
                 '</br><small>Observaciones:' + item.observation +'</small>' +
                 '</td><td>' + item.quantity +
                 '</td><td>' + item.unit_price + 
