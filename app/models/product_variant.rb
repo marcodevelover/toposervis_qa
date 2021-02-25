@@ -18,7 +18,7 @@ class ProductVariant < ApplicationRecord
   scope :active, -> { where('deleted_at IS NULL')}
 
   validates :product_key, presence: true
-  validates :stocking_time, presence: true
+  ##################validates :stocking_time, presence: true check 
   
   def first_image
   	if !(product_variant_images.blank?)
