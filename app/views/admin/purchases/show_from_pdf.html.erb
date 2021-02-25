@@ -85,23 +85,6 @@
                       <b><%= item.product_variant.product.model %></b>
                     <% end %>
                     
-                    <% unless item.product_variant.product.description.blank? %>
-                      <br><small><%= item.product_variant.product.description %></small>
-                    <% end %>
-
-                <td style="text-align: center;">
-                    <%= item.name %><br>
-
-                    <% unless item.product_variant.product.brand.blank? %>
-                     <b>MARCA:</b>
-                     <b><%= item.product_variant.product.brand %>;</b>
-                    <% end %>
-
-                    <% unless item.product_variant.product.model.blank? %>
-                      <b>MODELO:</b>
-                      <b><%= item.product_variant.product.model %></b>
-                    <% end %>
-                    
                     <small><%= item.observation %></small>
                 </td>
                 <td style="text-align: left;">
