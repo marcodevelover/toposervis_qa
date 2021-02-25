@@ -753,6 +753,7 @@ es:
         folio: Folio
         provider: Proveedor
         currency: Moneda
+        payment_way: Forma de pago
       order:
         currency_id: Moneda
         exchange_rate: Tipo de cambio

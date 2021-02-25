@@ -6,6 +6,7 @@ class Purchase < ApplicationRecord
   has_many :purchase_items, dependent: :destroy, as: :record
   has_many :product_variants, through: :purchase_items
   belongs_to :user, foreign_key: "created_by_id"
+  belongs_to :payment_way
 
   validates :date, presence: true
   validates :code_invoice, presence: true
