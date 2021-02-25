@@ -38,7 +38,7 @@
               <table>
                 <tr>
                   <td class="top">
-                    <b>Compañia:</b>
+                    <b>Datos del proveedor:</b>
                     <%= @purchase.provider.business_name.blank? ? "----" : @purchase.provider.business_name %><br>
                   	<b>Contacto:</b>
                     <%= @purchase.provider.provider_contacts.first.name.blank? ? "----" : @purchase.provider.provider_contacts.first.name %><br>
@@ -50,6 +50,8 @@
                     <%= @purchase.entry_code.name %><br>
                     <b>Código de la factura:</b>
                     <%= @purchase.code_invoice %><br>
+                    <b>Forma de pago:</b>
+                    <%= @purchase.payment_way.name %><br>
                     <b>Creado por:</b>
                     <%= @purchase.user.name %> <%= @purchase.user.lastname %>   
                   </td>
@@ -59,8 +61,8 @@
           </tr>
 
           <tr class="heading font-row-12">
-            <td style="text-align: center;">Imagen</td>
-            <td style="text-align: center;">Concepto</td>
+            
+            <td colspan="2" style="text-align: center;">Concepto</td>
             <td style="text-align: center;">Info. Producto</td>
             <td class="center">Precio</td>
             <td class="center">Cantidad</td>
@@ -68,15 +70,24 @@
           </tr>
 
           <% @purchase.purchase_items.each do |item| %>
-            <tr class="item font-row-12">
+            <tr  class="item font-row-12">
 
-                <td style="text-align: center; padding-bottom: 1px !important;">
-                  <% if  !(item.product_variant.product_variant_images.blank?) %>
-                    <%= image_tag item.product_variant.product_variant_images.first.image.variant(resize_to_limit: [100, 100]) %>
-                  <%else%>
-                    <%= wicked_pdf_image_tag 'pdf/sin-fotografia.png' %>
-                  <%end%>
-                </td>
+                <td colspan="2" style="text-align: center;">
+                    <b><%= item.name %></b>
+
+                    <% unless item.product_variant.product.brand.blank? %>
+                     <b>MARCA:</b>
+                     <b><%= item.product_variant.product.brand %>;</b>
+                    <% end %>
+
+                    <% unless item.product_variant.product.model.blank? %>
+                      <b>MODELO:</b>
+                      <b><%= item.product_variant.product.model %></b>
+                    <% end %>
+                    
+                    <% unless item.product_variant.product.description.blank? %>
+                      <br><small><%= item.product_variant.product.description %></small>
+                    <% end %>
 
                 <td style="text-align: center;">
                     <%= item.name %><br>

@@ -108,18 +108,7 @@
                 </td>
 
                 <td style="text-align: left;">
-                    <%= item.name %>
-                    <% unless item.product_variant.product.brand.blank? %>
-                     <small>MARCA:
-                      <%= item.product_variant.product.brand %>;
-                    <% end %></small>
-
-                    <% unless item.product_variant.product.model.blank? %>
-                      <small>MODELO:
-                      <%= item.product_variant.product.model %>
-                      </small><br>
-                    <% end %>
-                    <small>
+                    <b><%= item.name %></b> PARA <b><%= @diagnosis.service_order.product.name %></b> marca <b style="font-size: 16px"><%= @diagnosis.service_order.brand %></b> modelo <b style="font-size: 16px"><%= @diagnosis.service_order.model %></b> con número de serie <b style="font-size: 16px"><%= @diagnosis.service_order.serie %></b>.
                 </td>
 
                 <td style="text-align: center;">
