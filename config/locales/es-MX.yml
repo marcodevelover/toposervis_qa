@@ -666,6 +666,10 @@ es:
           attributes:
             category:
               required: no puede estar en blanco
+        products_accessory:
+          attributes:
+              accessory:
+                required: el nombre no puede estar en blanco
     models:
       Ransack::Search: 'Búsqueda'
       Comment: Mensaje

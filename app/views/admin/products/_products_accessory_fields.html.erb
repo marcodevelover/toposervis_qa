@@ -1,7 +1,7 @@
       <div class="form-group">
           <%= f.label :accessory_id, class: "col-form-label" %>
           <div class="form-group">
-            <%= f.collection_select :accessory_id, Accessory.all, :id, :name, {prompt: t('choose_from_select')}, {class: "select2"}  %>
+            <%= f.collection_select :accessory_id, Accessory.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm select2"}  %>
           </div>
           <div class="form-group">
                 <%= f.label :quantity, class: "col-form-label"%>
