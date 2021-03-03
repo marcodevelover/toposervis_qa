@@ -1190,6 +1190,8 @@ es:
   done: Finalizado
   delivered: Entregado
   payment: pagado
+  credit: crédito
+  cash: contado
   pending: pendiente
   invoiced: facturado
   canceled: cancelado

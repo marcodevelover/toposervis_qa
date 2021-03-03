@@ -182,6 +182,7 @@ rails g model ProductStock product_variant_id:integer serial_number:string creat
 rails g migration AddColumsCodeInvoiceToPurchases code_invoice:string
 
 
+rails g migration AddColumsProductStateToPurchaseItems product_state:string
 --------
 Documentation
 
