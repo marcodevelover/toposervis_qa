@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_08_172020) do
+ActiveRecord::Schema.define(version: 2021_03_03_191047) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -282,6 +282,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_172020) do
     t.decimal "adjustment_total", precision: 18, scale: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "serial_number"
     t.index ["product_variant_id"], name: "index_items_on_product_variant_id"
     t.index ["record_type", "record_id"], name: "index_items_on_record_type_and_record_id"
   end
@@ -362,6 +363,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_172020) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "status"
   end
 
   create_table "product_variant_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -494,6 +496,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_172020) do
     t.text "unit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "product_state"
     t.index ["product_variant_id"], name: "index_purchase_items_on_product_variant_id"
     t.index ["record_type", "record_id"], name: "index_purchase_items_on_record_type_and_record_id"
   end
@@ -520,6 +523,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_172020) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "code_invoice"
+    t.integer "payment_way_id"
     t.index ["currency_id"], name: "index_purchases_on_currency_id"
     t.index ["entry_code_id"], name: "index_purchases_on_entry_code_id"
     t.index ["provider_id"], name: "index_purchases_on_provider_id"
