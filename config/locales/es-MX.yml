@@ -448,8 +448,8 @@ es:
     stock: Existencia
     required_serial_number: Requiere número de serie
   product_variants:
-    code: Código
-    code_alternative: Código alternativo
+    code: Clave de producto
+    code_alternative: Código de barras
     stocking_time: Tiempo de garantía
     cost_price: Precio proveedor
     currency: Moneda
@@ -776,8 +776,8 @@ es:
         stock: Existencia
         required_serial_number: Requiere número de serie
       product_variant:
-        code: Código
-        code_alternative: Código alternativo
+        code: Clave de producto
+        code_alternative: Código de barras
         stocking_time: Tiempo de garantía
         cost_price: Precio proveedor
         currency: Moneda
