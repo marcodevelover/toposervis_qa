@@ -183,6 +183,13 @@ rails g migration AddColumsCodeInvoiceToPurchases code_invoice:string
 
 
 rails g migration AddColumsProductStateToPurchaseItems product_state:string
+
+rails g migration AddColumsStatusToProductStock status:string
+
+rails g migration AddColumsSerialNumberToItems serial_number:string
+
+rails g migration AddColumsPaymentWayToPurchase payment_way_id:integer
+
 --------
 Documentation
 

@@ -140,6 +140,7 @@ Rails.application.routes.draw do
       get :customers, on: :collection
       get :currencies, on: :collection
       get :product_variants, on: :collection
+      get :product_stocks, on: :collection
       get :delete, on: :member
       get :filter_form, on: :collection
       get :show_from_modal, on: :member
