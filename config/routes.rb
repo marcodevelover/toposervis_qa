@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'reports/orders_total', to: 'reports#orders_total', as: 'reports_orders'
     get 'reports/sales_total', to: 'reports#sales_total', as: 'reports_sales'
     get 'reports/products_total', to: 'reports#products_total', as: 'reports_products'
+    get 'reports/stocks_total', to: 'reports#stocks_total', as: 'reports_stocks'
     get 'reports/kardex', to: 'reports#kardex', as: 'reports_kardex'
     post  'quotations/:id/to_sell', :to => 'quotations#to_sell', as: :to_sell
     resources :users do
