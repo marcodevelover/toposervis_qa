@@ -102,7 +102,9 @@ class Admin::ReportsController < ApplicationController
 
   def products_total
     @page_description = 'Existencias'
-    @q = Product.ransack(params[:q])
+    params[:q] ||= {} 
+
+    @q = Product.search(params[:q])
     unless params[:q].nil?
       created_at_gt = params[:q][:created_at_gteq]
       created_at_lt = params[:q][:created_at_lteq]
@@ -115,7 +117,7 @@ class Admin::ReportsController < ApplicationController
         params[:q][:created_at_lteq] = Time.zone.parse(params[:q][:created_at_lteq]) rescue ""
       end
 
-      @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])
+      @collection = @q.result(:distinct => true).order('id DESC').where("deleted_at is null").page(params[:page]).per(params[:per_page])
     end
     respond_to do |format| 
             format.html { }
