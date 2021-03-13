@@ -26,7 +26,7 @@
                                  </div>
                                  <div class="col-lg-4 mb-4x">
                                         <%= form.label :exchange_rate, class: "col-form-label"%> *
-                                        <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true, readonly: true %>
+                                        <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true %>
                                         <%= form.error :exchange_rate, id: 'exchange_rate_error' %>
                                  </div>
                               </div>
@@ -169,6 +169,7 @@
                                       
                                       <td>
                                       <%= item.name %><br>
+                                      <small><b>Número de serie</b></small><br>
                                       <small><%= item.extended_description ? item.extended_description : "" %></small>
                                       </td>
                                       <td><%= item.quantity %></td>
@@ -277,6 +278,11 @@
           <div class="form-group">
             <label class="control-label">Nombre</label>
             <input type="text" class="form-control" id="name" readonly="readonly"> 
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Número de serie</label>
+            <input type="text" class="form-control" id="serial_number" readonly="readonly"> 
           </div>
 
           <div class="form-group">
@@ -409,7 +415,7 @@ $("#note_product").select2({
     delay: 250,
     data: function (params) {
       return {
-        q: {code_or_product_name_or_product_model_or_product_brand_cont: params.term}, // search term
+        q: {code_or_product_name_or_product_model_or_product_brand_or_product_stocks_serial_number_cont: params.term}, // search term
         page: params.page
       };
     },
@@ -451,6 +457,8 @@ function formatRepo (repo) {
         "<div class='select2-result-repository__code'>Código: </div>" +
         "<div class='select2-result-repository__unit_price'>Precio unitario: </div>" +
         "<div class='select2-result-repository__stock'>Existencias: </div>" +
+        "<div class='select2-result-repository__required_serial_number'>¿Requiere número de serie?: </div>" +
+        "<div class='select2-result-repository__serial_number'>Número de serie: </div>" +
       "</div>" +
     "</div>"
   );
@@ -463,6 +471,9 @@ function formatRepo (repo) {
   $container.find(".select2-result-repository__code").append(repo.code);
   $container.find(".select2-result-repository__unit_price").append(repo.unit_price + repo.exchange_name);
   $container.find(".select2-result-repository__stock").append(repo.stock);
+  $container.find(".select2-result-repository__required_serial_number").append(repo.required_serial_number);
+  $container.find(".select2-result-repository__serial_number").append(repo.serial_number);
+  
   
   return $container;
 }
@@ -474,6 +485,7 @@ function formatRepoSelection (repo) {
   
   $("#name").val(repo.product_name);
   $("#unit").val(repo.unit);
+  $("#serial_number").val(repo.serial_number);
 
   if(order_currency_text == repo.exchange_name){
     $("#note_unit_price").val(repo.unit_price);
@@ -481,7 +493,106 @@ function formatRepoSelection (repo) {
   if(order_currency_text != repo.exchange_name){
     switch (order_currency_text) {
       case 'MXN':
-        $("#note_unit_price").val(repo.unit_price * repo.exchange_rate);
+        $("#note_unit_price").val(repo.unit_price * order_exchange_rate);
+        break;
+      case 'USD':
+        $("#note_unit_price").val(repo.unit_price * order_exchange_rate);
+        break;
+      default:
+        console.log('Lo lamentamos, debe seleccionar al menos una MONEDA');
+    }
+  }
+  return repo.product_name || repo.text;
+}
+
+</script>
+
+<script type="text/javascript">
+
+$("#note_product_DISABLE").select2({
+  ajax: {
+    url: '/admin/<%=controller_name%>/product_stocks',
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: {serial_number_or_product_variant_code_or_product_variant_product_model_or_product_variant_product_brand_or_product_variant_product_name_cont: params.term}, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      // parse the results into the format expected by Select2
+      // since we are using custom formatting functions we do not need to
+      // alter the remote JSON data, except to indicate that infinite
+      // scrolling can be used
+      params.page = params.page || 1;
+
+      return {
+        results: data.product_stocks,
+        pagination: {
+          more: (params.page * 30) < data.total_count
+        }
+      };
+    },
+    cache: true
+  },
+  placeholder: 'Buscar Productos',
+  allowClear: true,
+  minimumInputLength: 1,
+  templateResult: formatRepo,
+  templateSelection: formatRepoSelection
+});
+
+function formatRepo (repo) {
+  if (repo.loading) {
+    return repo.text;
+  }
+
+  var $container = $(
+    "<div class='select2-result-repository clearfix'>" +
+      "<div class='select2-result-repository__meta'>" +
+        "<div class='select2-result-repository__id'>ID: </div>" +
+        "<div class='select2-result-repository__product_name'>Nombre: </div>" +
+        "<div class='select2-result-repository__model'>Modelo: </div>" +
+        "<div class='select2-result-repository__brand'>Marca: </div>" +
+        "<div class='select2-result-repository__code'>Código: </div>" +
+        "<div class='select2-result-repository__unit_price'>Precio unitario: </div>" +
+        "<div class='select2-result-repository__stock'>Número de serie: </div>" +
+        "<div class='select2-result-repository__required_serial_number'>¿Requiere número de serie?: </div>" +
+      "</div>" +
+    "</div>"
+  );
+
+
+  $container.find(".select2-result-repository__id").append(repo.id);
+  $container.find(".select2-result-repository__product_name").append(repo.product_name);
+  $container.find(".select2-result-repository__model").append(repo.product_model);
+  $container.find(".select2-result-repository__brand").append(repo.product_brand);
+  $container.find(".select2-result-repository__code").append(repo.code);
+  $container.find(".select2-result-repository__unit_price").append(repo.unit_price + repo.exchange_name);
+  $container.find(".select2-result-repository__stock").append(repo.serial_number);
+  $container.find(".select2-result-repository__required_serial_number").append(repo.required_serial_number);
+  
+  return $container;
+}
+
+function formatRepoSelection (repo) {
+  // take the value of the currency
+  console.log("ggggggggggg");
+  var order_exchange_rate = $("#order_exchange_rate").val();
+  var order_currency_text = $("#order_currency_id option:selected").text();
+  
+  $("#name").val(repo.product_name);
+  $("#unit").val(repo.unit);
+  $("#serial_number").val(repo.serial_number);
+
+  if(order_currency_text == repo.exchange_name){
+    $("#note_unit_price").val(repo.unit_price);
+  }
+  if(order_currency_text != repo.exchange_name){
+    switch (order_currency_text) {
+      case 'MXN':
+        $("#note_unit_price").val(repo.unit_price * order_exchange_rate);
         break;
       case 'USD':
         $("#note_unit_price").val(repo.unit_price * order_exchange_rate);
@@ -577,6 +688,7 @@ function formatRepoSelection (repo) {
   $('#sbm_product').click(function(){
     var item = {"product": $("#note_product option:selected").text(),
                 "code": $("#name").val(),
+                "serial_number": $("#serial_number").val(),
                 "product_variant_id": $("#note_product").val(), 
                 "name": $("#name").val(), 
                 "extended_description": $("#extended_description").val(), 
@@ -618,6 +730,7 @@ function formatRepoSelection (repo) {
     var input =
     '<input type="hidden" value="'+item.product_variant_id+'" name="order[items_attributes]['+productCount+'][product_variant_id]" >' +
     '<input type="hidden" value="'+item.name+'" name="order[items_attributes]['+productCount+'][name]" >' +
+    '<input type="hidden" value="'+item.serial_number+'" name="order[items_attributes]['+productCount+'][serial_number]" >' +
     '<input type="hidden" value="'+item.extended_description+'" name="order[items_attributes]['+productCount+'][extended_description]" >' +
     '<input type="hidden" value="'+item.quantity+'" name="order[items_attributes]['+productCount+'][quantity]" >' +
     '<input type="hidden" value="'+item.unit_price+'" name="order[items_attributes]['+productCount+'][unit_price]" >' +

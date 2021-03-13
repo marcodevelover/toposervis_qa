@@ -137,6 +137,7 @@
                                       
                                       <td>
                                       <%= item.name %><br>
+                                      <small><%= item.product_variant.product.required_serial_number %></small>
                                       <small><%= item.extended_description ? item.extended_description : "" %></small>
                                       </td>
                                       <td><%= item.quantity %></td>

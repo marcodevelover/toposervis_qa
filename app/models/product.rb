@@ -10,5 +10,7 @@ class Product < ApplicationRecord
 
   validates :name, presence: true
   validates :required_serial_number, inclusion: [true, false]
+
+  scope :active, -> { where('deleted_at IS NULL')}
   
 end

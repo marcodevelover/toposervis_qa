@@ -17,6 +17,8 @@ class Quotation < ApplicationRecord
   validates :currency, presence: true
   validates :exchange_rate, presence: true
 
+  scope :active, -> { where('deleted_at IS NULL')}
+  
   def erase_sale
     @sale = Sale.find_by(id: self.sale.id)
     @sale.update(deleted_at: Time.now)
