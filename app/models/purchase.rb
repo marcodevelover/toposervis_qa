@@ -16,6 +16,8 @@ class Purchase < ApplicationRecord
   before_create :set_folio, :set_tax, :set_state, :add_stock
   before_update :remove_stock, if: Proc.new { deleted_at.present? }
 
+  scope :active, -> { where('deleted_at IS NULL')}
+  
   def set_folio
     @prefix = "P"
     @date = Time.now

@@ -356,7 +356,7 @@ ActiveRecord::Schema.define(version: 2021_03_03_191047) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "product_stocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "product_stocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "product_variant_id"
     t.string "serial_number"
     t.integer "created_by_id"
@@ -496,7 +496,7 @@ ActiveRecord::Schema.define(version: 2021_03_03_191047) do
     t.text "unit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "product_state"
+    t.string "product_state", default: "credit"
     t.index ["product_variant_id"], name: "index_purchase_items_on_product_variant_id"
     t.index ["record_type", "record_id"], name: "index_purchase_items_on_record_type_and_record_id"
   end

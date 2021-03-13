@@ -25,6 +25,8 @@ class ServiceOrder < ApplicationRecord
 
   validates :date_admission, presence: true
   validates :images, blob: { content_type: ['image/jpg', 'image/jpeg', 'image/png'], size_range: 1..6.megabytes }
+
+  scope :active, -> { where('deleted_at IS NULL')}
   
   def users
     [user, created_by]

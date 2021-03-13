@@ -127,7 +127,7 @@ class Admin::OrdersController < ApplicationController
   end
 
   def product_variants
-    @q = ProductVariant.select('product_variants.*, product_stocks.serial_number').left_outer_joins(:product_stocks).where("product_stocks.status IS NULL").ransack(params[:q])
+    @q = ProductVariant.select('product_variants.*, product_stocks.serial_number').left_outer_joins(:product_stocks).where("product_stocks.status IS NULL").where("products.deleted_at IS NULL").ransack(params[:q])
     @product_variants = @q.result(distinct: true)
     #total_count = @product_variants.count
     respond_to do |format|
