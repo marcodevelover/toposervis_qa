@@ -115,11 +115,23 @@
 
                     <% unless item.product_variant.product.model.blank? %>
                       <small>MODELO:
-                      <%= item.product_variant.product.model %>
+                      <%= item.product_variant.product.model %>;
+                      </small>
+                    <% end %>
+
+                    <% unless item.serial_number.blank? %>
+                      <small>NÚMERO DE SERIE:
+                      <%= item.serial_number %>;
+                      </small>
+                    <% end %>
+
+                    <% unless item.serial_number.blank? %>
+                      <small>TIEMPO DE GARANTIA:
+                      <%= item.product_variant.stocking_time %>
                       </small><br>
                     <% end %>
-                    <small>
-                    <br>
+                    
+                    
                     <small><%= item.extended_description %></small>
                 </td>
 
@@ -193,44 +205,44 @@
               <tr class="information">
                 <td colspan="6">
                   <div class="row">
-                    <div class="col-lg-3">
-                        <div class="mb-3 border-secondary">
-                           <div class="card-body">
+                    <div class="col-lg-12">
+                        <div class="mb-12 border-secondary">
+                           
                               
-                                <b>Forma de pago:</b><br>
+                                <b>Forma de pago:</b>
 
                                 <% if @order.sale.present? %>
                                   <%= @order.sale.payment_way.name %>            
                                 <% end %> 
 
                               
-                           </div>
+                           
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="mb-3 border-secondary">
-                           <div class="card-body">
-                              <b>Método de pago:</b><br>
+                    <div class="col-lg-12">
+                        <div class="mb-12 border-secondary">
+                           
+                              <b>Método de pago:</b>
                                 <% if @order.sale.present? %>
                                   <%= @order.sale.payment_method.name %>
                                 <% end %> 
-                           </div>
+                           
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="mb-3 border-secondary">
-                           <div class="card-body">
-                              <b>Moneda:</b><br>
+                    <div class="col-lg-12">
+                        <div class="mb-12 border-secondary">
+                           
+                              <b>Moneda:</b>
                               <%= @order.currency.name %>
-                           </div>
+                           
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="mb-3 border-secondary">
-                           <div class="card-body">
-                              <b>Tipo de cambio:</b><br>
+                    <div class="col-lg-12">
+                        <div class="mb-12 border-secondary">
+                           
+                              <b>Tipo de cambio:</b>
                               <%= @order.exchange_rate %>
-                           </div>
+                           
                         </div>
                     </div>
                    </div>
@@ -262,12 +274,14 @@
                     <b>IMPORTE CON LETRA:</b>
                     <% if @order.is_tax %>
                     
-                    <br><%= @order.total.to_f.round(2).to_words precision: 2 %> <%= @order.currency.abbreviation %>
+                    <br><%= @order.total.to_i.round(2).to_words precision: 2 %> <%= @order.currency.abbreviation %> <%= @order.currency.name == "MXN" ? "PESOS" : "DOLARES" %> <%= sprintf('%02d', (@order.total.frac * 100).truncate) %><%= @order.currency.abbreviation %>
+
                     <%else%>
                     
-                    <br><%= @order.subtotal.to_f.round(2).to_words precision: 2 %> <%= @order.currency.abbreviation %>
+                    <br><%= @order.subtotal.to_i.round(2).to_words precision: 2 %> <%= @order.currency.name == "MXN" ? "PESOS" : "DOLARES" %> <%= sprintf('%02d', (@order.total.frac * 100).truncate) %><%= @order.currency.abbreviation %>
                     <%end%>
                   </td> 
+
                 </tr>
               </table>
             </td>
