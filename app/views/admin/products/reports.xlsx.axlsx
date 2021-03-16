@@ -26,7 +26,6 @@ wb.add_worksheet(name: "Productos") do |sheet|
     head[:amount_public] = "Precio Público"
     head[:is_service_order] = "El producto es para Orden de Servicio"
     head[:stock] = "Existencia"
-    head[:created_at] = "Fecha de creación"
     head[:deleted_at] = "Estatus"
   end
   sheet.add_row hedears.values, :style => header
@@ -48,7 +47,6 @@ wb.add_worksheet(name: "Productos") do |sheet|
       datos[:amount_public] = number_to_currency(product.product_variants.first.amount_public)
       datos[:is_service_order] = product.is_service_order? ? "1" : "0"
       datos[:stock] = product.product_variants.first.stock_item.stock.round
-      datos[:created_at] = product.created_at.to_formatted_s(:db)
       datos[:deleted_at] = product.deleted_at? ? "Baja" : "Activo"
     end  
     sheet.add_row data.values, :style => border

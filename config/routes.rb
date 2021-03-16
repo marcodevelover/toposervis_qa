@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     get 'reports/products_total', to: 'reports#products_total', as: 'reports_products'
     get 'reports/stocks_total', to: 'reports#stocks_total', as: 'reports_stocks'
     get 'reports/kardex', to: 'reports#kardex', as: 'reports_kardex'
+    get 'reports/in_total', to: 'reports#in_total', as: 'reports_in_total'
+    get 'reports/out_total', to: 'reports#out_total', as: 'reports_out_total'
     post  'quotations/:id/to_sell', :to => 'quotations#to_sell', as: :to_sell
     resources :users do
       get :delete, on: :member
