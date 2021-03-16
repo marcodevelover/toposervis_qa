@@ -161,7 +161,7 @@ class Admin::QuotationsController < ApplicationController
   end
 
   def product_variants
-    @q = ProductVariant.where('products_variants.deleted_at IS NULL').ransack(params[:q])
+    @q = ProductVariant.where('product_variants.deleted_at IS NULL').ransack(params[:q])
     @product_variants = @q.result(distinct: true)
     total_count = @product_variants.count
     respond_to do |format|
