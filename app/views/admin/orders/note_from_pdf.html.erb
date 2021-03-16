@@ -125,7 +125,7 @@
                       </small>
                     <% end %>
 
-                    <% unless item.serial_number.blank? %>
+                    <% unless item.product_variant.stocking_time.blank? %>
                       <small>TIEMPO DE GARANTIA:
                       <%= item.product_variant.stocking_time %>
                       </small><br>
