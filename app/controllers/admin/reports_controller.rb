@@ -204,7 +204,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            format.xlsx {render xlsx: "reports", template: "admin/products/in_total.xlsx.axlsx"}
+            format.xlsx {render xlsx: "reports", template: "admin/purchases/in_total.xlsx.axlsx"}
     end 
   end
 
@@ -231,7 +231,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            format.xlsx {render xlsx: "reports", template: "admin/products/out_total.xlsx.axlsx"}
+            format.xlsx {render xlsx: "reports", template: "admin/purchases/out_total.xlsx.axlsx"}
     end 
   end
 end
