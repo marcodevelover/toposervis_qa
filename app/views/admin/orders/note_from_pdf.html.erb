@@ -274,7 +274,7 @@
                     <b>IMPORTE CON LETRA:</b>
                     <% if @order.is_tax %>
                     
-                    <br><%= @order.total.to_i.round(2).to_words precision: 2 %> <%= @order.currency.abbreviation %> <%= @order.currency.name == "MXN" ? "PESOS" : "DOLARES" %> <%= sprintf('%02d', (@order.total.frac * 100).truncate) %><%= @order.currency.abbreviation %>
+                    <br><%= @order.total.to_i.round(2).to_words precision: 2 %> <%= @order.currency.name == "MXN" ? "PESOS" : "DOLARES" %> <%= sprintf('%02d', (@order.total.frac * 100).truncate) %><%= @order.currency.abbreviation %>
 
                     <%else%>
                     
