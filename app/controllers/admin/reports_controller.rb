@@ -197,8 +197,8 @@ class Admin::ReportsController < ApplicationController
       end
       
       @collection = @q.result(distinct: true).
-      select('products.*, stock_movements.folio, stock_movements.description, stock_movements.stock, stock_movements.quantity, stock_movements.cost_price, stock_movements.deleted_at, stock_movements.created_at').
-      joins(product_variants: [{ stock_item: :stock_movements }]).where('stock_movements.description != ?', 'Venta').
+      select('products.*, stock_movements.folio, stock_movements.description, stock_movements.stock, stock_movements.quantity, stock_movements.cost_price, stock_movements.deleted_at, stock_movements.created_at', 'product_stocks.serial_number').
+      joins(product_variants: [{ stock_item: :stock_movements }]).left_outer_joins(product_variants: :product_stocks).where('stock_movements.description != ?', 'Venta').
       page(params[:page]).per(params[:per_page])
     end
     respond_to do |format| 
@@ -224,8 +224,8 @@ class Admin::ReportsController < ApplicationController
       end
       
       @collection = @q.result(distinct: true).
-      select('products.*, stock_movements.folio, stock_movements.description, stock_movements.stock, stock_movements.quantity, stock_movements.cost_price, stock_movements.deleted_at, stock_movements.created_at').
-      joins(product_variants: [{ stock_item: :stock_movements }]).where('stock_movements.description = ?', 'Venta').
+      select('products.*, stock_movements.folio, stock_movements.description, stock_movements.stock, stock_movements.quantity, stock_movements.cost_price, stock_movements.deleted_at, stock_movements.created_at', 'product_stocks.serial_number').
+      joins(product_variants: [{ stock_item: :stock_movements }]).left_outer_joins(product_variants: :product_stocks).where('stock_movements.description = ?', 'Venta').
       page(params[:page]).per(params[:per_page])
     end
     respond_to do |format| 
