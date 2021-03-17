@@ -211,7 +211,7 @@ class Admin::ServiceOrdersController < ApplicationController
   end
 
   def product_variants
-    @q = ProductVariant.active.ransack(params[:q])
+    @q = ProductVariant.('product_variants.deleted_at IS NULL').ransack(params[:q])
     @product_variants = @q.result(distinct: true)
     total_count = @product_variants.count
     respond_to do |format|
