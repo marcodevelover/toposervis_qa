@@ -35,8 +35,12 @@ class ApplicationRecord < ActiveRecord::Base
                                             "email": self.customer.customer_contacts.first.email,
                                             "tax_id": self.customer.rfc
                                         },
-                        items:          (@items.map { |s| { quantity: s.quantity, 
-                                                            product: { description: s.name, 
+                        items:          (@items.map { |s| { quantity: s.quantity, #{}
+                                                            product: { description: s.name +
+                                                                                  #  s.serial_number.blank? ? "" : " NÚMERO DE SERIE #{s.serial_number} " +
+                                                                                  #  s.product_variant.stocking_time.blank? ? "" : " TIEMPO DE GARANTÍA #{s.product_variant.stocking_time} ",
+                                                                                    " NÚMERO DE SERIE: " + s.serial_number +
+                                                                                    " TIEMPO DE GARANTÍA: " + s.product_variant.stocking_time,
                                                                        product_key: s.product_variant.product_key, 
                                                                        price: s.unit_price,
                                                                        unit_key: s.product_variant.product.unit.unit_key, 
