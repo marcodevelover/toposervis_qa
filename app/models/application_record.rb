@@ -39,8 +39,10 @@ class ApplicationRecord < ActiveRecord::Base
                                                             product: { description: s.name +
                                                                                   #  s.serial_number.blank? ? "" : " NÚMERO DE SERIE #{s.serial_number} " +
                                                                                   #  s.product_variant.stocking_time.blank? ? "" : " TIEMPO DE GARANTÍA #{s.product_variant.stocking_time} ",
-                                                                                    " NÚMERO DE SERIE: " + s.serial_number +
-                                                                                    " TIEMPO DE GARANTÍA: " + s.product_variant.stocking_time,
+                                                                                    " MARCA " + s.product_variant.product.brand +
+                                                                                    " MODELO " + s.product_variant.product.model +
+                                                                                    " NÚMERO DE SERIE " + s.serial_number +
+                                                                                    " TIEMPO DE GARANTÍA " + s.product_variant.stocking_time,
                                                                        product_key: s.product_variant.product_key, 
                                                                        price: s.unit_price,
                                                                        unit_key: s.product_variant.product.unit.unit_key, 
