@@ -21,6 +21,7 @@ wb.add_worksheet(name: "Ventas") do |sheet|
     head[:payment_method] = "Método de pago"
     head[:paymen_way] = "Forma de pago"
     head[:state] = "Estatus"
+    head[:bill_state] = "Estatus de la factura"
   end
   sheet.add_row hedears.values, :style => header
   
@@ -32,6 +33,7 @@ wb.add_worksheet(name: "Ventas") do |sheet|
       datos[:payment_method] = sale.payment_method.name
       datos[:payment_way] = sale.payment_way.name
       datos[:state] = t(sale.state)
+      datos[:bill_state] = t(sale.bill_state)
     end  
     sheet.add_row data.values, :style => border
   end
