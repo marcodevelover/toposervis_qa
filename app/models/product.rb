@@ -9,7 +9,7 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :products_accessories, reject_if: :all_blank, allow_destroy: true
 
   validates :name, presence: true
-  validates :required_serial_number, inclusion: [true, false]
+  validates :required_serial_number, inclusion: [true, false], on: :create
 
   scope :active, -> { where('deleted_at IS NULL')}
   
