@@ -26,7 +26,7 @@
             <% end %>
         </td>
         <td>
-            <span class="badge badge-<%= object.bill_state %>"><%= t(object.bill_state) %></span><br>
+            <span class="badge badge-<%= object.bill_state %>"><%= object.bill_state.blank? ? "" : t(object.bill_state) %></span><br>
             <span class="badge badge-<%= object.cancellation_state %>"><%= t(object.cancellation_state) %></span>
         </td>
 
