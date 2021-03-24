@@ -33,7 +33,7 @@ wb.add_worksheet(name: "Ventas") do |sheet|
       datos[:payment_method] = sale.payment_method.name
       datos[:payment_way] = sale.payment_way.name
       datos[:state] = t(sale.state)
-      datos[:bill_state] = t(sale.bill_state)
+      datos[:bill_state] = sale.bill_state.blank? ? "" : t(sale.bill_state)
     end  
     sheet.add_row data.values, :style => border
   end

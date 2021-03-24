@@ -7,10 +7,15 @@
               <em class="fa fa-edit"></em> 
             <%end%>
 
-            <%= link_to show_from_pdf_admin_quotation_path(@quotation, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
-                <em class="fas fa-print"></em> 
+            <% if @quotation.sale.present? %>
+              <%= link_to note_from_pdf_admin_quotation_path(@quotation, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+                  <em class="fas fa-print"></em> 
+              <%end%>
+            <% else %>
+              <%= link_to show_from_pdf_admin_quotation_path(@quotation, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+                  <em class="fas fa-print"></em> 
+              <%end%>
             <%end%>
-
             <%= link_to admin_quotations_path, :class => "btn btn-sm btn-info" do %>
                 <em class="fas fa-step-backward"></em> 
             <%end%>  
