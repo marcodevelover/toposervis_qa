@@ -20,11 +20,14 @@ wb.add_worksheet(name: "Productos") do |sheet|
     head[:line] = "Línea"
     head[:unit] = "Unidad"
     head[:provider] = "Proveedor"
-    
+    head[:currency] = "Moneda"
     head[:sat_key] = "Clave SAT"
     head[:sat_description] = "Descripción SAT"
-
-
+    head[:cost_price] = "Precio Proveedor"
+    head[:amount_public] = "Precio Público"
+    head[:stock] = "Existencia"
+    head[:deleted_at] = "Estatus"
+    head[:status] = "Estatus existencia"
 
   end
   sheet.add_row hedears.values, :style => header
@@ -40,12 +43,14 @@ wb.add_worksheet(name: "Productos") do |sheet|
       datos[:line] = product.product_variant.product.product_line.name
       datos[:unit] = product.product_variant.product.unit.name
       datos[:provider] = product.product_variant.product.provider.business_name
-      
+      datos[:currency] = product.product_variant.currency.name
       datos[:product_key] = product.product_variant.product_key
       datos[:product_description] = product.product_variant.product_description
-
-
-
+      datos[:cost_price] =  number_to_currency(product.product_variant.cost_price)
+      datos[:amount_public] = number_to_currency(product.product_variant.amount_public)
+      datos[:stock] = 1
+      datos[:deleted_at] = product.deleted_at? ? "Baja" : "Activo"
+      datos[:status] = product.status.blank? ? "" : t(product.status)
 
     end  
     sheet.add_row data.values, :style => border

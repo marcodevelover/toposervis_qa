@@ -127,7 +127,7 @@ class Admin::ReportsController < ApplicationController
   end  
 
     def stocks_total
-    @page_description = 'Existencias'
+    @page_description = 'Existencias por número de serie'
     params[:q] ||= {} 
 
     @q = ProductStock.search(params[:q])
