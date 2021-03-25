@@ -27,7 +27,7 @@
                                   <td><%= object.product_variant.code %></td>
                                   <td><%= object.serial_number %></td>
                                   <td>
-                                  <span class="badge badge-<%= object.status %>"><%= t(object.status) %></span> 
+                                  <span class="badge badge-<%= object.status %>"><%= object.status.blank? ? "" : t(object.status) %></span> 
                                   <td>
                           </tr>
                         <% end.empty? %>
