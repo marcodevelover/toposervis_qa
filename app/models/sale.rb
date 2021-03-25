@@ -18,7 +18,7 @@ class Sale < ApplicationRecord
       @stock = StockItem.find_by(product_variant_id: item.product_variant_id)
       @stock.update(stock: @stock.stock - item.quantity)
       @stock.stock_movements.create(stock_item_id: @stock, folio: self.folio, description: 'Venta', stock: @stock.stock, quantity: -item.quantity, total: item.total, currency_id: self.record.currency_id, cost_price: item.unit_price)
-      unless item.serial_number.blank? || item.serial_number = 'N/A'
+      if item.serial_number != 'N/A'
         @product_stock = ProductStock.find_by(product_variant_id: item.product_variant_id, serial_number: item.serial_number)
         @product_stock.update(status: "sold")
       end
@@ -30,7 +30,7 @@ class Sale < ApplicationRecord
       @stock = StockItem.find_by(product_variant_id: item.product_variant_id)
       @stock.update(stock: @stock.stock + item.quantity)
       @stock.stock_movements.create(stock_item_id: @stock, folio: self.folio, description: 'Venta', stock: @stock.stock, quantity: item.quantity, total: item.total, currency_id: self.record.currency_id, cost_price: item.unit_price, deleted_at: DateTime.now )
-      unless item.serial_number.blank? || item.serial_number = 'N/A'
+      if item.serial_number != 'N/A'
         @product_stock = ProductStock.find_by(serial_number: item.serial_number)
         @product_stock.update(status: nil)
       end
