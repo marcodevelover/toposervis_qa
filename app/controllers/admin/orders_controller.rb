@@ -4,7 +4,7 @@ class Admin::OrdersController < ApplicationController
   respond_to :html, :json
 
   def page_name
-     @page_name = "Orden de Ventas"
+     @page_name = "Venta por nota de venta"
   end
   # GET /orders
   # GET /orders.json
