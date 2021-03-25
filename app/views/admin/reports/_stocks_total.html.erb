@@ -26,9 +26,8 @@
                                   <td scope="row" ><%= object.id %></td>
                                   <td><%= object.product_variant.code %></td>
                                   <td><%= object.serial_number %></td>
-                                  
-                           
-                                  <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activo</span>".html_safe %></td>
+                                  <td>
+                                  <span class="badge badge-<%= object.status %>"><%= t(object.status) %></span> 
                                   <td>
                           </tr>
                         <% end.empty? %>

@@ -17,6 +17,7 @@
                               <th data-column-id="customer" data-order="desc">Customer</th>
                               <th data-column-id="product" data-order="desc">Product</th>
                               <th data-column-id="status" data-order="desc">Status</th>
+                              <th data-column-id="status" data-order="desc">Fecha</th>
                            </tr>
                         </thead>
                        <tbody class="index-collection">
@@ -36,6 +37,9 @@
                                       <% unless object.deleted_at? %>
                                           <span class="badge badge-<%= object.state %>"><%= t(object.state) %></span>
                                       <% end %>
+                                  </td>
+                                  <td>
+                                      <%= object.created_at.to_formatted_s(:db) %>
                                   </td>
                           </tr>
                         <% end.empty? %>
