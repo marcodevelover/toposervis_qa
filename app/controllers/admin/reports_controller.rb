@@ -91,7 +91,7 @@ class Admin::ReportsController < ApplicationController
         params[:q][:created_at_lteq] = Time.zone.parse(params[:q][:created_at_lteq]) rescue ""
       end
 
-      @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])
+      @collection = @q.result(:distinct => true).order('id DESC').page(params[:page]).per(params[:per_page])
     end
     respond_to do |format| 
             format.html { }
