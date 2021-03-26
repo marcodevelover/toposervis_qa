@@ -44,7 +44,7 @@ class ApplicationRecord < ActiveRecord::Base
                                                                                     " NÚMERO DE SERIE " + s.serial_number +
                                                                                     " TIEMPO DE GARANTÍA " + s.product_variant.stocking_time,
                                                                        product_key: s.product_variant.product_key, 
-                                                                       price: s.unit_price,
+                                                                       price: s.unit_price - s.adjustment_total,
                                                                        unit_key: s.product_variant.product.unit.unit_key, 
                                                                        tax_included: false} 
                                                           } 

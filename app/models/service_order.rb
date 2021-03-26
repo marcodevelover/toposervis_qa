@@ -85,7 +85,7 @@ class ServiceOrder < ApplicationRecord
                                                                                     " MODELO " + self.model +
                                                                                     " NÚMERO DE SERIE " + self.serie,
                                                                        product_key: s.product_variant.product_key, 
-                                                                       price: s.total, 
+                                                                       price: s.unit_price - s.adjustment_total,
                                                                        unit_key: s.product_variant.product.unit.unit_key,
                                                                        tax_included: false} 
                                                           } 
