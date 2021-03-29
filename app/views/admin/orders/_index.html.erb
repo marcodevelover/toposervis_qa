@@ -1,6 +1,6 @@
 <% if @collection.each do |object| %>
 <tr>
-        <td scope="row" ><%= object.id %></td>
+        
         <td><%= object.sale.folio %></td>
         <td><%= object.customer ? object.customer.business_name : "N/A" %></td>
         <td><%= object.subtotal %></td>
