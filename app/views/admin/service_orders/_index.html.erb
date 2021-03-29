@@ -2,7 +2,7 @@
 <% if can? :read, object %>
 <tr>    
         <% if current_user.role && current_user.role.name != "customer" %>
-        <td scope="row" ><%= object.id %></td>
+        
         <% end %>
         <td><%= object.folio %></td>
         <td><%= object.date_admission.to_formatted_s(:db)  %></td>

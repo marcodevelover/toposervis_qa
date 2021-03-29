@@ -47,7 +47,7 @@
                         <thead>
                            <tr>
                               <% if current_user.role && current_user.role.name != "customer" %>
-                              <th data-column-id="id" data-type="numeric">ID</th>
+                              
                               <% end %>
                               <th data-column-id="folio"><%= t("service_orders.folio")%></th>
                               <th data-column-id="date" data-order="desc"><%= t("service_orders.date_admission")%></th>
