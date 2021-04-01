@@ -288,6 +288,8 @@
           <div class="form-group">
             <label class="control-label">Unidad</label>
             <input type="text" class="form-control" id="unit" readonly="readonly"> 
+            <input type="hidden" class="form-control" id="stock" readonly="readonly"> 
+            <input type="hidden" class="form-control" id="is_service_order" readonly="readonly"> 
           </div>
 
           <div class="form-group">
@@ -486,6 +488,8 @@ function formatRepoSelection (repo) {
   $("#name").val(repo.product_name);
   $("#unit").val(repo.unit);
   $("#serial_number").val(repo.serial_number);
+  $("#stock").val(repo.stock);
+  $("#is_service_order").val(repo.is_service_order);
 
   if(order_currency_text == repo.exchange_name){
     $("#note_unit_price").val(repo.unit_price);
@@ -693,6 +697,8 @@ function formatRepoSelection (repo) {
                 "name": $("#name").val(), 
                 "extended_description": $("#extended_description").val(), 
                 "unit": $("#unit").val(), 
+                "stock": $("#stock").val(),
+                "is_service_order": $("#is_service_order").val(),
                 "quantity": $("#note_quantity").val(),
                 "unit_price": $("#note_unit_price").val(),
                 "discount_type": $("#note_factor option:selected").text(),
@@ -785,6 +791,10 @@ function formatRepoSelection (repo) {
       validate = false;
       errors.push("La cantidad debe ser mayor a 0");
     }
+    if($("#stock").val() == 0 && $("#unit").val() != "servicio"){
+      validate = false;
+      errors.push("No se puede vender este producto, verifique existencias");
+    }
     if($("#note_unit_price").val() == 0){
       validate = false;
       errors.push("Precio unitario debe ser mayor a 0, Seleccione tipo de cambio");
@@ -852,6 +862,8 @@ function formatRepoSelection (repo) {
     $("#note_product").val(null).trigger('change');;
     $("#name").val("");
     $("#unit").val("");
+    $("#stock").val("");
+    $("#is_service_order").val("");
     $("#extended_description").val("");
     $("#note_quantity").val("0");
     $("#note_unit_price").val("0");
