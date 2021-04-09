@@ -127,11 +127,11 @@ class Admin::OrdersController < ApplicationController
   end
 
   def product_variants
-    @q = ProductVariant.select('product_variants.*, product_stocks.serial_number', 'products.is_service_order').left_outer_joins(:product_stocks).where("product_stocks.status IS NULL").where("products.deleted_at IS NULL").ransack(params[:q])
+    @q = ProductVariant.select('product_variants.*, product_stocks.serial_number').left_outer_joins(:product_stocks).where("product_stocks.status IS NULL").where("products.deleted_at IS NULL").ransack(params[:q])
     @product_variants = @q.result(distinct: true)
     #total_count = @product_variants.count
     respond_to do |format|
-      format.json { render json: {   product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, required_serial_number: s.product.required_serial_number, product_name: s.product.name, product_model: s.product.model, product_brand: s.product.brand, unit_price: s.amount_public, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, image: s.first_image, serial_number: s.serial_number, is_service_order: s.product.is_service_order} } } }
+      format.json { render json: {   product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, required_serial_number: s.product.required_serial_number, product_name: s.product.name, product_model: s.product.model, product_brand: s.product.brand, unit_price: s.amount_public, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, image: s.first_image, serial_number: s.serial_number} } } }
     end
   end
 
