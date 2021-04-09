@@ -32,7 +32,7 @@
 
         <td>
             
-            <span class="badge badge-<%= object.cancellation_state %>"><%= t(object.updated_at.in_time_zone(Time.zone).to_formatted_s(:db)) %></span>
+            <span class="badge badge-<%= object.cancellation_state %>"><%= object.updated_at.in_time_zone('Mexico City').to_formatted_s(:db) %></span>
         </td>
 
         <td>
