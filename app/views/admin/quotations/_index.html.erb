@@ -1,8 +1,3 @@
-<style>
-.disabled-link {
-  pointer-events: none;
-}
-</style>
 <% if @collection.each do |object| %>
 <tr>
         
@@ -27,7 +22,7 @@
         		<em class="fa fa-edit"></em> 
         	<%end%>
 
-            <%= link_to sales_admin_quotation_path(object), :class => "btn btn-sm btn-info", data: { toggle: 'tooltip', placement: 'top', original_title: t('sale_order') } do %>
+            <%= link_to sales_admin_quotation_path(object), :class => "btn btn-sm btn-info #{object.sale.present? ? 'disabled-link' : ''}", data: { toggle: 'tooltip', placement: 'top', original_title: t('sale_order') } do %>
                 <em class="fa-1x fas fa-shopping-cart"></em> 
                 
                 
