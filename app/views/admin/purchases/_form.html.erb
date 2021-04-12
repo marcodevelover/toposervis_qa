@@ -112,6 +112,7 @@
                                 <th class="text-center" data-field="number_serie">No. Serie</th>
                                 <th class="text-center" data-field="number_procedure">No. Pedimento</th>
                                 <th class="text-center" data-field="product_state">Estado de producto</th>
+                                <th class="text-center" data-field="discount_import">Descuento importe</th>
                                 <th class="text-center" data-field="total_price">Precio total</th>
                                 <th class="text-center" data-field="last_name" data-sort-ignore="true" class="min-width">Eliminar</th>
                               </tr>
@@ -134,6 +135,7 @@
                                       <td><%= item.number_serie %></td>
                                       <td><%= item.number_procedure %></td>
                                       <td><%= t(item.product_state) %></td>
+                                      <td class="row_total_discount"><%= item.adjustment_total ? item.adjustment_total : 0%></td>
                                       <td class="row_total_price"><%= item.total %></td>
 
                                       <td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>
@@ -171,6 +173,15 @@
                         </div>
                       </div>
                       
+                      <div class="col-lg-12">
+                        <div class="col-md-3 offset-md-9">
+                          <div class="form-group">
+                            <label class="control-label">Descuento ($)</label>
+                            <%= form.text_field :adjustment_total,class:"form-control",id:"adjustment_total", readonly:"readonly" %>
+                          </div>
+                        </div>
+                      </div>
+
                       <div class="col-lg-12">
                         <div class="col-md-3 offset-md-9">
                           <div class="form-group">
@@ -286,6 +297,23 @@
 
           <div class="btn-hide">
             <label onclick="isDiscount()" class="control-label">Descuento<span style="color: orange;"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></span></label>
+          </div>
+
+          <div class="jump show-fields d-none">
+             <div class="form-group">
+              <label class="control-label">Descuento</label>
+              <select class="form-control" data-placeholder="Tipo de descuento" tabindex="1" id="note_factor" onchange="selectDiscount()">
+                <option value="">Seleccionar</option>
+                
+                  <option value="1">Importe</option>
+                  <option value="2">Porcentaje</option>
+                
+              </select>
+            </div>
+             <div class="form-group">
+              <label class="control-label">Valor</label>
+              <input type="text" class="form-control" id="note_discount" onblur="selectDiscount()" value="0">
+            </div>
           </div>
 
           <div class="form-group jump">
@@ -586,6 +614,7 @@ function formatRepoSelection (repo) {
                 '</td><td>' + item.number_serie +
                 '</td><td>' + item.number_procedure +
                 '</td><td>' + item.product_state +
+                '</td><td class="row_total_discount">' + item.discount +
                 '</td><td class="row_total_price">' + item.total +   
                 '<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>' +
                 '</td>' + create_row_input(item) +
@@ -604,6 +633,7 @@ function formatRepoSelection (repo) {
     '<input type="hidden" value="'+item.quantity+'" name="purchase[purchase_items_attributes]['+productCount+'][quantity]" >' +
     '<input type="hidden" value="'+item.unit_price+'" name="purchase[purchase_items_attributes]['+productCount+'][unit_price]" >' +
     '<input type="hidden" value="'+item.unit+'" name="purchase[purchase_items_attributes]['+productCount+'][unit]" >' +
+    '<input type="hidden" value="'+item.discount+'" name="purchase[purchase_items_attributes]['+productCount+'][adjustment_total]" >' +
     '<input type="hidden" value="'+item.total+'" name="purchase[purchase_items_attributes]['+productCount+'][total]" >';
     return input;
   }
