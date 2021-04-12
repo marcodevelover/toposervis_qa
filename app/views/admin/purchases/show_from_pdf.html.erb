@@ -101,7 +101,9 @@
                     <%= item.quantity %>
                 </td>
                 <td class="center">
-                    <%= number_to_currency(item.unit_price * item.quantity) %>
+                    <%= number_to_currency(item.unit_price * item.quantity)  %>
+                    <br>
+                    <%= item.adjustment_total.blank? ? "" : "-" + number_to_currency(item.adjustment_total) %>
                 </td>
             </tr>
           <% end %>
@@ -114,6 +116,14 @@
             <td colspan="4"></td>
             <td><b>Subtotal</b></td>
             <td class="center"><%= number_to_currency(@purchase.subtotal) %></td>
+          </tr>
+
+          <tr class="font-row-12">
+            <td colspan="4"></td>
+            <% if @purchase.adjustment_total != 0 %>
+            <td><b>Descuento</b></td>
+            <td class="center">- <%= number_to_currency(@purchase.adjustment_total) %></td>
+            <% end %>
           </tr>
 
           <tr class="font-row-12">
