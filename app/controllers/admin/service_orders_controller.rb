@@ -235,7 +235,7 @@ class Admin::ServiceOrdersController < ApplicationController
 
   def search(per_page = 10)
     params[:q] ||= {} 
-    params[:per_page] = 10
+    ######params[:per_page] = 10
     
     @q = ServiceOrder.search(params[:q])
 
