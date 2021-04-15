@@ -3,6 +3,10 @@
 <div class="card card-default">
                 <div class="card-body">
 
+            <%= link_to edit_admin_order_path(@order), :class => "btn btn-sm btn-info" do %>
+              <em class="fa fa-edit"></em> 
+            <%end%>
+
             <%= link_to note_from_pdf_admin_order_path(@order, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
                 <em class="fas fa-print"></em> 
             <%end%>
