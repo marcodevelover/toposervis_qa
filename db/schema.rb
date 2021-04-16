@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_03_191047) do
+ActiveRecord::Schema.define(version: 2021_04_16_155445) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -409,6 +409,7 @@ ActiveRecord::Schema.define(version: 2021_03_03_191047) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_service_order"
     t.boolean "required_serial_number"
+    t.boolean "available_for_sale"
     t.index ["product_line_id"], name: "index_products_on_product_line_id"
     t.index ["provider_id"], name: "index_products_on_provider_id"
     t.index ["unit_id"], name: "index_products_on_unit_id"
