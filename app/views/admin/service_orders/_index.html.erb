@@ -48,7 +48,7 @@
             <%if object.diagnosis.present?%>
 
 
-            <%= link_to sales_admin_service_order_path(object), :class => "btn btn-sm btn-info #{object.diagnosis.sale.present? ? 'disabled-link' : ''}", data: { toggle: 'tooltip', placement: 'top', original_title: t('sale_order') } do %>
+            <%= link_to sales_admin_service_order_path(object), :class => "btn btn-sm btn-info #{object.diagnosis.sale.present? ? '' : ''}", data: { toggle: 'tooltip', placement: 'top', original_title: t('sale_order') } do %>
                 <em class="fa-1x fas fa-shopping-cart"></em>
             <%end%>
 
