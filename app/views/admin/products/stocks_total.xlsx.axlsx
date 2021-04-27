@@ -14,7 +14,7 @@ wb.add_worksheet(name: "Productos") do |sheet|
     head[:id] = "ID"
     head[:name] = "Nombre"
     head[:serial_number] = "Número de serie"
-    head[:serial_number] = "Comentarios de producto"
+    head[:observation] = "Comentarios de producto"
     head[:brand] = "Marca"
     head[:model] = "Modelo"
     head[:description] = "Descripción"
@@ -38,7 +38,7 @@ wb.add_worksheet(name: "Productos") do |sheet|
       datos[:id] = product.id
       datos[:name] = product.product_variant.product.name
       datos[:serial_number] = product.serial_number
-      datos[:serial_number] = product.product_variant.purchase_items.last.observation
+      datos[:observation] = product.product_variant.purchase_items.last.observation
       datos[:brand] = product.product_variant.product.brand
       datos[:model] = product.product_variant.product.model
       datos[:description] = product.product_variant.product.description
