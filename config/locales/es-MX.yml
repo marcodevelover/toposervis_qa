@@ -462,6 +462,8 @@ es:
     deleted_at: Eliminado el
     product_key: Clave SAT
     product_description: Descripción SAT
+    location: Ubicación
+    execution_time: Tiempo de ejecución
     state: Estatus
   products_accessories:
     product: Producto
@@ -789,6 +791,8 @@ es:
         product: Producto
         deleted_at: Eliminado el
         product_key: Clave SAT
+        location: Ubicación
+        execution_time: Tiempo de ejecución
         product_description: Descripción SAT
       products_accessory:
         product_id: Producto

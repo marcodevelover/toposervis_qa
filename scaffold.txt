@@ -197,6 +197,11 @@ rails g migration AddColumsAvailableToProduct available_for_sale:boolean
 
 
 --------
+
+
+rails g migration AddColumsToProductVariant location:string execution_time:string
+
+--------
 Documentation
 
 -- Quotation --
