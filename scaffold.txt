@@ -201,6 +201,11 @@ rails g migration AddColumsAvailableToProduct available_for_sale:boolean
 
 rails g migration AddColumsToProductVariant location:string execution_time:string
 
+
+rails g scaffold QuotationService folio:string 'subtotal:decimal{18,6}' 'total:decimal{18,6}' 'adjustment_total:decimal{18,6}' 'tax:decimal{18,6}' 'tax_total:decimal{18,6}' 'tax_item_total:decimal{18,6}' state:string validity:datetime currency:references 'exchange_rate:decimal{18,6}' customer:references condition:text created_by_id:integer canceled_at:datetime
+
+
+rails g migration AddColumsToQuotationServices is_tax:boolean
 --------
 Documentation
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_28_050955) do
+ActiveRecord::Schema.define(version: 2021_05_28_164852) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -533,6 +533,29 @@ ActiveRecord::Schema.define(version: 2021_05_28_050955) do
     t.index ["receipt_type_id"], name: "index_purchases_on_receipt_type_id"
   end
 
+  create_table "quotation_services", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "number"
+    t.decimal "item_total", precision: 18, scale: 6
+    t.decimal "total", precision: 18, scale: 6
+    t.decimal "adjustment_total", precision: 18, scale: 6
+    t.decimal "tax", precision: 18, scale: 6
+    t.decimal "tax_total", precision: 18, scale: 6
+    t.decimal "tax_item_total", precision: 18, scale: 6
+    t.string "state"
+    t.datetime "validity"
+    t.bigint "currency_id", null: false
+    t.decimal "exchange_rate", precision: 18, scale: 6
+    t.bigint "customer_id", null: false
+    t.text "condition"
+    t.integer "created_by_id"
+    t.datetime "canceled_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_tax"
+    t.index ["currency_id"], name: "index_quotation_services_on_currency_id"
+    t.index ["customer_id"], name: "index_quotation_services_on_customer_id"
+  end
+
   create_table "quotations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "folio"
     t.decimal "subtotal", precision: 18, scale: 6
@@ -751,6 +774,8 @@ ActiveRecord::Schema.define(version: 2021_05_28_050955) do
   add_foreign_key "purchases", "entry_codes"
   add_foreign_key "purchases", "providers"
   add_foreign_key "purchases", "receipt_types"
+  add_foreign_key "quotation_services", "currencies"
+  add_foreign_key "quotation_services", "customers"
   add_foreign_key "quotations", "currencies"
   add_foreign_key "quotations", "customers"
   add_foreign_key "sales", "payment_methods"

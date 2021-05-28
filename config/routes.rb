@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     root to: "dashboard#index"
     get 'dashboard', to: 'dashboard#index', as: 'dashboard'
     get 'reports/quotations_total', to: 'reports#quotations_total', as: 'reports_quotations'
+    get 'reports/quotation_services_total', to: 'reports#quotation_services_total', as: 'reports_quotation_services'
     get 'reports/service_orders_total', to: 'reports#service_orders_total', as: 'reports_service_orders'
     get 'reports/orders_total', to: 'reports#orders_total', as: 'reports_orders'
     get 'reports/sales_total', to: 'reports#sales_total', as: 'reports_sales'
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
     get 'reports/in_total', to: 'reports#in_total', as: 'reports_in_total'
     get 'reports/out_total', to: 'reports#out_total', as: 'reports_out_total'
     post  'quotations/:id/to_sell', :to => 'quotations#to_sell', as: :to_sell
+    #post  'quotation_services/:id/to_sell', :to => 'quotation_services#to_sell', as: :to_sell
     resources :users do
       get :delete, on: :member
       get :filter_form, on: :collection
@@ -80,6 +82,23 @@ Rails.application.routes.draw do
       get :filter_form, on: :collection
     end
     resources :quotations do
+      get :customers, on: :collection
+      get :currencies, on: :collection
+      get :product_variants, on: :collection
+      get :delete, on: :member
+      get :filter_form, on: :collection
+      get :show_from_modal, on: :member
+      get :show_from_pdf, on: :member
+      get :note_from_pdf, on: :member
+      get :sales, on: :member
+      get :bill, on: :member
+      put :invoice, on: :member
+      get :request_cancel_invoice, on: :member
+      put :cancel_invoice, on: :member
+      get :request_cancellation_state_invoice, on: :member
+      put :cancellation_state_invoice, on: :member
+    end
+    resources :quotation_services do
       get :customers, on: :collection
       get :currencies, on: :collection
       get :product_variants, on: :collection

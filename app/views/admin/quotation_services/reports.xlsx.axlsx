@@ -1,0 +1,37 @@
+wb = xlsx_package.workbook #create excel book
+wb.add_worksheet(name: "Cotizaciones") do |sheet|
+  sps_img = File.expand_path(Rails.root+'app/assets/images/pdf/logo.png')
+    sheet.add_image(:image_src => sps_img) do |image|
+      image.start_at 0, 0
+      image.end_at 6, 10
+    end
+
+  (1..12).each do |row|
+    sheet.add_row
+  end
+  header = wb.styles.add_style({:alignment => {:horizontal => :center, :vertical => :center, :wrap_text => true}, :border => { :style => :thin, :color => "000000" }}) 
+  border = wb.styles.add_style({:border => { :style => :thin, :color => "000000" }}) 
+  align_right = wb.styles.add_style({:alignment => {:horizontal => :right}}) 
+  align_left = wb.styles.add_style({:alignment => {:horizontal => :left}})  
+
+  hedears = Hash.new.tap do |head|
+    head[:id] = "ID"
+    head[:folio] = "Folio"
+    head[:customer] = "Cliente"
+    head[:total] = "Total"
+    head[:state] = "Estatus"
+  end
+  sheet.add_row hedears.values, :style => header
+  
+  @collection.each do |quotation_service|
+    receptorDomicilio = Hash.new.tap do |datos|
+      datos[:id] = quotation_service.id
+      datos[:folio] = quotation_service.folio
+      datos[:customer] = quotation_service.customer.name
+      datos[:total] = number_to_currency(quotation_service.total)
+      datos[:state] = t(quotation_service.state)
+    end  
+    sheet.add_row receptorDomicilio.values, :style => border
+  end
+  
+end
