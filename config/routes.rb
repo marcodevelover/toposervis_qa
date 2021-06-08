@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     get 'reports/in_total', to: 'reports#in_total', as: 'reports_in_total'
     get 'reports/out_total', to: 'reports#out_total', as: 'reports_out_total'
     post  'quotations/:id/to_sell', :to => 'quotations#to_sell', as: :to_sell
-    #post  'quotation_services/:id/to_sell', :to => 'quotation_services#to_sell', as: :to_sell
+    post  'quotation_services/:id/to_sell', :to => 'quotation_services#to_sell', as: :to_sell_services
     resources :users do
       get :delete, on: :member
       get :filter_form, on: :collection
