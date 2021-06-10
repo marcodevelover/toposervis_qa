@@ -30,7 +30,9 @@ class Admin::ReportsController < ApplicationController
 
   def service_orders_total
     @page_description = 'Ordenes de servicio'
-    
+    if params[:q].nil?
+      @q = ServiceOrder.ransack(params[:q])
+    end
     unless params[:q].nil?
       created_at_gt = params[:q][:created_at_gteq]
       created_at_lt = params[:q][:created_at_lteq]
