@@ -1,15 +1,10 @@
             <p id="notice"><%= notice %></p>
             <div class="card">
                <div class="card-header">
-                <%= link_to new_admin_product_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
-                  <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar producto
+                <%= link_to new_admin_deliverable_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                  <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
                 <%end%>
-
-                <%= link_to admin_new_service_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
-                  <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar servicio
-                <%end%>
-
-                <%= link_to filter_form_admin_products_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                <%= link_to filter_form_admin_deliverables_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
                   <em class="fa mr-2 fas fa-search"></em>Buscar
                 <%end%>
                 <%= sort_link(@q, "exportar", :format => "xlsx") do %>
@@ -20,39 +15,28 @@
                 <br><br>
                 <div class="form-group">
                 <%= search_form_for [:admin, @q] do |f| %>
-                  <%= f.search_field :name_or_brand_or_model_or_description_cont, class: "form-control", placeholder: t('search') %><br>
+                  <%= f.search_field :name_or_description_cont, class: "form-control", placeholder: t('search') %><br>
                   <div class="form-group row">
                      <div class="col-md-12">
                         <div class="form-row">
-                          <div class="col-lg-4 mb-4">
+                          <div class="col-lg-6 mb-6">
                             <label class="form-label">Fecha Inicio</label>
                             <div class="form-group"> 
                               <%= f.search_field :created_at_gteq, class: "form-control" , placeholder: "Buscar", type: 'date'%>
                             </div>  
                           </div> 
-                          <div class="col-lg-4 mb-4">
+                          <div class="col-lg-6 mb-6">
                             <label class="form-label">Fecha Final</label>
                             <div class="form-group"> 
                               <%= f.search_field :created_at_lteq, class: "form-control" , placeholder: "Buscar", type: 'date'%>
-                            </div>  
-                          </div>
-                          <div class="col-lg-4 mb-4">
-                            <label class="form-label">Tipo</label>
-                            <div class="form-group"> 
-                              <%=  select_tag "q[is_service_eq]" , options_for_select([["Selecciona", ""], ["Producto", "0"], ["Servicio", "1"]]), class: 'custom-select custom-select-sm'
-                                          %>
                             </div>  
                           </div>
                         </div>
                     </div>
                   </div>
                   <%= f.submit class: "btn btn-success waves-effect"%>
-                  <a href="<% admin_products_path %>?per_page=10000">Mostrar todo</a>
-
-
                 <% end %>
                 </div>
-
                </div>
                <div class="card-body">
                   <div class="table-responsive bootgrid">
@@ -60,12 +44,9 @@
                         <thead>
                            <tr>
                               <th data-column-id="id" data-type="numeric">ID</th>
-                              <th data-column-id="name"><%= t("products.name")%></th>
-                              <th data-column-id="brand" data-order="desc"><%= t("products.brand")%></th>
-                              <th data-column-id="model" data-order="desc"><%= t("products.model")%></th>
-                              <th data-column-id="status" data-order="desc">Tipo</th>
-                              <th data-column-id="model" data-order="desc"><%= t("products.stock")%></th>
-                              <th data-column-id="status" data-order="desc"><%= t("products.state")%></th>
+                              <th data-column-id="name"><%= t("accessories.name")%></th>
+                              <th data-column-id="description" data-order="desc"><%= t("deliverables.description")%></th>
+                              <th data-column-id="status" data-order="desc"><%= t("deliverables.state")%></th>
                               <th data-column-id="commands" data-formatter="commands" data-sortable="false">
                                  <div class="text-left"><%= t :commands %></div>
                               </th>

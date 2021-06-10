@@ -15,7 +15,7 @@ class CreateQuotationServices < ActiveRecord::Migration[6.0]
       t.references :customer, null: false, foreign_key: true
       t.text :condition
       t.integer :created_by_id
-      t.datetime :canceled_at
+      t.datetime :deleted_at
 
       t.timestamps
     end

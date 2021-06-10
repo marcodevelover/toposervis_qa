@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     get 'reports/out_total', to: 'reports#out_total', as: 'reports_out_total'
     post  'quotations/:id/to_sell', :to => 'quotations#to_sell', as: :to_sell
     post  'quotation_services/:id/to_sell', :to => 'quotation_services#to_sell', as: :to_sell_services
+    get  'products/new_service', to: 'products#new_service', as: 'new_service'
+    get  'products/:id/edit_service', to: 'products#edit_service', as: 'edit_service'
     resources :users do
       get :delete, on: :member
       get :filter_form, on: :collection
@@ -35,6 +37,10 @@ Rails.application.routes.draw do
       get :filter_form, on: :collection
     end
     resources :accessories do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
+    resources :deliverables do
       get :delete, on: :member
       get :filter_form, on: :collection
     end
@@ -58,6 +64,7 @@ Rails.application.routes.draw do
       get :delete, on: :member
       get :filter_form, on: :collection
       get :add_accessory, on: :member
+      
     end
     resources :product_variants
     resources :category_types do

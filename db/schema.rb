@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_28_164852) do
+ActiveRecord::Schema.define(version: 2021_06_10_054457) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2021_05_28_164852) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "is_for"
   end
 
   create_table "currencies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -152,6 +153,14 @@ ActiveRecord::Schema.define(version: 2021_05_28_164852) do
     t.string "name"
     t.string "rfc"
     t.string "business_name"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "deliverables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -412,6 +421,7 @@ ActiveRecord::Schema.define(version: 2021_05_28_164852) do
     t.boolean "is_service_order"
     t.boolean "required_serial_number"
     t.boolean "available_for_sale"
+    t.boolean "is_service"
     t.index ["product_line_id"], name: "index_products_on_product_line_id"
     t.index ["provider_id"], name: "index_products_on_provider_id"
     t.index ["unit_id"], name: "index_products_on_unit_id"
@@ -425,6 +435,15 @@ ActiveRecord::Schema.define(version: 2021_05_28_164852) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["accessory_id"], name: "index_products_accessories_on_accessory_id"
     t.index ["product_id"], name: "index_products_accessories_on_product_id"
+  end
+
+  create_table "products_deliverables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "deliverable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["deliverable_id"], name: "index_products_deliverables_on_deliverable_id"
+    t.index ["product_id"], name: "index_products_deliverables_on_product_id"
   end
 
   create_table "provider_addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -534,8 +553,8 @@ ActiveRecord::Schema.define(version: 2021_05_28_164852) do
   end
 
   create_table "quotation_services", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "number"
-    t.decimal "item_total", precision: 18, scale: 6
+    t.string "folio"
+    t.decimal "subtotal", precision: 18, scale: 6
     t.decimal "total", precision: 18, scale: 6
     t.decimal "adjustment_total", precision: 18, scale: 6
     t.decimal "tax", precision: 18, scale: 6
@@ -548,7 +567,7 @@ ActiveRecord::Schema.define(version: 2021_05_28_164852) do
     t.bigint "customer_id", null: false
     t.text "condition"
     t.integer "created_by_id"
-    t.datetime "canceled_at"
+    t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_tax"
@@ -766,6 +785,8 @@ ActiveRecord::Schema.define(version: 2021_05_28_164852) do
   add_foreign_key "products", "units"
   add_foreign_key "products_accessories", "accessories"
   add_foreign_key "products_accessories", "products"
+  add_foreign_key "products_deliverables", "deliverables"
+  add_foreign_key "products_deliverables", "products"
   add_foreign_key "provider_addresses", "providers"
   add_foreign_key "provider_banks", "providers"
   add_foreign_key "provider_contacts", "providers"

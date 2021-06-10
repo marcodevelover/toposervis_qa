@@ -4,6 +4,7 @@
         <td><%= object.name %></td>
         <td><%= object.brand %></td>
         <td><%= object.model %></td>
+        <td><%= object.is_service == true ? "servicio" : "producto" %></td>
         <td><%= object.product_variants.first.stock_item.blank? ? 0 : object.product_variants.first.stock_item.stock.round %></td>
 
         <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activo</span>".html_safe %></td>
@@ -12,10 +13,15 @@
         		<em class="fas fa-info-circle"></em> 
         	<%end%>
 
-        	<%= link_to edit_admin_product_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('edit') }   do %>
-        		<em class="fa fa-edit"></em> 
-        	<%end%>
-
+            <% unless object.is_service == true%>
+            	<%= link_to edit_admin_product_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('edit') }   do %>
+            		<em class="fa fa-edit"></em> 
+            	<%end%>
+            <% else %>
+                <%= link_to admin_edit_service_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('edit') }   do %>
+                    <em class="fa fa-edit"></em> 
+                <%end%>
+            <% end %>
             <%= link_to edit_admin_product_variant_path(object.product_variants.first.id), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('add_images') }   do %>
                 <em class="fa fa-file-image"></em> 
             <%end%>
@@ -33,6 +39,3 @@
 <% end.empty? %>
   <h3>No hay resultados</h3>
 <% end %>
-
-
-
