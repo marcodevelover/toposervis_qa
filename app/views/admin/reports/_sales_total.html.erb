@@ -44,7 +44,7 @@
                                       <span class="badge badge-<%= object.cancellation_state %>"><%= object.cancellation_state.blank? ? "" : t(object.cancellation_state) %></span>
                                   </td>
                                   <td>
-                                      <%= object.updated_at.to_formatted_s(:db) %>
+                                      <%= object.updated_at.to_time.to_formatted_s(:db) %>
                                   </td>
                           </tr>
                         <% end.empty? %>

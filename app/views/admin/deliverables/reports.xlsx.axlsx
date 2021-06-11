@@ -1,5 +1,5 @@
 wb = xlsx_package.workbook #create excel book
-wb.add_worksheet(name: "Ventas") do |sheet|
+wb.add_worksheet(name: "Accesorios") do |sheet|
   sps_img = File.expand_path(Rails.root+'app/assets/images/pdf/logo.png')
     sheet.add_image(:image_src => sps_img) do |image|
       image.start_at 0, 0
@@ -16,28 +16,20 @@ wb.add_worksheet(name: "Ventas") do |sheet|
 
   hedears = Hash.new.tap do |head|
     head[:id] = "ID"
-    head[:record_type] = "Origen"
-    head[:folio] = "Folio"
-    head[:payment_method] = "Método de pago"
-    head[:paymen_way] = "Forma de pago"
+    head[:name] = "Nombre"
+    head[:description] = "Descripción"
     head[:state] = "Estatus"
-    head[:bill_state] = "Estatus de la factura"
-    head[:date] = "Fecha"
   end
   sheet.add_row hedears.values, :style => header
   
-  @collection.each do |sale|
-    data = Hash.new.tap do |datos|
-      datos[:id] = sale.id
-      datos[:record_type] = t(sale.record_type)
-      datos[:folio] = sale.folio
-      datos[:payment_method] = sale.payment_method.name
-      datos[:payment_way] = sale.payment_way.name
-      datos[:state] = t(sale.state)
-      datos[:bill_state] = sale.bill_state.blank? ? "" : t(sale.bill_state)
-      datos[:updated_at] = sale.updated_at.to_time.to_formatted_s(:db)
+  @collection.each do |accesory|
+    receptorDomicilio = Hash.new.tap do |datos|
+      datos[:id] = accesory.id
+      datos[:name] = accesory.name
+      datos[:description] = accesory.description
+      datos[:state] = accesory.deleted_at.nil? ? "Activo" : "Baja"
     end  
-    sheet.add_row data.values, :style => border
+    sheet.add_row receptorDomicilio.values, :style => border
   end
   
 end

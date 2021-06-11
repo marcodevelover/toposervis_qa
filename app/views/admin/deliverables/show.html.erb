@@ -1,0 +1,23 @@
+<div class="modal-body">
+
+<p>
+  <strong><%= t("deliverables.name")%>:</strong>
+  <%= @deliverable.name %>
+</p>
+
+<p>
+  <strong><%= t("deliverables.description")%>:</strong>
+  <%= @deliverable.description %>
+</p>
+
+<p>
+  <strong><%= t("deliverables.deleted_at")%>:</strong>
+  <%= @deliverable.deleted_at %>
+</p>
+
+</div>
+<div class="modal-footer"> 
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
+</div> 
+
+<div id="modal-holder" ></div>

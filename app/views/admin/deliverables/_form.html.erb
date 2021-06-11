@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @condition], remote: request.xhr?, html: { data: { modal: true } }) do |form| %>               
+<%= simple_form_for([:admin, @deliverable], remote: request.xhr?, html: { data: { modal: true } }) do |form| %>               
                   
 <div class="modal-body">
   <div style="background-color:#f05050; border-color: #f05050; border-radius: 0.25rem; color:white; font-weight:bold;">
@@ -11,19 +11,10 @@
   </div>
 
   <div class="form-group">
-        <%= form.label :description, class: "col-form-label"%> *
-        <%= form.text_field :description, class: "form-control", type: "text" %>
+        <%= form.label :description, class: "col-form-label"%>
+        <%= form.text_field :description, class: "form-control", type: "text", required: true %>
   </div>
 
- <div class="form-group">
-   <% @is_for  = [["",""], ["Producto","product"], ["Servicio", "service"], ["Ambos", "both"] ] %>
-   <%= form.input :is_for, collection: @is_for, selected: @condition.is_for, input_html: { class: 'custom-select custom-select-sm' } %>                                      
- </div>
-
-  <div class="form-group">
-        <%= form.label :default, class: "col-form-label"%>
-        <%= form.input_field :default, as: :boolean %>
-  </div>
    <div class="required">* Required fields</div>
 </div>
 <div class="modal-footer">

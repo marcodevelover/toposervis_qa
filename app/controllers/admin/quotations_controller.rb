@@ -65,7 +65,7 @@ class Admin::QuotationsController < ApplicationController
   def new
     @quotation = Quotation.new
     conditions = []
-    Condition.condition_default.active.each do |condition|
+    Condition.condition_default.active.product.or(Condition.both).each do |condition|
       conditions << condition.description
       @conditions = conditions.join("<br>")
     end
@@ -161,7 +161,7 @@ class Admin::QuotationsController < ApplicationController
   end
 
   def product_variants
-    @q = ProductVariant.where('product_variants.deleted_at IS NULL').where("products.available_for_sale != 0").ransack(params[:q])
+    @q = ProductVariant.where('product_variants.deleted_at IS NULL').where("products.available_for_sale != 0").where("products.is_service = 0").ransack(params[:q])
     @product_variants = @q.result(distinct: true)
     total_count = @product_variants.count
     respond_to do |format|

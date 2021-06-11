@@ -39,7 +39,7 @@
                                       <% end %>
                                   </td>
                                   <td>
-                                      <%= object.created_at.to_formatted_s(:db) %>
+                                      <%= object.created_at.to_time.to_formatted_s(:db) %>
                                   </td>
                           </tr>
                         <% end.empty? %>

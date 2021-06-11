@@ -207,6 +207,19 @@ rails g scaffold QuotationService folio:string 'subtotal:decimal{18,6}' 'total:d
 
 rails g migration AddColumsToQuotationServices is_tax:boolean
 --------
+
+rails g model Deliverable name:string description:string deleted_at:datetime
+
+rails g model ProductsDeliverables product:references deliverable:references
+
+--------
+
+
+rails g migration AddColumsIsServiceToProduct is_service:boolean
+
+
+rails g migration AddColumsIsForToCondition is_for:string
+--------
 Documentation
 
 -- Quotation --

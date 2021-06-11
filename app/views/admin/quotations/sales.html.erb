@@ -151,6 +151,7 @@
                                       <small>
                                         <%= item.product_variant.product.required_serial_number? ? "Número de serie: requerido" : "Número de serie: No requerido" %>
                                       </small>
+                                      <small><%= item.serial_number == 'N/A' ? "" : item.serial_number %></small>
                                       <small><%= item.extended_description ? item.extended_description : "" %></small>
                                       </td>
                                       <td><%= item.quantity %></td>
@@ -609,6 +610,7 @@ function formatRepoSelection (repo) {
       item.discount_type = "N/A";
     }
     var row = $('<tr class="text-center" data_id='+productCount+'><td>' + item.code + 
+                '</br> <small> Número de serie: ' + item.serial_number + '</small>' +
                 '</td><td>' + item.quantity +
                 '</td><td>' + item.unit_price + 
                 '</td><td>' + item.unit +

@@ -29,7 +29,7 @@ wb.add_worksheet(name: "Egresos") do |sheet|
     receptorDomicilio = Hash.new.tap do |datos|
       datos[:id] = expense.id
       datos[:folio] = expense.folio
-      datos[:date] = expense.date
+      datos[:date] = expense.date.to_time.to_formatted_s(:db)
       datos[:account] = expense.account.name
       datos[:category_type] = expense.category_type.name
       datos[:payment_method] = expense.payment_method.name

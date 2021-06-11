@@ -127,6 +127,20 @@
                       <br><small>TIEMPO DE EJECUCIÓN: <%= item.product_variant.execution_time %></small>
                     <% end %>
 
+                    <% unless item.extended_description.blank? %>
+                      <br><small><%= item.extended_description %></small>
+                    <% end %>
+
+                    <% unless item.product_variant.product.products_deliverables.blank? %>
+                      <br><small>ENTREGABLES: 
+
+                    <ul class="no-indentation" style="padding-bottom: 0px !important">
+                    <% item.product_variant.product.products_deliverables.each do |deliverable| %>
+                        <li><%= deliverable.deliverable.name %></li>
+                    <% end %>
+                    </ul>
+
+                    <% end %>
 
                     <% unless item.extended_description.blank? %>
                       <br><small><%= item.extended_description %></small>

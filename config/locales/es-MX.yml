@@ -22,6 +22,9 @@
 #https://github.com/svenfuchs/rails-i18n/blob/rails-4-x/rails/locale/es-MX.yml
  
 es: 
+  product: Producto
+  service: Servicio
+  boot: Ambos
   add: Agregar
   add_accessories: Accesorios
   add_customers: Clientes
@@ -65,9 +68,10 @@ es:
   user_module: Usuarios
   unit_module: Unidades de medida
   product_line_module: Lineas de producto
-  product_module: Productos
+  product_module: Productos/Servicios
   currency_module: Monedas
   accessory_module: Accesorios de producto
+  deliverable_module: Entregables de servicio
   category_module: Categorias
   subcategory_module: Subcategorias
   interview_gg_module: Conversaciones Servir y Sonreír
@@ -200,6 +204,11 @@ es:
     description: Descripción
     state: Estatus
     deleted_at: Eliminado el    
+  deliverables:
+    name: Nombre
+    description: Descripción
+    state: Estatus
+    deleted_at: Eliminado el    
   departments:
     name: Nombre
     enterprise_id: Empresa
@@ -292,6 +301,7 @@ es:
     deleted_at: Eliminado el
     state: Estatus
     default: Predeterminado
+    is_for: Es para
   service_orders:
     folio: Folio
     product: Producto
@@ -447,6 +457,10 @@ es:
     state: Estatus
     stock: Existencia
     required_serial_number: Requiere número de serie
+    provider_id: Proveedor
+    deliverable_id: Entregable
+    unit_id: Unidad
+    currency_id: Moneda
   product_variants:
     code: Clave de producto
     code_alternative: Código de barras
@@ -677,6 +691,8 @@ es:
       Comment: Mensaje
       accessory: accesorio
       Accessory: Accesorio
+      deliverable: entegable
+      Deliverable: Entregable
       User: Usuario
       category_type: tipo de categoria
       CategoryType: Tipo de categoria
@@ -733,6 +749,11 @@ es:
         description: Descripción
         state: Estatus
         deleted_at: Eliminado el
+      deliverable:
+        name: Nombre
+        description: Descripción
+        state: Estatus
+        deleted_at: Eliminado el
       sale:
         payment_method: Formas de pago
         payment_way: Métodos de pago
@@ -777,6 +798,10 @@ es:
         state: Estatus
         stock: Existencia
         required_serial_number: Requiere número de serie
+        provider_id: Proveedor
+        deliverable_id: Entregable
+        unit_id: Unidad
+        currency_id: Moneda
       product_variant:
         code: Clave de producto
         code_alternative: Código de barras
@@ -946,6 +971,7 @@ es:
         deleted_at: Eliminado el
         state: Estatus
         default: Predeterminado
+        is_for: Es para
       payment_method:
         name: Nombre
         description: Descripción
