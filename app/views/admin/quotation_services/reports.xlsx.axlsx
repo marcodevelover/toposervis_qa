@@ -19,6 +19,7 @@ wb.add_worksheet(name: "Cotizaciones") do |sheet|
     head[:folio] = "Folio"
     head[:customer] = "Cliente"
     head[:total] = "Total"
+    head[:created_at] = "Fecha de creación"
     head[:state] = "Estatus"
   end
   sheet.add_row hedears.values, :style => header
@@ -29,6 +30,7 @@ wb.add_worksheet(name: "Cotizaciones") do |sheet|
       datos[:folio] = quotation_service.folio
       datos[:customer] = quotation_service.customer.name
       datos[:total] = number_to_currency(quotation_service.total)
+      datos[:created_at] = quotation.created_at.to_time.to_formatted_s(:db)
       datos[:state] = t(quotation_service.state)
     end  
     sheet.add_row receptorDomicilio.values, :style => border

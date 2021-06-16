@@ -4,6 +4,7 @@
         <td><%= object.folio %></td>
         <td><%= object.customer ? object.customer.business_name : "N/A" %></td>
         <td><%= object.subtotal %></td>
+        <td><%= object.created_at.to_time.to_formatted_s(:db) %></td>
         <td>
             <% if object.deleted_at? %>
                 <span class="badge badge-danger"><%= t("deleted")%></span>

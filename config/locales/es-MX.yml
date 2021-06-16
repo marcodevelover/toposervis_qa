@@ -295,6 +295,7 @@ es:
     validity: Vigencia
     currency: Moneda
     exchange_rate: Tipo de cambio
+    created_at: Fecha de creación
   conditions:
     name: Nombre
     description: Descripción

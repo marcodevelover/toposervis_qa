@@ -26,6 +26,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
+            params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/quotations/reports.xlsx.axlsx"}
     end
   end
@@ -53,6 +54,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
+            params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/service_orders/reports.xlsx.axlsx"}
     end
   end  
@@ -79,6 +81,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
+            params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/orders/reports.xlsx.axlsx"}
     end
   end  
@@ -105,6 +108,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
+            params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/sales/reports.xlsx.axlsx"}
     end
   end
@@ -132,6 +136,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
+            params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/products/reports.xlsx.axlsx"}
     end
   end  
@@ -159,6 +164,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
+            params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/products/stocks_total.xlsx.axlsx"}
     end
   end    
@@ -188,6 +194,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
+            params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/products/kardex.xlsx.axlsx"}
     end 
   end
@@ -219,6 +226,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
+            params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/purchases/in_total.xlsx.axlsx"}
     end 
   end
@@ -248,6 +256,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
+            params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/purchases/out_total.xlsx.axlsx"}
     end 
   end
