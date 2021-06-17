@@ -462,7 +462,6 @@ function formatRepo (repo) {
   $container.find(".select2-result-repository__required_serial_number").append(repo.required_serial_number);
   $container.find(".select2-result-repository__serial_number").append(repo.serial_number);
   
-  $("#serial_number").val(repo.serial_number);
   return $container;
 }
 
@@ -470,7 +469,7 @@ function formatRepoSelection (repo) {
   // take the value of the currency
   var quotation_exchange_rate = $("#quotation_exchange_rate").val();
   var quotation_currency_text = $("#quotation_currency_id option:selected").text();
-  
+  $("#serial_number").val(repo.serial_number);
   $("#name").val(repo.product_name);
   $("#unit").val(repo.unit);
   $("#stock").val(repo.stock);
