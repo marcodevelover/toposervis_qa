@@ -462,7 +462,7 @@ function formatRepo (repo) {
   $container.find(".select2-result-repository__required_serial_number").append(repo.required_serial_number);
   $container.find(".select2-result-repository__serial_number").append(repo.serial_number);
   
-  
+  $("#serial_number").val(repo.serial_number);
   return $container;
 }
 
@@ -473,7 +473,6 @@ function formatRepoSelection (repo) {
   
   $("#name").val(repo.product_name);
   $("#unit").val(repo.unit);
-  $("#serial_number").val(repo.serial_number);
   $("#stock").val(repo.stock);
   $("#currency_name").val(quotation_currency_text);
   $("#note_quantity").val(0);
@@ -762,6 +761,7 @@ function formatRepoSelection (repo) {
     $("#name").val("");
     $("#unit").val("");
     $("#stock").val("");
+    $("#serial_number").val("");
     $("#extended_description").val("");
     $("#note_quantity").val("0");
     $("#note_unit_price").val("0");
