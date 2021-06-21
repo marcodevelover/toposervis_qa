@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'bill_payment/index'
   mount Ckeditor::Engine => '/ckeditor'
   get '/404', to: "errors#not_found"
   get '/422', to: "errors#unacceptable"
@@ -8,6 +9,8 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "dashboard#index"
     get 'dashboard', to: 'dashboard#index', as: 'dashboard'
+    get 'bill_payments', to: 'bill_payment#index', as: 'bill_payments'
+    get 'bill_payments/:id/edit', to: 'bill_payment#edit', as: 'bill_payments/edit'
     get 'reports/quotations_total', to: 'reports#quotations_total', as: 'reports_quotations'
     get 'reports/quotation_services_total', to: 'reports#quotation_services_total', as: 'reports_quotation_services'
     get 'reports/service_orders_total', to: 'reports#service_orders_total', as: 'reports_service_orders'

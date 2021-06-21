@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_10_054457) do
+ActiveRecord::Schema.define(version: 2021_06_21_182612) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -357,6 +357,35 @@ ActiveRecord::Schema.define(version: 2021_06_10_054457) do
     t.string "payment_way_key"
   end
 
+  create_table "payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.integer "payment_method_id"
+    t.integer "payment_way_id"
+    t.integer "exchange_type_id"
+    t.datetime "deleted_at"
+    t.decimal "total_amount", precision: 18, scale: 6
+    t.datetime "payment_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "partiality_number"
+    t.decimal "previous_balance_amount", precision: 18, scale: 6
+    t.decimal "amount_paid", precision: 18, scale: 6
+    t.decimal "unpaid_balance_amount", precision: 18, scale: 6
+    t.index ["record_type", "record_id"], name: "index_payments_on_record_type_and_record_id"
+  end
+
+  create_table "payments_bills", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "payment_id"
+    t.integer "partiality_number"
+    t.decimal "previous_balance_amount", precision: 18, scale: 6
+    t.decimal "amount_paid", precision: 18, scale: 6
+    t.decimal "unpaid_balance_amount", precision: 18, scale: 6
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "product_lines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -629,6 +658,9 @@ ActiveRecord::Schema.define(version: 2021_06_10_054457) do
     t.string "bill_state"
     t.string "cancellation_state"
     t.integer "use_of_cfdi_id"
+    t.string "payment_condition"
+    t.boolean "is_service"
+    t.string "uuid"
     t.index ["payment_method_id"], name: "index_sales_on_payment_method_id"
     t.index ["payment_way_id"], name: "index_sales_on_payment_way_id"
     t.index ["record_type", "record_id"], name: "index_sales_on_record_type_and_record_id"

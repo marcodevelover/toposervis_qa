@@ -214,6 +214,16 @@
                                 <% end %> 
                         </div>
                     </div>
+
+                    <div class="col-lg-12">
+                        <div class="mb-12 border-secondary">
+                                <b>Condiciones de pago:</b>
+                                <% if @quotation.sale.payment_way.name == "Pago en parcialidades o diferido" %>
+                                  <%= @quotation.sale.payment_condition%>            
+                                <% end %> 
+                        </div>
+                    </div>
+
                     <div class="col-lg-12">
                         <div class="mb-12 border-secondary">
                               <b>Método de pago:</b>

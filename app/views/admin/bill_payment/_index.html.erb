@@ -1,0 +1,103 @@
+<% if @collection.each do |object| %>
+<tr>
+        <td scope="row" ><%= object.id %></td>
+        <td><%= t(object.record_type) %></td>
+        <td><%= object.folio %></td>
+        <td>
+            <% if object.record_type == "Quotation" %>
+                <%= object.record.folio %>
+            <% end %>
+            <% if object.record_type == "Order" %>
+                <%= object.folio %>
+            <% end %>
+            <% if object.record_type == "Diagnosis" %>
+                <%= object.record.service_order.folio %>
+            <% end %>
+        </td>
+        <td><%= object.payment_method.name %></td>
+        <td><%= object.payment_way.name %></td>
+        <td>
+            <% if object.deleted_at? %>
+                <span class="badge badge-danger">Baja</span>
+            <% end %>
+
+            <% unless object.deleted_at? %>
+                <span class="badge badge-<%= object.state %>"><%= t(object.state) %></span>
+            <% end %>
+        </td>
+        <td>
+            <span class="badge badge-<%= object.bill_state %>"><%= object.bill_state.blank? ? "" : t(object.bill_state) %></span><br>
+            <span class="badge badge-<%= object.cancellation_state %>"><%= object.cancellation_state.blank? ? "" : t(object.cancellation_state) %></span>
+        </td>
+
+        <td>
+            
+            <span class="badge badge-<%= object.cancellation_state %>"><%= object.updated_at.to_time.to_formatted_s(:db) %></span>
+        </td>
+
+        <td>
+        	<%= link_to [:admin, object], :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('information') }   do %>
+        		<em class="fas fa-info-circle"></em> 
+        	<%end%>	
+
+            <%= link_to admin_bill_payments_edit_path(object), :class => "btn btn-sm btn-info", data: { toggle: 'tooltip', placement: 'top', original_title: t('edit') }   do %>
+                <em class="fas fa-edit"></em> 
+            <%end%>
+
+            <% if object.record_type == "Quotation" %>
+            <%= link_to note_from_pdf_admin_quotation_path(object.record_id, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank, data: { toggle: 'tooltip', placement: 'top', original_title: t('print') } do %>
+                <em class="fas fa-print"></em> 
+            <%end%>
+             <%= link_to admin_quotation_path(object.record_id), :class => "btn btn-sm btn-info", data: { toggle: 'tooltip', placement: 'top', original_title: t('bill') } do %>
+                <em class="fa-1x fas fa-external-link-alt"></em>
+            <%end%>           
+            <%end%>
+
+            <% if object.record_type == "Order" %>
+            <%= link_to note_from_pdf_admin_order_path(object.record_id, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank, data: { toggle: 'tooltip', placement: 'top', original_title: t('print') } do %>
+                <em class="fas fa-print"></em> 
+            <%end%>
+            <%= link_to admin_order_path(object.record_id), :class => "btn btn-sm btn-info", data: { toggle: 'tooltip', placement: 'top', original_title: t('bill') } do %>
+                <em class="fa-1x fas fa-external-link-alt"></em>
+            <%end%>
+
+            <%end%>
+
+            <% if object.record_type == "Diagnosis" %>
+            <%= link_to note_from_pdf_admin_diagnosis_path(object.record_id, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank, data: { toggle: 'tooltip', placement: 'top', original_title: t('print') } do %>
+                <em class="fas fa-print"></em> 
+            <%end%>
+            <%= link_to admin_service_order_path(object.record.service_order.id), :class => "btn btn-sm btn-info", data: { toggle: 'tooltip', placement: 'top', original_title: t('bill') } do %>
+                <em class="fa-1x fas fa-external-link-alt"></em>
+            <%end%>            
+            <%end%>
+
+            <% unless object.bill_key.blank? %>
+            <button class="btn dropdown-toggle btn-info" type="button" data-toggle="dropdown" aria-expanded="false"><em class="fa-1x fas fa-download"></em></button>
+               <div class="dropdown-menu" role="menu" style="">
+
+                <% unless object.bill_key.blank? %>
+
+                <%= link_to download_pdf_admin_sale_path(object), :class => "dropdown-item", target: :_blank do %>
+                    PDF de factura
+                <%end%>
+
+                <%= link_to download_xml_admin_sale_path(object), :class => "dropdown-item", target: :_blank do %>
+                    XML de factura
+                <%end%>  
+
+                <%= link_to download_zip_admin_sale_path(object), :class => "dropdown-item", target: :_blank do %>
+                    ZIP de factura
+                <%end%>            
+
+                <%end%>
+
+               </div>
+            <%end%>
+
+        </td>
+
+</tr>
+<% end.empty? %>
+  <h3>No hay resultados</h3>
+<% end %>

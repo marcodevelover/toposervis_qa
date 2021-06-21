@@ -8,6 +8,9 @@ class Order < ApplicationRecord
   has_one :sale, as: :record
   accepts_nested_attributes_for :sale
 
+  has_many :payments, as: :record
+  accepts_nested_attributes_for :payments
+
   before_create :set_tax, :set_state
   before_validation :erase_sale, on: :delete, if: Proc.new { self.sale.present? }
 

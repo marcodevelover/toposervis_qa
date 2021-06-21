@@ -220,6 +220,23 @@ rails g migration AddColumsIsServiceToProduct is_service:boolean
 
 rails g migration AddColumsIsForToCondition is_for:string
 --------
+
+rails g migration AddColumsPaymentConditionToSale payment_condition:string
+
+--------
+
+
+
+rails g controller BillPayment index
+
+rails g model Payment record:references{polymorphic} payment_method_id:integer payment_way_id:integer exchange_type_id:integer deleted_at:datetime 'total_amount:decimal{18,6}' payment_date:datetime
+
+rails d model PaymentsBills payment_id:integer partiality_number:integer 'previous_balance_amount:decimal{18,6}' 'amount_paid:decimal{18,6}' 'unpaid_balance_amount:decimal{18,6}' deleted_at:datetime
+
+rails g migration AddColumsUuidToSale uuid:string
+
+rails g migration AddColumsPartialityToPayment partiality_number:integer 'previous_balance_amount:decimal{18,6}' 'amount_paid:decimal{18,6}' 'unpaid_balance_amount:decimal{18,6}'
+--------
 Documentation
 
 -- Quotation --
