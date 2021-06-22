@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_21_182612) do
+ActiveRecord::Schema.define(version: 2021_06_22_060903) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -661,6 +661,7 @@ ActiveRecord::Schema.define(version: 2021_06_21_182612) do
     t.string "payment_condition"
     t.boolean "is_service"
     t.string "uuid"
+    t.string "bill_folio"
     t.index ["payment_method_id"], name: "index_sales_on_payment_method_id"
     t.index ["payment_way_id"], name: "index_sales_on_payment_way_id"
     t.index ["record_type", "record_id"], name: "index_sales_on_record_type_and_record_id"
