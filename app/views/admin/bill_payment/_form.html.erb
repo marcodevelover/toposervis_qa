@@ -1,99 +1,44 @@
-<form class="simple_form new_purchase" id="new_purchase" novalidate="novalidate" action="" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="31kbS6kiu5SnmIO4MroiJh4cRhNpOpGRT+hibNgh8m649FJWsSTlDIS1DyXeAUj+aFCICTMJJxC8nfYMQnPbSw==">
-  
-  
-
+<%= simple_form_for([:admin, @sale]) do |form| %>
+  <%= form.error_notification %>
+  <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
             <!-- START card-->
             <div class="card card-default">
                <div class="card-body">
-                  
+
                      <h3></h3>
                      <fieldset>
                         <div class="form-group row">
                            <div class="col-md-12">
                               <div class="form-row">
-                                <div class="col-lg-4 mb-4">
-                                  <label class="form-label">Fecha</label>
-                                  <div class="form-group"> 
-                                    <input class="form-control" placeholder="Fecha" type="date" value="" name="purchase[date]" id="purchase_date">
-                                    
-                                  </div>  
-                                </div> 
-                                 <div class="col-lg-4 mb-4">
-                                  <label class="string required col-form-label" for="purchase_currency"><abbr title="obligatorio">*</abbr> Moneda</label>
-                                  <div class="form-group">
-                                   <select class="custom-select custom-select-sm select2-hidden-accessible" name="purchase[currency_id]" id="purchase_currency_id" data-select2-id="purchase_currency_id" tabindex="-1" aria-hidden="true"><option value="" data-select2-id="1">-- Seleccionar --</option>
-<option value="1" data-select2-id="2">MXN</option>
-<option value="2" data-select2-id="3">USD</option></select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="4" style="width: 376px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-purchase_currency_id-container"><span class="select2-selection__rendered" id="select2-purchase_currency_id-container" role="textbox" aria-readonly="true"><span class="select2-selection__placeholder">Buscar Monedas</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                     
-                                  </div>
-                                   
-                                 </div>
+
                                  <div class="col-lg-4 mb-4x">
-                                    <label class="decimal optional col-form-label" for="purchase_exchange_rate">Parcialidad</label> *
-                                    <input class="form-control" type="number" required="required" name="purchase[exchange_rate]" id="purchase_exchange_rate">
-                                    
+                                        <%= form.label :folio, class: "col-form-label"%> *
+                                        <%= form.text_field :folio, class: "form-control", type: "text" %>
+                                        <%= form.error :folio, id: 'exchange_rate_error' %>
                                  </div>
                               </div>
                           </div>
                         </div>
 
 
-                        <div class="form-group row">
-                          <div class="col-md-12">
-                            <div class="form-row">
-                              <div class="col-lg-4 mb-4">
-                                <label class="form-label">Parcialidad</label>
-                                <div class="form-group"> 
-                                <input class="form-control" placeholder="Código de la fatura" type="text" name="purchase[code_invoice]" id="purchase_code_invoice">
-                                
-                                </div>
-                              </div>
-                             <div class="col-lg-4 mb-4">
-                              
-                               <div class="input select required purchase_receipt_type"><label class="select required" for="purchase_receipt_type_id"><abbr title="obligatorio">*</abbr> Tipo de recibo</label><select class="select required custom-select custom-select-sm" name="purchase[receipt_type_id]" id="purchase_receipt_type_id"><option value=""></option>
-<option value="1">Nota</option>
-<option value="2">Factura</option></select></div>
-                               
-                             </div>
-                             <div class="col-lg-4 mb-4x">
-                                
-                               <div class="input select required purchase_entry_code"><label class="select required" for="purchase_entry_code_id"><abbr title="obligatorio">*</abbr> Código de entrada</label><select class="select required custom-select custom-select-sm" name="purchase[entry_code_id]" id="purchase_entry_code_id"><option value=""></option>
-<option value="1">Devolución de venta</option>
-<option value="2">Entrada de fabrica</option>
-<option value="3">Cancelación de factura</option>
-<option value="4">Cancelación devolución de compra</option>
-<option value="5">Ajustes</option>
-<option value="6">Ajustes por traspaso</option></select></div>
-                                
-                             </div>
 
-                            </div>
+                </div>
 
-                          </div>
+                                                          
+                     <div class="clearfix">
+                        <div class="float-right">
+                        <%= form.submit class: "btn btn-primary" %>
 
+                        <%= link_to admin_orders_path, :class => "btn btn-danger" do %>
+                            Cancelar
+                        <%end%>     
                         </div>
-
-                              </div>
-                             <div class="col-lg-4 mb-4x">
-                               <div class="input select required purchase_payment_way"><label class="select required" for="purchase_payment_way_id"><abbr title="obligatorio">*</abbr> Forma de pago</label><select class="select required custom-select custom-select-sm" name="purchase[payment_way_id]" id="purchase_payment_way_id"><option value=""></option>
-<option value="1">Pago en una sola exhibición</option>
-<option value="2">Pago en parcialidades o diferido</option></select></div>
-                             </div>
-
-                              <div class="col-lg-4 mb-4">
-                                <br>
-                               <a class="btn btn-success ml-auto" data-modal="true" href="/admin/providers/new">
-                                 <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
-</a>                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      <br>
-                          <!-- begin my product -->
-                       
+                     </div>
+                      
                       </fieldset>
                </div> <!--card-body card-->
             </div>
             <!-- END card-->
-</form>
+<% end %>
+
+

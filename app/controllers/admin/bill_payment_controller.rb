@@ -1,9 +1,9 @@
 class Admin::BillPaymentController < ApplicationController
-  before_action :set_sale, only: [:show, :download_pdf, :download_xml, :download_zip]
+  before_action :set_sale, only: [:show, :edit, :download_pdf, :download_xml, :download_zip]
   respond_to :html, :json
   
   def page_name
-     @page_name = "Complemento de pago"
+     @page_name = "Seguimiento de pago"
   end	
   # GET /sales
   # GET /sales.json
@@ -16,7 +16,8 @@ class Admin::BillPaymentController < ApplicationController
             format.xlsx {render xlsx: "reports", template: "admin/sales/reports.xlsx.axlsx"}
     end
   end
-
+  def edit
+  end
   # GET /sales/1
   # GET /sales/1.json
   def show

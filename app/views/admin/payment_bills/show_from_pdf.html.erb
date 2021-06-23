@@ -1,0 +1,142 @@
+<div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td class="title" style="width:25%">
+                    <%= wicked_pdf_image_tag 'pdf/logo.png' %>
+                  </td>
+                  <td style="text-align: center; width:50%" class="top">
+                    <strong>Toposervis S de RL de CV</strong>
+                    <br>
+                    <span>RFC: TOP160404KU0</span>
+                    <br>
+                    <span>Calle 42 No.264 x 41A y 41C, C.P. 97203 </span>
+                    <br>
+                    <span>Francisco de Montejo III Mérida,Yucatán </span>
+                    <br>
+                    <span>Tel. 01 (800) 890 9383, (999) 4 29 82 78</span>
+                    <br>
+                  </td>
+                  <td style="text-align: center; width:25%">
+                    <br>
+                    <strong>Nota de venta<strong>
+                    <br>
+                    <b>Folio:</b>
+                    <b class="blue"><%= @order.sale.folio %></b><br>
+                    <b>Fecha:</b>
+                    <b class="blue"><%= @order.created_at.strftime("%d-%m-%Y") %></b><br>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        
+
+          <tr class="information">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td class="top">
+                    <b>Compañia:</b>
+                    <%= @order.customer.business_name.blank? ? "----" : @order.customer.business_name %><br>
+                    <b>RFC:</b>
+                    <%= @order.customer.rfc.blank? ? "----" : @order.customer.rfc %><br>
+                  	<b>Contacto:</b>
+                    <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.name.blank? ? "----" : @order.customer.customer_contacts.first.name %><br>
+                    <b>Teléfono:</b>
+                    <%= @order.customer.customer_contacts.blank? ?  "----" : @order.customer.customer_contacts.first.phone.blank? ? "----" : @order.customer.customer_contacts.first.phone %><br>
+                    <b>E-mail:</b>
+                    <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.email.blank? ? "----" : @order.customer.customer_contacts.first.email %><br>
+                    <b>Método de pago:</b>
+                    <%= @order.sale.payment_method.name %><br>
+                    <b>Forma de pago:</b>
+                    <%= @order.sale.payment_way.name %>
+                  </td>
+                  
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr class="heading">
+            <td class="center">Concepto</td>
+            <td style="text-align: center;">Unidad</td>
+            <td class="center">Precio</td>
+            <td class="center">Cantidad</td>
+            <td class="center">Total</td>
+          </tr>
+
+          <% @order.items.each do |item| %>
+            <tr class="item">
+                <td>
+                    <%= item.name %><br>
+                    <small><%= item.extended_description %></small>
+                </td>
+
+                <td style="text-align: center;">
+                    <%= item.unit %>
+                </td>
+
+                <td class="center">
+                    <%= number_to_currency(item.unit_price) %>
+                </td>
+
+                <td class="center">
+                    <%= item.quantity %>
+                </td>
+
+                <td class="center">
+                    <%= number_to_currency(item.unit_price * item.quantity) %>
+                </td>
+            </tr>
+          <% end %>
+
+
+
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>Subtotal</b></td>
+            <td class="center"><%= number_to_currency(@order.subtotal) %></td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <% if @order.adjustment_total != 0 %>
+            <td><b>Descuento</b></td>
+            <td class="center">- <%= number_to_currency(@order.adjustment_total) %></td>
+            <% end %>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <% if @order.is_tax %>
+            <td><b>I.V.A. (<%= (@order.tax * 100).to_i %>%)</b></td>
+            <td class="center">+ <%= number_to_currency(@order.tax_total) %></td>
+            <%end%>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>TOTAL:</b></td>
+            <td class="center">
+               <% if @order.is_tax %>
+               <b><%= number_to_currency(@order.total) %> <%= @order.currency.name %></b>
+               <br><%= @order.total.to_f.round(2).to_words precision: 2 %> <%= @order.currency.abbreviation %>
+               <%else%>
+               <b><%= number_to_currency(@order.subtotal) %> <%= @order.currency.name %></b>
+               <br><%= @order.subtotal.to_f.round(2).to_words precision: 2 %> <%= @order.currency.abbreviation %>
+               <%end%>
+            </td>
+          </tr>
+              </table>
+            </td>
+          </tr>          
+          
+        </table>
+    </div>

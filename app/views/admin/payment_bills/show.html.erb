@@ -1,0 +1,561 @@
+<p id="notice"><%= notice %></p>
+
+<div class="card card-default">
+                <div class="card-body">
+
+            <%= link_to edit_admin_order_path(@order), :class => "btn btn-sm btn-info" do %>
+              <em class="fa fa-edit"></em> 
+            <%end%>
+
+            <%= link_to note_from_pdf_admin_order_path(@order, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+                <em class="fas fa-print"></em> 
+            <%end%>
+
+            <%= link_to admin_orders_path, :class => "btn btn-sm btn-info" do %>
+                <em class="fas fa-step-backward"></em> 
+            <%end%>
+            
+            <a class="btn btn-sm btn-info" target="_blank" href="https://portalsat.plataforma.sat.gob.mx/ConsultaRFC/" >
+                <em class="fa-1x mr-2 fas fa-external-link-alt"></em> Verificar RFC
+            </a>
+
+            <% if @order.sale.present? %>
+            <%= link_to note_from_pdf_admin_order_path(@order, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+                Vista previa
+            <%end%>
+            <% end %>
+
+            <% if @order.sale.bill_state.blank? && @order.is_tax  %>
+            <%= link_to bill_admin_order_path(@order), :class => "btn btn-sm btn-info", remote: true   do %>
+                <em class="fa-1x far fa-money-bill-alt"></em> Facturar
+            <% end %>
+            <% end %>
+
+            <% if @order.sale.bill_state == "invoiced"  %>
+            <%= link_to request_cancel_invoice_admin_order_path(@order), :class => "btn btn-sm btn-info", remote: true   do %>
+                <em class="fa-1x far fa-money-bill-alt"></em> Cancelar
+            <% end %>
+            <% end %>
+
+            
+            <% if @order.sale.cancellation_state == "pending" %>
+            <%= link_to request_cancellation_state_invoice_admin_order_path(@order), :class => "btn btn-sm btn-info", remote: true   do %>
+                <em class="fa-1x far fa-money-bill-alt"></em> Verificar cancelación
+            <% end %>
+            <% end %>
+            <div id="open_modal" class="btn btn-sm btn-info">
+              <em class="fas fa-question"></em> 
+            </div>             
+            <% unless @order.sale.bill_key.blank? %>
+            <button class="btn dropdown-toggle btn-info" type="button" data-toggle="dropdown" aria-expanded="false"><em class="fa-1x fas fa-download"></em></button>
+               <div class="dropdown-menu" role="menu" style="">
+
+                <% unless @order.sale.bill_key.blank? %>
+
+                <%= link_to download_pdf_admin_sale_path(@order.sale), :class => "dropdown-item", target: :_blank do %>
+                    PDF de factura
+                <%end%>
+
+                <%= link_to download_xml_admin_sale_path(@order.sale), :class => "dropdown-item", target: :_blank do %>
+                    XML de factura
+                <%end%>  
+
+                <%= link_to download_zip_admin_sale_path(@order.sale), :class => "dropdown-item", target: :_blank do %>
+                    ZIP de factura
+                <%end%>            
+
+                <%end%>
+
+               </div>
+            <%end%>
+
+            <br><br>
+
+            <span class="badge badge-<%= @order.sale.bill_state %>"><%= @order.sale.bill_state %></span>
+
+            <% unless @order.sale.cancellation_state.blank?  %>
+            <span class="badge badge-<%= @order.sale.cancellation_state %>"><%= @order.sale.cancellation_state %></span>
+            <% end %>
+            
+                </div>
+  <div class="card-body">
+<div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td class="title" style="width:25%">
+                    <%= image_tag 'pdf/logo.png' %>
+                  </td>
+                  <td style="text-align: center; width:50%" class="top">
+
+                  </td>
+                  <td style="text-align: center; width:25%">
+                    <br>
+                    <strong>Nota de venta</strong><br>
+                    <b>Folio:</b>
+                    <%= @order.sale.folio %><br>
+                    <b>Fecha:</b>
+                    <%= @order.created_at.strftime("%d-%m-%Y") %>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr class="information">
+            <td colspan="5">
+              <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mb-3 border-secondary">
+                       <div class="card-header bg-secondary">Datos de contacto</div>
+                       <div class="card-body">
+                          <p class="card-text">
+                            <b>Contacto:</b>
+                            <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.name %><br>
+                            <b>Compañia:</b>
+                            <%= @order.customer.business_name %><br>
+                            <b>E-mail:</b>
+                            <%= @order.customer.customer_contacts.blank? ? "----" : @order.customer.customer_contacts.first.email %><br>
+                          </p>
+                       </div>
+                    </div>
+                 </div>
+               </div>
+            </td>
+          </tr>
+          <tr class="information">
+            <td colspan="5">
+              <div class="row">
+              <div class="col-lg-6">
+                  <div class="card mb-3 border-secondary">
+                     <div class="card-header bg-secondary">Emisor</div>
+                     <div class="card-body">
+                        <p class="card-text">
+                            <b>Razón Social:</b><br>
+                            TOPOSERVIS<br>
+                            <b>RFC:</b><br>
+                            TOP160404KU0<br>
+                            <b>Domicilio:</b><br>
+                            Calle 42 No.264 x 41A y 41C, C.P. 97203<br>
+                            Francisco de Montejo III Mérida,Yucatán<br>
+                            <b>Régimen F.:</b><br>
+                            General de Ley Personas<br>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+              <div class="col-lg-6">
+                  <div class="card mb-3 border-secondary">
+                     <div class="card-header bg-secondary">Receptor</div>
+                     <div class="card-body">
+                        <p class="card-text">
+                            <b>Razón Social:</b><br>
+                            <%= @order.customer.blank? ? "" : @order.customer.business_name %><br>
+                            <b>RFC:</b><br>
+                            <%= @order.customer.blank? ? "" : @order.customer.rfc %><br>
+                            <b>Uso del CFDI:</b><br>
+                            <% unless @order.sale.blank? %>
+                            <%= @order.sale.use_of_cfdi.blank? ? "" : @order.sale.use_of_cfdi.cfdi_key + " - " + @order.sale.use_of_cfdi.name %><br>
+                            <% end %>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               </div>
+
+            </td>
+          </tr>
+
+
+
+<tr>
+  <td colspan="5">
+    <table>
+
+
+          <tr class="bg-secondary">
+            <td>Clave ProdServ</td>
+            <td style="text-align: center;">Concepto</td>
+            <td style="text-align: center;">Unidad</td>
+            <td style="text-align: center;">Precio</td>
+            <td style="text-align: center;">Cantidad</td>
+            <td>Total</td>
+          </tr>
+
+          <% @order.items.each do |item| %>
+            <tr class="item">
+                <td>
+                    <%= item.product_variant.product_key %>
+                </td>
+                <td style="text-align: center;">
+                    <%= item.name %><br>
+                    <small><%= item.extended_description %></small>
+                </td>
+
+                <td style="text-align: center;">
+                    <%unless item.product_variant.product.unit.blank? %>
+                    <%= item.product_variant.product.unit.unit_key %>
+                    <% else %>
+                    ----
+                    <% end %>
+                    <%= item.unit %>
+                </td>
+
+                <td style="text-align: center;">
+                    <%= number_to_currency(item.unit_price) %>
+                </td>
+
+                <td style="text-align: center;">
+                    <%= item.quantity %>
+                </td>
+
+                <td>
+                    <%= number_to_currency(item.unit_price * item.quantity) %>
+                </td>
+            </tr>
+          <% end %>
+    
+    </table>
+  </td>
+</tr>
+
+
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>Subtotal</b></td>
+            <td style="text-align: center; width: 10%"><%= number_to_currency(@order.subtotal) %></td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <% if @order.adjustment_total != 0 %>
+            <td><b>Descuento</b></td>
+            <td style="text-align: center; width: 10%">- <%= number_to_currency(@order.adjustment_total) %></td>
+            <% end %>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <% if @order.is_tax %>
+            <td><b>I.V.A. (<%= (@order.tax * 100).to_i %>%)</b></td>
+            <td style="text-align: center; width: 10%">+ <%= number_to_currency(@order.tax_total) %></td>
+            <%end%>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td><b>TOTAL:</b></td>
+            <td style="text-align: center; width: 10%">
+               <% if @order.is_tax %>
+               <b><%= number_to_currency(@order.total) %></b>
+               <%else%>
+               <b><%= number_to_currency(@order.subtotal) %></b>
+               <%end%>
+            </td>
+          </tr>
+
+          <tr class="information">
+            <td colspan="5">
+              <div class="row">
+                <div class="col-lg-3">
+                    <div class="card mb-3 border-secondary">
+                       <div class="card-body">
+                          <p class="card-text">
+                            <b>Forma de pago:</b><br>
+
+                            <% if @order.sale.present? %>
+                              <%= @order.sale.payment_way.name %>            
+                            <% end %> 
+
+                          </p>
+                       </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card mb-3 border-secondary">
+                       <div class="card-body">
+                          <b>Método de pago:</b><br>
+                            <% if @order.sale.present? %>
+                              <%= @order.sale.payment_method.name %>
+                            <% end %> 
+                       </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card mb-3 border-secondary">
+                       <div class="card-body">
+                          <b>Moneda:</b><br>
+                          <%= @order.currency.name %>
+                       </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card mb-3 border-secondary">
+                       <div class="card-body">
+                          <b>Tipo de cambio:</b><br>
+                          <%= @order.exchange_rate %>
+                       </div>
+                    </div>
+                </div>
+               </div>
+
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="5">
+              <table>
+            <tr class="footer">
+              <td colspan="1"></td>
+              <td colspan="2" class="footer" style="text-align: center;">
+                <b>www.toposervis.com</b></br>
+                <b>Venta, renta de equipos, servicios de topografía e ingeniería<b></br>
+                <b>Tel. 01 800 890 9383<b></br>
+              </td>         
+              <td colspan="2"></td>
+          </tr> 
+              </table>
+            </td>
+          </tr>          
+          
+        </table>
+    </div>
+</div>
+</div>
+<%= render 'admin/shared/help' %>
+<style type="text/css">
+// Place all the styles related to the Conditions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.invoice-box {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #eee;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .10);
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    color: #555;
+}
+
+.invoice-box table {
+    width: 100%;
+    line-height: inherit;
+    text-align: left;
+}
+
+.invoice-box table td {
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.invoice-box table tr td:nth-child(2) {
+    text-align: right;
+}
+
+.right {
+  text-align: right;
+}
+
+.invoice-box table tr.top table td {
+    padding-bottom: 20px;
+}
+
+.invoice-box table tr.top table td.title {
+    font-size: 45px;
+    line-height: 45px;
+    color: #333;
+}
+
+.invoice-box table tr.information table td {
+    padding-bottom: 40px;
+}
+
+.invoice-box table tr.heading td {
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+}
+
+.invoice-box table tr.details td {
+    padding-bottom: 20px;
+}
+
+.invoice-box table tr.item td{
+    border-bottom: 1px solid #eee;
+}
+
+.invoice-box table tr.item.last td {
+    border-bottom: none;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+.badge:empty {
+  display: none;
+}
+
+.btn .badge {
+  position: relative;
+  top: -1px;
+}
+
+.badge-pill {
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  border-radius: 10rem;
+}
+
+.badge-primary {
+  color: #fff;
+  background-color: #007bff;
+}
+
+.badge-primary[href]:hover, .badge-primary[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #0062cc;
+}
+
+.badge-secondary {
+  color: #fff;
+  background-color: #6c757d;
+}
+
+.badge-secondary[href]:hover, .badge-secondary[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #545b62;
+}
+
+.badge-success {
+  color: #fff;
+  background-color: #28a745;
+}
+
+.badge-success[href]:hover, .badge-success[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #1e7e34;
+}
+
+.badge-info {
+  color: #fff;
+  background-color: #17a2b8;
+}
+
+.badge-info[href]:hover, .badge-info[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #117a8b;
+}
+
+.badge-warning {
+  color: #212529;
+  background-color: #ffc107;
+}
+
+.badge-warning[href]:hover, .badge-warning[href]:focus {
+  color: #212529;
+  text-decoration: none;
+  background-color: #d39e00;
+}
+
+.badge-danger {
+  color: #fff;
+  background-color: #dc3545;
+}
+
+.badge-danger[href]:hover, .badge-danger[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #bd2130;
+}
+
+.badge-light {
+  color: #212529;
+  background-color: #f8f9fa;
+}
+
+.badge-light[href]:hover, .badge-light[href]:focus {
+  color: #212529;
+  text-decoration: none;
+  background-color: #dae0e5;
+}
+
+.badge-dark {
+  color: #fff;
+  background-color: #343a40;
+}
+
+.badge-dark[href]:hover, .badge-dark[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #1d2124;
+}
+
+.invoice-box table tr.total td:nth-child(2) {
+    border-top: 2px solid #eee;
+    font-weight: bold;
+}
+
+
+
+.invoice-box table tr.footer td {
+    color:#45B4CE;
+    font-weight: bold;
+    padding-bottom: 1px;
+
+}
+
+// @media only screen and (max-width: 600px) {
+//     .invoice-box table tr.top table td {
+//         width: 100%;
+//         display: block;
+//         text-align: center;
+//     }
+//
+//     .invoice-box table tr.information table td {
+//         width: 100%;
+//         display: block;
+//         text-align: center;
+//     }
+// }
+
+/** RTL **/
+.rtl {
+    direction: rtl;
+    font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+}
+
+.rtl table {
+    text-align: right;
+}
+
+.rtl table tr td:nth-child(2) {
+    text-align: left;
+}  
+</style>
+<script type="text/javascript">
+  $("#open_modal").click(function(){
+     $("#note_modal").appendTo("body").modal('show');;
+  });
+</script>

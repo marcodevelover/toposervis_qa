@@ -1,0 +1,187 @@
+<%= simple_form_for([:admin, @payment_bill]) do |form| %>
+  <%= form.error_notification %>
+  <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
+            <!-- START card-->
+            <div class="card card-default">
+               <div class="card-body">
+                  
+                     <h3></h3>
+                     <fieldset>
+                        <div class="form-group row">
+                           <div class="col-md-12">
+                              <div class="form-row">
+                                <div class="col-lg-4 mb-4">
+                                  <label class="form-label">Fecha</label>
+                                  <div class="form-group"> 
+                                    <%= form.text_field :payment_date, class: "form-control" , placeholder: "Fecha de pago", type: 'date', value: (form.object.payment_date ? form.object.date.to_date : '')%>
+                                    <%= form.error :date, id: 'date_error' %>
+                                  </div>  
+                                </div> 
+
+                                <div class="col-lg-4 mb-4">
+                                  <div class="form-group"> 
+                                    <%= form.association :payment_method, input_html: { class: 'custom-select custom-select-sm' } %>
+                                  </div>  
+                                </div> 
+
+                                <div class="col-lg-4 mb-4">
+                                  <div class="form-group"> 
+                                    <%= form.association :payment_way, input_html: { class: 'custom-select custom-select-sm' } %>
+                                  </div>  
+                                </div> 
+
+
+                              </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                           <div class="col-md-12">
+                              <div class="form-row">
+                                <div class="col-lg-4 mb-4">
+                                  <label class="form-label">Fecha</label>
+                                  <div class="form-group"> 
+                                    
+                                    
+                                    <%= form.text_field :partiality_number, class: "form-control", type: "number" %>
+                                  </div>  
+                                </div> 
+
+
+
+
+                              </div>
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <div class="form-row">
+                              <div class="col-lg-8 mb-8">
+                                <%= form.association :sale, input_html: { class: 'custom-select custom-select-sm' } %>
+                              </div>
+
+                            </div>
+                          </div>
+
+                        </div>
+                      </br>
+
+                      </br>
+
+                          <!-- begin my product -->
+                              <!-- Table Products -->
+                      <h4 class="box-title m-t-40"></h4>
+                      <hr>
+
+
+                   
+                      </br>
+    
+                      
+
+
+
+
+                     <div class="clearfix">
+                        <div class="float-right">
+                        <%= form.submit class: "btn btn-primary" %>
+
+                        <%= link_to admin_payment_bills_path, :class => "btn btn-danger" do %>
+                            Cancelar
+                        <%end%>     
+                        </div>
+                     </div>
+                      
+                      </fieldset>
+               </div> <!--card-body card-->
+            </div>
+            <!-- END card-->
+<% end %>
+
+
+<!-- Products /.modal -->
+<div id="note_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg ui-draggable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Productos</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+          <div class="bg-danger rounded" style="color:white; font-weight:bold;">
+            <ul class="errors"></ul>
+          </div>
+          <div class="form-group">
+            <label class="control-label"><%= t('payment_bills.product')%></label>
+             <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" id="note_product" style="width: 100%">
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Nombre</label>
+            <input type="text" class="form-control" id="name" readonly="readonly"> 
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Número de serie</label>
+            <input type="text" class="form-control" id="serial_number" readonly="readonly"> 
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Unidad</label>
+            <input type="text" class="form-control" id="unit" readonly="readonly"> 
+            <input type="hidden" class="form-control" id="stock" readonly="readonly"> 
+            <input type="hidden" class="form-control" id="is_service_payment_bill" readonly="readonly"> 
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Descripción extendida</label>
+            <input type="text" class="form-control" id="extended_description" > 
+          </div>
+
+          <div class="form-group">
+            <label class="control-label"><%= t('payment_bills.quantity')%></label>
+            <input type="number" class="form-control" id="note_quantity" onblur="setTotal()" value="0"> 
+          </div>
+
+
+           <div class="form-group">
+            <label class="control-label">Precio Unitario</label>
+            <input type="number" class="form-control" id="note_unit_price" onblur="setTotal()" value="0" readonly="readonly"> 
+          </div>
+
+
+          <div class="btn-hide">
+            <label onclick="isDiscount()" class="control-label">Descuento<span style="color: orange;"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></span></label>
+          </div>
+          <div class="jump show-fields d-none">
+             <div class="form-group">
+              <label class="control-label">Descuento</label>
+              <select class="form-control" data-placeholder="Tipo de descuento" tabindex="1" id="note_factor" onchange="selectDiscount()">
+                <option value="">Seleccionar</option>
+                
+                  <option value="1">Importe</option>
+                  <option value="2">Porcentaje</option>
+                
+              </select>
+            </div>
+             <div class="form-group">
+              <label class="control-label">Valor</label>
+              <input type="text" class="form-control" id="note_discount" onblur="selectDiscount()" value="0">
+            </div>
+          </div>
+          <div class="form-group jump">
+            <label class="control-label"><%= t('payment_bills.total')%></label>
+            <input type="text" class="form-control" id="note_total" disabled="disabled"> 
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <div id="sbm_product" type="button" class="btn btn-primary waves-effect waves-light"><%= t('add')%></div>
+        <div type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><%= t('cancel')%></div>
+      </div>
+    </div>
+  </div>
+</div>

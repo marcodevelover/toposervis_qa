@@ -168,6 +168,10 @@ Rails.application.routes.draw do
       get :delete, on: :member
       get :filter_form, on: :collection
     end
+    resources :payment_bills  do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
     resources :orders  do
       get :customers, on: :collection
       get :currencies, on: :collection

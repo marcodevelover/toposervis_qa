@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_22_060903) do
+ActiveRecord::Schema.define(version: 2021_06_23_173247) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -339,6 +339,22 @@ ActiveRecord::Schema.define(version: 2021_06_22_060903) do
     t.index ["type_service_order_id"], name: "index_orders_types_on_type_service_order_id"
   end
 
+  create_table "payment_bills", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "sale_id"
+    t.integer "payment_method_id"
+    t.integer "payment_way_id"
+    t.integer "exchange_type_id"
+    t.datetime "deleted_at"
+    t.decimal "total_amount", precision: 18, scale: 6
+    t.datetime "payment_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "partiality_number"
+    t.decimal "previous_balance_amount", precision: 18, scale: 6
+    t.decimal "amount_paid", precision: 18, scale: 6
+    t.decimal "unpaid_balance_amount", precision: 18, scale: 6
+  end
+
   create_table "payment_methods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -373,17 +389,6 @@ ActiveRecord::Schema.define(version: 2021_06_22_060903) do
     t.decimal "amount_paid", precision: 18, scale: 6
     t.decimal "unpaid_balance_amount", precision: 18, scale: 6
     t.index ["record_type", "record_id"], name: "index_payments_on_record_type_and_record_id"
-  end
-
-  create_table "payments_bills", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "payment_id"
-    t.integer "partiality_number"
-    t.decimal "previous_balance_amount", precision: 18, scale: 6
-    t.decimal "amount_paid", precision: 18, scale: 6
-    t.decimal "unpaid_balance_amount", precision: 18, scale: 6
-    t.datetime "deleted_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "product_lines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
