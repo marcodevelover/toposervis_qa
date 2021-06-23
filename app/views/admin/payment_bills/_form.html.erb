@@ -55,17 +55,16 @@
                         </div>
 
 
-                        <div class="form-group row">
-                          <div class="col-md-12">
-                            <div class="form-row">
-                              <div class="col-lg-8 mb-8">
-                                <%= form.association :sale, input_html: { class: 'custom-select custom-select-sm' } %>
-                              </div>
-
-                            </div>
+                          <div class="form-group row">
+                                 <div class="col-lg-4 mb-4">
+                                   <%= form.label :sale_id, class: "col-form-label"%>
+                                   <div class="form-group">
+                                     <%= form.collection_select :sale_id, Sale.all, :id, :folio, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
+                                     <%= form.error :sale, id: 'currency_error' %>
+                                   </div>
+                                 </div>
                           </div>
 
-                        </div>
                       </br>
 
                       </br>
