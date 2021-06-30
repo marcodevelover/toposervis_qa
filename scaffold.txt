@@ -225,6 +225,7 @@ rails g migration AddColumsPaymentConditionToSale payment_condition:string
 
 rails g migration AddColumsBillFolioToSale bill_folio:string
 
+rails g migration AddColumsIsDueToSale is_due:boolean
 --------
 
 
