@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_173247) do
+ActiveRecord::Schema.define(version: 2021_06_29_162123) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -353,6 +353,10 @@ ActiveRecord::Schema.define(version: 2021_06_23_173247) do
     t.decimal "previous_balance_amount", precision: 18, scale: 6
     t.decimal "amount_paid", precision: 18, scale: 6
     t.decimal "unpaid_balance_amount", precision: 18, scale: 6
+    t.string "bill_key"
+    t.string "bill_state"
+    t.string "uuid"
+    t.string "bill_folio"
   end
 
   create_table "payment_methods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

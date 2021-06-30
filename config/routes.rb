@@ -169,8 +169,25 @@ Rails.application.routes.draw do
       get :filter_form, on: :collection
     end
     resources :payment_bills  do
+      get :customers, on: :collection
+      get :currencies, on: :collection
+      get :sales, on: :collection
+      get :product_variants, on: :collection
+      get :product_stocks, on: :collection
       get :delete, on: :member
       get :filter_form, on: :collection
+      get :show_from_modal, on: :member
+      get :show_from_pdf, on: :member
+      get :bill, on: :member
+      put :invoice, on: :member
+      get :request_cancel_invoice, on: :member
+      put :cancel_invoice, on: :member
+      get :request_cancellation_state_invoice, on: :member
+      put :cancellation_state_invoice, on: :member
+      get :note_from_pdf, on: :member
+      get :download_pdf, on: :member
+      get :download_xml, on: :member
+      get :download_zip, on: :member
     end
     resources :orders  do
       get :customers, on: :collection

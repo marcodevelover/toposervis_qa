@@ -2,8 +2,8 @@
 <tr>
         
         <td><%= object.sale.folio %></td>
-        <td><%= object.customer ? object.customer.business_name : "N/A" %></td>
-        <td><%= object.subtotal %></td>
+        <td><%= object.sale.record.customer ? object.sale.record.customer.business_name : "N/A" %></td>
+        <td><%= object.sale.record.subtotal %></td>
         <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activo</span>".html_safe %></td>
         <td>
             <%= link_to show_from_modal_admin_order_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('information') }   do %>
@@ -17,7 +17,7 @@
             <%end%>
 
 
-             <%= link_to admin_order_path(object), :class => "btn btn-sm btn-info", data: { toggle: 'tooltip', placement: 'top', original_title: t('bill') } do %>
+             <%= link_to admin_payment_bill_path(object), :class => "btn btn-sm btn-info", data: { toggle: 'tooltip', placement: 'top', original_title: t('bill') } do %>
                 <em class="fa-1x fas fa-external-link-alt"></em>
              <%end%>
 

@@ -1,6 +1,6 @@
 class Admin::PaymentBillsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_payment_bill, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :note_from_pdf, :bill, :invoice, :cancel_invoice, :request_cancellation_state_invoice, :cancellation_state_invoice]
+  before_action :set_payment_bill, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :note_from_pdf, :bill, :invoice, :cancel_invoice, :request_cancellation_state_invoice, :cancellation_state_invoice,:download_pdf, :download_xml, :download_zip]
   respond_to :html, :json
 
   def page_name
@@ -74,7 +74,7 @@ class Admin::PaymentBillsController < ApplicationController
   # POST /payment_bills.json
   def create
     @payment_bill = @payment_bill || PaymentBill.new(payment_bill_params)
-    @payment_bill.created_by_id = current_user.id
+    #@payment_bill.created_by_id = current_user.id
 
     respond_to do |format|
       if @payment_bill.save
@@ -144,6 +144,15 @@ class Admin::PaymentBillsController < ApplicationController
     end
   end
 
+  def sales
+    @q = Sale.ransack(params[:q])
+    @sales = @q.result(distinct: true).includes(:payment_bills).where(payment_way_id: 2).where("payment_bills.bill_state" => "invoiced")
+    total_count = @sales.count
+    respond_to do |format|
+      format.json { render json: { total: total_count, sales: @sales.map { |s| {id: s.id, folio:  s.folio, partiality_number: s.payment_bills.last.partiality_number, previous_balance_amount: s.payment_bills.last.previous_balance_amount, } } } }
+    end
+  end
+
   def currencies
     @q = Currency.ransack(params[:q])
     @currencies = @q.result(distinct: true)
@@ -172,7 +181,7 @@ class Admin::PaymentBillsController < ApplicationController
 
   # PUT /payment_bills/1
   def invoice
-    @payment_bill.save!(context: :bill)
+    @payment_bill.save!(context: :payment_bill)
   end
 
   def request_cancel_invoice
@@ -191,6 +200,23 @@ class Admin::PaymentBillsController < ApplicationController
     @payment_bill.save!(context: :request_cancellation_state_invoice)
   end
 
+  def download_pdf
+    pdf = FacturapiRuby::Files.pdf(invoice_id: @payment_bill.bill_key)
+    send_file pdf.path
+    pdf.close
+  end  
+
+  def download_xml
+    xml = FacturapiRuby::Files.xml(invoice_id: @payment_bill.bill_key)
+    send_file xml.path
+    xml.close
+  end 
+
+  def download_zip
+    zip = FacturapiRuby::Files.zip(invoice_id: @payment_bill.bill_key)
+    send_file zip.path
+    zip.close
+  end   
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -200,9 +226,7 @@ class Admin::PaymentBillsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payment_bill_params
-      params.require(:payment_bill).permit(:folio, :reference, :date, :observation, :payment_method_id, :payment_way_id, :subtotal, :item_total, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :customer_id, :condition, :created_by_id, :is_tax, :deleted_at,
-        sale_attributes: [:id, :folio, :payment_method_id, :payment_way_id, :use_of_cfdi_id, :state, :_destroy, :payment_condition],
-        items_attributes: [ :id, :product_variant_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :serial_number, :_destroy ]
-        )
+      params.require(:payment_bill).permit(:payment_method_id, :payment_way_id, :sale_id, :total_amount, :payment_date, :partiality_number, 
+        :previous_balance_amount, :amount_paid, :unpaid_balance_amount, :deleted_at)
     end
 end

@@ -17,8 +17,8 @@
                          <div class="card-header bg-secondary font-white border-radius-no-bottom">Nota de venta</div>
                          <div class="card-body">
                             <p class="card-text" style="text-align: center;">
-                              <% if @order.sale.present?%>
-                              <b class="blue" ><%= @order.sale.folio %></b>
+                              <% if @payment_bill.sale.present?%>
+                              <b class="blue" ><%= @payment_bill.sale.folio %></b>
                               <% end %>
                             </p>
                          </div>
@@ -28,16 +28,16 @@
                   <div class="row">
                     <div class="col-md-12">
                       <p class="card-text">
-                        <% if @order.sale.present?%>
+                        <% if @payment_bill.sale.present?%>
                         <b>Fecha de emisión:</b>
-                        <b class="blue"><%= @order.sale.created_at.strftime("%d-%m-%Y") %></b><br>
+                        <b class="blue"><%= @payment_bill.sale.created_at.strftime("%d-%m-%Y") %></b><br>
                         <% end %>                    
                         <b>Documento origen:</b>
                         <b class="blue">Venta</b><br>
                         <b>Folio:</b>
-                        <b class="blue"><%= @order.sale.folio %></b><br>
+                        <b class="blue"><%= @payment_bill.sale.folio %></b><br>
                         <b>Fecha:</b>
-                        <b class="blue"><%= @order.created_at.strftime("%d-%m-%Y") %></b>
+                        <b class="blue"><%= @payment_bill.created_at.strftime("%d-%m-%Y") %></b>
                       </p>
                    </div>
                   </div>
@@ -74,12 +74,12 @@
                      <div class="card-body">
                         <p class="card-text">
                             <b>Razón Social:</b>
-                            <%= @order.customer.blank? ? "" : @order.customer.business_name %><br>
+                            <%= @payment_bill.sale.record.customer.blank? ? "" : @payment_bill.sale.record.customer.business_name %><br>
                             <b>RFC:</b>
-                            <%= @order.customer.blank? ? "" : @order.customer.rfc %><br>
-                            <% unless @order.sale.blank? %>
+                            <%= @payment_bill.sale.record.customer.blank? ? "" : @payment_bill.sale.record.customer.rfc %><br>
+                            <% unless @payment_bill.sale.blank? %>
                             <b>Uso del CFDI:</b>
-                            <%= @order.sale.use_of_cfdi.blank? ? "" : @order.sale.use_of_cfdi.cfdi_key + " - " + @order.sale.use_of_cfdi.name %><br>
+                            <%= @payment_bill.sale.use_of_cfdi.blank? ? "" : @payment_bill.sale.use_of_cfdi.cfdi_key + " - " + @payment_bill.sale.use_of_cfdi.name %><br>
                             <% end %>
                         </p>
                      </div>
@@ -99,101 +99,43 @@
             <td class="center">Importe</td>
           </tr>
 
-          <% @order.items.each do |item| %>
+          
             <tr class="item-no-border">
 
                 <td style="text-align: center;">
-                  <%= item.product_variant.product_key %>
+                  84111506 
                 </td>
 
                 <td style="text-align: left;">
-                    <%= item.name %>
-                    <% unless item.product_variant.product.brand.blank? %>
-                     <small>MARCA:
-                      <%= item.product_variant.product.brand %>;
-                    <% end %></small>
-
-                    <% unless item.product_variant.product.model.blank? %>
-                      <small>MODELO:
-                      <%= item.product_variant.product.model %>;
-                      </small>
-                    <% end %>
-
-                    <% unless item.serial_number.blank? %>
-                      <small>NÚMERO DE SERIE:
-                      <%= item.serial_number %>;
-                      </small>
-                    <% end %>
-
-                    <% unless item.product_variant.stocking_time.blank? %>
-                      <small>TIEMPO DE GARANTIA:
-                      <%= item.product_variant.stocking_time %>
-                      </small><br>
-                    <% end %>
-                    
-                    
-                    <small><%= item.extended_description %></small>
+                    Pago
                 </td>
 
                 <td style="text-align: center;">
                     
-                    <%= item.quantity %>
+                    1
                 </td>
 
                 <td class="center">
-                    <%= item.unit %>
+                    ACT
                 </td>
 
                 <td class="center">
-                    <%= number_to_currency(item.unit_price) %>
+                    0.00
 
                 </td>
 
                 <td class="center">
-                    <%= number_to_currency(item.unit_price * item.quantity) %> <%= item.currency %>
+                    0.00
                 </td>
             </tr>
 
-            <tr class="item">
 
-                <td></td>
-
-                <td style="text-align: left;">
-                    <small>INCLUYE:</small>
-                    <ul class="no-indentation">
-                    <% item.product_variant.product.products_accessories.each do |accessory| %>
-                      <% if accessory.quantity != 0%>
-                        <li><%= accessory.accessory.name %></li>
-                      <%end%>
-                    <% end %>
-                    </ul>
-                    </small>
-                </td>
+          
 
 
-                <td style="text-align: center;">
-                </td>
 
-                <td class="center">
-                </td>
 
-                <td class="center">
-                    
-                    <small>
-                    <ul class="no-style">
-                    <% item.product_variant.product.products_accessories.each do |accessory| %>
-                      <% if accessory.quantity != 0%>
-                        <li><%= accessory.quantity %></li>
-                      <%end%>
-                    <% end %>
-                    </ul>
-                    </small>
-                </td>
 
-                <td class="center">
-                </td>
-            </tr>
-          <% end %>
 
           <tr>
             <td colspan="6"></td>
@@ -211,19 +153,19 @@
                               
                                 <b>Forma de pago:</b>
 
-                                <% if @order.sale.present? %>
-                                  <%= @order.sale.payment_way.name %>            
+                                <% if @payment_bill.sale.present? %>
+                                  <%= @payment_bill.sale.payment_way.name %>            
                                 <% end %> 
 
                               
                            
                         </div>
                     </div>
-                    <% if @order.sale.payment_way.name == "Pago en parcialidades o diferido" %>
+                    <% if @payment_bill.sale.payment_way.name == "Pago en parcialidades o diferido" %>
                     <div class="col-lg-12">
                         <div class="mb-12 border-secondary">
                                 <b>Condiciones de pago:</b>
-                                  <%= @order.sale.payment_condition%>            
+                                  <%= @payment_bill.sale.payment_condition%>            
                         </div>
                     </div>
                     <% end %> 
@@ -231,8 +173,8 @@
                         <div class="mb-12 border-secondary">
                            
                               <b>Método de pago:</b>
-                                <% if @order.sale.present? %>
-                                  <%= @order.sale.payment_method.name %>
+                                <% if @payment_bill.sale.present? %>
+                                  <%= @payment_bill.sale.payment_method.name %>
                                 <% end %> 
                            
                         </div>
@@ -241,7 +183,7 @@
                         <div class="mb-12 border-secondary">
                            
                               <b>Moneda:</b>
-                              <%= @order.currency.name %>
+                              MXN
                            
                         </div>
                     </div>
@@ -249,7 +191,7 @@
                         <div class="mb-12 border-secondary">
                            
                               <b>Tipo de cambio:</b>
-                              <%= @order.exchange_rate %>
+                              1.0
                            
                         </div>
                     </div>
@@ -260,50 +202,18 @@
               </table>
             </td>
             <td class="bottom" ><b>Subtotal</b></td>
-            <td class="center bottom"><%= number_to_currency(@order.subtotal) %></td>
+            <td class="center bottom"><%= number_to_currency(@payment_bill.amount_paid) %></td>
           </tr>
 
-          <tr>
-            <td><% if @order.adjustment_total != 0 %><b>Descuento</b> <%end%></td>
-            <td class="center"><% if @order.adjustment_total != 0 %>- <%= number_to_currency(@order.adjustment_total) %><%end%></td>
-          </tr>
-          <tr>
-            </td>
-            <% if @order.is_tax %>
-            <td><b>I.V.A. (<%= (@order.tax * 100).to_i %>%)</b></td>
-            <td class="center">+ <%= number_to_currency(@order.tax_total) %></td>
-            <% end %>
-          </tr>
-          <tr>
-            <td colspan="4">
-              <table>
-                <tr>
-                  <td>
-                    <b>IMPORTE CON LETRA:</b>
-                    <% if @order.is_tax %>
-                    
-                    <br><%= @order.total.to_i.round(2).to_words precision: 2 %> <%= @order.currency.name == "MXN" ? "PESOS" : "DOLARES" %> <%= sprintf('%02d', (@order.total.frac * 100).truncate) %><%= @order.currency.abbreviation %>
 
-                    <%else%>
-                    
-                    <br><%= @order.subtotal.to_i.round(2).to_words precision: 2 %> <%= @order.currency.name == "MXN" ? "PESOS" : "DOLARES" %> <%= sprintf('%02d', (@order.total.frac * 100).truncate) %><%= @order.currency.abbreviation %>
-                    <%end%>
-                  </td> 
-
-                </tr>
-              </table>
+          <tr>
             </td>
-            <td class="top"><b>TOTAL:</b></td>
-            <td class="center top">
-              <% if @order.is_tax %>
-              <b><%= number_to_currency(@order.total) %> <%= @order.currency.name %></b>
-              
-              <%else%>
-              <b><%= number_to_currency(@order.subtotal) %> <%= @order.currency.name %></b>
-              
-              <%end%>
-            </td>
+            
+            <td><b>I.V.A. (<%= (@payment_bill.amount_paid * 100).to_i %>%)</b></td>
+            <td class="center">+ <%= number_to_currency(@payment_bill.amount_paid) %></td>
+            
           </tr>
+
           <tr>
             <td colspan="6"> <p style="text-align: center;"><br><br>Este comprobante no tiene validez fiscal.<p></td>
           </tr>
