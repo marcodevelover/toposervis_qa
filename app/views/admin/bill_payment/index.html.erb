@@ -1,10 +1,7 @@
             <p id="notice"><%= notice %></p>
             <div class="card">
                <div class="card-header">
-                <%= link_to new_admin_quotation_path, :class => "btn btn-success ml-auto" do %>
-                  <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
-                <%end%>
-                <%= link_to filter_form_admin_quotations_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                <%= link_to filter_form_admin_sales_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
                   <em class="fa mr-2 fas fa-search"></em>Buscar
                 <%end%>
                 <%= sort_link(@q, "exportar", :format => "xlsx") do %>
@@ -15,7 +12,7 @@
                 <br><br>
                 <div class="form-group">
                 <%= search_form_for [:admin, @q] do |f| %>
-                  <%= f.search_field :folio_or_customer_business_name_or_customer_name_or_customer_rfc_cont, class: "form-control", placeholder: t('search') %><br>
+                  <%= f.search_field :folio_cont, class: "form-control", placeholder: t('search') %><br>
                   <div class="form-group row">
                      <div class="col-md-12">
                         <div class="form-row">
@@ -35,7 +32,7 @@
                     </div>
                   </div>
                   <%= f.submit class: "btn btn-success waves-effect"%>
-                  <a href="<% admin_quotations_path %>?per_page=10000">Mostrar todo</a>
+                  <a href="<% admin_sales_path %>?per_page=10000">Mostrar todo</a>
                 <% end %>
                 </div>
                </div>
@@ -44,13 +41,17 @@
                      <table class="table table-striped" id="bootgrid-command" >
                         <thead>
                            <tr>
-                              
-                              <th data-column-id="name"><%= t("quotations.folio")%></th>
-                              <th data-column-id="rfc" data-order="desc"><%= t("quotations.customer")%></th>
-                              <th data-column-id="business_name" data-order="desc"><%= t("quotations.total")%> <small>(antes de impuesto)</small></th><th data-column-id="created_at" data-order="desc"><%= t("quotations.created_at")%></th>
-                              <th data-column-id="status" data-order="desc"><%= t("quotations.state")%></th>
+                              <th data-column-id="id" data-type="numeric">ID</th>
+                              <th data-column-id="name">Origen</th>
+                              <th data-column-id="rfc" data-order="desc">Folio</th>
+                              <th data-column-id="rfc" data-order="desc">Folio origen</th>
+                              <th data-column-id="business_name" data-order="desc">Método de pago</th>
+                              <th data-column-id="business_name" data-order="desc">Forma de pago</th>
+                              <th data-column-id="status" data-order="desc">Estatus</th>
+                              <th data-column-id="status" data-order="desc">Facturación</th>
+                              <th data-column-id="status" data-order="desc">Fecha</th>
                               <th data-column-id="commands" data-formatter="commands" data-sortable="false">
-                                 <div class="text-left"><%= t("commands")%></div>
+                                 <div class="text-left"><%= t :commands %></div>
                               </th>
                            </tr>
                         </thead>
@@ -64,3 +65,4 @@
                   </div>
                </div>
             </div>
+        

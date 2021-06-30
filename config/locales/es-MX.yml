@@ -295,6 +295,7 @@ es:
     validity: Vigencia
     currency: Moneda
     exchange_rate: Tipo de cambio
+    created_at: Fecha de creación
   conditions:
     name: Nombre
     description: Descripción
@@ -414,6 +415,7 @@ es:
     state: Estatus
     state_payment: Estatus pago
     deleted_at: Eliminado el
+    payment_condition: Condiciones de pago
   units:
     name: Nombre
     description: Descripción

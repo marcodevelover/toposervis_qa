@@ -54,7 +54,7 @@ class ApplicationRecord < ActiveRecord::Base
                         use: self.sale.use_of_cfdi.cfdi_key
                     )
         @sale = Sale.find_by(id: self.sale.id)
-        @sale.update(bill_key: ext_invoice["id"], bill_state: "invoiced")
+        @sale.update(bill_key: ext_invoice["id"], bill_state: "invoiced", uuid: ext_invoice["uuid"], bill_folio: ext_invoice["folio_number"])
 
     rescue FacturapiRuby::FacturapiRubyError => e
         puts e.data['message']

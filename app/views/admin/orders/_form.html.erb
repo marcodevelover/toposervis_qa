@@ -68,7 +68,7 @@
                                  <div class="col-lg-6 mb-6">
                                    
                                    <div class="form-group">
-                                     <%= sale.association :payment_way, input_html: { class: 'custom-select custom-select-sm' } %>
+                                     <%= sale.association :payment_way, input_html: { class: 'custom-select custom-select-sm', onChange: "show(this.value);" } %>
                                    </div>
                                  </div>
 
@@ -84,6 +84,15 @@
                                    
                                    <div class="form-group">
                                      <%= sale.association :use_of_cfdi, input_html: { class: 'custom-select custom-select-sm' } %>
+                                   </div>
+                                 </div>
+                                 
+                                 <div class="col-lg-6 mb-6" id="condition" style="display: none;">
+                                   
+                                   <div class="form-group">
+                                    <label class="control-label">Condiciones de pago</label>
+                                    <%= sale.text_field :payment_condition, class: 'form-control'%>
+                                    
                                    </div>
                                  </div>
 
@@ -905,4 +914,14 @@ function formatRepoSelection (repo) {
   }
 
   // End products ****
+</script>
+<script type="text/javascript">
+function show(id) {
+    if (document.getElementById("order_sale_attributes_payment_way_id").value == "2") {
+        $("#condition").show();
+    }else
+    {
+      $("#condition").hide();
+    }
+}
 </script>
