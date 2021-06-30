@@ -146,10 +146,10 @@ class Admin::PaymentBillsController < ApplicationController
 
   def sales
     @q = Sale.ransack(params[:q])
-    @sales = @q.result(distinct: true).includes(:payment_bills).where(payment_way_id: 2).where(is_due: true).where("payment_bills.bill_state" => "invoiced")
+    @sales = @q.result(distinct: true).includes(:payment_bills).where(payment_way_id: 2).where(is_due: true)
     total_count = @sales.count
     respond_to do |format|
-      format.json { render json: { total: total_count, sales: @sales.map { |s| {id: s.id, folio:  s.folio, partiality_number: s.payment_bills.last.partiality_number, previous_balance_amount: s.payment_bills.last.previous_balance_amount, } } } }
+      format.json { render json: { total: total_count, sales: @sales.map { |s| {id: s.id, folio:  s.folio, partiality_number:  s.payment_bills.blank? ? "0" : s.payment_bills.last.partiality_number, previous_balance_amount: s.payment_bills.blank? ? (s.record.total - s.record.adjustment_total) : s.payment_bills.last.previous_balance_amount, } } } }
     end
   end
 
