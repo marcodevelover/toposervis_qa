@@ -74,8 +74,7 @@ class Admin::PaymentBillsController < ApplicationController
   # POST /payment_bills.json
   def create
     @payment_bill = @payment_bill || PaymentBill.new(payment_bill_params)
-    #@payment_bill.created_by_id = current_user.id
-
+    @payment_bill.unpaid_balance_amount = params[:payment_bill][:previous_balance_amount].to_f - params[:payment_bill][:amount_paid].to_f
     respond_to do |format|
       if @payment_bill.save
         format.html { redirect_to [:admin, @payment_bill], notice: 'payment_bill was successfully created.' }
@@ -149,7 +148,7 @@ class Admin::PaymentBillsController < ApplicationController
     @sales = @q.result(distinct: true).includes(:payment_bills).where(payment_way_id: 2).where(is_due: true)
     total_count = @sales.count
     respond_to do |format|
-      format.json { render json: { total: total_count, sales: @sales.map { |s| {id: s.id, folio:  s.folio, partiality_number:  s.payment_bills.blank? ? "0" : s.payment_bills.last.partiality_number, previous_balance_amount: s.payment_bills.blank? ? (s.record.total - s.record.adjustment_total) : s.payment_bills.last.previous_balance_amount, } } } }
+      format.json { render json: { total: total_count, sales: @sales.map { |s| {id: s.id, folio:  s.folio, partiality_number:  s.payment_bills.blank? ? "0" : s.payment_bills.last.partiality_number, previous_balance_amount: s.payment_bills.blank? ? (s.record.total - s.record.adjustment_total) : s.payment_bills.last.unpaid_balance_amount, } } } }
     end
   end
 
