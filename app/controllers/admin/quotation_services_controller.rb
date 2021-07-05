@@ -105,7 +105,7 @@ class Admin::QuotationServicesController < ApplicationController
     end
 
     respond_to do |format|
-      if @quotation_service.update(quotatio_service_params)
+      if @quotation_service.update(quotation_service_params)
         format.html { redirect_to [:admin, @quotation_service], notice: 'Quotation Service was successfully updated.' }
         format.json { render :show, status: :ok, location: @quotation_service }
       else
