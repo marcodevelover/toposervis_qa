@@ -6,9 +6,8 @@
         <td><%= object.model %></td>
         <td><%= object.is_service == true ? "servicio" : "producto" %></td>
         <td><%= object.product_variants.first.stock_item.blank? ? 0 : object.product_variants.first.stock_item.stock.round %></td>
-        <td><%= object.product_variants.first.stock_item.blank? ? 0 : object.product_variants.first.stock_item.stock.round %></td>
         <td><%= number_to_currency(object.product_variants.first.amount_public) %></td>
-        <td><%= number_to_currency(object.product_variants.first.amount_provider) %></td>
+        <td><%= number_to_currency(object.product_variants.first.cost_price) %></td>
         <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activo</span>".html_safe %></td>
         <td>
         	<%= link_to [:admin, object], :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('information') }   do %>
