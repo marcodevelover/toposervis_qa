@@ -4,7 +4,7 @@ class Admin::QuotationsController < ApplicationController
   respond_to :html, :json
 
   def page_name
-     @page_name = "Cotizaciones"
+     @page_name = "Cotizaciones de productos"
   end
   # GET /quotations
   # GET /quotations.json

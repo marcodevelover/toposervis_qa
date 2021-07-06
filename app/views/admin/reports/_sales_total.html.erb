@@ -18,6 +18,7 @@
                               <th data-column-id="status" data-order="desc">Forma de pago</th>
                               <th data-column-id="status" data-order="desc">Estatus</th>
                               <th data-column-id="status" data-order="desc">Facturación</th>
+                              <th data-column-id="status" data-order="desc">Total</th>
                               <th data-column-id="status" data-order="desc">Fecha</th>
                            </tr>
                         </thead>
@@ -42,6 +43,9 @@
                                   <td>
                                       <span class="badge badge-<%= object.bill_state %>"><%= object.bill_state.blank? ? "" : t(object.bill_state) %></span><br>
                                       <span class="badge badge-<%= object.cancellation_state %>"><%= object.cancellation_state.blank? ? "" : t(object.cancellation_state) %></span>
+                                  </td>
+                                  <td>
+                                    <span><%= number_to_currency(object.record.total) %></span>
                                   </td>
                                   <td>
                                       <%= object.updated_at.to_time.to_formatted_s(:db) %>

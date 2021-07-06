@@ -32,6 +32,11 @@
 
         <td>
             
+            <span><%= number_to_currency(object.record.total) %></span>
+        </td>
+
+        <td>
+            
             <span class="badge badge-<%= object.cancellation_state %>"><%= object.updated_at.to_time.to_formatted_s(:db) %></span>
         </td>
 
