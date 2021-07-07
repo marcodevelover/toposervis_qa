@@ -17,7 +17,7 @@
                   <!-- Name and Job-->
                   <div class="user-block-info">
                      <span class="user-block-name"><%= current_user.name %></span>
-                     <span class="user-block-role"><%= current_user.role ? current_user.role.name : "" %></span>
+                     <span class="user-block-role"><%= current_user.role ? current_user.role.description : "" %></span>
                   </div>
                </div>
             </div>
@@ -62,17 +62,22 @@
             </a>
             <ul class="sidebar-nav sidebar-subnav collapse" id="sales" style="">
                <li class="sidebar-subnav-header"><%=t('event_module')%></li>
+               
+               <% if can? :manage, Quotation %>
                <li class=" ">
                   <a href="<%= admin_quotations_path %>" title="<%=t('event_module')%>">
                      <span data-localize="">Cotizaciones de productos</span>
                   </a>
                </li>
+               <% end %>
 
+               <% if can? :manage, QuotationService %>
                <li class=" ">
                   <a href="<%= admin_quotation_services_path %>" title="<%=t('event_module')%>">
                      <span data-localize="">Cotizaciones de servicios</span>
                   </a>
                </li>
+               <% end %>
 
                <li class=" ">
                   <a href="<%= admin_orders_path %>" title="<%=t('notification_module')%>">
@@ -142,101 +147,158 @@
             </a>
             <ul class="sidebar-nav sidebar-subnav collapse" id="catalogs" style="">
                <li class="sidebar-subnav-header"><%=t('event_module')%></li>
+
+               <% if can? :manage, User %>
                <li class=" ">
                   <a href="<%= admin_users_path %>" title="<%=t('event_module')%>">
                      <span data-localize="">Usuarios</span>
                   </a>
                </li>
+               <% end %>
+
+               <% if can? :manage, Provider %>
                <li class=" ">
                   <a href="<%= admin_providers_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Proveedores</span>
                   </a>
                </li>
+               <% end %>
+
+               <% if can? :manage, Customer %>
                <li class=" ">
                   <a href="<%= admin_customers_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Clientes</span>
                   </a>
                </li>  
+               <% end %>
+
+               <% if can? :manage, Accessory %>
                <li class=" ">
                   <a href="<%= admin_accessories_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Accesorios de producto</span>
                   </a>
                </li>  
+               <% end %>
+
+               <% if can? :manage, Deliverable %>
                <li class=" ">
                   <a href="<%= admin_deliverables_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Entregables de servicio</span>
                   </a>
                </li>  
+               <% end %>
+
+               <% if can? :manage, Currency %>
                <li class=" ">
                   <a href="<%= admin_currencies_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Monedas</span>
                   </a>
                </li>  
+               <% end %>
+
+               <% if can? :manage, Currency %>
                <li class=" ">
                   <a href="<%= admin_units_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Unidades</span>
                   </a>
                </li>    
+               <% end %>
+
+               <% if can? :manage, TypeServiceOrder %>
                <li class=" ">
                   <a href="<%= admin_type_service_orders_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Tipos de servicio</span>
                   </a>
                </li> 
+               <% end %>
+
+               <% if can? :manage, Product %>
                <li class=" ">
                   <a href="<%= admin_products_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Productos/Servicios</span>
                   </a>
                </li> 
+               <% end %>
+
+               <% if can? :manage, CategoryType %>
                <li class=" ">
                   <a href="<%= admin_category_types_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Tipos de categoria de productos</span>
                   </a>
-               </li>                
+               </li>  
+               <% end %>
+
+               <% if can? :manage, DiagnosisType %>
                <li class=" ">
                   <a href="<%= admin_diagnosis_types_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Tipos de diagnostico</span>
                   </a>
                </li> 
+               <% end %>
+
+               <% if can? :manage, Category %>
                <li class=" ">
                   <a href="<%= admin_categories_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Categorias de productos</span>
                   </a>
                </li>    
+               <% end %>
+
+               <% if can? :manage, Subcategory %>
                <li class=" ">
                   <a href="<%= admin_subcategories_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Subcategorias de productos</span>
                   </a>
                </li> 
+               <% end %>
+
+               <% if can? :manage, Condition %>
                <li class=" ">
                   <a href="<%= admin_conditions_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Términos y condiciones</span>
                   </a>
                </li>    
+               <% end %>
+
+               <% if can? :manage, PaymentWay %>
                <li class=" ">
                   <a href="<%= admin_payment_ways_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Formas de pago</span>
                   </a>
                </li> 
+               <% end %>
+
+               <% if can? :manage, PaymentMethod %>
                <li class=" ">
                   <a href="<%= admin_payment_methods_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Métodos de pago</span>
                   </a>
                </li>    
+               <% end %>
+
+               <% if can? :manage, ReceiptType %>
                <li class=" ">
                   <a href="<%= admin_receipt_types_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Tipos de comprobante</span>
                   </a>
                </li>   
+               <% end %>
+
+               <% if can? :manage, EntryCode %>
                <li class=" ">
                   <a href="<%= admin_entry_codes_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Códigos de entrada</span>
                   </a>
                </li> 
+               <% end %>
+
+               <% if can? :manage, ProductLine %>
                <li class=" ">
                   <a href="<%= admin_product_lines_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Líneas de producto</span>
                   </a>
-               </li>     
+               </li>    
+               <% end %>
             </ul>
          </li> 
          <%end%>
@@ -249,51 +311,78 @@
             </a>
             <ul class="sidebar-nav sidebar-subnav collapse" id="reports" style="">
                <li class="sidebar-subnav-header"><%=t('event_module')%></li>
+
+               <% if can? :service_orders_total, :Report%>
                <li class=" ">
                   <a href="<%= admin_reports_service_orders_path %>" title="<%=t('event_module')%>">
                      <span data-localize="">Orden de servicios</span>
                   </a>
                </li>
+               <% end %>
+
+               <% if can? :quotations_total, :Report%>
                <li class=" ">
                   <a href="<%= admin_reports_quotations_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Cotizaciones</span>
                   </a>
                </li>
+               <% end %>
+
+               <% if can? :orders_total, :Report%>
                <li class=" ">
                   <a href="<%= admin_reports_orders_path %>" title="<%=t('notification_module')%>">
-                     <span data-localize="">Ordenes</span>
+                     <span data-localize="">Ordenes de venta</span>
                   </a>
                </li>  
+               <% end %>
+
+               <% if can? :sales_total, :Report%>
                <li class=" ">
                   <a href="<%= admin_reports_sales_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Ventas</span>
                   </a>
                </li>  
+               <% end %>
+
+               <% if can? :products_total, :Report%>
                <li class=" ">
                   <a href="<%= admin_reports_products_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Existencias</span>
                   </a>
                </li> 
+               <% end %>
+
+               <% if can? :stocks_total, :Report%>
                <li class=" ">
                   <a href="<%= admin_reports_stocks_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Números de serie</span>
                   </a>
                </li>  
+               <% end %>
+
+               <% if can? :kardex, :Report%>
                <li class=" ">
                   <a href="<%= admin_reports_kardex_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">KARDEX</span>
                   </a>
                </li> 
+               <% end %>
+
+               <% if can? :in_total, :Report%>
                <li class=" ">
                   <a href="<%= admin_reports_in_total_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Entradas</span>
                   </a>
                </li> 
+               <% end %>
+
+               <% if can? :out_total, :Report%>
                <li class=" ">
                   <a href="<%= admin_reports_out_total_path %>" title="<%=t('notification_module')%>">
                      <span data-localize="">Salidas</span>
                   </a>
                </li> 
+               <% end %>
             </ul>
          </li>  
          <%end%>   

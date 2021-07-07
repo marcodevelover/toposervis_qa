@@ -369,7 +369,7 @@ es:
     bank_name: Nombre del banco
     currency:  Moneda
   customers:
-    name: Nombre
+    name: Nombre comercial
     rfc: RFC
     business_name: Razón social
     state: Estatus
@@ -956,7 +956,7 @@ es:
         deleted_at: Eliminado el
         state: Estatus
       customer:
-        name: Nombre
+        name: Nombre comercial
         rfc: RFC
         business_name: Razón social
         deleted_at: Elimiando el
@@ -1247,6 +1247,7 @@ es:
   received: Recibido
   deleted: Baja
   cancel: Cancelar
+  required_fields: Campos obligatorios
   sold: Finalizado
   in_repair: En reparación
   diagnosed: Diagnosticado

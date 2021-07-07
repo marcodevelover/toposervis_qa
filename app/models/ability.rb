@@ -46,17 +46,43 @@ class Ability
         can :show_from_pdf, Diagnosis
         can :note_from_pdf, Diagnosis
         can :output_pdf, Diagnosis
-    elsif user.role.name == "sale"
+    elsif user.role.name == "sale_product"
         can :manage, :all
         can :manage, :dashboard
         cannot :manage, Purchase
         cannot :manage, Expense
+        cannot :manage, QuotationService
+        cannot :manage, User
+        cannot :manage, Provider
+        cannot :manage, ServiceOrder
+        cannot :service_orders_total, :Report
+        cannot :in_total, :Report
+    elsif user.role.name == "sale_service"
+        can :manage, :all
+        can :manage, :dashboard
+        cannot :manage, Purchase
+        cannot :manage, Expense
+        cannot :manage, Quotation
+        cannot :manage, User
+        cannot :manage, Provider
+        cannot :manage, ServiceOrder
+        cannot :service_orders_total, :Report
+        cannot :in_total, :Report
+        cannot :stocks_total, :Report
+        cannot :kardex, :Report
+        cannot :products_total, :Report
     elsif user.role.name == "purchase"
         can :manage, :all
         can :manage, :dashboard
         cannot :manage, Sale
         cannot :manage, Expense
         cannot :manage, ServiceOrder
+        cannot :manage, User
+        cannot :manage, ServiceOrder
+        cannot :sales_total, :Report
+        cannot :orders_total, :Report
+        cannot :service_orders_total, :Report
+        cannot :quotations_total, :Report
     elsif user.role.name == "service"
         can :manage, :all
         can :manage, :dashboard

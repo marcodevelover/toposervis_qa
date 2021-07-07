@@ -45,7 +45,11 @@
                                       <span class="badge badge-<%= object.cancellation_state %>"><%= object.cancellation_state.blank? ? "" : t(object.cancellation_state) %></span>
                                   </td>
                                   <td>
+                                    <% if object.bill_state == nil %>
+                                    <span><%= number_to_currency(object.record.subtotal) %></span>
+                                    <%else%>
                                     <span><%= number_to_currency(object.record.total) %></span>
+                                    <%end%>
                                   </td>
                                   <td>
                                       <%= object.updated_at.to_time.to_formatted_s(:db) %>

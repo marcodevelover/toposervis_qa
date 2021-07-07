@@ -1,7 +1,7 @@
   <hr>
   <strong>Costos y Precios</strong>
   <div class="form-group">
-    <%= f.label :currency_id, class: "col-form-label"%>
+    <%= f.label :currency, class: "col-form-label"%>
     <div class="form-group">
       <%= f.collection_select :currency_id, Currency.all, :id, :abbreviation, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
     </div>

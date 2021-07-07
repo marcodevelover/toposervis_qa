@@ -285,6 +285,7 @@
       <% end %> 
       <p>
 
+      <div class="table-responsive">
       <% if @service_order.diagnosis.diagnosis_descriptions %>
       <table class="table table-bordered table-hover toggle-circle">
         <thead>
@@ -306,9 +307,10 @@
       </table>
       <% end %>
       </p>
-
+      </div>
 
 <!--diagnosis items-->
+<div class="table-responsive">
 <table class="table table-bordered table-hover toggle-circle">
           <tr>
             <td colspan="5" style="text-align: left;"><br><b>Presupuesto:</b></td>
@@ -385,10 +387,12 @@
             </td>
           </tr>
 </table>
+</div>
 <!--end diagnosis items-->
 
       <p>
       <% if @service_order.diagnosis.diagnosis_descriptions %>
+      <div class="table-responsive">
       <table class="table table-bordered table-hover toggle-circle">
         <thead>
           <th>Procedimientos</th>
@@ -408,6 +412,7 @@
           </tr>    
       <% end %>
       </table>
+      </div>
       <% end %>
       </p>
 

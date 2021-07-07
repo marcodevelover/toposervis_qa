@@ -31,8 +31,11 @@
         </td>
 
         <td>
-            
+            <% if object.bill_state == nil %>
+            <span><%= number_to_currency(object.record.subtotal) %></span>
+            <%else%>
             <span><%= number_to_currency(object.record.total) %></span>
+            <%end%>
         </td>
 
         <td>
