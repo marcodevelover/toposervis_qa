@@ -198,7 +198,7 @@ class Admin::QuotationServicesController < ApplicationController
 
   # PUT /orders/1
   def invoice
-    @quotation_service.save!(context: :bill)
+    @quotation_service.save!(context: :bill_service)
   end
 
   def request_cancel_invoice
