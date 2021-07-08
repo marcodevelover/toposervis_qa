@@ -54,7 +54,6 @@ class Ability
         cannot :manage, QuotationService
         cannot :manage, User
         cannot :manage, Provider
-        cannot :manage, ServiceOrder
         cannot :service_orders_total, :Report
         cannot :in_total, :Report
     elsif user.role.name == "sale_service"
