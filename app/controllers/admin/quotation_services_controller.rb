@@ -105,7 +105,7 @@ class Admin::QuotationServicesController < ApplicationController
     end
 
     respond_to do |format|
-      if @quotation_service.update(quotatio_service_params)
+      if @quotation_service.update(quotation_service_params)
         format.html { redirect_to [:admin, @quotation_service], notice: 'Quotation Service was successfully updated.' }
         format.json { render :show, status: :ok, location: @quotation_service }
       else
@@ -166,7 +166,7 @@ class Admin::QuotationServicesController < ApplicationController
     @product_variants = @q.result(distinct: true)
     total_count = @product_variants.count
     respond_to do |format|
-      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, product_model: s.product.model, product_brand: s.product.brand, unit_price: s.amount_public, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, image: s.first_image } } } }
+      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, product_model: s.product.model, product_brand: s.product.brand, unit_price: s.amount_public, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock } } } }
     end
   end
 
@@ -198,7 +198,7 @@ class Admin::QuotationServicesController < ApplicationController
 
   # PUT /orders/1
   def invoice
-    @quotation_service.save!(context: :bill)
+    @quotation_service.save!(context: :bill_service)
   end
 
   def request_cancel_invoice

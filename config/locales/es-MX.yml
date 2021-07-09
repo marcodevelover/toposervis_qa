@@ -296,6 +296,25 @@ es:
     currency: Moneda
     exchange_rate: Tipo de cambio
     created_at: Fecha de creación
+  quotation_services:
+    folio: Folio
+    quantity: Cantidad
+    product: Producto
+    customer: Cliente
+    total: Total
+    state: Estatus
+    subtotal: subtotal
+    adjustment_total: Descuento total
+    tax: Impuesto
+    tax_total: Impuesto total
+    tax_item_total: Impuesto produto total
+    condition: Condición
+    created_by: Creado por
+    deleted_at: Eliminado el
+    validity: Vigencia
+    currency: Moneda
+    exchange_rate: Tipo de cambio
+    created_at: Fecha de creación
   conditions:
     name: Nombre
     description: Descripción
@@ -350,7 +369,7 @@ es:
     bank_name: Nombre del banco
     currency:  Moneda
   customers:
-    name: Nombre
+    name: Nombre comercial
     rfc: RFC
     business_name: Razón social
     state: Estatus
@@ -628,6 +647,12 @@ es:
               required: no puede estar en blanco
             currency:
               required: no puede estar en blanco
+        quotation_service:
+          attributes:
+            customer:
+              required: no puede estar en blanco
+            currency:
+              required: no puede estar en blanco
         sale:
           attributes:
             payment_method:
@@ -721,8 +746,10 @@ es:
       Product: Producto
       purchase: entrada
       Purchase: Entrada
-      quotation: cotización
-      Quotation: Cotización
+      quotation: cotización de producto
+      Quotation: Cotización de Producto
+      quotation_service: cotización de servicio
+      Quotation_service: Cotización de Servicio
       order: orden de venta
       Order: Orden de venta
       service_order: orden de servicio
@@ -762,6 +789,10 @@ es:
         use_of_cfdi: Uso de CFDI
         state: Estado de pago
       quotation:
+        currency_id: Moneda
+        exchange_rate: Tipo de cambio
+        customer: Cliente
+      quotation_service:
         currency_id: Moneda
         exchange_rate: Tipo de cambio
         customer: Cliente
@@ -925,7 +956,7 @@ es:
         deleted_at: Eliminado el
         state: Estatus
       customer:
-        name: Nombre
+        name: Nombre comercial
         rfc: RFC
         business_name: Razón social
         deleted_at: Elimiando el
@@ -1216,6 +1247,7 @@ es:
   received: Recibido
   deleted: Baja
   cancel: Cancelar
+  required_fields: Campos obligatorios
   sold: Finalizado
   in_repair: En reparación
   diagnosed: Diagnosticado
@@ -1228,7 +1260,8 @@ es:
   invoiced: facturado
   canceled: cancelado
   accepted: aceptado
-  Quotation: Cotización
+  Quotation: Cotización de producto
+  QuotationService: Cotización de servicio
   Order: Orden de venta
   Diagnosis: Diagnostico
   choose_from_select: -- Seleccionar --
