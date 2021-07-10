@@ -110,7 +110,7 @@ class Admin::PurchasesController < ApplicationController
     @product_variants = @q.result(distinct: true)
     total_count = @product_variants.count
     respond_to do |format|
-      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, required_serial_number: s.product.required_serial_number, product_model: s.product.model, product_brand: s.product.brand, unit_price: s.amount_public, amount_provider: s.cost_price, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, image: s.first_image, provider: s.product.provider.name } } } }
+      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, required_serial_number: s.product.required_serial_number, product_model: s.product.model, product_brand: s.product.brand, unit_price: s.amount_public, amount_provider: s.cost_price, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, provider: s.product.provider.name } } } }
     end
   end
 
