@@ -29,6 +29,16 @@
             <span class="badge badge-<%= object.bill_state %>"><%= object.bill_state.blank? ? "" : t(object.bill_state) %></span><br>
             <span class="badge badge-<%= object.cancellation_state %>"><%= object.cancellation_state.blank? ? "" : t(object.cancellation_state) %></span>
         </td>
+        <td>
+            
+            <% if object.state == "pending" %>
+            <span><%= object.payment_bills.blank? ? (object.record.total - object.record.adjustment_total) : object.payment_bills.last.unpaid_balance_amount %></span>
+            <% end %>
+
+            <% if object.state == "payment" %>
+            <span>0.00</span>
+            <% end %>
+        </td>
 
         <td>
             
