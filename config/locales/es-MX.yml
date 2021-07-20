@@ -683,6 +683,14 @@ es:
               required: no puede estar en blanco
             images:
               max_size_error: tamaño excedido, debe ser menor a 5 MB
+        payment_bill:
+          attributes:
+            payment_way:
+              required: no puede estar en blanco
+            payment_method:
+              required: no puede estar en blanco
+            sale:
+              required: no puede estar en blanco
         product:
           attributes:
             product_line:
@@ -770,6 +778,8 @@ es:
       PaymentWay: Forma de pago
       payment_method: método de pago
       PaymentMethod: Método de pago
+      payment_bill: complemento de pago
+      PaymentBill: Complemento de pago
       receipt_type: tipos de comprobante
       ReceiptType: Tipos de comprobante
       entry_code: códigos de entrada

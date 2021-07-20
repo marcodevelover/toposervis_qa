@@ -42,6 +42,7 @@
                                   <label class="form-label">Parcialidad</label>
                                   <div class="form-group"> 
                                     <%= form.text_field :partiality_number, class: "form-control", type: "number", readonly: "readonly" %>
+                                    <%= form.error :partiality_number, id: 'date_error' %>
                                   </div>  
                                 </div> 
 
@@ -49,6 +50,7 @@
                                   <label class="form-label">Saldo pendiente</label>
                                   <div class="form-group"> 
                                     <%= form.text_field :previous_balance_amount, class: "form-control", type: "number", readonly: "readonly"%>
+                                    <%= form.error :previous_balance_amount, id: 'date_error' %>
                                   </div>  
                                 </div> 
 
@@ -56,6 +58,7 @@
                                   <label class="form-label">Monto a pagar</label>
                                   <div class="form-group"> 
                                     <%= form.text_field :amount_paid, class: "form-control", type: "number" %>
+                                    <%= form.error :amount_paid, id: 'date_error' %>
                                   </div>  
                                 </div> 
 

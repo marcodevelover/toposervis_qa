@@ -2,6 +2,11 @@ class PaymentBill < ApplicationRecord
 	belongs_to :sale
   	belongs_to :payment_method
   	belongs_to :payment_way
+    
+    validates :payment_date, presence: true
+    validates :amount_paid, presence: true
+    validates :partiality_number, presence: true
+    validates :previous_balance_amount, presence: true
 
   	before_validation :invoice , on: :payment_bill
 
