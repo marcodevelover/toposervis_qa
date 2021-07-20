@@ -465,6 +465,10 @@ es:
     description: Descripción
     deleted_at: Eliminado el
     state: Estatus
+  payment_bills:
+    payment_method: Método de pago
+    payment_way: Forma de pago
+    sale: Venta
   products:
     name: Nombre
     brand: Marca
@@ -1017,6 +1021,10 @@ es:
         description: Descripción
         deleted_at: Eliminado el
         state: Estatus
+      payment_bill:
+        payment_method: Método de pago
+        payment_way: Forma de pago
+        sale_id: Folio de Nota de Venta
       receipt_type:
         name: Nombre
         description: Descripción
