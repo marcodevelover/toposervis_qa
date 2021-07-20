@@ -4,7 +4,7 @@ class Sale < ApplicationRecord
   belongs_to :payment_way
   belongs_to :use_of_cfdi
   has_many :payment_bills
-  before_create :set_folio, :remove_stock
+  before_create :set_folio, :remove_stock, :set_is_due
   before_update :add_stock, if: Proc.new { deleted_at.present? }
 
   def set_folio
@@ -12,6 +12,14 @@ class Sale < ApplicationRecord
     Sale.last ? @number = Sale.last.id + 1 : @number = 1
     self.folio = "#{@prefix}#{@number.to_s.rjust(6, '0')}"
   end
+
+  def set_is_due
+    if self.payment_way.payment_way_key == "PUE"
+      self.is_due = false
+    else
+      self.is_due = true
+    end
+  end   
 
   def remove_stock
     self.record.items.each do |item|
