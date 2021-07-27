@@ -35,7 +35,7 @@ wb.add_worksheet(name: "Productos") do |sheet|
       datos[:name] = product.name
       datos[:unit_price] = product.unit_price
       datos[:total] = product.total
-      datos[:serie] = product.serie
+      datos[:number_serie] = product.number_serie
       datos[:product_status] = product.product_status
 
     end
