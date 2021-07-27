@@ -30,7 +30,7 @@ wb.add_worksheet(name: "Productos") do |sheet|
   @collection.each do |product|
     data = Hash.new.tap do |datos|
       datos[:id] = product.id
-      datos[:id] = product.record.folio
+      datos[:folio] = product.record.folio
       datos[:name] = product.name
       datos[:quantity] = product.quantity
       datos[:unit_price] = product.unit_price
