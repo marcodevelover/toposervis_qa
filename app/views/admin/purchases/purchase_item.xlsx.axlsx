@@ -23,7 +23,7 @@ wb.add_worksheet(name: "Productos") do |sheet|
     head[:price] = "Precio"
     head[:total] = "Total"
     head[:serie] = "Serie"
-    head[:product_status] = "Estatus de producto"
+    head[:product_state] = "Estatus de producto"
 
   end
   sheet.add_row hedears.values, :style => header
@@ -36,7 +36,7 @@ wb.add_worksheet(name: "Productos") do |sheet|
       datos[:unit_price] = product.unit_price
       datos[:total] = product.total
       datos[:number_serie] = product.number_serie
-      datos[:product_status] = product.product_status
+      datos[:product_state] = product.product_state
 
     end
     sheet.add_row data.values, :style => border
