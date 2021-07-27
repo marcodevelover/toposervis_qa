@@ -376,6 +376,14 @@
                </li> 
                <% end %>
 
+               <% if can? :purchase_item, :Report%>
+               <li class=" ">
+                  <a href="<%= admin_reports_purchase_item_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Entradas detallado</span>
+                  </a>
+               </li> 
+               <% end %>
+
                <% if can? :out_total, :Report%>
                <li class=" ">
                   <a href="<%= admin_reports_out_total_path %>" title="<%=t('notification_module')%>">
@@ -383,6 +391,10 @@
                   </a>
                </li> 
                <% end %>
+
+
+
+
             </ul>
          </li>  
          <%end%>   

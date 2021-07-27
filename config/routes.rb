@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     get 'reports/kardex', to: 'reports#kardex', as: 'reports_kardex'
     get 'reports/in_total', to: 'reports#in_total', as: 'reports_in_total'
     get 'reports/out_total', to: 'reports#out_total', as: 'reports_out_total'
+    get 'reports/purchase_item', to: 'reports#purchase_item', as: 'reports_purchase_item'
     post  'quotations/:id/to_sell', :to => 'quotations#to_sell', as: :to_sell
     post  'quotation_services/:id/to_sell', :to => 'quotation_services#to_sell', as: :to_sell_services
     get  'products/new_service', to: 'products#new_service', as: 'new_service'
