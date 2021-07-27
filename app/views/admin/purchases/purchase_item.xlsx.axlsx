@@ -19,9 +19,9 @@ wb.add_worksheet(name: "Productos") do |sheet|
     head[:folio] = "Folio"
     head[:name] = "Nombre"
     head[:quantity] = "Cantidad"
-    head[:price] = "Precio"
+    head[:unit_price] = "Precio"
     head[:total] = "Total"
-    head[:serie] = "Serie"
+    head[:number_serie] = "Serie"
     head[:product_state] = "Estatus de producto"
 
   end
