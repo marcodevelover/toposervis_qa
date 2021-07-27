@@ -189,9 +189,9 @@ class Admin::ReportsController < ApplicationController
       @collection = @q.result(distinct: true).
       select('products.*, stock_movements.folio, stock_movements.description, 
         stock_movements.stock, stock_movements.quantity, stock_movements.cost_price, 
-        stock_movements.deleted_at, stock_movements.created_at',
-        'product_stocks.product_variant_id', 'product_stocks.serial_number', 'product_stocks.status').
-      joins(product_variants: [{ stock_item: :stock_movements }, :product_stocks]).
+        stock_movements.deleted_at, stock_movements.created_at'
+        ).
+      joins(product_variants: [{ stock_item: :stock_movements }]).
       page(params[:page]).per(params[:per_page])
     end
     respond_to do |format| 
