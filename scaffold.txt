@@ -250,6 +250,13 @@ rails g migration AddColumsPartialityToPaymentBill partiality_number:integer 'pr
 
 rails g migration AddColumsUuidToPaymentBill bill_key:string bill_state:string uuid:string bill_folio:string
 --------
+
+rails g migration AddColumsDepotToProductVariant depot_id:integer
+
+rails g model Depot name:string description:string default:boolean
+
+
+--------
 Documentation
 
 -- Quotation --
