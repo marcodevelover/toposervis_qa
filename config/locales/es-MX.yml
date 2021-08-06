@@ -56,6 +56,7 @@ es:
   event_module: Eventos
   promotion_module: Promoción
   post_module: Publicaciones
+  depot_module: Almacenes
   configurations_module: Configuraciones
   completed: Completado
   incompleted: en curso
@@ -404,6 +405,13 @@ es:
     exchange_rate: Tipo de cambio
     state: Estatus
     deleted_at: Eliminado el
+  depots:
+    name: Nombre
+    description: Descripción
+    abbreviation: Abreviación
+    exchange_rate: Tipo de cambio
+    state: Estatus
+    deleted_at: Eliminado el
   product_lines:
     name: Nombre
     description: Descripción
@@ -503,6 +511,7 @@ es:
     product_description: Descripción SAT
     location: Ubicación
     execution_time: Tiempo de ejecución
+    depreciation: Depreciación
     state: Estatus
   products_accessories:
     product: Producto
@@ -865,6 +874,7 @@ es:
         product_key: Clave SAT
         location: Ubicación
         execution_time: Tiempo de ejecución
+        depreciation: Depreciación
         product_description: Descripción SAT
       products_accessory:
         product_id: Producto

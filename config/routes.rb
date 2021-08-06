@@ -52,6 +52,10 @@ Rails.application.routes.draw do
       get :delete, on: :member
       get :filter_form, on: :collection
     end
+    resources :depots do
+      get :delete, on: :member
+      get :filter_form, on: :collection
+    end
     resources :units do
       get :delete, on: :member
       get :filter_form, on: :collection

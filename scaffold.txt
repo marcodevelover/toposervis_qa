@@ -251,9 +251,15 @@ rails g migration AddColumsPartialityToPaymentBill partiality_number:integer 'pr
 rails g migration AddColumsUuidToPaymentBill bill_key:string bill_state:string uuid:string bill_folio:string
 --------
 
-rails g migration AddColumsDepotToProductVariant depot_id:integer
+rails d migration AddColumsDepotToProductVariant depot_id:integer
 
 rails g model Depot name:string description:string default:boolean
+
+rails g migration AddColumsDepotToPurchaseItem depot_id:integer
+
+rails g migration AddColumsDepreciationToPurchaseItem depot_id:integer
+
+rails g migration AddColumsDepreciationToProductVariant 'depreciation:decimal{18,6}'
 
 
 --------

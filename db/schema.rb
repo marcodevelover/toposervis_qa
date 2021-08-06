@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2021_07_09_042735) do
+ActiveRecord::Schema.define(version: 2021_08_06_032707) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -163,6 +162,14 @@ ActiveRecord::Schema.define(version: 2021_07_09_042735) do
     t.string "name"
     t.string "description"
     t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "depots", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.boolean "default"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -441,6 +448,8 @@ ActiveRecord::Schema.define(version: 2021_07_09_042735) do
     t.boolean "is_service_order"
     t.string "location"
     t.string "execution_time"
+    t.integer "depot_id", default: 1
+    t.decimal "depreciation", precision: 18, scale: 6
     t.index ["currency_id"], name: "index_product_variants_on_currency_id"
     t.index ["product_id"], name: "index_product_variants_on_product_id"
   end
@@ -558,6 +567,7 @@ ActiveRecord::Schema.define(version: 2021_07_09_042735) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "product_state", default: "credit"
+    t.integer "depot_id", default: 1
     t.index ["product_variant_id"], name: "index_purchase_items_on_product_variant_id"
     t.index ["record_type", "record_id"], name: "index_purchase_items_on_record_type_and_record_id"
   end
@@ -672,6 +682,8 @@ ActiveRecord::Schema.define(version: 2021_07_09_042735) do
     t.boolean "is_service"
     t.string "uuid"
     t.string "bill_folio"
+    t.string "is"
+    t.boolean "due"
     t.boolean "is_due"
     t.index ["payment_method_id"], name: "index_sales_on_payment_method_id"
     t.index ["payment_way_id"], name: "index_sales_on_payment_way_id"

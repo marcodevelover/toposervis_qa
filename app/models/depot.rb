@@ -1,0 +1,2 @@
+class Depot < ApplicationRecord
+end
