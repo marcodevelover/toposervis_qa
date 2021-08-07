@@ -113,11 +113,25 @@
                        <div class="card-body">
                           <p class="card-text">
                             <b>Contacto:</b>
-                            <%= @payment_bill.sale.record.customer.customer_contacts.blank? ? "----" : @payment_bill.sale.record.customer.customer_contacts.first.name %><br>
-                            <b>Compañia:</b>
-                            <%= @payment_bill.sale.record.customer.business_name %><br>
-                            <b>E-mail:</b>
-                            <%= @payment_bill.sale.record.customer.customer_contacts.blank? ? "----" : @payment_bill.sale.record.customer.customer_contacts.first.email %><br>
+                            <% if @payment_bill.sale.record_type == "Diagnosis" %>
+                                <%= @payment_bill.sale.record.service_order.customer.customer_contacts.blank? ? "----" : @payment_bill.sale.record.service_order.customer.customer_contacts.first.name %><br>
+                                <b>Compañia:</b>
+                                <%= @payment_bill.sale.record.service_order.customer.business_name %><br>
+                                <b>E-mail:</b>
+                                <%= @payment_bill.sale.record.service_order.customer.customer_contacts.blank? ? "----" : @payment_bill.sale.record.service_order.customer.customer_contacts.first.email %><br>
+                            
+                            <% else %>
+
+                                <%= @payment_bill.sale.record.customer.customer_contacts.blank? ? "----" : @payment_bill.sale.record.customer.customer_contacts.first.name %><br>
+                                <b>Compañia:</b>
+                                <%= @payment_bill.sale.record.customer.business_name %><br>
+                                <b>E-mail:</b>
+                                <%= @payment_bill.sale.record.customer.customer_contacts.blank? ? "----" : @payment_bill.sale.record.customer.customer_contacts.first.email %><br>
+
+                            <% end %>
+                            
+                            
+
                           </p>
                        </div>
                     </div>
@@ -151,13 +165,24 @@
                      <div class="card-header bg-secondary">Receptor</div>
                      <div class="card-body">
                         <p class="card-text">
-                            <b>Razón Social:</b><br>
-                            <%= @payment_bill.sale.record.customer.blank? ? "" : @payment_bill.sale.record.customer.business_name %><br>
-                            <b>RFC:</b><br>
-                            <%= @payment_bill.sale.record.customer.blank? ? "" : @payment_bill.sale.record.customer.rfc %><br>
-                            <b>Uso del CFDI:</b><br>
-                            <% unless @payment_bill.sale.blank? %>
-                            <%= @payment_bill.sale.use_of_cfdi.blank? ? "" : @payment_bill.sale.use_of_cfdi.cfdi_key + " - " + @payment_bill.sale.use_of_cfdi.name %><br>
+                            <% if @payment_bill.sale.record_type == "Diagnosis" %>
+                                <b>Razón Social:</b><br>
+                                <%= @payment_bill.sale.record.service_order.customer.blank? ? "" : @payment_bill.sale.record.service_order.customer.business_name %><br>
+                                <b>RFC:</b><br>
+                                <%= @payment_bill.sale.record.service_order.customer.blank? ? "" : @payment_bill.sale.record.service_order.customer.rfc %><br>
+                                <b>Uso del CFDI:</b><br>
+                                <% unless @payment_bill.sale.blank? %>
+                                <%= @payment_bill.sale.use_of_cfdi.blank? ? "" : @payment_bill.sale.use_of_cfdi.cfdi_key + " - " + @payment_bill.sale.use_of_cfdi.name %><br>
+                                <% end %>
+                            <% else %>
+                                <b>Razón Social:</b><br>
+                                <%= @payment_bill.sale.record.customer.blank? ? "" : @payment_bill.sale.record.customer.business_name %><br>
+                                <b>RFC:</b><br>
+                                <%= @payment_bill.sale.record.customer.blank? ? "" : @payment_bill.sale.record.customer.rfc %><br>
+                                <b>Uso del CFDI:</b><br>
+                                <% unless @payment_bill.sale.blank? %>
+                                <%= @payment_bill.sale.use_of_cfdi.blank? ? "" : @payment_bill.sale.use_of_cfdi.cfdi_key + " - " + @payment_bill.sale.use_of_cfdi.name %><br>
+                                <% end %>
                             <% end %>
                         </p>
                      </div>
@@ -268,7 +293,11 @@
                     <div class="card mb-3 bpayment_bill-secondary">
                        <div class="card-body">
                           <b>Tipo de cambio:</b><br>
-                          <%= @payment_bill.sale.record.exchange_rate %>
+                          <% if @payment_bill.sale.record_type == "Diagnosis" %>
+                            1.0
+                          <% else %>
+                            <%= @payment_bill.sale.record.exchange_rate %>
+                          <% end %>
                        </div>
                     </div>
                 </div>

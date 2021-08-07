@@ -73,6 +73,16 @@
                      <div class="card-header bg-secondary font-white border-radius-no-bottom">Receptor</div>
                      <div class="card-body">
                         <p class="card-text">
+                          <% if @payment_bill.sale.record_type == "Diagnosis" %>
+                            <b>Razón Social:</b>
+                            <%= @payment_bill.sale.record.service_order.customer.blank? ? "" : @payment_bill.sale.record.service_order.customer.business_name %><br>
+                            <b>RFC:</b>
+                            <%= @payment_bill.sale.record.service_order.customer.blank? ? "" : @payment_bill.sale.record.service_order.customer.rfc %><br>
+                            <% unless @payment_bill.sale.blank? %>
+                            <b>Uso del CFDI:</b>
+                            <%= @payment_bill.sale.use_of_cfdi.blank? ? "" : @payment_bill.sale.use_of_cfdi.cfdi_key + " - " + @payment_bill.sale.use_of_cfdi.name %><br>
+                            <% end %>
+                          <% else %>
                             <b>Razón Social:</b>
                             <%= @payment_bill.sale.record.customer.blank? ? "" : @payment_bill.sale.record.customer.business_name %><br>
                             <b>RFC:</b>
@@ -81,6 +91,7 @@
                             <b>Uso del CFDI:</b>
                             <%= @payment_bill.sale.use_of_cfdi.blank? ? "" : @payment_bill.sale.use_of_cfdi.cfdi_key + " - " + @payment_bill.sale.use_of_cfdi.name %><br>
                             <% end %>
+                          <% end %>
                         </p>
                      </div>
                   </div>
