@@ -474,8 +474,8 @@ es:
     deleted_at: Eliminado el
     state: Estatus
   payment_bills:
-    payment_method: Método de pago
-    payment_way: Forma de pago
+    payment_method: Forma de pago
+    payment_way: Método de pago
     sale: Venta
   products:
     name: Nombre
