@@ -82,7 +82,7 @@
                                  </div>
                                  <div class="col-lg-6 mb-6">
                                    <div class="form-group">
-                                     <%= sale.association :payment_way, input_html: { class: 'custom-select custom-select-sm' } %>
+                                     <%= sale.association :payment_way, input_html: { class: 'custom-select custom-select-sm', onChange: "show(this.value);" } %>
                                    </div>
                                  </div>
                               </div>
@@ -803,4 +803,15 @@ function formatRepoSelection (repo) {
   }
 
   // End products ****
+</script>
+<script type="text/javascript">
+function show(id) {
+    if (document.getElementById("quotation_sale_attributes_payment_way_id").value == "2") {
+        $("#condition").show();
+        document.getElementById("quotation_sale_attributes_payment_method_id").options[6].selected = true;
+    }else
+    {
+      $("#condition").hide();
+    }
+}
 </script>
