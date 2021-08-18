@@ -3,7 +3,7 @@ class Sale < ApplicationRecord
   belongs_to :payment_method
   belongs_to :payment_way
   belongs_to :use_of_cfdi
-  belongs_to :relation_bill
+  belongs_to :relation_bill, optional: true
   has_many :payment_bills
   #has_many :related_uuids, inverse_of: :sale
   #accepts_nested_attributes_for :related_uuids, reject_if: :all_blank, allow_destroy: true
