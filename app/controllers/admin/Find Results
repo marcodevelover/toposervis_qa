@@ -1,0 +1,71 @@
+Searching 1254 files for "params[:per_page] = 10000"
+
+/Users/dovanny/Projects/toposervis/app/controllers/admin/quotation_services_controller.rb:
+   14              format.html { }
+   15              format.js  { respond_modal_index_with (@collection)}
+   16:             params[:per_page] = 10000
+   17              format.xlsx {render xlsx: "reports", template: "admin/quotation_services/reports.xlsx.axlsx"}
+   18      end
+
+/Users/dovanny/Projects/toposervis/app/controllers/admin/reports_controller.rb:
+   27              format.html { }
+   28              format.js  { respond_modal_index_with (@collection)}
+   
+   30              format.xlsx {render xlsx: "reports", template: "admin/quotations/reports.xlsx.axlsx"}
+   31      end
+   ..
+   55              format.html { }
+   56              format.js  { respond_modal_index_with (@collection)}
+   
+   58              format.xlsx {render xlsx: "reports", template: "admin/service_orders/reports.xlsx.axlsx"}
+   59      end
+   ..
+   82              format.html { }
+   83              format.js  { respond_modal_index_with (@collection)}
+   
+   85              format.xlsx {render xlsx: "reports", template: "admin/orders/reports.xlsx.axlsx"}
+   86      end
+   ..
+  109              format.html { }
+  110              format.js  { respond_modal_index_with (@collection)}
+  
+  112              format.xlsx {render xlsx: "reports", template: "admin/sales/reports.xlsx.axlsx"}
+  113      end
+  ...
+  137              format.html { }
+  138              format.js  { respond_modal_index_with (@collection)}
+  
+  140              format.xlsx {render xlsx: "reports", template: "admin/products/reports.xlsx.axlsx"}
+  141      end
+  ...
+  165              format.html { }
+  166              format.js  { respond_modal_index_with (@collection)}
+  
+  168              format.xlsx {render xlsx: "reports", template: "admin/products/stocks_total.xlsx.axlsx"}
+  169      end
+  ...
+  198              format.html { }
+  199              format.js  { respond_modal_index_with (@collection)}
+  
+  201              format.xlsx {render xlsx: "reports", template: "admin/products/kardex.xlsx.axlsx"}
+  202      end 
+  ...
+  230              format.html { }
+  231              format.js  { respond_modal_index_with (@collection)}
+  
+  233              format.xlsx {render xlsx: "reports", template: "admin/purchases/in_total.xlsx.axlsx"}
+  234      end 
+  ...
+  260              format.html { }
+  261              format.js  { respond_modal_index_with (@collection)}
+  
+  263              format.xlsx {render xlsx: "reports", template: "admin/purchases/out_total.xlsx.axlsx"}
+  264      end 
+  ...
+  286              format.html { }
+  287              format.js  { respond_modal_index_with (@collection)}
+  
+  289              format.xlsx {render xlsx: "reports", template: "admin/purchases/purchase_item.xlsx.axlsx"}
+  290      end 
+
+11 matches across 2 files

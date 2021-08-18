@@ -13,7 +13,6 @@ class Admin::QuotationsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/quotations/reports.xlsx.axlsx"}
     end
   end

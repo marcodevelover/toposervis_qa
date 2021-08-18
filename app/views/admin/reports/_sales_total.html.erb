@@ -62,6 +62,7 @@
                      </table>
                     <div class="pagination" id='pagination' style="margin-right: 10%;">
                       <!-- add paginate-->
+                      <%= render partial: 'admin/shared/paginate_sales_total', locals: { objects: @collection } %>
                     </div>                     
                   </div>
                </div>
