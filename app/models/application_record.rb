@@ -29,38 +29,85 @@ class ApplicationRecord < ActiveRecord::Base
 
   def invoice
     @items = self.items
-    begin
-        ext_invoice = FacturapiRuby::Invoices.create(
-                        customer:       {
-                                            "legal_name": self.customer.business_name,
-                                            "email": self.customer.customer_contacts.first.email,
-                                            "tax_id": self.customer.rfc
-                                        },
-                        items:          (@items.map { |s| { quantity: s.quantity, #{}
-                                                            product: { description: s.name +
-                                                                                  #  s.serial_number.blank? ? "" : " NÚMERO DE SERIE #{s.serial_number} " +
-                                                                                  #  s.product_variant.stocking_time.blank? ? "" : " TIEMPO DE GARANTÍA #{s.product_variant.stocking_time} ",
-                                                                                    " MARCA " + s.product_variant.product.brand +
-                                                                                    " MODELO " + s.product_variant.product.model +
-                                                                                    " NÚMERO DE SERIE " + s.serial_number +
-                                                                                    " TIEMPO DE GARANTÍA " + s.product_variant.stocking_time,
-                                                                       product_key: s.product_variant.product_key, 
-                                                                       price: s.unit_price - s.adjustment_total,
-                                                                       unit_key: s.product_variant.product.unit.unit_key, 
-                                                                       tax_included: false} 
-                                                          } 
-                                                    }).as_json,
-                        payment_form:   self.sale.payment_method.payment_method_key,
-                        payment_method: self.sale.payment_way.payment_way_key,
-                        use: self.sale.use_of_cfdi.cfdi_key
-                    )
-        @sale = Sale.find_by(id: self.sale.id)
-        @sale.update(bill_key: ext_invoice["id"], bill_state: "invoiced", uuid: ext_invoice["uuid"], bill_folio: ext_invoice["folio_number"])
+    if self.sale.related.blank?
+        begin
+            ext_invoice = FacturapiRuby::Invoices.create(
+                            customer:       {
+                                                "legal_name": self.customer.business_name,
+                                                "email": self.customer.customer_contacts.first.email,
+                                                "tax_id": self.customer.rfc
+                                            },
+                            items:          (@items.map { |s| { quantity: s.quantity, #{}
+                                                                product: { description: s.name +
+                                                                                      #  s.serial_number.blank? ? "" : " NÚMERO DE SERIE #{s.serial_number} " +
+                                                                                      #  s.product_variant.stocking_time.blank? ? "" : " TIEMPO DE GARANTÍA #{s.product_variant.stocking_time} ",
+                                                                                        " MARCA " + s.product_variant.product.brand +
+                                                                                        " MODELO " + s.product_variant.product.model +
+                                                                                        " NÚMERO DE SERIE " + s.serial_number +
+                                                                                        " TIEMPO DE GARANTÍA " + s.product_variant.stocking_time,
+                                                                           product_key: s.product_variant.product_key, 
+                                                                           price: s.unit_price - s.adjustment_total,
+                                                                           unit_key: s.product_variant.product.unit.unit_key, 
+                                                                           tax_included: false} 
+                                                              } 
+                                                        }).as_json,
+                            payment_form:   self.sale.payment_method.payment_method_key,
+                            payment_method: self.sale.payment_way.payment_way_key,
+                            use: self.sale.use_of_cfdi.cfdi_key
+                        )
 
-    rescue FacturapiRuby::FacturapiRubyError => e
-        puts e.data['message']
-        raise e.data['message']
-    end    
+
+
+            @sale = Sale.find_by(id: self.sale.id)
+            @sale.update(bill_key: ext_invoice["id"], bill_state: "invoiced", uuid: ext_invoice["uuid"], bill_folio: ext_invoice["folio_number"])
+
+        rescue FacturapiRuby::FacturapiRubyError => e
+            puts e.data['message']
+            raise e.data['message']
+        end    
+    else
+        begin
+            ext_invoice = FacturapiRuby::Invoices.create(
+                            customer:       {
+                                                "legal_name": self.customer.business_name,
+                                                "email": self.customer.customer_contacts.first.email,
+                                                "tax_id": self.customer.rfc
+                                            },
+                            items:          (@items.map { |s| { quantity: s.quantity, #{}
+                                                                product: { description: s.name +
+                                                                                      #  s.serial_number.blank? ? "" : " NÚMERO DE SERIE #{s.serial_number} " +
+                                                                                      #  s.product_variant.stocking_time.blank? ? "" : " TIEMPO DE GARANTÍA #{s.product_variant.stocking_time} ",
+                                                                                        " MARCA " + s.product_variant.product.brand +
+                                                                                        " MODELO " + s.product_variant.product.model +
+                                                                                        " NÚMERO DE SERIE " + s.serial_number +
+                                                                                        " TIEMPO DE GARANTÍA " + s.product_variant.stocking_time,
+                                                                           product_key: s.product_variant.product_key, 
+                                                                           price: s.unit_price - s.adjustment_total,
+                                                                           unit_key: s.product_variant.product.unit.unit_key, 
+                                                                           tax_included: false} 
+                                                              } 
+                                                        }).as_json,
+                            related: [self.sale.related],
+                            relation: self.sale.relation_bill.relation_key,
+                            payment_form:   self.sale.payment_method.payment_method_key,
+                            payment_method: self.sale.payment_way.payment_way_key,
+                            use: self.sale.use_of_cfdi.cfdi_key
+                        )
+
+
+
+            @sale = Sale.find_by(id: self.sale.id)
+            @sale.update(bill_key: ext_invoice["id"], bill_state: "invoiced", uuid: ext_invoice["uuid"], bill_folio: ext_invoice["folio_number"])
+
+        rescue FacturapiRuby::FacturapiRubyError => e
+            puts e.data['message']
+            raise e.data['message']
+        end   
+
+    end
+
+
+
   end  
 
   def invoice_service

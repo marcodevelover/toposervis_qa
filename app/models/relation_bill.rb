@@ -1,0 +1,2 @@
+class RelationBill < ApplicationRecord
+end

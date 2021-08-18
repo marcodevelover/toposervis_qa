@@ -437,6 +437,7 @@ es:
     deleted_at: Eliminado el
     customer: Cliente
     currency: Moneda
+    relation_bill: CFDI's relacionados
   sales:
     folio: Folio
     state: Estatus
@@ -841,6 +842,7 @@ es:
         currency_id: Moneda
         exchange_rate: Tipo de cambio
         customer: Cliente
+        relation_bill: CFDI's relacionados
       product:
         name: Nombre
         brand: Marca
