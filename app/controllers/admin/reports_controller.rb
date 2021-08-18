@@ -26,7 +26,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            params[:per_page] = 10000
+            #params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/quotations/reports.xlsx.axlsx"}
     end
   end
@@ -54,7 +54,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            params[:per_page] = 10000
+            #params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/service_orders/reports.xlsx.axlsx"}
     end
   end  
@@ -81,7 +81,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            params[:per_page] = 10000
+            #params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/orders/reports.xlsx.axlsx"}
     end
   end  
@@ -108,7 +108,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            params[:per_page] = 10000
+            #params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/sales/reports.xlsx.axlsx"}
     end
   end
@@ -164,7 +164,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            params[:per_page] = 10000
+            #params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/products/stocks_total.xlsx.axlsx"}
     end
   end    
@@ -197,7 +197,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            params[:per_page] = 10000
+            #params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/products/kardex.xlsx.axlsx"}
     end 
   end
@@ -229,7 +229,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            params[:per_page] = 10000
+            #params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/purchases/in_total.xlsx.axlsx"}
     end 
   end
@@ -259,7 +259,7 @@ class Admin::ReportsController < ApplicationController
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            params[:per_page] = 10000
+            #params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/purchases/out_total.xlsx.axlsx"}
     end 
   end
@@ -280,15 +280,12 @@ class Admin::ReportsController < ApplicationController
         params[:q][:created_at_lteq] = Time.zone.parse(params[:q][:created_at_lteq]).to_date.end_of_day rescue ""
       end
       @q = PurchaseItem.ransack(params[:q])
-      @collection = @q.result(distinct: true).
-      #select('products.*, stock_movements.folio, stock_movements.description, stock_movements.stock, stock_movements.quantity, stock_movements.cost_price, stock_movements.deleted_at, stock_movements.created_at', 'product_stocks.serial_number').
-      #joins(product_variants: [{ stock_item: :stock_movements }]).left_outer_joins(product_variants: :product_stocks).where('stock_movements.description = ?', 'Venta').
-      page(params[:page]).per(params[:per_page])
+      @collection = @q.result(distinct: true).page(params[:page]).per(params[:per_page])
     end
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            params[:per_page] = 10000
+            #params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/purchases/purchase_item.xlsx.axlsx"}
     end 
   end
