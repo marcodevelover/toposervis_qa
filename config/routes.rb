@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :projects
   get 'bill_payment/index'
   mount Ckeditor::Engine => '/ckeditor'
   get '/404', to: "errors#not_found"
@@ -138,7 +139,16 @@ Rails.application.routes.draw do
       get :filter_form, on: :collection
       get :show_from_modal, on: :member
       get :show_from_pdf, on: :member
-    end    
+    end 
+    resources :projects do
+      get :providers, on: :collection
+      get :currencies, on: :collection
+      get :product_variants, on: :collection
+      get :delete, on: :member
+      get :filter_form, on: :collection
+      get :show_from_modal, on: :member
+      get :show_from_pdf, on: :member
+    end 
     resources :diagnoses do
       get :show_from_pdf, on: :member
       get :output_pdf, on: :member

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_06_032707) do
+ActiveRecord::Schema.define(version: 2021_08_24_055237) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -158,7 +158,7 @@ ActiveRecord::Schema.define(version: 2021_08_06_032707) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "deliverables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "deliverables", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "deleted_at"
@@ -166,12 +166,14 @@ ActiveRecord::Schema.define(version: 2021_08_06_032707) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "depots", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "depots", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.boolean "default"
+    t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_sale", default: false
   end
 
   create_table "diagnoses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -296,7 +298,7 @@ ActiveRecord::Schema.define(version: 2021_08_06_032707) do
     t.decimal "tax_item_total", precision: 18, scale: 6
     t.decimal "tax_total", precision: 18, scale: 6
     t.decimal "tax", precision: 18, scale: 6
-    t.decimal "adjustment_total", precision: 18, scale: 6
+    t.decimal "adjustment_total", precision: 18, scale: 6, default: "0.0"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "serial_number"
@@ -347,7 +349,7 @@ ActiveRecord::Schema.define(version: 2021_08_06_032707) do
     t.index ["type_service_order_id"], name: "index_orders_types_on_type_service_order_id"
   end
 
-  create_table "payment_bills", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "payment_bills", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "sale_id"
     t.integer "payment_method_id"
     t.integer "payment_way_id"
@@ -385,15 +387,15 @@ ActiveRecord::Schema.define(version: 2021_08_06_032707) do
     t.string "payment_way_key"
   end
 
-  create_table "payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "payments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.integer "payment_method_id"
     t.integer "payment_way_id"
     t.integer "exchange_type_id"
-    t.datetime "deleted_at"
     t.decimal "total_amount", precision: 18, scale: 6
     t.datetime "payment_date"
+    t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "partiality_number"
@@ -448,8 +450,8 @@ ActiveRecord::Schema.define(version: 2021_08_06_032707) do
     t.boolean "is_service_order"
     t.string "location"
     t.string "execution_time"
-    t.integer "depot_id", default: 1
     t.decimal "depreciation", precision: 18, scale: 6
+    t.boolean "is_supplies"
     t.index ["currency_id"], name: "index_product_variants_on_currency_id"
     t.index ["product_id"], name: "index_product_variants_on_product_id"
   end
@@ -485,13 +487,67 @@ ActiveRecord::Schema.define(version: 2021_08_06_032707) do
     t.index ["product_id"], name: "index_products_accessories_on_product_id"
   end
 
-  create_table "products_deliverables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "products_deliverables", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "deliverable_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["deliverable_id"], name: "index_products_deliverables_on_deliverable_id"
     t.index ["product_id"], name: "index_products_deliverables_on_product_id"
+  end
+
+  create_table "project_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "product_variant_id", null: false
+    t.string "name"
+    t.integer "quantity"
+    t.decimal "unit_price", precision: 18, scale: 6
+    t.decimal "total", precision: 18, scale: 6
+    t.string "currency"
+    t.decimal "cost_price", precision: 18, scale: 6
+    t.decimal "tax_item_total", precision: 18, scale: 6
+    t.decimal "tax_total", precision: 18, scale: 6
+    t.decimal "tax", precision: 18, scale: 6
+    t.decimal "adjustment_total", precision: 18, scale: 6
+    t.string "number_serie"
+    t.string "number_procedure"
+    t.string "number_part"
+    t.text "observation"
+    t.string "unit"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_variant_id"], name: "index_project_items_on_product_variant_id"
+    t.index ["record_type", "record_id"], name: "index_project_items_on_record_type_and_record_id"
+  end
+
+  create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "folio"
+    t.string "name"
+    t.string "description"
+    t.datetime "date"
+    t.text "observation"
+    t.decimal "subtotal", precision: 18, scale: 6
+    t.decimal "total", precision: 18, scale: 6
+    t.decimal "adjustment_total", precision: 18, scale: 6
+    t.decimal "tax", precision: 18, scale: 6
+    t.decimal "tax_total", precision: 18, scale: 6
+    t.decimal "tax_item_total", precision: 18, scale: 6
+    t.string "state"
+    t.datetime "validity"
+    t.bigint "currency_id", null: false
+    t.decimal "exchange_rate", precision: 18, scale: 6
+    t.bigint "receipt_type_id", null: false
+    t.bigint "entry_code_id", null: false
+    t.bigint "provider_id", null: false
+    t.integer "created_by_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["currency_id"], name: "index_projects_on_currency_id"
+    t.index ["entry_code_id"], name: "index_projects_on_entry_code_id"
+    t.index ["provider_id"], name: "index_projects_on_provider_id"
+    t.index ["receipt_type_id"], name: "index_projects_on_receipt_type_id"
   end
 
   create_table "provider_addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -601,7 +657,7 @@ ActiveRecord::Schema.define(version: 2021_08_06_032707) do
     t.index ["receipt_type_id"], name: "index_purchases_on_receipt_type_id"
   end
 
-  create_table "quotation_services", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "quotation_services", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "folio"
     t.decimal "subtotal", precision: 18, scale: 6
     t.decimal "total", precision: 18, scale: 6
@@ -655,6 +711,21 @@ ActiveRecord::Schema.define(version: 2021_08_06_032707) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "related_uuids", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "sale_id"
+    t.string "uuid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "relation_bills", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "relation_key"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -679,12 +750,11 @@ ActiveRecord::Schema.define(version: 2021_08_06_032707) do
     t.string "cancellation_state"
     t.integer "use_of_cfdi_id"
     t.string "payment_condition"
-    t.boolean "is_service"
     t.string "uuid"
     t.string "bill_folio"
-    t.string "is"
-    t.boolean "due"
     t.boolean "is_due"
+    t.integer "relation_bill_id"
+    t.string "related"
     t.index ["payment_method_id"], name: "index_sales_on_payment_method_id"
     t.index ["payment_way_id"], name: "index_sales_on_payment_way_id"
     t.index ["record_type", "record_id"], name: "index_sales_on_record_type_and_record_id"
@@ -714,6 +784,7 @@ ActiveRecord::Schema.define(version: 2021_08_06_032707) do
     t.decimal "stock", precision: 10, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "depot_id"
     t.index ["product_variant_id"], name: "index_stock_items_on_product_variant_id"
   end
 
@@ -843,6 +914,11 @@ ActiveRecord::Schema.define(version: 2021_08_06_032707) do
   add_foreign_key "products_accessories", "products"
   add_foreign_key "products_deliverables", "deliverables"
   add_foreign_key "products_deliverables", "products"
+  add_foreign_key "project_items", "product_variants"
+  add_foreign_key "projects", "currencies"
+  add_foreign_key "projects", "entry_codes"
+  add_foreign_key "projects", "providers"
+  add_foreign_key "projects", "receipt_types"
   add_foreign_key "provider_addresses", "providers"
   add_foreign_key "provider_banks", "providers"
   add_foreign_key "provider_contacts", "providers"

@@ -57,6 +57,7 @@ es:
   promotion_module: Promoción
   post_module: Publicaciones
   depot_module: Almacenes
+  project_module: Proyectos
   configurations_module: Configuraciones
   completed: Completado
   incompleted: en curso
@@ -214,6 +215,23 @@ es:
     name: Nombre
     enterprise_id: Empresa
   purchases:
+    folio: Folio
+    code_invoice: Código de la factura
+    provider: Proveedor
+    total: Total
+    subtotal: Subtotal
+    total: Total
+    tax: Impuesto
+    tax_total: Impuesto total
+    quantity: Cantidad
+    state: Estatus
+    date: Fecha
+    created_by: Creado por
+    deleted_at: Eliminado el
+    created_at_lt: Rango de Fecha inicial
+    created_at_gt: Rango de Fecha final
+    currency: Moneda
+  projects:
     folio: Folio
     code_invoice: Código de la factura
     provider: Proveedor
@@ -655,6 +673,14 @@ es:
               required: no puede estar en blanco
             provider:
               required: no puede estar en blanco
+        project:
+          attributes:
+            receipt_type:
+              required: no puede estar en blanco
+            entry_code:
+              required: no puede estar en blanco
+            provider:
+              required: no puede estar en blanco
         quotation:
           attributes:
             customer:
@@ -768,6 +794,8 @@ es:
       Product: Producto
       purchase: entrada
       Purchase: Entrada
+      project: proyecto
+      Project: Proyecto
       quotation: cotización de producto
       Quotation: Cotización de Producto
       quotation_service: cotización de servicio
@@ -832,6 +860,13 @@ es:
         diagnosis_type_id: Tipo de diagnostico
         diagnosis_types: Tipo de diagnostico
       purchase:
+        receipt_type: Tipo de recibo
+        entry_code: Código de entrada
+        folio: Folio
+        provider: Proveedor
+        currency: Moneda
+        payment_way: Forma de pago
+      project:
         receipt_type: Tipo de recibo
         entry_code: Código de entrada
         folio: Folio

@@ -1,0 +1,104 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Folio:</strong>
+  <%= @project.folio %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @project.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @project.description %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @project.date %>
+</p>
+
+<p>
+  <strong>Observation:</strong>
+  <%= @project.observation %>
+</p>
+
+<p>
+  <strong>Subtotal:</strong>
+  <%= @project.subtotal %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @project.total %>
+</p>
+
+<p>
+  <strong>Adjustment total:</strong>
+  <%= @project.adjustment_total %>
+</p>
+
+<p>
+  <strong>Tax:</strong>
+  <%= @project.tax %>
+</p>
+
+<p>
+  <strong>Tax total:</strong>
+  <%= @project.tax_total %>
+</p>
+
+<p>
+  <strong>Tax item total:</strong>
+  <%= @project.tax_item_total %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @project.state %>
+</p>
+
+<p>
+  <strong>Validity:</strong>
+  <%= @project.validity %>
+</p>
+
+<p>
+  <strong>Currency:</strong>
+  <%= @project.currency_id %>
+</p>
+
+<p>
+  <strong>Exchange rate:</strong>
+  <%= @project.exchange_rate %>
+</p>
+
+<p>
+  <strong>Receipt type:</strong>
+  <%= @project.receipt_type_id %>
+</p>
+
+<p>
+  <strong>Entry code:</strong>
+  <%= @project.entry_code_id %>
+</p>
+
+<p>
+  <strong>Provider:</strong>
+  <%= @project.provider_id %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @project.created_by_id %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @project.deleted_at %>
+</p>
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>

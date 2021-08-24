@@ -102,7 +102,7 @@ class Admin::ProductsController < ApplicationController
         :name, :brand, :model, :description, :comment, :product_line_id, :unit_id, :provider_id, :is_service_order, :is_service, :required_serial_number, :available_for_sale, :deleted_at, 
         deliverable_ids: [],
         products_accessories_attributes: [:id, :product_id, :accessory_id, :_destroy, :quantity],
-        product_variants_attributes: [ :id, :code, :code_alternative, :stocking_time, :cost_price, :currency_id, :amount_public, :amount_provider, :amount_shipping, :stock_min, :stock_max, :product_id, :deleted_at, :product_key, :product_description, :location, :execution_time, :depreciation, :_destroy ],
+        product_variants_attributes: [ :id, :code, :code_alternative, :stocking_time, :cost_price, :currency_id, :amount_public, :amount_provider, :amount_shipping, :stock_min, :stock_max, :product_id, :deleted_at, :product_key, :product_description, :location, :execution_time, :depreciation, :is_supplies, :_destroy ],
         )
     end
 end

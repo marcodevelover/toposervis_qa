@@ -261,6 +261,13 @@ rails g migration AddColumsDepreciationToPurchaseItem depot_id:integer
 
 rails g migration AddColumsDepreciationToProductVariant 'depreciation:decimal{18,6}'
 
+--------
+
+rails g migration AddColumsIsSuppliesToProductVariant is_supplies:boolean
+
+rails g scaffold Project folio:string name:string description:string date:datetime observation:text 'subtotal:decimal{18,6}' 'total:decimal{18,6}' 'adjustment_total:decimal{18,6}' 'tax:decimal{18,6}' 'tax_total:decimal{18,6}' 'tax_item_total:decimal{18,6}' state:string validity:datetime currency:references 'exchange_rate:decimal{18,6}' receipt_type:references entry_code:references provider:references created_by_id:integer deleted_at:datetime
+
+rails g model ProjectItem record:references{polymorphic} product_variant:references name:string quantity:integer 'unit_price:decimal{18,6}' 'total:decimal{18,6}' currency:string 'cost_price:decimal{18,6}' 'tax_item_total:decimal{18,6}' 'tax_total:decimal{18,6}' 'tax:decimal{18,6}' 'adjustment_total:decimal{18,6}' number_serie:string number_procedure:string number_part:string observation:text unit:string
 
 --------
 Documentation
