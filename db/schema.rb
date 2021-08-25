@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_055237) do
+ActiveRecord::Schema.define(version: 2021_08_25_060048) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -365,6 +365,7 @@ ActiveRecord::Schema.define(version: 2021_08_24_055237) do
     t.decimal "unpaid_balance_amount", precision: 18, scale: 6
     t.string "bill_key"
     t.string "bill_state"
+    t.string "cancellation_state"
     t.string "uuid"
     t.string "bill_folio"
   end
@@ -451,7 +452,7 @@ ActiveRecord::Schema.define(version: 2021_08_24_055237) do
     t.string "location"
     t.string "execution_time"
     t.decimal "depreciation", precision: 18, scale: 6
-    t.boolean "is_supplies"
+    t.boolean "is_supplies", default: false
     t.index ["currency_id"], name: "index_product_variants_on_currency_id"
     t.index ["product_id"], name: "index_product_variants_on_product_id"
   end
@@ -535,11 +536,11 @@ ActiveRecord::Schema.define(version: 2021_08_24_055237) do
     t.decimal "tax_item_total", precision: 18, scale: 6
     t.string "state"
     t.datetime "validity"
-    t.bigint "currency_id", null: false
+    t.bigint "currency_id"
     t.decimal "exchange_rate", precision: 18, scale: 6
-    t.bigint "receipt_type_id", null: false
-    t.bigint "entry_code_id", null: false
-    t.bigint "provider_id", null: false
+    t.bigint "receipt_type_id"
+    t.bigint "entry_code_id"
+    t.bigint "provider_id"
     t.integer "created_by_id"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
