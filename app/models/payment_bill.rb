@@ -80,10 +80,6 @@ class PaymentBill < ApplicationRecord
     begin
         ext_invoice = FacturapiRuby::Invoices.cancel(self.bill_key)
         self.update(bill_state: ext_invoice["status"], cancellation_state: ext_invoice["cancellation_status"])
-
-        #@sale = Sale.find_by(id: self.diagnosis.sale.id)
-        #@sale.update(bill_state: ext_invoice["status"], cancellation_state: ext_invoice["cancellation_status"])
-
     rescue FacturapiRuby::FacturapiRubyError => e
         puts e.data['message']
         raise e.data['message']
