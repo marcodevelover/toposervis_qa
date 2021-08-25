@@ -1,7 +1,7 @@
 class PaymentBill < ApplicationRecord
 	belongs_to :sale
   	belongs_to :payment_method
-  	belongs_to :payment_way
+  	#belongs_to :payment_way, optional: true
     
     validates :payment_date, presence: true
     validates :amount_paid, presence: true
@@ -9,6 +9,7 @@ class PaymentBill < ApplicationRecord
     validates :previous_balance_amount, presence: true
 
   	before_validation :invoice , on: :payment_bill
+    before_validation :cancel_invoice , on: :request_cancel_invoice, if: Proc.new { self.bill_state == "invoiced" }
 
     #validates_with AmountValidator, on: [:create, :update]
 
@@ -76,11 +77,12 @@ class PaymentBill < ApplicationRecord
   end
 
   def cancel_invoice
-    
     begin
-        ext_invoice = FacturapiRuby::Invoices.cancel(self.diagnosis.sale.bill_key)
-        @sale = Sale.find_by(id: self.diagnosis.sale.id)
-        @sale.update(bill_state: ext_invoice["status"], cancellation_state: ext_invoice["cancellation_status"])
+        ext_invoice = FacturapiRuby::Invoices.cancel(self.bill_key)
+        self.update(bill_state: ext_invoice["status"], cancellation_state: ext_invoice["cancellation_status"])
+
+        #@sale = Sale.find_by(id: self.diagnosis.sale.id)
+        #@sale.update(bill_state: ext_invoice["status"], cancellation_state: ext_invoice["cancellation_status"])
 
     rescue FacturapiRuby::FacturapiRubyError => e
         puts e.data['message']

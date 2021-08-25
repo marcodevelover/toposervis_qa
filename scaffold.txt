@@ -270,6 +270,11 @@ rails g scaffold Project folio:string name:string description:string date:dateti
 rails g model ProjectItem record:references{polymorphic} product_variant:references name:string quantity:integer 'unit_price:decimal{18,6}' 'total:decimal{18,6}' currency:string 'cost_price:decimal{18,6}' 'tax_item_total:decimal{18,6}' 'tax_total:decimal{18,6}' 'tax:decimal{18,6}' 'adjustment_total:decimal{18,6}' number_serie:string number_procedure:string number_part:string observation:text unit:string
 
 --------
+
+rails g migration AddColumsCancellationStateToPaymentBill cancellation_state:string
+
+
+--------
 Documentation
 
 -- Quotation --

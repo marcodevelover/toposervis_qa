@@ -25,13 +25,13 @@
             <%end%>
             <% end %>
 
-            
+            <% unless @payment_bill.bill_state == "invoiced" %>
             <%= link_to bill_admin_payment_bill_path(@payment_bill), :class => "btn btn-sm btn-info", remote: true   do %>
                 <em class="fa-1x far fa-money-bill-alt"></em> Facturar
             <% end %>
-            
+            <% end %>
 
-            <% if @payment_bill.sale.bill_state == "invoiced"  %>
+            <% if @payment_bill.bill_state == "invoiced"  %>
             <%= link_to request_cancel_invoice_admin_payment_bill_path(@payment_bill), :class => "btn btn-sm btn-info", remote: true   do %>
                 <em class="fa-1x far fa-money-bill-alt"></em> Cancelar
             <% end %>
