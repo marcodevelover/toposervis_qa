@@ -4,7 +4,9 @@
         <td><%= object.sale.folio %></td>
         <td></td>
         <td><%= object.sale.record.subtotal %></td>
-        <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activo</span>".html_safe %></td>
+
+
+        <td><span class="badge badge-<%= object.bill_state %>"> <%= t(object.bill_state) %> </span></td>
         <td>
             <%= link_to show_from_modal_admin_order_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('information') }   do %>
                 <em class="fas fa-info-circle"></em> 
