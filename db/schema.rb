@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_25_060048) do
+ActiveRecord::Schema.define(version: 2021_08_26_153906) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -304,6 +304,62 @@ ActiveRecord::Schema.define(version: 2021_08_25_060048) do
     t.string "serial_number"
     t.index ["product_variant_id"], name: "index_items_on_product_variant_id"
     t.index ["record_type", "record_id"], name: "index_items_on_record_type_and_record_id"
+  end
+
+  create_table "lending_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "product_variant_id", null: false
+    t.string "name"
+    t.integer "quantity"
+    t.decimal "unit_price", precision: 18, scale: 6
+    t.decimal "total", precision: 18, scale: 6
+    t.string "currency"
+    t.decimal "cost_price", precision: 18, scale: 6
+    t.decimal "tax_item_total", precision: 18, scale: 6
+    t.decimal "tax_total", precision: 18, scale: 6
+    t.decimal "tax", precision: 18, scale: 6
+    t.decimal "adjustment_total", precision: 18, scale: 6
+    t.string "number_serie"
+    t.string "number_procedure"
+    t.string "number_part"
+    t.text "observation"
+    t.string "unit"
+    t.string "state"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_variant_id"], name: "index_lending_items_on_product_variant_id"
+    t.index ["record_type", "record_id"], name: "index_lending_items_on_record_type_and_record_id"
+  end
+
+  create_table "lendings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "folio"
+    t.string "name"
+    t.string "description"
+    t.string "responsible"
+    t.datetime "date"
+    t.text "observation"
+    t.decimal "subtotal", precision: 18, scale: 6
+    t.decimal "total", precision: 18, scale: 6
+    t.decimal "adjustment_total", precision: 18, scale: 6
+    t.decimal "tax", precision: 18, scale: 6
+    t.decimal "tax_total", precision: 18, scale: 6
+    t.decimal "tax_item_total", precision: 18, scale: 6
+    t.string "state"
+    t.datetime "validity"
+    t.bigint "currency_id", null: false
+    t.decimal "exchange_rate", precision: 18, scale: 6
+    t.bigint "receipt_type_id", null: false
+    t.bigint "entry_code_id", null: false
+    t.bigint "provider_id", null: false
+    t.integer "created_by_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["currency_id"], name: "index_lendings_on_currency_id"
+    t.index ["entry_code_id"], name: "index_lendings_on_entry_code_id"
+    t.index ["provider_id"], name: "index_lendings_on_provider_id"
+    t.index ["receipt_type_id"], name: "index_lendings_on_receipt_type_id"
   end
 
   create_table "order_accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -900,6 +956,11 @@ ActiveRecord::Schema.define(version: 2021_08_25_060048) do
   add_foreign_key "expenses", "payment_methods"
   add_foreign_key "expenses", "providers"
   add_foreign_key "items", "product_variants"
+  add_foreign_key "lending_items", "product_variants"
+  add_foreign_key "lendings", "currencies"
+  add_foreign_key "lendings", "entry_codes"
+  add_foreign_key "lendings", "providers"
+  add_foreign_key "lendings", "receipt_types"
   add_foreign_key "order_accessories", "service_orders"
   add_foreign_key "orders", "currencies"
   add_foreign_key "orders", "customers"

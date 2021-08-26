@@ -1,0 +1,47 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  folio: MyString
+  name: MyString
+  description: MyString
+  responsible: MyString
+  date: 2021-08-26 10:38:53
+  observation: MyText
+  subtotal: 9.99
+  total: 9.99
+  adjustment_total: 9.99
+  tax: 9.99
+  tax_total: 9.99
+  tax_item_total: 9.99
+  state: MyString
+  validity: 2021-08-26 10:38:53
+  currency: one
+  exchange_rate: 9.99
+  receipt_type: one
+  entry_code: one
+  provider: one
+  created_by_id: 1
+  deleted_at: 2021-08-26 10:38:53
+
+two:
+  folio: MyString
+  name: MyString
+  description: MyString
+  responsible: MyString
+  date: 2021-08-26 10:38:53
+  observation: MyText
+  subtotal: 9.99
+  total: 9.99
+  adjustment_total: 9.99
+  tax: 9.99
+  tax_total: 9.99
+  tax_item_total: 9.99
+  state: MyString
+  validity: 2021-08-26 10:38:53
+  currency: two
+  exchange_rate: 9.99
+  receipt_type: two
+  entry_code: two
+  provider: two
+  created_by_id: 1
+  deleted_at: 2021-08-26 10:38:53

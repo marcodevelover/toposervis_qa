@@ -1,0 +1,45 @@
+wb = xlsx_package.workbook #create excel book
+wb.add_worksheet(name: "Productos") do |sheet|
+  sps_img = File.expand_path(Rails.root+'app/assets/images/pdf/logo.png')
+    sheet.add_image(:image_src => sps_img) do |image|
+      image.start_at 0, 0
+      image.end_at 6, 10
+    end
+
+  (1..12).each do |row|
+    sheet.add_row
+  end
+  header = wb.styles.add_style({:alignment => {:horizontal => :center, :vertical => :center, :wrap_text => true}, :border => { :style => :thin, :color => "000000" }}) 
+  border = wb.styles.add_style({:border => { :style => :thin, :color => "000000" }}) 
+  align_right = wb.styles.add_style({:alignment => {:horizontal => :right}}) 
+  align_left = wb.styles.add_style({:alignment => {:horizontal => :left}})  
+
+  hedears = Hash.new.tap do |head|
+    head[:id] = "ID"
+    head[:folio] = "Folio"
+    head[:name] = "Nombre"
+    head[:quantity] = "Cantidad"
+    head[:unit_price] = "Precio"
+    head[:total] = "Total"
+    head[:number_serie] = "Serie"
+    head[:product_state] = "Estatus de producto"
+
+  end
+  sheet.add_row hedears.values, :style => header
+  
+  @collection.each do |product|
+    data = Hash.new.tap do |datos|
+      datos[:id] = product.id
+      datos[:folio] = product.record.folio
+      datos[:name] = product.name
+      datos[:quantity] = product.quantity
+      datos[:unit_price] = product.unit_price
+      datos[:total] = product.total
+      datos[:number_serie] = product.number_serie
+      datos[:product_state] = product.product_state
+
+    end
+    sheet.add_row data.values, :style => border
+  end
+  
+end

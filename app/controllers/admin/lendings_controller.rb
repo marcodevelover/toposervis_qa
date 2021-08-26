@@ -1,23 +1,23 @@
-class Admin::ProjectsController < ApplicationController
+class Admin::LendingsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf]
+  before_action :set_lending, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf]
   respond_to :html, :json
   def page_name
-     @page_name = t('project_module')
+     @page_name = t('lending_module')
   end
-  # GET /projects
-  # GET /projects.json
+  # GET /lendings
+  # GET /lendings.json
   def index
     search
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            format.xlsx {render xlsx: "reports", template: "admin/projects/reports.xlsx.axlsx"}
+            format.xlsx {render xlsx: "reports", template: "admin/lendings/reports.xlsx.axlsx"}
     end
   end
 
-  # GET /projects/1
-  # GET /projects/1.json
+  # GET /lendings/1
+  # GET /lendings/1.json
   def show
   end
 
@@ -25,70 +25,70 @@ class Admin::ProjectsController < ApplicationController
     respond_to do |format|
         format.html
         format.pdf do
-            render pdf: "entrada_" + @project.folio,
+            render pdf: "entrada_" + @lending.folio,
             
-            template: "admin/projects/show_from_pdf.html.erb",
+            template: "admin/lendings/show_from_pdf.html.erb",
             layout: "pdf.html",
             viewport_size: '1280x1024',
             margin:  {   
                          bottom: 40,
                          
                          },
-            footer:  {   html: {   template: "admin/projects/footer_pdf.html.erb"}}
+            footer:  {   html: {   template: "admin/lendings/footer_pdf.html.erb"}}
         end
     end
   end
 
   def show_from_modal
-    respond_modal_with @project
+    respond_modal_with @lending
   end
 
-  # GET /projects/new
+  # GET /lendings/new
   def new
-    @project = Project.new
+    @lending = Lending.new
   end
 
-  # GET /projects/1/edit
+  # GET /lendings/1/edit
   def edit
   end
 
-  # POST /projects
-  # POST /projects.json
+  # POST /lendings
+  # POST /lendings.json
   def create
-    @project = Project.new(project_params)
-    @project.created_by_id = current_user.id
+    @lending = Lending.new(lending_params)
+    @lending.created_by_id = current_user.id
     respond_to do |format|
-      if @project.save
-        format.html { redirect_to [:admin, @project], notice: 'project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
+      if @lending.save
+        format.html { redirect_to [:admin, @lending], notice: 'lending was successfully created.' }
+        format.json { render :show, status: :created, location: @lending }
       else
         format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.json { render json: @lending.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /projects/1
-  # PATCH/PUT /projects/1.json
+  # PATCH/PUT /lendings/1
+  # PATCH/PUT /lendings/1.json
   def update
     respond_to do |format|
-      if @project.update(project_params)
-        format.html { redirect_to [:admin, @project], notice: 'project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
+      if @lending.update(lending_params)
+        format.html { redirect_to [:admin, @lending], notice: 'lending was successfully updated.' }
+        format.json { render :show, status: :ok, location: @lending }
       else
         format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.json { render json: @lending.errors, status: :unprocessable_entity }
       end
     end
   end
   def delete
-    respond_modal_for_delete_with(@project,true)
+    respond_modal_for_delete_with(@lending,true)
   end
-  # DELETE /projects/1
-  # DELETE /projects/1.json
+  # DELETE /lendings/1
+  # DELETE /lendings/1.json
   def destroy
-    @project.save!(context: :delete)
-    @object = @project
+    @lending.save!(context: :delete)
+    @object = @lending
     respond_to do |format|
       search
       @objects= @collection
@@ -106,7 +106,7 @@ class Admin::ProjectsController < ApplicationController
   end
 
   def product_variants
-    @q = ProductVariant.where("product_variants.deleted_at IS NULL").where("product_variants.is_supplies = 1").ransack(params[:q])
+    @q = ProductVariant.where("product_variants.deleted_at IS NULL").ransack(params[:q])
     @product_variants = @q.result(distinct: true)
     total_count = @product_variants.count
     respond_to do |format|
@@ -124,7 +124,7 @@ class Admin::ProjectsController < ApplicationController
   end
 
   def filter_form
-    @q = Project.ransack(params[:q])
+    @q = Lending.ransack(params[:q])
     respond_modal_with @q 
   end
 
@@ -132,20 +132,20 @@ class Admin::ProjectsController < ApplicationController
     params[:q] ||= {} 
     ####params[:per_page] = 10
     
-    @q = Project.search(params[:q])
+    @q = Lending.search(params[:q])
     @collection = @q.result(:distinct => true).order('id DESC').page(params[:page]).per(params[:per_page])
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_project
-      @project = Project.find(params[:id])
+    def set_lending
+      @lending = Lending.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def project_params
-      params.require(:project).permit(:folio, :name, :description, :date, :observation, :subtotal, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :receipt_type_id, :entry_code_id, :provider_id, :created_by_id, :deleted_at, :code_invoice, :payment_way_id,
-        project_items_attributes: [ :id, :product_variant_id, :name, :observation, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :number_serie, :number_procedure, :product_state, :observation, :_destroy, :serial_number ]
+    def lending_params
+      params.require(:lending).permit(:folio, :name, :description, :responsible, :date, :observation, :subtotal, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :receipt_type_id, :entry_code_id, :provider_id, :created_by_id, :deleted_at, :code_invoice, :payment_way_id,
+        lending_items_attributes: [ :id, :product_variant_id, :name, :observation, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :number_serie, :number_procedure, :product_state, :observation, :_destroy, :serial_number, :state ]
         )
     end
 end

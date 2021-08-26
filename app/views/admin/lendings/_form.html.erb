@@ -1,4 +1,4 @@
-  <%= simple_form_for([:admin, @project]) do |form| %>
+  <%= simple_form_for([:admin, @lending]) do |form| %>
   <%= form.error_notification %>
   <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
 
@@ -18,19 +18,6 @@
                                     <%= form.error :date, id: 'date_error' %>
                                   </div>  
                                 </div> 
-                                 <div class="col-lg-4 mb-4">
-                                  <%= form.label :currency, class: "col-form-label"%>
-                                  <div class="form-group">
-                                   <%=  form.collection_select :currency_id, Currency.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
-                                     <%= form.error :currency, id: 'currency_error' %>
-                                  </div>
-                                   
-                                 </div>
-                                 <div class="col-lg-4 mb-4x">
-                                    <%= form.label :exchange_rate, class: "col-form-label"%> *
-                                    <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true %>
-                                    <%= form.error :exchange_rate, id: 'exchange_rate_error' %>
-                                 </div>
                               </div>
                           </div>
                         </div>
@@ -38,15 +25,15 @@
                            <div class="col-md-12">
                               <div class="form-row">
                                 <div class="col-lg-4 mb-4">
-                                  <label class="form-label">Nombre del proyecto</label>
+                                  <label class="form-label">Responsable</label>
                                   <div class="form-group">
-                                    <%= form.text_field :name, class: "form-control" , placeholder: "Nombre", type: 'text'%>
-                                    <%= form.error :name, id: 'date_error' %>
+                                    <%= form.text_field :responsible, class: "form-control" , placeholder: "Responsable", type: 'text'%>
+                                    <%= form.error :responsible, id: 'date_error' %>
                                   </div>  
                                 </div> 
 
                                 <div class="col-lg-4 mb-4">
-                                  <label class="form-label">Descripción del proyecto</label>
+                                  <label class="form-label">Descripción</label>
                                   <div class="form-group">
                                     <%= form.text_field :description, class: "form-control" , placeholder: "Descripción", type: 'text'%>
                                     <%= form.error :description, id: 'date_error' %>
@@ -59,7 +46,7 @@
 
                           <!-- begin my product -->
                               <!-- Table Products -->
-                      <h4 class="box-title m-t-40">Insumos<small>(Registro de gastos)</small></h4>
+                      <h4 class="box-title m-t-40">Equipos</h4>
                       <hr>
 
                       <div class="row">
@@ -85,15 +72,15 @@
                                 <th class="text-center" data-field="number_serie">No. Serie</th>
                                 <th class="text-center" data-field="number_procedure">No. Pedimento</th>
                                 
-                                <th class="text-center" data-field="discount_import">Descuento importe</th>
+                                <th class="text-center" data-field="state">Estado</th>
                                 <th class="text-center" data-field="total_price">Precio total</th>
                                 <th class="text-center" data-field="last_name" data-sort-ignore="true" class="min-width">Eliminar</th>
                               </tr>
                             </thead>
                               <tbody>
                                 
-                                <%if @project.project_items.first %>
-                                  <% @project.project_items.each_with_index do |item,index| %>
+                                <%if @lending.lending_items.first %>
+                                  <% @lending.lending_items.each_with_index do |item,index| %>
                                     <tr class="text-center" data-id="<%=item.id%>">
                                       
                                       <td>
@@ -108,26 +95,27 @@
                                       <td><%= item.number_serie %></td>
                                       <td><%= item.number_procedure %></td>
                                       
-                                      <td class="row_total_discount"><%= item.adjustment_total ? item.adjustment_total : 0%></td>
+                                      <td class="row_total_state"><%= item.state %></td>
                                       <td class="row_total_price"><%= item.total %></td>
 
                                       <td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>
 
                                       
 
-                                        <input type="hidden" value="<%=item.product_variant.id%>" name="project[project_items_attributes][<%=index%>][product_variant_id]">
+                                        <input type="hidden" value="<%=item.product_variant.id%>" name="lending[lending_items_attributes][<%=index%>][product_variant_id]">
                                         
-                                        <input type="hidden" value="<%=item.name%>" name="project[project_items_attributes][<%=index%>][name]">
-                                        <input type="hidden" value="<%=item.number_serie%>" name="project[project_items_attributes][<%=index%>][number_serie]">
-                                        <input type="hidden" value="<%=item.number_procedure%>" name="project[project_items_attributes][<%=index%>][number_procedure]">
+                                        <input type="hidden" value="<%=item.name%>" name="lending[lending_items_attributes][<%=index%>][name]">
+                                        <input type="hidden" value="<%=item.number_serie%>" name="lending[lending_items_attributes][<%=index%>][number_serie]">
+                                        <input type="hidden" value="<%=item.number_procedure%>" name="lending[lending_items_attributes][<%=index%>][number_procedure]">
                                         
-                                        <input type="hidden" value="<%=item.observation%>" name="project[project_items_attributes][<%=index%>][observation]">
-                                        <input type="hidden" value="<%=item.unit%>" name="project[project_items_attributes][<%=index%>][unit]">
-                                        <input type="hidden" value="<%=item.quantity%>" name="project[project_items_attributes][<%=index%>][quantity]">
-                                        <input type="hidden" value="<%=item.unit_price%>" name="project[project_items_attributes][<%=index%>][unit_price]">
+                                        <input type="hidden" value="<%=item.observation%>" name="lending[lending_items_attributes][<%=index%>][observation]">
+                                        <input type="hidden" value="<%=item.unit%>" name="lending[lending_items_attributes][<%=index%>][unit]">
+                                        <input type="hidden" value="<%=item.quantity%>" name="lending[lending_items_attributes][<%=index%>][quantity]">
+                                        <input type="hidden" value="<%=item.unit_price%>" name="lending[lending_items_attributes][<%=index%>][unit_price]">
+                                        <input type="hidden" value="<%=item.state%>" name="lending[lending_items_attributes][<%=index%>][state]">
 
-                                        <input type="hidden" value="<%=item.total%>" name="project[project_items_attributes][<%=index%>][total]">
-                                        <input type="hidden" value="<%=item.id%>" name="project[project_items_attributes][<%=index%>][id]">
+                                        <input type="hidden" value="<%=item.total%>" name="lending[lending_items_attributes][<%=index%>][total]">
+                                        <input type="hidden" value="<%=item.id%>" name="lending[lending_items_attributes][<%=index%>][id]">
                                     </tr>
                                   <%end%>
                                 <%end%>
@@ -136,47 +124,12 @@
                           </table>
                         </div>
                       </div>
-    
-                      <div class="col-lg-12">
-                        <div class="col-md-3 offset-md-9">
-                          <div class="form-group">
-                            <label class="control-label">Importe ($)</label>
-                            <%= form.text_field :subtotal,class:"form-control",id:"total_sale", readonly:"readonly" %>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div class="col-lg-12">
-                        <div class="col-md-3 offset-md-9">
-                          <div class="form-group">
-                            <label class="control-label">Descuento ($)</label>
-                            <%= form.text_field :adjustment_total,class:"form-control",id:"adjustment_total", readonly:"readonly" %>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-lg-12">
-                        <div class="col-md-3 offset-md-9">
-                          <div class="form-group">
-                            <label class="control-label">IVA ($)</label>
-                            <%= form.text_field :tax_total,class:"form-control",id:"tax_total", readonly:"readonly" %>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-12">
-                        <div class="col-md-3 offset-md-9">
-                          <div class="form-group">
-                            <label class="control-label">Total ($)</label>
-                            <%= form.text_field :total,class:"form-control",id:"total_with_tax", readonly:"readonly" %>
-                          </div>
-                        </div>
-                      </div>                 
                       </br>
                      <div class="clearfix">
                         <div class="float-right">
                         <%= form.submit class: "btn btn-primary" %>
 
-                        <%= link_to admin_projects_path, :class => "btn btn-danger" do %>
+                        <%= link_to admin_lendings_path, :class => "btn btn-danger" do %>
                             Cancelar
                         <%end%>     
                         </div>
@@ -248,7 +201,16 @@
           </div>
 
           <div class="form-group">
-            <label class="control-label"><%= t('projects.quantity')%></label>
+            <label class="control-label">Estado</label>
+              <select class="form-control" data-placeholder="Estado" tabindex="1" id="state">
+                <option value="">Seleccionar</option>
+                  <option value="lending">Resguardado</option>
+                  <option value="return">Devuelto</option>
+              </select>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label"><%= t('lendings.quantity')%></label>
             <input type="number" class="form-control" id="note_quantity" onblur="setTotal()" value="0"> 
           </div>
 
@@ -281,7 +243,7 @@
           </div>
 
           <div class="form-group jump">
-            <label class="control-label"><%= t('projects.total')%></label>
+            <label class="control-label"><%= t('lendings.total')%></label>
             <input type="text" class="form-control" id="note_total" disabled="disabled"> 
           </div>
 
@@ -296,7 +258,7 @@
 
 <script type="text/javascript">
 
-$("#project_currency_id").select2({
+$("#lending_currency_id").select2({
   ajax: {
     url: '/admin/<%=controller_name%>/currencies',
     dataType: 'json',
@@ -347,7 +309,7 @@ function formatRepo (repo) {
   $container.find(".select2-result-repository__abbreviation").append(repo.abbreviation);
   
 
-  $("#project_exchange_rate").val(repo.exchange_rate);
+  $("#lending_exchange_rate").val(repo.exchange_rate);
   
   return $container;
 }
@@ -427,8 +389,8 @@ function formatRepo (repo) {
 
 function formatRepoSelection (repo) {
   // take the value of the currency
-  var quotation_exchange_rate = $("#project_exchange_rate").val();
-  var quotation_currency_text = $("#project_currency_id option:selected").text();
+  var quotation_exchange_rate = "1.0";
+  var quotation_currency_text = "MXN";
 
   $("#name").val(repo.product_name);
   $("#unit").val(repo.unit);
@@ -460,7 +422,7 @@ function formatRepoSelection (repo) {
 
 <script type="text/javascript">
 
-$("#project_provider_id").select2({
+$("#lending_provider_id").select2({
   ajax: {
     url: '/admin/<%=controller_name%>/providers',
     dataType: 'json',
@@ -529,8 +491,8 @@ function formatRepoSelection (repo) {
   // Products methods ****
   // variables
   var product_rows = document.getElementById('table_product').getElementsByTagName("tr").length;
-  var productCount = <%= @project.project_items.count.to_f %>;
-  var total = <%= @project.total.to_f %>
+  var productCount = <%= @lending.lending_items.count.to_f %>;
+  var total = <%= @lending.total.to_f %>
   
   // Open modal
   $("#open_modal").click(function(){
@@ -551,6 +513,7 @@ function formatRepoSelection (repo) {
                 "quantity": $("#note_quantity").val(),
                 "unit_price": $("#note_unit_price").val(),
                 "discount_type": $("#note_factor option:selected").text(),
+                "state": $("#state option:selected").text(),
                 "factor_id": $('#note_factor').val(),
                 "discount": $("#note_discount").val(),
                 "total": $("#note_total").val()};
@@ -576,7 +539,7 @@ function formatRepoSelection (repo) {
                 '</td><td>' + item.unit +
                 '</td><td>' + item.number_serie +
                 '</td><td>' + item.number_procedure +
-                '</td><td class="row_total_discount">' + item.discount +
+                '</td><td class="row_total_state">' + item.state +
                 '</td><td class="row_total_price">' + item.total +   
                 '<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>' +
                 '</td>' + create_row_input(item) +
@@ -586,16 +549,16 @@ function formatRepoSelection (repo) {
   // Crea los hidden fields, obtenidos en el formulario
   function create_row_input(item){
     var input =
-    '<input type="hidden" value="'+item.product_variant_id+'" name="project[project_items_attributes]['+productCount+'][product_variant_id]" >' +
-    '<input type="hidden" value="'+item.name+'" name="project[project_items_attributes]['+productCount+'][name]" >' +
-    '<input type="hidden" value="'+item.number_serie+'" name="project[project_items_attributes]['+productCount+'][number_serie]" >' +
-    '<input type="hidden" value="'+item.number_procedure+'" name="project[project_items_attributes]['+productCount+'][number_procedure]" >' +
-    '<input type="hidden" value="'+item.observation+'" name="project[project_items_attributes]['+productCount+'][observation]" >' +
-    '<input type="hidden" value="'+item.quantity+'" name="project[project_items_attributes]['+productCount+'][quantity]" >' +
-    '<input type="hidden" value="'+item.unit_price+'" name="project[project_items_attributes]['+productCount+'][unit_price]" >' +
-    '<input type="hidden" value="'+item.unit+'" name="project[project_items_attributes]['+productCount+'][unit]" >' +
-    '<input type="hidden" value="'+item.discount+'" name="project[project_items_attributes]['+productCount+'][adjustment_total]" >' +
-    '<input type="hidden" value="'+item.total+'" name="project[project_items_attributes]['+productCount+'][total]" >';
+    '<input type="hidden" value="'+item.product_variant_id+'" name="lending[lending_items_attributes]['+productCount+'][product_variant_id]" >' +
+    '<input type="hidden" value="'+item.name+'" name="lending[lending_items_attributes]['+productCount+'][name]" >' +
+    '<input type="hidden" value="'+item.number_serie+'" name="lending[lending_items_attributes]['+productCount+'][number_serie]" >' +
+    '<input type="hidden" value="'+item.number_procedure+'" name="lending[lending_items_attributes]['+productCount+'][number_procedure]" >' +
+    '<input type="hidden" value="'+item.observation+'" name="lending[lending_items_attributes]['+productCount+'][observation]" >' +
+    '<input type="hidden" value="'+item.quantity+'" name="lending[lending_items_attributes]['+productCount+'][quantity]" >' +
+    '<input type="hidden" value="'+item.unit_price+'" name="lending[lending_items_attributes]['+productCount+'][unit_price]" >' +
+    '<input type="hidden" value="'+item.unit+'" name="lending[lending_items_attributes]['+productCount+'][unit]" >' +
+    '<input type="hidden" value="'+item.state+'" name="lending[lending_items_attributes]['+productCount+'][state]" >' +
+    '<input type="hidden" value="'+item.total+'" name="lending[lending_items_attributes]['+productCount+'][total]" >';
     return input;
   }
   // Establece el total en el formulario
@@ -690,8 +653,8 @@ function formatRepoSelection (repo) {
   });
   // Enviar item para eliminar
   function generateOnDestroy(id){
-    var itemDestroy = '<tr><input type="hidden" value="1" name="project[project_items_attributes]['+productCount+'][_destroy]">'+
-      '<input type="hidden" value="'+id+'" name="project[project_items_attributes]['+productCount+'][id]"><tr>';
+    var itemDestroy = '<tr><input type="hidden" value="1" name="lending[lending_items_attributes]['+productCount+'][_destroy]">'+
+      '<input type="hidden" value="'+id+'" name="lending[lending_items_attributes]['+productCount+'][id]"><tr>';
     $('#table_product tbody').append(itemDestroy);
     productCount +=1;
   }

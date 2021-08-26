@@ -1,0 +1,125 @@
+<div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="6">
+              <table>
+                <tr>
+                  <td class="title" style="width:25%">
+                    <%= wicked_pdf_image_tag 'pdf/logo.png' %>
+                  </td>
+                  <td style="text-align: center; width:50%" class="top">
+                    <strong>Toposervis S de RL de CV</strong>
+                    <br>
+                    <span>RFC: TOP160404KU0</span>
+                    <br>
+                    <span>Calle 42 No.264 x 41A y 41C, C.P. 97203 </span>
+                    <br>
+                    <span>Francisco de Montejo III Mérida,Yucatán </span>
+                    <br>
+                    <span>Tel. 01 (800) 890 9383, (999) 4 29 82 78</span>
+                    <br>
+                  </td>
+                  <td style="text-align: center; width:25%">
+                    <br>
+                    <strong>RESGUARDO DE EQUIPOS</strong><br>
+                    <b>Folio:</b>
+                    <b class="blue"><%= @lending.folio %></b><br>
+                    <b>Fecha:</b>
+                    <b class="blue"><%= @lending.date.strftime("%d-%m-%Y") %></b><br>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        
+
+          <tr class="information">
+            <td colspan="6">
+              <table>
+                <tr>
+                  <td class="top">
+  
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr class="heading font-row-12">
+            
+            <td colspan="2" style="text-align: center;">Concepto</td>
+            <td style="text-align: center;">Info. Producto</td>
+            <td class="center">Precio</td>
+            <td class="center">Cantidad</td>
+            <td class="center">Total</td>
+          </tr>
+
+          <% @lending.lending_items.each do |item| %>
+            <tr  class="item font-row-12">
+
+                <td colspan="2" style="text-align: center;">
+                    <b><%= item.name %></b>
+
+                    <% unless item.product_variant.product.brand.blank? %>
+                     <b>MARCA:</b>
+                     <b><%= item.product_variant.product.brand %>;</b>
+                    <% end %>
+
+                    <% unless item.product_variant.product.model.blank? %>
+                      <b>MODELO:</b>
+                      <b><%= item.product_variant.product.model %></b>
+                    <% end %>
+                    
+                    <small><%= item.observation %></small>
+                </td>
+                <td style="text-align: left;">
+                    <small><b>Unidad: </b> <%= item.unit %></small><br>
+                    <small><b>No. Serie: </b> <%= item.number_serie %></small><br>
+                    <small><b>No. Pedimento: </b><%= item.number_procedure %></small><br>
+                </td>
+
+                <td class="center">
+                    <%= number_to_currency(item.unit_price) %>
+                </td>
+
+                <td class="center">
+                    <%= item.quantity %>
+                </td>
+                <td class="center">
+                    <%= number_to_currency(item.unit_price * item.quantity)  %>
+                    <br>
+                    <%= item.adjustment_total.blank? ? "" : "-" + number_to_currency(item.adjustment_total) %>
+                </td>
+            </tr>
+          <% end %>
+
+          <tr>
+            <td colspan="6"></td>
+          </tr>
+          <tr>
+            <td colspan="6"></td>
+          </tr>
+          <tr>
+            <td colspan="6"></td>
+          </tr>
+          <tr>
+            <td colspan="6"></td>
+          </tr>
+
+          <tr class="font-row-12">
+            <td colspan="6" class="center">
+               <strong>_________________________________</strong>
+            </td>
+          </tr>
+
+          <tr class="font-row-12">
+            <td colspan="6" class="center">
+               <strong>Toposervis S de RL de CV</strong>
+            </td>
+          </tr>
+
+              </table>
+            </td>
+          </tr>          
+        </table>
+    </div>

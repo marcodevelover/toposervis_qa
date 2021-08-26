@@ -314,6 +314,13 @@
                   </a>
                </li>    
                <% end %>
+               <% if can? :manage, ProductLine %>
+               <li class=" ">
+                  <a href="<%= admin_lendings_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Resguardo de equipos</span>
+                  </a>
+               </li>    
+               <% end %>
             </ul>
          </li> 
          <%end%>
