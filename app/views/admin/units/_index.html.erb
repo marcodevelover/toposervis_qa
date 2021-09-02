@@ -14,7 +14,7 @@
         		<em class="fa fa-edit"></em> 
         	<%end%>
         		
-        	<%= link_to delete_admin_unit_path(object), :class => "btn btn-sm btn-danger", data: { toggle: 'tooltip', placement: 'top', original_title: t('remove') }   do %>
+        	<%= link_to delete_admin_unit_path(object), :class => "btn btn-sm btn-danger", remote: true, data: { toggle: 'tooltip', placement: 'top', original_title: t('remove') }   do %>
         		<em class="fa fa-trash fa-fw"></em>
         	<%end%>           		
         </td>

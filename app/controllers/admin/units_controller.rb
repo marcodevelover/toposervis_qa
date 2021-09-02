@@ -57,6 +57,12 @@ class Admin::UnitsController < ApplicationController
   # DELETE /admin/units/1.json
   def destroy
     @unit.save!(context: :delete)
+    @object = @unit
+    respond_to do |format|
+      search
+      @objects= @collection
+      format.js  { render "admin/shared/save.js.erb", layout: false, content_type: 'text/javascript' }
+    end
   end
 
   def filter_form
