@@ -103,12 +103,13 @@ class Admin::ReportsController < ApplicationController
         params[:q][:created_at_lteq] = Time.zone.parse(params[:q][:created_at_lteq]).to_date.end_of_day rescue ""
       end
       @q = Sale.ransack(params[:q])
+      params[:per_page] = 500
       @collection = @q.result(:distinct => true).order('id DESC').page(params[:page]).per(params[:per_page])
     end
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            #params[:per_page] = 10000
+            
             format.xlsx {render xlsx: "reports", template: "admin/sales/reports.xlsx.axlsx"}
     end
   end
