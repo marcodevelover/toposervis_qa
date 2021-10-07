@@ -30,7 +30,7 @@ wb.add_worksheet(name: "Cotizaciones") do |sheet|
       datos[:folio] = quotation_service.folio
       datos[:customer] = quotation_service.customer.name
       datos[:total] = number_to_currency(quotation_service.total)
-      datos[:created_at] = quotation.created_at.to_time.to_formatted_s(:db)
+      datos[:created_at] = quotation_service.created_at.to_time.to_formatted_s(:db)
       datos[:state] = t(quotation_service.state)
     end  
     sheet.add_row receptorDomicilio.values, :style => border

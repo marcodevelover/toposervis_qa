@@ -188,6 +188,7 @@ class Admin::QuotationServicesController < ApplicationController
     #######params[:per_page] = 10
     
     @q = QuotationService.search(params[:q])
+    params[:per_page] = 500
     @collection = @q.result(:distinct => true).order('id DESC').page(params[:page]).per(params[:per_page])
   end
 
