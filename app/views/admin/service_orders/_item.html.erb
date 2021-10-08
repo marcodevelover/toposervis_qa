@@ -116,6 +116,15 @@
                             <%= f.text_field :total,class:"form-control",id:"total_with_tax", readonly:"readonly" %>
                           </div>
                         </div>
+                      </div>  
+
+                      <div class="col-lg-12">
+                        <div class="col-md-3 offset-md-9">
+                          <div class="form-group">
+                            <label class="control-label">Total - Abonos($)</label>
+                            <input class="form-control" id="total_minus_partial_payment" readonly="readonly" type="text">
+                          </div>
+                        </div>
                       </div>                 
                       </br>
 
@@ -283,6 +292,7 @@ function formatRepoSelection (repo) {
   var product_rows_item = document.getElementById('table_product_item').getElementsByTagName("tr").length;
   var productCount_item = <%= @service_order.diagnosis.items.count.to_f %>;
   var total = <%= @service_order.diagnosis.total.to_f %>
+  var partial_payments = <%= @service_order.partial_payments.sum(:amount).to_f %>
   
   // Open modal
   $("#open_modal_item").click(function(){
@@ -491,6 +501,7 @@ function formatRepoSelection (repo) {
     $("#tax_total").val(tax_total);
     $("#total_with_tax").val(total_with_tax);
     $("#adjustment_total").val(total_discount);
+    $("#total_minus_partial_payment").val(total_with_tax - partial_payments);
   }
 
   // End products ****

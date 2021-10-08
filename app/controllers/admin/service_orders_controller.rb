@@ -1,6 +1,6 @@
 class Admin::ServiceOrdersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_service_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :diagnoses, :output, :delivered, :sales, :bill, :invoice, :cancel_invoice, :request_cancellation_state_invoice, :cancellation_state_invoice]
+  before_action :set_service_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :diagnoses, :output, :delivered, :sales, :bill, :invoice, :cancel_invoice, :request_cancellation_state_invoice, :cancellation_state_invoice, :add_partial_payment]
   respond_to :html, :json
 
   def page_name
@@ -82,6 +82,14 @@ class Admin::ServiceOrdersController < ApplicationController
     end
   end
 
+  def add_partial_payment
+    respond_modal_with @service_order
+  end
+
+  def assign_branch
+    @service_order.attributes =  service_order_params 
+    respond_modal_action_with(@service_order)
+  end
   # PATCH/PUT /service_orders/1
   # PATCH/PUT /service_orders/1.json
   def update
@@ -283,6 +291,7 @@ class Admin::ServiceOrdersController < ApplicationController
     def service_order_params
       params.require(:service_order).permit(:date_admission, :customer_id, :product_id, :serie, :brand, :model, :observation, :deleted_at, :status, :user_id, :state,
         order_accessories_attributes: [ :id, :service_order_id, :accessory, :quantity, :_destroy ],
+        partial_payments_attributes: [ :id, :service_order_id, :amount, :_destroy ],
         type_service_order_ids: [], images_attachments_attributes: [:id, :_destroy],
         diagnosis_attributes: [ :id, :service_order_id, :date, :delivery_time, :date_delivery, :subtotal, :adjustment_total, :tax_total, :total, :is_tax, :is_done, :is_authorized,
           diagnosis_type_ids: [],

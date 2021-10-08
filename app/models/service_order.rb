@@ -11,6 +11,8 @@ class ServiceOrder < ApplicationRecord
   accepts_nested_attributes_for :images_attachments, allow_destroy: true
   has_one :diagnosis, inverse_of: :service_order, touch: true
   accepts_nested_attributes_for :diagnosis, reject_if: :all_blank, allow_destroy: true
+  has_many :partial_payments
+  accepts_nested_attributes_for :partial_payments, reject_if: :all_blank, allow_destroy: true
 
   before_create :set_folio, :set_state
   before_update :update_state, if: Proc.new { self.diagnosis.present? }

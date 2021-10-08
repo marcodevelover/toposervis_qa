@@ -261,6 +261,30 @@
               <%end%>
             </td>
           </tr>
+
+
+          <tr>
+            <td colspan="4">
+              <table>
+                <tr>
+                  <td>
+                    
+                  </td> 
+                </tr>
+              </table>
+            </td>
+            <td class="top"><b>ABONOS TOTALES:</b></td>
+            <td class="center top">
+              <% if @diagnosis.is_tax %>
+              <b><%= number_to_currency(@diagnosis.service_order.partial_payments.sum(:amount)) %> <%= @diagnosis.currency.name %></b>
+              
+              <%else%>
+              <b><%= number_to_currency(@diagnosis.service_order.partial_payments.sum(:amount)) %> <%= @diagnosis.currency.name %></b>
+              
+              <%end%>
+            </td>
+          </tr>
+
           <tr>
             <td colspan="6"> <p style="text-align: center;"><br><br>Este comprobante no tiene validez fiscal.<p></td>
           </tr>

@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     post  'quotation_services/:id/to_sell', :to => 'quotation_services#to_sell', as: :to_sell_services
     get  'products/new_service', to: 'products#new_service', as: 'new_service'
     get  'products/:id/edit_service', to: 'products#edit_service', as: 'edit_service'
+    patch  'service_orders/:id/assign_branch', :to => 'service_orders#assign_branch', as: :assign_branch
     resources :users do
       get :delete, on: :member
       get :filter_form, on: :collection
@@ -182,6 +183,7 @@ Rails.application.routes.draw do
       put :cancellation_state_invoice, on: :member
       get :products_accessories, on: :collection
       get :users, on: :collection
+      get :add_partial_payment, on: :member
     end
     resources :payment_ways  do
       get :delete, on: :member

@@ -89,6 +89,7 @@ es:
   category_module: Categorías
   categories: Categorías
   information: Información
+  partial_payment: Abonos
   help: Ayuda
   invoice_information: Para poder emitir una factura es necesario que la información del documento este completa, Razón Social, RFC, Uso de CFDI e información de productos/servicios con sus respectivas claves SAT.
   service_order: Orden de servicio
@@ -374,6 +375,9 @@ es:
     state: Estatus
     is_done: ¿Listo?
     is_authorized: ¿Autorizado?
+    partial_payment: Abonos
+  partial_payments:
+    amount: Abonos
   diagnosis:
     product: Producto
     total: Total
@@ -884,6 +888,9 @@ es:
         brand: Marca
         model: Modelo
         type_service_orders: Tipo de servicios
+      partial_payment:
+        amount: Abono
+        delete: Eliminar
       diagnosis:
         diagnosis_type_id: Tipo de diagnostico
         diagnosis_types: Tipo de diagnostico

@@ -1,5 +1,4 @@
 <%= render "show"%>
-
 <%= simple_form_for([:admin, @service_order]) do |form| %>
   <%= form.error_notification %>
   <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
@@ -203,6 +202,7 @@
             <!-- END card-->
 <% end %>
 
+<%= render "partial_payment"%>
 
 <!-- Diagnosis /.modal -->
 <div id="note_modal" class="modal fade" role="dialog">

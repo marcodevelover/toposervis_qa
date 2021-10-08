@@ -11,6 +11,7 @@
         <td><%= object.serie %></td>
         <td><%= object.brand %></td>
         <td><%= object.model %></td>
+        <td><%= number_to_currency(object.partial_payments.sum(:amount)) %></td>
         <td><span class="badge badge-active"><%= object.diagnosis.blank? ? "" : object.diagnosis.sale.blank? ? "" : t(object.diagnosis.sale.state) %></span></td>
         <td>
             <% if object.deleted_at? %>
@@ -26,6 +27,12 @@
             <% if can? :read, object%>
             <%= link_to show_from_modal_admin_service_order_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('information') }   do %>
                 <em class="fas fa-info-circle"></em> 
+            <%end%>
+            <%end%>
+
+            <% if can? :read, object%>
+            <%= link_to add_partial_payment_admin_service_order_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('partial_payment') }   do %>
+                <em class="fas fa-hand-holding-usd"></em> 
             <%end%>
             <%end%>
 

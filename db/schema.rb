@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_26_153906) do
+ActiveRecord::Schema.define(version: 2021_10_07_192430) do
 
   create_table "accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -347,11 +347,11 @@ ActiveRecord::Schema.define(version: 2021_08_26_153906) do
     t.decimal "tax_item_total", precision: 18, scale: 6
     t.string "state"
     t.datetime "validity"
-    t.bigint "currency_id", null: false
+    t.bigint "currency_id"
     t.decimal "exchange_rate", precision: 18, scale: 6
-    t.bigint "receipt_type_id", null: false
-    t.bigint "entry_code_id", null: false
-    t.bigint "provider_id", null: false
+    t.bigint "receipt_type_id"
+    t.bigint "entry_code_id"
+    t.bigint "provider_id"
     t.integer "created_by_id"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
@@ -405,6 +405,14 @@ ActiveRecord::Schema.define(version: 2021_08_26_153906) do
     t.index ["type_service_order_id"], name: "index_orders_types_on_type_service_order_id"
   end
 
+  create_table "partial_payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "service_order_id", null: false
+    t.decimal "amount", precision: 18, scale: 6
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["service_order_id"], name: "index_partial_payments_on_service_order_id"
+  end
+
   create_table "payment_bills", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "sale_id"
     t.integer "payment_method_id"
@@ -433,6 +441,14 @@ ActiveRecord::Schema.define(version: 2021_08_26_153906) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "payment_method_key"
+  end
+
+  create_table "payment_partials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "service_order_id", null: false
+    t.decimal "amount", precision: 18, scale: 6
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["service_order_id"], name: "index_payment_partials_on_service_order_id"
   end
 
   create_table "payment_ways", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -966,6 +982,8 @@ ActiveRecord::Schema.define(version: 2021_08_26_153906) do
   add_foreign_key "orders", "customers"
   add_foreign_key "orders_types", "service_orders"
   add_foreign_key "orders_types", "type_service_orders"
+  add_foreign_key "partial_payments", "service_orders"
+  add_foreign_key "payment_partials", "service_orders"
   add_foreign_key "product_variant_images", "product_variants"
   add_foreign_key "product_variants", "currencies"
   add_foreign_key "product_variants", "products"
