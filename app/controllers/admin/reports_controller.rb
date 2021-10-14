@@ -188,9 +188,9 @@ class Admin::ReportsController < ApplicationController
       end
       @q = Product.ransack(params[:q])
       @collection = @q.result(distinct: true).
-      select('products.*, stock_movements.folio, stock_movements.description, 
+      select('products.*, stock_movements.folio, stock_movements.description as stock_movements_description, 
         stock_movements.stock, stock_movements.quantity, stock_movements.cost_price, 
-        stock_movements.deleted_at, stock_movements.created_at'
+        stock_movements.deleted_at as stock_movements_deleted_at, stock_movements.created_at as stock_movements_created_at'
         ).
       joins(product_variants: [{ stock_item: :stock_movements }]).
       page(params[:page]).per(params[:per_page])
