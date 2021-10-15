@@ -47,12 +47,16 @@
   </div> 
 </div> 
 
+<div class="form-group">
+      ¿Es servicio? <small><i>Seleccione si es producto o servicio.</i></small>
+      <br><%= form.collection_radio_buttons :is_service, [[true, 'Si'], [false, 'No']], :first, :last %>
+</div>
+
   <div class="form-group">
         <%= form.hidden_field :product_line_id, type: "hidden", value: "14" %>
         <%= form.hidden_field :is_service_order, type: "hidden", value: "0" %>
         <%= form.hidden_field :required_serial_number, type: "hidden", value: "0" %>
         <%= form.hidden_field :available_for_sale, type: "hidden", value: "1" %>
-        <%= form.hidden_field :is_service, type: "hidden", value: "1" %>
   </div>
 
    <div class="required">* <%= t('required_fields')%></div>
