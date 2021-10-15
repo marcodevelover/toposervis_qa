@@ -12,7 +12,7 @@
         <td><%= object.brand %></td>
         <td><%= object.model %></td>
         <td><%= number_to_currency(object.partial_payments.sum(:amount)) %></td>
-        <td><span class="badge badge-active"><%= object.diagnosis.blank? ? "" : object.diagnosis.sale.blank? ? "" : t(object.diagnosis.sale.state) %></span></td>
+        <td></td>
         <td>
             <% if object.deleted_at? %>
                 <span class="badge badge-danger">Baja</span>
