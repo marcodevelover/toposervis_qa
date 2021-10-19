@@ -39,7 +39,7 @@ wb.add_worksheet(name: "Productos") do |sheet|
       datos[:brand] = product.brand
       datos[:model] = product.model
       datos[:folio] = product.folio
-      datos[:created_at] = product.created_at.to_time.to_formatted_s(:db)
+      datos[:created_at] = product.stock_movements_created_at.to_time.to_formatted_s(:db)
       datos[:description] = product.description
       datos[:quantity] = product.quantity
       datos[:stock] = product.stock
