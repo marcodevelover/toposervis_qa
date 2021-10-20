@@ -253,14 +253,14 @@ class Admin::ReportsController < ApplicationController
       end
       @q = Product.ransack(params[:q])
       @collection = @q.result(distinct: true).
-      select('products.*, stock_movements.folio, stock_movements.description, stock_movements.stock, stock_movements.quantity, stock_movements.cost_price, stock_movements.deleted_at, stock_movements.created_at', 'product_stocks.serial_number').
+      select('products.*, stock_movements.folio, stock_movements.description as stock_movements_description, stock_movements.stock, stock_movements.quantity, stock_movements.cost_price, stock_movements.deleted_at as stock_movements_deleted_at, stock_movements.created_at as stock_movements_created_at', 'product_stocks.serial_number').
       joins(product_variants: [{ stock_item: :stock_movements }]).left_outer_joins(product_variants: :product_stocks).where('stock_movements.description = ?', 'Venta').
       page(params[:page]).per(params[:per_page])
     end
     respond_to do |format| 
             format.html { }
             format.js  { respond_modal_index_with (@collection)}
-            #params[:per_page] = 10000
+            params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/purchases/out_total.xlsx.axlsx"}
     end 
   end
@@ -288,6 +288,33 @@ class Admin::ReportsController < ApplicationController
             format.js  { respond_modal_index_with (@collection)}
             #params[:per_page] = 10000
             format.xlsx {render xlsx: "reports", template: "admin/purchases/purchase_item.xlsx.axlsx"}
+    end 
+  end
+
+  def item
+    @page_description = 'Salidas detallado'
+    if params[:q].nil?
+      @q = Item.ransack(params[:q])
+    end
+    unless params[:q].nil?
+      created_at_gt = params[:q][:created_at_gteq]
+      created_at_lt = params[:q][:created_at_lteq]
+
+      if params[:q][:created_at_gteq].present?
+        params[:q][:created_at_gteq] = Time.zone.parse(params[:q][:created_at_gteq]).to_date.beginning_of_day rescue ""
+      end
+
+      if params[:q][:created_at_lteq].present?
+        params[:q][:created_at_lteq] = Time.zone.parse(params[:q][:created_at_lteq]).to_date.end_of_day rescue ""
+      end
+      @q = Item.ransack(params[:q])
+      @collection = @q.result(distinct: true).page(params[:page]).per(params[:per_page])
+    end
+    respond_to do |format| 
+            format.html { }
+            format.js  { respond_modal_index_with (@collection)}
+            params[:per_page] = 10000
+            format.xlsx {render xlsx: "reports", template: "admin/sales/item.xlsx.axlsx"}
     end 
   end
 end

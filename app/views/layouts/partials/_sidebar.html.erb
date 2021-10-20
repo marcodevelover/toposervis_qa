@@ -414,6 +414,13 @@
                </li> 
                <% end %>
 
+               <% if can? :item, :Report%>
+               <li class=" ">
+                  <a href="<%= admin_reports_item_path %>" title="<%=t('notification_module')%>">
+                     <span data-localize="">Salidas detallado</span>
+                  </a>
+               </li> 
+               <% end %>
 
 
 
