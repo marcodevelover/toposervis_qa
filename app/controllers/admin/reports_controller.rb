@@ -308,6 +308,7 @@ class Admin::ReportsController < ApplicationController
         params[:q][:created_at_lteq] = Time.zone.parse(params[:q][:created_at_lteq]).to_date.end_of_day rescue ""
       end
       @q = Item.ransack(params[:q])
+      params[:per_page] = 10000
       @collection = @q.result(distinct: true).page(params[:page]).per(params[:per_page])
     end
     respond_to do |format| 
