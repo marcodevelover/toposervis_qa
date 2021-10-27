@@ -39,10 +39,10 @@ class Project < ApplicationRecord
       @stock = StockItem.find_by(product_variant_id: item.product_variant_id)
       @stock.update(stock: @stock.stock - item.quantity)
       @stock.stock_movements.create(stock_item_id: @stock, folio: self.folio, description: 'Registro de gastos', stock: @stock.stock, quantity: -item.quantity, total: item.total, currency_id: self.currency_id, cost_price: item.unit_price)
-      if item.number_serie != 'N/A' && !item.number_serie.blank?
-        @product_stock = ProductStock.find_by(product_variant_id: item.product_variant_id, number_serie: item.number_serie)
-        @product_stock.update(status: "assigned")
-      end
+      ###if item.number_serie != 'N/A' && !item.number_serie.blank?
+      ###  @product_stock = ProductStock.find_by(product_variant_id: item.product_variant_id, number_serie: item.number_serie)
+      ###  @product_stock.update(status: "assigned")
+      ###end
     end
   end  
 
