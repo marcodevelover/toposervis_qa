@@ -4,6 +4,16 @@
                 <%= f.label :amount, class: "col-form-label"%>
                 <%= f.text_field :amount, class: "form-control", type: "number" %>
           </div>
+
+          <div class="form-group">
+                <%= f.label :date_of_payment, class: "col-form-label"%>
+                <%= f.text_field :date_of_payment, class: "form-control", type: "fecha" , type: 'date', value: (f.object.date_of_payment ? f.object.date_of_payment.to_date : '')%>
+          </div>
+
+
+                                    
+
+
           <div class="form-group">
                 <%= f.label :delete, class: "col-form-label"%>
                 <%= f.check_box :_destroy %>

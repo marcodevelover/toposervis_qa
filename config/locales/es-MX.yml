@@ -378,6 +378,7 @@ es:
     partial_payment: Abonos
   partial_payments:
     amount: Abonos
+    date_of_payment: Fecha de abono
   diagnosis:
     product: Producto
     total: Total
@@ -890,6 +891,7 @@ es:
         type_service_orders: Tipo de servicios
       partial_payment:
         amount: Abono
+        date_of_payment: Fecha de abono
         delete: Eliminar
       diagnosis:
         diagnosis_type_id: Tipo de diagnostico
