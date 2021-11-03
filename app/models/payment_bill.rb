@@ -29,6 +29,7 @@ class PaymentBill < ApplicationRecord
                                             },
                             payments:       [{
                                                 "payment_form": self.payment_method.payment_method_key,
+                                                "date": self.payment_date.utc,
                                                 related: [{ uuid: self.sale.uuid,
                                                            installment: self.partiality_number, 
                                                            last_balance: self.previous_balance_amount,
@@ -57,6 +58,7 @@ class PaymentBill < ApplicationRecord
                                             },
                             payments:       [{
                                                 "payment_form": self.payment_method.payment_method_key,
+                                                "date": self.payment_date.utc,
                                                 related: [{ uuid: self.sale.uuid,
                                                            installment: self.partiality_number, 
                                                            last_balance: self.previous_balance_amount,
