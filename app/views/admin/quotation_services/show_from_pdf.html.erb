@@ -222,8 +222,8 @@
 
 
             </td>
-            <td><b>IVA <%= (@quotation_service.tax * 100).to_i %>%</b></td>
-            <td class="center"> <%= number_to_currency(@quotation_service.tax_total) %></td>
+            <td><% if @quotation_service.is_tax %><b>IVA <%= (@quotation_service.tax * 100).to_i %>%</b><% end %></td>
+            <td class="center"> <% if @quotation_service.is_tax %><%= number_to_currency(@quotation_service.tax_total) %><% end %></td>
           </tr>
 
           <tr class="details font-row-12">
@@ -242,7 +242,12 @@
             </td>
             <td class="top"><b>TOTAL:</b></td>
             <td class="center top">
-              <b><%= number_to_currency(@quotation_service.total) %> <%= @quotation_service.currency.name %></b>
+              <% if @quotation_service.is_tax %>
+                <b><%= number_to_currency(@quotation_service.total) %> <%= @quotation_service.currency.name %></b>
+              <% end %>
+              <% unless @quotation_service.is_tax %>
+                <b><%= number_to_currency(@quotation_service.subtotal) %> <%= @quotation_service.currency.name %></b>
+              <% end %>
             </td>
           </tr>
 
