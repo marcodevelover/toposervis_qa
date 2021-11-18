@@ -283,6 +283,7 @@ rails d model PaymentPartial service_order:references 'amount:decimal{18,6}'
 
 rails g model PartialPayment service_order:references 'amount:decimal{18,6}'
 
+rails g migration AddColumsDateOfPaymentToPartialPayment date_of_payment:datetime
 --------
 Documentation
 

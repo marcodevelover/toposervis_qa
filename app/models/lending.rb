@@ -39,10 +39,7 @@ class Lending < ApplicationRecord
       @stock = StockItem.find_by(product_variant_id: item.product_variant_id)
       @stock.update(stock: @stock.stock - item.quantity)
       @stock.stock_movements.create(stock_item_id: @stock, folio: self.folio, description: 'Prestamo de equipo', stock: @stock.stock, quantity: -item.quantity, total: item.total, currency_id: 1, cost_price: item.unit_price)
-      if item.number_serie != 'N/A' && !item.number_serie.blank?
-        @product_stock = ProductStock.find_by(product_variant_id: item.product_variant_id, serial_number: item.serial_number)
-        @product_stock.update(status: "assigned")
-      end
+
     end
   end  
 
@@ -51,10 +48,7 @@ class Lending < ApplicationRecord
       @stock = StockItem.find_by(product_variant_id: item.product_variant_id)
       @stock.update(stock: @stock.stock + item.quantity)
       @stock.stock_movements.create(stock_item_id: @stock, folio: self.folio, description: 'Devolución de equipo', stock: @stock.stock, quantity: item.quantity, total: item.total, currency_id: 1, cost_price: item.unit_price, deleted_at: DateTime.now )
-      if item.serial_number != 'N/A' && !item.serial_number.blank?
-        @product_stock = ProductStock.find_by(serial_number: item.serial_number)
-        @product_stock.update(status: nil)
-      end
+
     end
   end 
 

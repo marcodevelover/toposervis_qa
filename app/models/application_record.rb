@@ -122,6 +122,7 @@ class ApplicationRecord < ActiveRecord::Base
                         items:          (@items.map { |s| { quantity: s.quantity, #{}
                                                             product: { description: s.name,
                                                                        product_key: s.product_variant.product_key, 
+                                                                       extended_description: s.extended_description, 
                                                                        price: s.unit_price - s.adjustment_total,
                                                                        unit_key: s.product_variant.product.unit.unit_key, 
                                                                        tax_included: false} 
