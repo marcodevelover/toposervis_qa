@@ -1,0 +1,15 @@
+FROM ruby:2.6.4
+
+USER root
+
+WORKDIR /opt/app
+
+RUN set -ex \
+  && apt-get -y update && apt-get -y upgrade  \
+  && apt-get -y --force-yes install \
+     apt-utils \
+     ca-certificates \
+     nodejs \
+     npm \
+     build-essential \
+  && echo '--END RUN--'
