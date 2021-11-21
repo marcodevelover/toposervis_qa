@@ -1,18 +1,14 @@
 <% if @collection.each do |object| %>
 <% if can? :read, object %>
 <tr>    
-        <% if current_user.role && current_user.role.name != "customer" %>
-        
-        <% end %>
+        <td scope="row" ><%= object.id %></td>
         <td><%= object.folio %></td>
         <td><%= object.date_admission.to_formatted_s(:db)  %></td>
         <td><%= object.customer ? object.customer.business_name : "N/A" %></td>
         <td><%= object.product ? object.product.name : "N/A" %></td>
         <td><%= object.serie %></td>
-        <td><%= object.brand %></td>
-        <td><%= object.model %></td>
-        <td><%= number_to_currency(object.partial_payments.sum(:amount)) %></td>
-        <td></td>
+        <td><span class="badge badge-active"><%= object.diagnosis.blank? ? "" : t(object.diagnosis.is_done) %></span></td>
+        <td><span class="badge badge-active"><%= object.diagnosis.blank? ? "" : t(object.diagnosis.is_authorized) %></span></td>
         <td>
             <% if object.deleted_at? %>
                 <span class="badge badge-danger">Baja</span>
@@ -25,20 +21,14 @@
 
         <td>
             <% if can? :read, object%>
-            <%= link_to show_from_modal_admin_service_order_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('information') }   do %>
+            <%= link_to show_from_modal_admin_service_order_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
                 <em class="fas fa-info-circle"></em> 
-            <%end%>
-            <%end%>
-
-            <% if can? :read, object%>
-            <%= link_to add_partial_payment_admin_service_order_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('partial_payment') }   do %>
-                <em class="fas fa-hand-holding-usd"></em> 
             <%end%>
             <%end%>
 
 <% unless object.state == "diagnosed" %>
             <% if can? :update, object %>
-        	<%= link_to edit_admin_service_order_path(object), :class => "btn btn-sm btn-info", data: { toggle: 'tooltip', placement: 'top', original_title: t('service_order') } do %>
+        	<%= link_to edit_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
         		<em class="fa fa-edit"></em> 
         	<%end%>
             <% end %>
@@ -46,7 +36,7 @@
 
 
             <% if can? :update, object %>
-            <%= link_to diagnoses_admin_service_order_path(object), :class => "btn btn-sm btn-info", data: { toggle: 'tooltip', placement: 'top', original_title: t('to_diagnose') } do %>
+            <%= link_to diagnoses_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
                 <em class="fa fa-wrench"></em> 
             <%end%>
             <%end%>
@@ -57,25 +47,22 @@
             <%if object.diagnosis.present?%>
 
 
-            <%= link_to sales_admin_service_order_path(object), :class => "btn btn-sm btn-info #{object.diagnosis.sale.present? ? '' : ''}", data: { toggle: 'tooltip', placement: 'top', original_title: t('sale_order') } do %>
+            <%= link_to sales_admin_service_order_path(object), :class => "btn btn-sm btn-info" do %>
                 <em class="fa-1x fas fa-shopping-cart"></em>
             <%end%>
+
 
 
             <%end%>
             <%end%>
 
             <% if can? :update, object %>
-                <% if object.diagnosis.present? && object.diagnosis.sale.present? && object.state == "sold"  %>
-                <%= link_to output_admin_service_order_path(object), :class => "btn btn-sm btn-info", remote: true, data: { toggle: 'tooltip', placement: 'top', original_title: t('deliver') }   do %>
+                <% if object.state == "sold" %>
+                <%= link_to output_admin_service_order_path(object), :class => "btn btn-sm btn-info", remote: true   do %>
                     <em class="fa fa-share"></em> 
                 <% end %>
             <% end %>
             <%end%>
-
-             <%= link_to admin_service_order_path(object), :class => "btn btn-sm btn-info", data: { toggle: 'tooltip', placement: 'top', original_title: t('bill') } do %>
-                <em class="fa-1x fas fa-external-link-alt"></em>
-             <%end%>
 
             <% if can? :read, object %>
             <button class="btn dropdown-toggle btn-info" type="button" data-toggle="dropdown" aria-expanded="false"><em class="fas fa-print"></em></button>
@@ -91,22 +78,11 @@
                     <%end%>
                     <% end %>
 
-                    <% if object.diagnosis.present? && object.diagnosis.sale.present? && object.state == "delivered"%>
-                    <%= link_to output_pdf_admin_diagnosis_path(object.diagnosis.id, format: :pdf), :class => "dropdown-item", target: :_blank do %>
-                        Orden de salida
-                    <%end%>
-                    <%end%>
-
-                    <% if object.diagnosis.present? && object.diagnosis.sale.present?%>
-                    <%= link_to note_from_pdf_admin_diagnosis_path(object.diagnosis.id, format: :pdf), :class => "dropdown-item", target: :_blank do %>
-                        Nota de venta
-                    <% end %>
-                    <%end%>
                </div>
             <%end%>
 
             <% if can? :update, object %>
-        	<%= link_to delete_admin_service_order_path(object), :class => "btn btn-sm btn-danger", remote: true, data: { toggle: 'tooltip', placement: 'top', original_title: t('remove') }   do %>
+        	<%= link_to delete_admin_service_order_path(object), :class => "btn btn-sm btn-danger", remote: true   do %>
         		<em class="fa fa-trash fa-fw"></em>
         	<%end%>         
             <%end%>  		

@@ -5,15 +5,15 @@
         <td><%= object.description %></td>
         <td><%= object.deleted_at? ? "<span class='badge badge-danger'>Baja</span>".html_safe : "<span class='badge badge-success'>Activo</span>".html_safe %></td>
         <td>
-        	<%= link_to [:admin, object], :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('information') }   do %>
+        	<%= link_to [:admin, object], :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false }   do %>
         		<em class="fas fa-info-circle"></em> 
         	<%end%>
 
-        	<%= link_to edit_admin_accessory_path(object), :class => "btn btn-sm btn-info", data: { modal: true, turbolinks: false, toggle: 'tooltip', placement: 'top', original_title: t('edit') }   do %>
+        	<%= link_to edit_admin_accessory_path(object), :class => "btn btn-sm btn-info", data: { modal: true }   do %>
         		<em class="fa fa-edit"></em> 
         	<%end%>
         		
-        	<%= link_to delete_admin_accessory_path(object), :class => "btn btn-sm btn-danger", remote: true, data: { toggle: 'tooltip', placement: 'top', original_title: t('remove') }   do %>
+        	<%= link_to delete_admin_accessory_path(object), :class => "btn btn-sm btn-danger", remote: true   do %>
         		<em class="fa fa-trash fa-fw"></em>
         	<%end%>           		
         </td>

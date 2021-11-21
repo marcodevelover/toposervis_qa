@@ -16,7 +16,6 @@
                               <th data-column-id="rfc" data-order="desc">Customer</th>
                               <th data-column-id="business_name" data-order="desc">Total</th>
                               <th data-column-id="status" data-order="desc">Status</th>
-                              <th data-column-id="status" data-order="desc">Fecha</th>
                            </tr>
                         </thead>
                        <tbody class="index-collection">
@@ -36,9 +35,6 @@
                                           <span class="badge badge-<%= object.state %>"><%= t(object.state) %></span>
                                       <% end %>
                                   </td>
-                                  <td>
-                                      <%= object.created_at.to_time.to_formatted_s(:db) %>
-                                  </td>
                           </tr>
                         <% end.empty? %>
                           <h4>No hay resultados</h4>
@@ -47,7 +43,6 @@
                      </table>
                     <div class="pagination" id='pagination' style="margin-right: 10%;">
                       <!-- add paginate-->
-                      <%= render partial: 'admin/shared/paginate_orders_total', locals: { objects: @collection } %>
                     </div>                     
                   </div>
                </div>

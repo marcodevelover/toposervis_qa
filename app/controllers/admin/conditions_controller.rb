@@ -68,7 +68,7 @@ class Admin::ConditionsController < ApplicationController
     params[:q] ||= {} 
     params[:per_page] = 10
     
-    @q = Condition.active.search(params[:q])
+    @q = Condition.search(params[:q])
     @collection = @q.result(:distinct => true).page(params[:page]).per(params[:per_page])  
   end
 
@@ -81,6 +81,6 @@ class Admin::ConditionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def condition_params
-      params.require(:condition).permit(:name, :description, :default, :is_for, :deleted_at)
+      params.require(:condition).permit(:name, :description, :default, :deleted_at)
     end
 end

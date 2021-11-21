@@ -19,6 +19,12 @@
                         </div>
                         <div class="col-sm-3">
                           <div class="form-group">
+                              ¿El servico está listo?
+                              <%= f.input :is_done, inline_label: 'Si', as: :boolean %>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="form-group">
                               ¿El servico está autorizado?
                               <%= f.input :is_authorized, inline_label: 'Si', as: :boolean %>
                           </div>
@@ -116,15 +122,6 @@
                             <%= f.text_field :total,class:"form-control",id:"total_with_tax", readonly:"readonly" %>
                           </div>
                         </div>
-                      </div>  
-
-                      <div class="col-lg-12">
-                        <div class="col-md-3 offset-md-9">
-                          <div class="form-group">
-                            <label class="control-label">Total - Abonos($)</label>
-                            <input class="form-control" id="total_minus_partial_payment" readonly="readonly" type="text">
-                          </div>
-                        </div>
                       </div>                 
                       </br>
 
@@ -215,7 +212,7 @@ $("#note_product").select2({
     delay: 250,
     data: function (params) {
       return {
-        q: {code_or_product_name_or_product_model_or_product_brand_cont: params.term}, // search term
+        q: {code_or_product_name_cont: params.term}, // search term
         page: params.page
       };
     },
@@ -251,9 +248,6 @@ function formatRepo (repo) {
     "<div class='select2-result-repository clearfix'>" +
       "<div class='select2-result-repository__meta'>" +
         "<div class='select2-result-repository__id'>ID: </div>" +
-        "<div class='select2-result-repository__name'>Nombre: </div>" +
-        "<div class='select2-result-repository__model'>Modelo: </div>" +
-        "<div class='select2-result-repository__brand'>Marca: </div>" +
         "<div class='select2-result-repository__code'>Código: </div>" +
         "<div class='select2-result-repository__unit_price'>Precio unitario: </div>" +
         "<div class='select2-result-repository__stock'>Existencias: </div>" +
@@ -263,11 +257,8 @@ function formatRepo (repo) {
 
 
   $container.find(".select2-result-repository__id").append(repo.id);
-  $container.find(".select2-result-repository__name").append(repo.product_name);
-  $container.find(".select2-result-repository__model").append(repo.product_model);
-  $container.find(".select2-result-repository__brand").append(repo.product_brand);
   $container.find(".select2-result-repository__code").append(repo.code);
-  $container.find(".select2-result-repository__unit_price").append(repo.unit_price + repo.exchange_name);
+  $container.find(".select2-result-repository__unit_price").append(repo.unit_price);
   $container.find(".select2-result-repository__stock").append(repo.stock);
   
   return $container;
@@ -280,7 +271,7 @@ function formatRepoSelection (repo) {
   $("#unit").val(repo.unit);
   $("#note_unit_price").val(repo.unit_price * quotation_exchange_rate);
   
-  return repo.product_name || repo.text;
+  return repo.code || repo.text;
 
 }
 
@@ -292,7 +283,6 @@ function formatRepoSelection (repo) {
   var product_rows_item = document.getElementById('table_product_item').getElementsByTagName("tr").length;
   var productCount_item = <%= @service_order.diagnosis.items.count.to_f %>;
   var total = <%= @service_order.diagnosis.total.to_f %>
-  var partial_payments = <%= @service_order.partial_payments.sum(:amount).to_f %>
   
   // Open modal
   $("#open_modal_item").click(function(){
@@ -501,7 +491,6 @@ function formatRepoSelection (repo) {
     $("#tax_total").val(tax_total);
     $("#total_with_tax").val(total_with_tax);
     $("#adjustment_total").val(total_discount);
-    $("#total_minus_partial_payment").val(total_with_tax - partial_payments);
   }
 
   // End products ****

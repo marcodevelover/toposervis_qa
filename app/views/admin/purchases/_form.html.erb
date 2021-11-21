@@ -1,4 +1,4 @@
-  <%= simple_form_for([:admin, @purchase]) do |form| %>
+<%= simple_form_for([:admin, @purchase]) do |form| %>
   <%= form.error_notification %>
   <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
 
@@ -19,17 +19,11 @@
                                   </div>  
                                 </div> 
                                  <div class="col-lg-4 mb-4">
-                                  <%= form.label :currency, class: "col-form-label"%>
-                                  <div class="form-group">
-                                   <%=  form.collection_select :currency_id, Currency.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
-                                     <%= form.error :currency, id: 'currency_error' %>
-                                  </div>
+                                   <%= form.association :receipt_type, input_html: { class: 'custom-select custom-select-sm' } %>
                                    
                                  </div>
                                  <div class="col-lg-4 mb-4x">
-                                    <%= form.label :exchange_rate, class: "col-form-label"%> *
-                                    <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true %>
-                                    <%= form.error :exchange_rate, id: 'exchange_rate_error' %>
+                                   <%= form.association :entry_code, input_html: { class: 'custom-select custom-select-sm' } %>
                                  </div>
                               </div>
                           </div>
@@ -40,58 +34,31 @@
                           <div class="col-md-12">
                             <div class="form-row">
                               <div class="col-lg-4 mb-4">
-                                <label class="form-label">Código de la factura</label>
+                                <label class="form-label">Folio</label>
                                 <div class="form-group"> 
-                                <%= form.text_field :code_invoice, class: "form-control" , placeholder: "Código de la fatura" %>
-                                <%= form.error :code_invoice, code_invoice: 'folio_error' %>
+                                <%= form.text_field :folio, class: "form-control" , placeholder: "Folio" %>
+                                <%= form.error :folio, id: 'folio_error' %>
                                 </div>
                               </div>
-                             <div class="col-lg-4 mb-4">
-                              
-                               <%= form.association :receipt_type, input_html: { class: 'custom-select custom-select-sm' } %>
-                               
-                             </div>
-                             <div class="col-lg-4 mb-4x">
-                                
-                               <%= form.association :entry_code, input_html: { class: 'custom-select custom-select-sm' } %>
-                                
-                             </div>
 
                             </div>
-
                           </div>
 
                         </div>
 
+
                         <div class="form-group row">
                           <div class="col-md-12">
                             <div class="form-row">
-                              <div class="col-lg-4 mb-4">
+                              <div class="col-lg-8 mb-8">
                                 <%= form.association :provider, input_html: { class: 'custom-select custom-select-sm' } %>
                               </div>
-                             <div class="col-lg-4 mb-4x">
-                               <%= form.association :payment_way, input_html: { class: 'custom-select custom-select-sm' } %>
-                             </div>
-
                               <div class="col-lg-4 mb-4">
                                 </br>
                                <%= link_to new_admin_provider_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
                                  <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
                                <%end%>                                  
                               </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </br>
-                        <div class="form-group row">
-                          <div class="col-md-12">
-                            <div class="form-row">
-                              <div class="col-lg-12 mb-12">
-                                <label for="validationServer03"><b>Observaciones</b></label>
-                                <%= form.cktext_area :observation, class: "form-control", rows: 10 %>
-                              </div>
-
                             </div>
                           </div>
 
@@ -124,8 +91,7 @@
                                 <th class="text-center" data-field="unit">Unidad</th>
                                 <th class="text-center" data-field="number_serie">No. Serie</th>
                                 <th class="text-center" data-field="number_procedure">No. Pedimento</th>
-                                <th class="text-center" data-field="product_state">Estado de producto</th>
-                                <th class="text-center" data-field="discount_import">Descuento importe</th>
+                                <th class="text-center" data-field="number_part">No. Parte</th>
                                 <th class="text-center" data-field="total_price">Precio total</th>
                                 <th class="text-center" data-field="last_name" data-sort-ignore="true" class="min-width">Eliminar</th>
                               </tr>
@@ -147,8 +113,7 @@
 
                                       <td><%= item.number_serie %></td>
                                       <td><%= item.number_procedure %></td>
-                                      <td><%= t(item.product_state) %></td>
-                                      <td class="row_total_discount"><%= item.adjustment_total ? item.adjustment_total : 0%></td>
+                                      <td><%= item.number_part %></td>
                                       <td class="row_total_price"><%= item.total %></td>
 
                                       <td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>
@@ -160,7 +125,7 @@
                                         <input type="hidden" value="<%=item.name%>" name="purchase[purchase_items_attributes][<%=index%>][name]">
                                         <input type="hidden" value="<%=item.number_serie%>" name="purchase[purchase_items_attributes][<%=index%>][number_serie]">
                                         <input type="hidden" value="<%=item.number_procedure%>" name="purchase[purchase_items_attributes][<%=index%>][number_procedure]">
-                                        <input type="hidden" value="<%=item.product_state%>" name="purchase[purchase_items_attributes][<%=index%>][product_state]">
+                                        <input type="hidden" value="<%=item.number_part%>" name="purchase[purchase_items_attributes][<%=index%>][number_part]">
                                         <input type="hidden" value="<%=item.observation%>" name="purchase[purchase_items_attributes][<%=index%>][observation]">
                                         <input type="hidden" value="<%=item.unit%>" name="purchase[purchase_items_attributes][<%=index%>][unit]">
                                         <input type="hidden" value="<%=item.quantity%>" name="purchase[purchase_items_attributes][<%=index%>][quantity]">
@@ -186,15 +151,6 @@
                         </div>
                       </div>
                       
-                      <div class="col-lg-12">
-                        <div class="col-md-3 offset-md-9">
-                          <div class="form-group">
-                            <label class="control-label">Descuento ($)</label>
-                            <%= form.text_field :adjustment_total,class:"form-control",id:"adjustment_total", readonly:"readonly" %>
-                          </div>
-                        </div>
-                      </div>
-
                       <div class="col-lg-12">
                         <div class="col-md-3 offset-md-9">
                           <div class="form-group">
@@ -247,24 +203,9 @@
             </select>
           </div>
 
-          
-            
-            <input type="hidden" class="form-control" id="required_serial_number"> 
-          
-
           <div class="form-group">
             <label class="control-label">Nombre</label>
             <input type="text" class="form-control" id="name" readonly="readonly"> 
-          </div>
-
-          <div class="form-group">
-            <label class="control-label">Marca</label>
-            <input type="text" class="form-control" id="brand" readonly="readonly"> 
-          </div>
-
-          <div class="form-group">
-            <label class="control-label">Modelo</label>
-            <input type="text" class="form-control" id="model" readonly="readonly"> 
           </div>
 
           <div class="form-group">
@@ -281,15 +222,8 @@
             <input type="text" class="form-control" id="number_procedure" > 
           </div>
           <div class="form-group">
-            <label class="control-label">Estatus de pago</label>
-            <!--<input type="text" class="form-control" id="product_state" > -->
-
-          <select class="select required custom-select custom-select-sm" name="product_state" id="product_state">
-            <option value=""></option>
-            <option value="credit">Crédito</option>
-            <option value="cash">Contado</option>
-            <option value="comodato">Comodato</option>
-          </select>
+            <label class="control-label">No. Parte</label>
+            <input type="text" class="form-control" id="number_part" > 
           </div>
 
           <div class="form-group">
@@ -311,23 +245,6 @@
 
           <div class="btn-hide">
             <label onclick="isDiscount()" class="control-label">Descuento<span style="color: orange;"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></span></label>
-          </div>
-
-          <div class="jump show-fields d-none">
-             <div class="form-group">
-              <label class="control-label">Descuento</label>
-              <select class="form-control" data-placeholder="Tipo de descuento" tabindex="1" id="note_factor" onchange="selectDiscount()">
-                <option value="">Seleccionar</option>
-                
-                  <option value="1">Importe</option>
-                  <option value="2">Porcentaje</option>
-                
-              </select>
-            </div>
-             <div class="form-group">
-              <label class="control-label">Valor</label>
-              <input type="text" class="form-control" id="note_discount" onblur="selectDiscount()" value="0">
-            </div>
           </div>
 
           <div class="form-group jump">
@@ -417,7 +334,7 @@ $("#note_product").select2({
     delay: 250,
     data: function (params) {
       return {
-        q: {code_or_product_name_or_product_model_or_product_brand_cont: params.term}, // search term
+        q: {code_or_product_name_cont: params.term}, // search term
         page: params.page
       };
     },
@@ -453,11 +370,8 @@ function formatRepo (repo) {
     "<div class='select2-result-repository clearfix'>" +
       "<div class='select2-result-repository__meta'>" +
         "<div class='select2-result-repository__id'>ID: </div>" +
-        "<div class='select2-result-repository__name'>Nombre: </div>" +
-        "<div class='select2-result-repository__model'>Modelo: </div>" +
-        "<div class='select2-result-repository__brand'>Marca: </div>" +
         "<div class='select2-result-repository__code'>Código: </div>" +
-        "<div class='select2-result-repository__unit_price'>Precio proveedor: </div>" +
+        "<div class='select2-result-repository__unit_price'>Precio unitario: </div>" +
         "<div class='select2-result-repository__stock'>Existencias: </div>" +
       "</div>" +
     "</div>"
@@ -465,11 +379,8 @@ function formatRepo (repo) {
 
 
   $container.find(".select2-result-repository__id").append(repo.id);
-  $container.find(".select2-result-repository__name").append(repo.product_name);
-  $container.find(".select2-result-repository__model").append(repo.product_model);
-  $container.find(".select2-result-repository__brand").append(repo.product_brand);
   $container.find(".select2-result-repository__code").append(repo.code);
-  $container.find(".select2-result-repository__unit_price").append(repo.amount_provider + repo.exchange_name);
+  $container.find(".select2-result-repository__unit_price").append(repo.unit_price);
   $container.find(".select2-result-repository__stock").append(repo.stock);
 
   return $container;
@@ -477,33 +388,11 @@ function formatRepo (repo) {
 
 function formatRepoSelection (repo) {
   // take the value of the currency
-  var quotation_exchange_rate = $("#purchase_exchange_rate").val();
-  var quotation_currency_text = $("#purchase_currency_id option:selected").text();
-
+  var purchase_exchange_rate = 1;
   $("#name").val(repo.product_name);
   $("#unit").val(repo.unit);
-  $("#note_unit_price").val(repo.amount_provider * quotation_exchange_rate);
-  $("#required_serial_number").val(repo.required_serial_number);
-  $("#brand").val(repo.product_brand);
-  $("#model").val(repo.product_model);
-
-  if(quotation_currency_text == repo.exchange_name){
-    $("#note_unit_price").val(repo.amount_provider);
-  }
-  if(quotation_currency_text != repo.exchange_name){
-    switch (quotation_currency_text) {
-      case 'MXN':
-        $("#note_unit_price").val(repo.amount_provider * quotation_exchange_rate);
-        break;
-      case 'USD':
-        $("#note_unit_price").val(repo.amount_provider * quotation_exchange_rate);
-        break;
-      default:
-        console.log('Lo lamentamos, debe seleccionar al menos una MONEDA');
-    }
-  }
-
-  return repo.product_name || repo.text;
+  $("#note_unit_price").val(repo.unit_price * purchase_exchange_rate);
+  return repo.code || repo.text;
 }
 
 </script>
@@ -517,7 +406,7 @@ $("#purchase_provider_id").select2({
     delay: 250,
     data: function (params) {
       return {
-        q: {name_or_business_name_or_rfc_cont: params.term}, // search term
+        q: {business_name_or_rfc_cont: params.term}, // search term
         page: params.page
       };
     },
@@ -591,12 +480,10 @@ function formatRepoSelection (repo) {
     var item = {"product": $("#note_product option:selected").text(),
                 "code": $("#name").val(),
                 "product_variant_id": $("#note_product").val(), 
-                "name": $("#name").val(),
-                "brand": $("#brand").val(), 
-                "model": $("#model").val(),
+                "name": $("#name").val(), 
                 "number_serie": $("#number_serie").val(),
                 "number_procedure": $("#number_procedure").val(),
-                "product_state": $("#product_state").val(),
+                "number_part": $("#number_part").val(),
                 "observation": $("#observation").val(), 
                 "unit": $("#unit").val(), 
                 "quantity": $("#note_quantity").val(),
@@ -620,15 +507,13 @@ function formatRepoSelection (repo) {
       item.discount_type = "N/A";
     }
     var row = $('<tr class="text-center" data_id='+productCount+'><td>' + item.code + 
-                '</br><small>Marca:' + item.brand +'</small><small> Modelo:' + item.model +'</small>' +
                 '</br><small>Observaciones:' + item.observation +'</small>' +
                 '</td><td>' + item.quantity +
                 '</td><td>' + item.unit_price + 
                 '</td><td>' + item.unit +
                 '</td><td>' + item.number_serie +
                 '</td><td>' + item.number_procedure +
-                '</td><td>' + item.product_state +
-                '</td><td class="row_total_discount">' + item.discount +
+                '</td><td>' + item.number_part +
                 '</td><td class="row_total_price">' + item.total +   
                 '<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>' +
                 '</td>' + create_row_input(item) +
@@ -642,12 +527,11 @@ function formatRepoSelection (repo) {
     '<input type="hidden" value="'+item.name+'" name="purchase[purchase_items_attributes]['+productCount+'][name]" >' +
     '<input type="hidden" value="'+item.number_serie+'" name="purchase[purchase_items_attributes]['+productCount+'][number_serie]" >' +
     '<input type="hidden" value="'+item.number_procedure+'" name="purchase[purchase_items_attributes]['+productCount+'][number_procedure]" >' +
-    '<input type="hidden" value="'+item.product_state+'" name="purchase[purchase_items_attributes]['+productCount+'][product_state]" >' +
+    '<input type="hidden" value="'+item.number_part+'" name="purchase[purchase_items_attributes]['+productCount+'][number_part]" >' +
     '<input type="hidden" value="'+item.observation+'" name="purchase[purchase_items_attributes]['+productCount+'][observation]" >' +
     '<input type="hidden" value="'+item.quantity+'" name="purchase[purchase_items_attributes]['+productCount+'][quantity]" >' +
     '<input type="hidden" value="'+item.unit_price+'" name="purchase[purchase_items_attributes]['+productCount+'][unit_price]" >' +
     '<input type="hidden" value="'+item.unit+'" name="purchase[purchase_items_attributes]['+productCount+'][unit]" >' +
-    '<input type="hidden" value="'+item.discount+'" name="purchase[purchase_items_attributes]['+productCount+'][adjustment_total]" >' +
     '<input type="hidden" value="'+item.total+'" name="purchase[purchase_items_attributes]['+productCount+'][total]" >';
     return input;
   }
@@ -710,11 +594,6 @@ function formatRepoSelection (repo) {
         errors.push("Valor de descuento debe ser mayor a 0");
       }
     }
-    if(required_serial_number.value == "true" && number_serie.value == ""){
-      validate = false;
-      errors.push("Número de serie no puede estar en blanco");
-    }
-
     if(validate){
       return true;
     }else{
@@ -770,7 +649,7 @@ function formatRepoSelection (repo) {
     $("#unit").val("");
     $("#number_serie").val("");
     $("#number_procedure").val("");
-    $("#product_state").val("");
+    $("#number_part").val("");
     $("#observation").val("");
     $("#note_quantity").val("0");
     $("#note_unit_price").val("0");

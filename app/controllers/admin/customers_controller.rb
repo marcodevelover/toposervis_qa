@@ -69,7 +69,7 @@ class Admin::CustomersController < ApplicationController
     params[:q] ||= {} 
     params[:per_page] = 10
     
-    @q = Customer.active.search(params[:q])
+    @q = Customer.search(params[:q])
     @collection = @q.result(:distinct => true).order('id DESC').page(params[:page]).per(params[:per_page])  
   end
 

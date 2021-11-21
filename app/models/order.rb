@@ -8,9 +8,6 @@ class Order < ApplicationRecord
   has_one :sale, as: :record
   accepts_nested_attributes_for :sale
 
-  has_many :payments, as: :record
-  accepts_nested_attributes_for :payments
-
   before_create :set_tax, :set_state
   before_validation :erase_sale, on: :delete, if: Proc.new { self.sale.present? }
 
@@ -19,8 +16,6 @@ class Order < ApplicationRecord
   validates :exchange_rate, presence: true
   validates :customer, presence: true
 
-  scope :active, -> { where('deleted_at IS NULL')}
-  
   def erase_sale
     @sale = Sale.find_by(id: self.sale.id)
     @sale.update(deleted_at: Time.now)

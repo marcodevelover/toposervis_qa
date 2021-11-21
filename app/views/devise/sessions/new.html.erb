@@ -6,19 +6,7 @@
               <%= image_tag("pdf/logo.png", alt: "logo", class: "block-center rounded") %>
             </div>
             <div class="card-body">
-               <p class="text-center py-2"><%= t("sign_in_to_continue")%>.</p>
-
-               <div id=”error_explanation”>
-               <p><%= notice %></p>
-               </div>
-               <% if flash.alert %>
-               <div id=”error_explanation”>
-                <p>
-                 <%= flash.alert %>
-                </p>
-               </div>
-              <% end %>                
-               
+               <p class="text-center py-2">SIGN IN TO CONTINUE.</p>
                
                 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                   <div class="form-group">
@@ -38,13 +26,13 @@
                     <% if devise_mapping.rememberable? %>
                      <div class="checkbox c-checkbox float-left mt-0"><label>
                       <%= f.check_box :remember_me, type: "checkbox", name: "remember" %>
-                      <span class="fa fa-check"></span> <%=t("remember_me")%></label>
+                      <span class="fa fa-check"></span> Remember Me</label>
                      </div>
                     <% end %>
                      <div class="float-right"><a class="text-muted" href="recover.html"><%= render "devise/shared/links" %></a></div>
                   </div>
                   
-                  <%= f.submit t("log_in"), class: "btn btn-block btn-primary mt-3", type: "submit"  %>
+                  <%= f.submit "Log in", class: "btn btn-block btn-primary mt-3", type: "submit"  %>
                <% end %>
                
             </div>

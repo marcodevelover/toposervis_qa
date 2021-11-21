@@ -10,6 +10,7 @@ Gemfile.lock
 package-lock.json
 yarn.lock
 loaded.lock
+/node_modules
 
 # Ignore the default SQLite database.
 /db/*.sqlite3

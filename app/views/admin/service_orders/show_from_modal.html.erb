@@ -1,144 +1,5 @@
-
-
 <div class="modal-body">
 <p id="notice"><%= notice %></p>
-
-      <div class="container padding-bottom-3x mb-1 mobil">
-        <div class="card mb-3 border-gray">
-          <div class="card-header text-white bg-info" style="text-align: center;"><span class="text-uppercase"><%= t("service_orders.folio")%> - </span><span class="text-medium"><%= @service_order.folio %></span></div>
-          <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
-            <div class="w-100 text-center py-1 px-2"><span class='text-medium'><%= t("users.contact")%>: </span><%= @service_order.user.name %> <%= @service_order.user.lastname %></div>
-            <div class="w-100 text-center py-1 px-2"><span class='text-medium'><%= t("service_orders.state")%>:</span> <%= t(@service_order.state) %></div>
-            <div class="w-100 text-center py-1 px-2"><span class='text-medium'>Tiempo de diagnostico estimado:</span> <%= @service_order.diagnosis.blank? ? "" :@service_order.diagnosis.delivery_time %></div>
-          </div>
-
-
-          <div class="card-body d-none d-sm-block">
-            <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-              <div class="step <%= @service_order.state == "active" || @service_order.state == "diagnosed" || @service_order.state == "in_repair" || @service_order.state == "sold" || @service_order.state == "delivered" ? "completed" : "" %>">
-                <div class="step-icon-wrap">
-                  <div class="step-icon"><i class="fa-1x icon-note"></i></div>
-                </div>
-                <h4 class="step-title">Recibido</h4>
-              </div>
-              <div class="step <%= @service_order.state == "diagnosed" || @service_order.state == "in_repair" || @service_order.state == "sold" || @service_order.state == "delivered" ? "completed" : "" %>">
-                <div class="step-icon-wrap">
-                  <div class="step-icon"><i class="fa-1x icon-wrench"></i></div>
-                </div>
-                <h4 class="step-title">Diagnosticado</h4>
-              </div>
-              <div class="step <%= @service_order.state == "in_repair" || @service_order.state == "sold" || @service_order.state == "delivered" ? "completed" : "" %>">
-                <div class="step-icon-wrap">
-                  <div class="step-icon"><i class="fa-1x icon-settings"></i></div>
-                </div>
-                <h4 class="step-title">En reparación</h4>
-              </div>
-              <div class="step <%= @service_order.state == "sold" || @service_order.state == "delivered" ? "completed" : "" %>">
-                <div class="step-icon-wrap">
-                  <div class="step-icon"><i class="fa-1x icon-check"></i></div>
-                </div>
-                <h4 class="step-title">Finalizado</h4>
-              </div>
-              <div class="step <%= @service_order.state == "delivered" ? "completed" : "" %>">
-                <div class="step-icon-wrap">
-                  <div class="step-icon"><i class="fa-1x icon-action-redo"></i></div>
-                </div>
-                <h4 class="step-title">Entregado</h4>
-              </div>
-            </div>
-          </div>
-
-
-
-
-
-
-
-          <div class="card-body d-block d-sm-none">
-                     <div class="card-body">
-                        <div class="d-flex align-items-center">
-                           <div class="w-100" data-toggle="tooltip" data-title="Health" data-original-title="" title="">
-                              <div class="progress progress-xs m-0">
-                                 <div class="progress-bar bg-info" style="width:22%"></div>
-                              </div>
-                           </div>
-                           <div class="wd-xxs text-right">
-
-
-                              <% if @service_order.state == "active"%>
-                                <div class="text-bold text-muted">20%</div>
-                              <% end %>
-
-                              <% if @service_order.state == "diagnosed"%>
-                                <div class="text-bold text-muted">40%</div>
-                              <% end %>
-
-
-                              <% if @service_order.state == "in_repair"%>
-                                <div class="text-bold text-muted">60%</div>
-                              <% end %>
-
-                              <% if @service_order.state == "sold"%>
-                                <div class="text-bold text-muted">80%</div>
-                              <% end %>
-
-                              <% if @service_order.state == "delivered" %>
-                                <div class="text-bold text-muted">100%</div>
-                              <% end %>
-
-                           </div>
-                        </div>
-                     </div>
-                     <table class="table">
-                        <tbody>
-                           <tr>
-                              <td><i class="fa-1x icon-note"></i> <strong>Recibido</strong></td>
-                              <td>
-                                <% if @service_order.state == "active" || @service_order.state == "diagnosed" || @service_order.state == "in_repair" || @service_order.state == "sold" || @service_order.state == "delivered" %>
-                                <i class="fa fa-check"></i>
-                                <% end %>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td><i class="fa-1x icon-wrench"></i> <strong>Diagnosticado</strong></td>
-                              <td>
-                                <% if @service_order.state == "diagnosed" || @service_order.state == "in_repair" || @service_order.state == "sold" || @service_order.state == "delivered"%>
-                                <i class="fa fa-check"></i>
-                                <% end %>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td><i class="fa-1x icon-settings"></i> <strong>En reparación</strong></td>
-                              <td>
-                                <% if @service_order.state == "in_repair" || @service_order.state == "sold" || @service_order.state == "delivered"%>
-                                <i class="fa fa-check"></i>
-                                <% end %>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td><i class="fa-1x icon-check"> <strong>Finalizado</strong></td>
-                              <td>
-                                <% if @service_order.state == "sold" || @service_order.state == "delivered" %>
-                                <i class="fa fa-check"></i>
-                                <% end %>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td><i class="fa-1x icon-action-redo"> <strong>Entregado</strong></td>
-                              <td>
-                                <% if @service_order.state == "delivered" %>
-                                <i class="fa fa-check"></i>
-                                <% end %>
-                              </td>
-                           </tr>
-
-                        </tbody>
-                     </table>
-          </div>
-
-
-        </div>
-      </div>
 
 <p>
   <strong><%= t("service_orders.folio")%>:</strong>
@@ -150,26 +11,16 @@
   <%= @service_order.date_admission %>
 </p>
 
-
-<strong>Tipo de servicio:</strong>
-<p>
-  <% total_orders_types = @service_order.orders_types.count - 1 %>
-<% @service_order.orders_types.each_with_index do |type, e| %>
-    <%= type.type_service_order.name %><%= total_orders_types == e ? "." : "," %>
+<% @service_order.orders_types.each do |type| %>
+  <p>
+    <strong>Tipo de servicio:</strong>
+    <%= type.type_service_order.name %>
+  </p>
 <% end %>
-</p>
 
 <p>
-  <strong><%= t("users.contact")%>:</strong>
+  <strong><%= t("service_orders.user")%>:</strong>
   <%= @service_order.user.name %> <%= @service_order.user.lastname %>
-</p>
-<p>
-  <strong><%= t("users.phone")%>:</strong>
-  <%= @service_order.user.blank? ?  "----" : @service_order.user.phone %>
-</p>
-<p>
-  <strong><%= t("users.email")%>:</strong>
-  <%= @service_order.user.blank? ?  "----" : @service_order.user.email %>
 </p>
 
 <p>
@@ -196,7 +47,7 @@
 </p>
 <p>
   <strong><%= t("service_orders.observation")%>:</strong>
-  <%= raw @service_order.observation %>
+  <%= @service_order.observation %>
 </p>
 <p>
 
@@ -227,12 +78,10 @@
 <%end%>  
 </p>
 
-<% if current_user.role && current_user.role.name != "customer" %>
 <p>
   <strong><%= t("service_orders.created_by")%>:</strong>
   <%= @service_order.created_by.name %> <%= @service_order.created_by.lastname %>
 </p>
-<% end %>
 
 <hr>
 <h4>Diagnostico</h4>
@@ -260,163 +109,35 @@
       </p>
 
       <p>
-      <% unless @service_order.diagnosis.diagnoses_types.blank? %>
-      <strong>Tipo de diagnostico:</strong>
-      <div class="form-group row" >
-      <% @service_order.diagnosis.diagnoses_types.each do |f| %>
-                <div class="col-md-3">
-                  <%= f.diagnosis_type.name %>
-                </div>    
-      <% end %>
-      </div> 
-      <% end %> 
-      <p>
-
+        <strong>Tipo de diagnostico:</strong>
+        <%= @service_order.diagnosis.diagnosis_type.name %>
+      </p>
       <p>
       <% if @service_order.diagnosis.images.attached? %>
-      <strong>Imágenes de diagnostico:</strong>
       <div class="form-group row" >
       <% @service_order.diagnosis.images.each do |f| %>
                 <div class="col-md-6">
                   <%= image_tag f.variant(resize_to_limit: [300, 300]) %>
                 </div>    
       <% end %>
-      </div> 
-      <% end %> 
+      </div>  
       <p>
-
-      <div class="table-responsive">
       <% if @service_order.diagnosis.diagnosis_descriptions %>
       <table class="table table-bordered table-hover toggle-circle">
-        <thead>
-          <th>Diagnostico</th>
-          <% if current_user.role && current_user.role.name != "customer" %>
-          <th>Creado por</th>
-          <% end %>
-          <th>Fecha</th>
-        </thead>
+        <thead><th>Diagnostico</th><th>Creado por</th><th>Fecha</th></thead>
       <% @service_order.diagnosis.diagnosis_descriptions.each do |f| %>
-        <tr>
-          <td><%= f.description %></td>
-          <% if current_user.role && current_user.role.name != "customer" %>
-          <td><%= f.user.name + " " + f.user.lastname %></td>
-          <% end %>
-          <td><%= f.created_at %></td>
-        </tr>    
+                <tr>
+                  
+                  <td><%= f.description %></td>
+                  <td><%= f.user.name %> <%= f.user.lastname %></td>
+                  <td><%= f.created_at %></td>
+                </tr>    
       <% end %>
       </table>
       <% end %>
       </p>
-      </div>
 
-<!--diagnosis items-->
-<div class="table-responsive">
-<table class="table table-bordered table-hover toggle-circle">
-          <tr>
-            <td colspan="5" style="text-align: left;"><br><b>Presupuesto:</b></td>
-          </tr>         
-
-          <tr class="heading">
-            <td class="center">Concepto</td>
-            <td class="center">Unidad</td>
-            <td class="center">Precio</td>
-            <td class="center">Cantidad</td>
-            <td class="center">Total</td>
-          </tr>
-
-          <% @service_order.diagnosis.items.each do |item| %>
-            <tr class="item">
-                <td>
-                    <%= item.name %><br>
-                    <small><%= item.extended_description %></small>
-                </td>
-
-                <td class="center">
-                    <%= item.unit %>
-                </td>
-
-                <td class="center">
-                    <%= number_to_currency(item.unit_price) %>
-                </td>
-
-                <td class="center">
-                    <%= item.quantity %>
-                </td>
-
-                <td class="center">
-                    <%= number_to_currency(item.unit_price * item.quantity) %>
-                </td>
-            </tr>
-          <% end %>
-
-          <tr>
-            <td colspan="3"></td>
-            <td><b>Subtotal</b></td>
-            <td class="center"><%= number_to_currency(@service_order.diagnosis.subtotal) %></td>
-          </tr>
-
-          <% if @service_order.diagnosis.adjustment_total != 0 %>
-          <tr>
-            <td colspan="3"></td>
-            
-            <td><b>Descuento</b></td>
-            <td class="center">- <%= number_to_currency(@service_order.diagnosis.adjustment_total) %></td>
-            
-          </tr>
-          <% end %>
-
-          <% if @service_order.diagnosis.is_tax %>
-          <tr>
-            <td colspan="3"></td>
-            
-            <td><b>I.V.A. (<%= (@service_order.diagnosis.tax * 100).to_i %>%)</b></td>
-            <td class="center">+ <%= number_to_currency(@service_order.diagnosis.tax_total) %></td>
-            
-          </tr>
-          <% end %>
-
-          <tr>
-            <td colspan="3"></td>
-            <td><b>TOTAL:</b></td>
-            <td class="center">
-               <% if @service_order.diagnosis.is_tax %>
-               <b><%= number_to_currency(@service_order.diagnosis.total) %></b>
-               <%else%>
-               <b><%= number_to_currency(@service_order.diagnosis.subtotal) %></b>
-               <%end%>
-            </td>
-          </tr>
-</table>
-</div>
-<!--end diagnosis items-->
-
-      <p>
-      <% if @service_order.diagnosis.diagnosis_descriptions %>
-      <div class="table-responsive">
-      <table class="table table-bordered table-hover toggle-circle">
-        <thead>
-          <th>Procedimientos</th>
-          <% if current_user.role && current_user.role.name != "customer" %>
-          <th>Creado por</th>
-          <% end %>
-          <th>Fecha</th>
-        </thead>
-      <% @service_order.diagnosis.activity_descriptions.each do |f| %>
-          <tr>
-            
-            <td><%= f.description %></td>
-            <% if current_user.role && current_user.role.name != "customer" %>
-            <td><%= f.user.name + " " + f.user.lastname %></td>
-            <% end %>
-            <td><%= f.created_at %></td>
-          </tr>    
       <% end %>
-      </table>
-      </div>
-      <% end %>
-      </p>
-
-      
       </p>
 <% end %>
 

@@ -1,10 +1,10 @@
 class Admin::QuotationsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_quotation, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :note_from_pdf, :sales, :bill, :invoice, :cancel_invoice, :request_cancellation_state_invoice, :cancellation_state_invoice]
+  before_action :set_quotation, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :sales, :bill, :invoice, :cancel_invoice, :request_cancellation_state_invoice, :cancellation_state_invoice]
   respond_to :html, :json
 
   def page_name
-     @page_name = "Cotizaciones de productos"
+     @page_name = "Cotizaciones"
   end
   # GET /quotations
   # GET /quotations.json
@@ -40,23 +40,6 @@ class Admin::QuotationsController < ApplicationController
     end
   end
 
-  def note_from_pdf
-    respond_to do |format|
-        format.html
-        format.pdf do
-            render pdf: "nota_de_venta_" + @quotation.folio,
-            template: "admin/quotations/note_from_pdf.html.erb",
-            layout: "pdf.html",
-            viewport_size: '1280x1024',
-            margin:  {   
-                         bottom: 40,
-                         
-                      }
-            #footer:  {   html: {   template: "admin/quotations/footer_pdf.html.erb"}}
-        end
-    end
-  end
-
   def show_from_modal
     respond_modal_with @quotation
   end
@@ -64,10 +47,9 @@ class Admin::QuotationsController < ApplicationController
   # GET /quotations/new
   def new
     @quotation = Quotation.new
-    conditions = []
-    Condition.condition_default.active.product.or(Condition.both).each do |condition|
-      conditions << condition.description
-      @conditions = conditions.join("<br>")
+    @conditions = []
+    Condition.condition_default.each do |condition|
+      @conditions << condition.description
     end
     @quotation.condition = @conditions
 
@@ -114,23 +96,6 @@ class Admin::QuotationsController < ApplicationController
     end
   end
 
-  def to_sell
-    if params[:quotation][:sale_attributes].present?
-      @quotation.sale.nil? ? @quotation.build_sale : @quotation.sale
-      @quotation.sale.created_by_id = current_user.id
-    end
-
-    respond_to do |format|
-      if @quotation.update(quotation_params)
-        format.html { redirect_to [:admin, @quotation], notice: 'Quotation was successfully updated.' }
-        format.json { render :show, status: :ok, location: @quotation }
-      else
-        format.html { render :sales }
-        format.json { render json: @quotation.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   def delete
     respond_modal_for_delete_with(@quotation,true)
   end
@@ -148,7 +113,7 @@ class Admin::QuotationsController < ApplicationController
   end
 
   def customers
-    @q = Customer.active.ransack(params[:q])
+    @q = Customer.ransack(params[:q])
     @customers = @q.result(distinct: true)
     total_count = @customers.count
     respond_to do |format|
@@ -161,11 +126,11 @@ class Admin::QuotationsController < ApplicationController
   end
 
   def product_variants
-    @q = ProductVariant.where('product_variants.deleted_at IS NULL').where("products.available_for_sale != 0").where("products.is_service = 0").ransack(params[:q])
+    @q = ProductVariant.ransack(params[:q])
     @product_variants = @q.result(distinct: true)
     total_count = @product_variants.count
     respond_to do |format|
-      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, product_model: s.product.model, product_brand: s.product.brand, unit_price: s.amount_public, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock } } } }
+      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, unit_price: s.amount_public, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, image: s.first_image } } } }
     end
   end
 
@@ -185,7 +150,7 @@ class Admin::QuotationsController < ApplicationController
 
   def search(per_page = 10)
     params[:q] ||= {} 
-    #######params[:per_page] = 10
+    params[:per_page] = 10
     
     @q = Quotation.search(params[:q])
     @collection = @q.result(:distinct => true).order('id DESC').page(params[:page]).per(params[:per_page])
@@ -226,7 +191,7 @@ class Admin::QuotationsController < ApplicationController
     def quotation_params
       params.require(:quotation).permit(:folio, :subtotal, :item_total, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :customer_id, :condition, :created_by_id, :is_tax, :deleted_at,
         sale_attributes: [:id, :folio, :payment_method_id, :payment_way_id, :use_of_cfdi_id, :state, :_destroy],
-        items_attributes: [ :id, :product_variant_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy, :serial_number ]
+        items_attributes: [ :id, :product_variant_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy ]
         )
     end
 end

@@ -15,13 +15,12 @@
   <%= @service_order.date_admission %>
 </p>
 
-<strong>Tipo de servicio:</strong>
-<p>
-  <% total_orders_types = @service_order.orders_types.count - 1 %>
-<% @service_order.orders_types.each_with_index do |type, e| %>
-    <%= type.type_service_order.name %><%= total_orders_types == e ? "." : "," %>
+<% @service_order.orders_types.each do |type| %>
+  <p>
+    <strong>Tipo de servicio:</strong>
+    <%= type.type_service_order.name %>
+  </p>
 <% end %>
-</p>
 
 <p>
   <strong>Usuario:</strong>
@@ -29,7 +28,7 @@
 </p>
 
 <p>
-  <strong>Cliente</strong>
+  <strong>Cliente:</strong>
   <%= @service_order.customer ? @service_order.customer.name : "N/A" %>
 </p>
 
@@ -52,7 +51,7 @@
 </p>
 <p>
   <strong>Observaciones:</strong>
-  <%= raw @service_order.observation %>
+  <%= @service_order.observation %>
 </p>
 <p>
 
@@ -84,13 +83,13 @@
 </p>
 
 <p>
-  <strong>Creado por:</strong>
+  <strong>Created by:</strong>
   <%= @service_order.created_by.name %> <%= @service_order.created_by.lastname %>
 </p>
 
 
 <p>
-  <strong>Cancelado el:</strong>
+  <strong>Canceled at:</strong>
   <%= @service_order.deleted_at %>
 </p>
 

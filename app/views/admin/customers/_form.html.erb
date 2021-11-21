@@ -78,7 +78,8 @@
         <%= render 'customer_contact_fields', f: f %>
   <% end %>
 
-  <%= link_to_add_fields "<em class='fa fa-plus-circle fa-fw mr-1'></em><b>Clic para agregar datos de contacto</b>".html_safe, form, :customer_contacts %>
+  <%= link_to_add_fields "Agregar Contacto", form, :customer_contacts %>
+
 
   <%= form.fields_for :customer_bank, (@customer.customer_bank.nil? ? CustomerBank.new : @customer.customer_bank) do |f| %>
   <div class="form-group">

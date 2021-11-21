@@ -35,7 +35,7 @@
                               <div class="col-lg-4 mb-4">
                                 </br>
                                <%= link_to new_admin_user_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
-                                 <em class="fa fa-plus-circle fa-fw mr-1"></em><%=t("add")%>
+                                 <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
                                <%end%>                                  
                               </div>
                             </div>
@@ -52,7 +52,7 @@
                               <div class="col-lg-4 mb-4">
                                 </br>
                                <%= link_to new_admin_customer_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
-                                 <em class="fa fa-plus-circle fa-fw mr-1"></em><%=t("add")%>
+                                 <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
                                <%end%>                                  
                               </div>
                             </div>
@@ -74,7 +74,7 @@
                                     <div class="form-group">
                                       </br>
                                       <div id="open_modal" class="btn btn-success ml-auto">
-                                        <em class="fa fa-search fa-fw mr-1"></em><%=t("add_accessories")%>
+                                        <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
                                       </div>
                                     </div>
                                   </div>
@@ -85,64 +85,6 @@
                           </div>
                         </div>
                       </br>
-
-
-
-
-
-                          <!-- begin my product -->
-                              <!-- Table Products -->
-                      <h4 class="box-title m-t-40"> <%= t("product_accessories") %></h4>
-                      <hr>
-                                                          
-                      <div class="col-lg-12">
-                        <div class="white-box">
-                          <table id="table_product" class="table table-bordered table-hover toggle-circle" data-page-size="7">
-                            <thead id="product_head" >
-                              <tr>
-                                <th class="text-center" data-field="product">Producto</th>
-                                <th class="text-center" data-field="quantity">Cantidad</th>
-                                <th class="text-center" data-field="last_name" data-sort-ignore="true" class="min-width">Eliminar</th>
-                              </tr>
-                            </thead>
-                              <tbody>
-                                
-                                <%if @service_order.order_accessories.first %>
-                                  <% @service_order.order_accessories.each_with_index do |item,index| %>
-                                    <tr class="text-center" data-id="<%=item.id%>">
-                                      
-                                      <td>
-                                      <%= item.accessory %>
-                                      </td>
-                                      <td><input type="text" value="<%=item.quantity%>" name="service_order[order_accessories_attributes][<%=index%>][quantity]" class="form-control" size="1"></td>
-
-                                      <td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>
-
-                                        <input type="hidden" value="<%=item.accessory%>" name="service_order[order_accessories_attributes][<%=index%>][accessory]">
-                                        
-                                        <input type="hidden" value="<%=item.id%>" name="service_order[order_accessories_attributes][<%=index%>][id]">
-                                    </tr>
-                                  <%end%>
-                                <%end%>
-
-                              </tbody>
-                          </table>
-                        </div>
-                      </div>
-
-                      <br>
-
-
-
-
-
-
-
-
-
-
-
-
                         <div class="form-group row">
                            <div class="col-md-12">
                               <div class="form-row">
@@ -166,14 +108,10 @@
                         <div class="form-group row">
                            <div class="col-md-12">
                               <div class="form-row">
-                                  <div class="col-lg-3 mb-3x">
-                                        <span class="fa fa-upload mr-2"></span><label class="string optional col-form-label" for="service_order_serie"><%=t("select_images")%></label><br>
-                                        <small><%=t("max_size")%></small>
-                                  </div>
-                                  <div class="col-lg-9 mb-9x"> 
-                                        <%= form.file_field :images, multiple: true, class: "multi with-preview", maxlength: "3", accept: "image/png, .jpeg, .jpg, image/gif" %>
-                                        <%= form.error :images, id: 'images_error' %>
-                                  </div>
+                                 <div class="col-lg-12 mb-12x">
+                                        <%= form.file_field :images, multiple: true, class: "mb-1 btn btn-outline-secondary" %>
+                                 </div>
+
                               </div>
                           </div>
                         </div>
@@ -199,7 +137,7 @@
                             <div class="form-row">
                               <div class="col-lg-12 mb-12">
                                 <label for="validationServer03"><b>Observaciones</b></label>
-                                <%= form.cktext_area :observation, class: "form-control", rows: 10 %>
+                                <%= form.text_area :observation, class: "form-control", rows: 10 %>
                               </div>
 
                             </div>
@@ -208,7 +146,47 @@
                         </div>
                       </br>
 
+                          <!-- begin my product -->
+                              <!-- Table Products -->
+                      <h4 class="box-title m-t-40">Accesorios</h4>
+                      <hr>
+                                                          
+                      <div class="col-lg-12">
+                        <div class="white-box">
+                          <table id="table_product" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+                            <thead id="product_head" >
+                              <tr>
+                                <th class="text-center" data-field="product">Producto</th>
+                                <th class="text-center" data-field="quantity">Cantidad</th>
+                                <th class="text-center" data-field="last_name" data-sort-ignore="true" class="min-width">Eliminar</th>
+                              </tr>
+                            </thead>
+                              <tbody>
+                                
+                                <%if @service_order.order_accessories.first %>
+                                  <% @service_order.order_accessories.each_with_index do |item,index| %>
+                                    <tr class="text-center" data-id="<%=item.id%>">
+                                      
+                                      <td>
+                                      <%= item.accessory %>
+                                      </td>
+                                      <td><%= item.quantity %></td>
 
+                                      <td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>
+
+                                        <input type="hidden" value="<%=item.accessory%>" name="service_order[order_accessories_attributes][<%=index%>][accessory]">
+                                      
+                                        <input type="hidden" value="<%=item.quantity%>" name="service_order[order_accessories_attributes][<%=index%>][quantity]">
+                                        
+                                        <input type="hidden" value="<%=item.id%>" name="service_order[order_accessories_attributes][<%=index%>][id]">
+                                    </tr>
+                                  <%end%>
+                                <%end%>
+
+                              </tbody>
+                          </table>
+                        </div>
+                      </div>
                      <div class="clearfix">
                         <div class="float-right">
                         <%= form.submit class: "btn btn-primary" %>
@@ -264,7 +242,7 @@ $("#service_order_customer_id").select2({
     delay: 250,
     data: function (params) {
       return {
-        q: {name_or_business_name_or_rfc_cont: params.term}, // search term
+        q: {business_name_or_rfc_cont: params.term}, // search term
         page: params.page
       };
     },
@@ -432,6 +410,7 @@ function formatRepo (repo) {
       "<div class='select2-result-repository__meta'>" +
         "<div class='select2-result-repository__id'>ID: </div>" +
         "<div class='select2-result-repository__name'>Nombre: </div>" +
+        "<div class='select2-result-repository__aa'>aa: </div>" +
       "</div>" +
     "</div>"
   );
@@ -451,7 +430,9 @@ function formatRepoSelection (repo) {
 /*start select dependent*/
 
 function loadCategories(){
-    var value = service_order_product_id.value || 0;
+    var value = service_order_product_id.value;
+    console.log(service_order_product_id.value)
+    console.log("a")
     $('#accessory').text('');
     $.ajax({
       url: '/admin/<%=controller_name%>/products_accessories',
@@ -527,7 +508,7 @@ function loadCategories(){
       item.discount_type = "N/A";
     }
     var row = $('<tr class="text-center" data_id='+productCount+'><td>' + item.accessory + 
-                '</td><td>' + '<input type="text" value="'+item.quantity+'" name="service_order[order_accessories_attributes]['+productCount+'][quantity]" class="form-control" size="1">' +
+                '</td><td>' + item.quantity +
                 '<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>' +
                 '</td>' + create_row_input(item) +
                 '</tr>');
@@ -536,7 +517,9 @@ function loadCategories(){
   // Crea los hidden fields, obtenidos en el formulario
   function create_row_input(item){
     var input =
-    '<input type="hidden" value="'+item.accessory+'" name="service_order[order_accessories_attributes]['+productCount+'][accessory]" >';
+    '<input type="hidden" value="'+item.accessory+'" name="service_order[order_accessories_attributes]['+productCount+'][accessory]" >' +
+    '<input type="hidden" value="'+item.quantity+'" name="service_order[order_accessories_attributes]['+productCount+'][quantity]" >';
+    
     return input;
   }
   // Establece el total en el formulario

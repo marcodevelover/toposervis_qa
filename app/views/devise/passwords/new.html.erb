@@ -8,7 +8,7 @@
             	</a>
             </div>
             <div class="card-body">
-               <p class="text-center py-2"><%= t("password_reset") %></p>
+               <p class="text-center py-2">PASSWORD RESET</p>
 			   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
 				<%= render "devise/shared/error_messages", resource: resource %>
                   <p class="text-center">Ingrese la dirección de su correo electrónico para recibir las instrucciones de como reestablecer su contraseña.</p>
@@ -29,6 +29,6 @@
                <% end %>
             </div>
          </div><!-- END card-->
-         <div class="p-3 text-center"><span class="mr-2">&copy;</span><span>2020</span><span class="mr-2">-</span><span>Toposervis</span><br><span>www.toposervis.com.mx</span></div>
+         <div class="p-3 text-center"><span class="mr-2">&copy;</span><span>2020</span><span class="mr-2">-</span><span>Angle</span><br><span>Bootstrap Admin Template</span></div>
       </div>
    </div>

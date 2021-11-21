@@ -53,7 +53,7 @@
                    </div>
                    <div class="card-wrapper collapse show">
                       <div class="card-body">
-                      	<%= line_chart Sale.group_by_day(:created_at).where('created_at >= "2021-03-24"').count %>
+                      	<%= line_chart Sale.group_by_day(:created_at).count %>
                       </div>
                    </div>
                 </div>

@@ -1,27 +1,47 @@
 <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
           <tr class="top">
-            <td colspan="6">
+            <td colspan="5">
               <table>
                 <tr>
-                  <td class="title" style="width:25%">
+                  <td class="title">
                     <%= wicked_pdf_image_tag 'pdf/logo.png' %>
                   </td>
-                  <td style="text-align: center; width:50%" class="top">
+
+                  <td>
                     <strong>Toposervis S de RL de CV</strong>
                     <br>
-                    <span>RFC: TOP160404KU0</span>
+                    <span>Calle42No.264x41Ay 41C</span>
                     <br>
-                    <span>Calle 42 No.264 x 41A y 41C, C.P. 97203 </span>
+                    <span>Fraccionamiento Francisco de MontejoIII Mérida,Yucatán </span>
                     <br>
-                    <span>Francisco de Montejo III Mérida,Yucatán </span>
-                    <br>
-                    <span>Tel. 01 (800) 890 9383, (999) 4 29 82 78</span>
-                    <br>
+                    <span>Tel. 01 800 890 9383 CP 97203</span>
                   </td>
-                  <td style="text-align: center; width:25%">
-                    <br>
-                    <strong>Entrada</strong><br>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        
+
+          <tr class="information">
+            <td colspan="5">
+              <table>
+                <tr>
+                  <td class="top">
+                    <b>Compañia:</b>
+                    <%= @purchase.provider.business_name %><br>
+                  	<b>Contacto:</b>
+                    <%= @purchase.provider.provider_contacts.first.name %><br>
+                    <b>E-mail:</b>
+                    <%= @purchase.provider.provider_contacts.first.email %><br>
+                    <b>Tipo de comprobante:</b>
+                    <%= @purchase.receipt_type.name %><br>
+                    <b>Código de entrada:</b>
+                    <%= @purchase.entry_code.name %>   
+                  </td>
+
+                  <td class="top">
+                    <h3>Entrada</h3>
                     <b>Folio:</b>
                     <b class="blue"><%= @purchase.folio %></b><br>
                     <b>Fecha:</b>
@@ -31,38 +51,9 @@
               </table>
             </td>
           </tr>
-        
 
-          <tr class="information">
-            <td colspan="6">
-              <table>
-                <tr>
-                  <td class="top">
-                    <b>Datos del proveedor:</b>
-                    <%= @purchase.provider.business_name.blank? ? "----" : @purchase.provider.business_name %><br>
-                  	<b>Contacto:</b>
-                    <%= @purchase.provider.provider_contacts.first.name.blank? ? "----" : @purchase.provider.provider_contacts.first.name %><br>
-                    <b>E-mail:</b>
-                    <%= @purchase.provider.provider_contacts.first.email.blank? ? "----" : @purchase.provider.provider_contacts.first.email %><br>
-                    <b>Tipo de comprobante:</b>
-                    <%= @purchase.receipt_type.name %><br>
-                    <b>Código de entrada:</b>
-                    <%= @purchase.entry_code.name %><br>
-                    <b>Código de la factura:</b>
-                    <%= @purchase.code_invoice %><br>
-                    <b>Forma de pago:</b>
-                    <%= @purchase.payment_way.name %><br>
-                    <b>Creado por:</b>
-                    <%= @purchase.user.name %> <%= @purchase.user.lastname %>   
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <tr class="heading font-row-12">
-            
-            <td colspan="2" style="text-align: center;">Concepto</td>
+          <tr class="heading">
+            <td class="center">Concepto</td>
             <td style="text-align: center;">Info. Producto</td>
             <td class="center">Precio</td>
             <td class="center">Cantidad</td>
@@ -70,27 +61,16 @@
           </tr>
 
           <% @purchase.purchase_items.each do |item| %>
-            <tr  class="item font-row-12">
-
-                <td colspan="2" style="text-align: center;">
-                    <b><%= item.name %></b>
-
-                    <% unless item.product_variant.product.brand.blank? %>
-                     <b>MARCA:</b>
-                     <b><%= item.product_variant.product.brand %>;</b>
-                    <% end %>
-
-                    <% unless item.product_variant.product.model.blank? %>
-                      <b>MODELO:</b>
-                      <b><%= item.product_variant.product.model %></b>
-                    <% end %>
-                    
+            <tr class="item">
+                <td>
+                    <%= item.name %><br>
                     <small><%= item.observation %></small>
                 </td>
                 <td style="text-align: left;">
                     <small><b>Unidad: </b> <%= item.unit %></small><br>
                     <small><b>No. Serie: </b> <%= item.number_serie %></small><br>
                     <small><b>No. Pedimento: </b><%= item.number_procedure %></small><br>
+                    <small><b>No. Parte: </b><%= item.number_part %></small>
                 </td>
 
                 <td class="center">
@@ -98,47 +78,35 @@
                 </td>
 
                 <td class="center">
-                    <%= item.quantity %>
+                    x <%= item.quantity %>
                 </td>
                 <td class="center">
-                    <%= number_to_currency(item.unit_price * item.quantity)  %>
-                    <br>
-                    <%= item.adjustment_total.blank? ? "" : "-" + number_to_currency(item.adjustment_total) %>
+                    <%= number_to_currency(item.unit_price * item.quantity) %>
                 </td>
             </tr>
           <% end %>
 
           <tr>
-            <td colspan="6"></td>
+            <td colspan="5"></td>
           </tr>
 
-          <tr class="font-row-12">
-            <td colspan="4"></td>
+          <tr>
+            <td colspan="3"></td>
             <td><b>Subtotal</b></td>
             <td class="center"><%= number_to_currency(@purchase.subtotal) %></td>
           </tr>
 
-          <tr class="font-row-12">
-            <td colspan="4"></td>
-            <% if @purchase.adjustment_total != 0 %>
-            <td><b>Descuento</b></td>
-            <td class="center">- <%= number_to_currency(@purchase.adjustment_total) %></td>
-            <% end %>
+          <tr>
+            <td colspan="3"></td>
+            <td><b>Impuesto (<%= (@purchase.tax * 100).to_i %>%)</b></td>
+            <td class="center">+ <%= number_to_currency(@purchase.tax_total) %></td>
           </tr>
 
-          <tr class="font-row-12">
-            <td colspan="4"></td>
-            <td><b>IVA <%= (@purchase.tax * 100).to_i %> %</b></td>
-            <td class="center"><%= number_to_currency(@purchase.tax_total) %></td>
-          </tr>
-
-          <tr class="font-row-12">
-            <td colspan="4">
-              <%= @purchase.total.to_i.round(2).to_words precision: 2 %> <%= @purchase.currency.name == "MXN" ? "PESOS" : "DOLARES" %> <%= sprintf('%02d', (@purchase.total.frac * 100).round(2)) %><%= @purchase.currency.abbreviation %>
-            </td>
+          <tr>
+            <td colspan="3"></td>
             <td><b>TOTAL:</b></td>
             <td class="center">
-               <b><%= number_to_currency(@purchase.total) %> <%= @purchase.currency.name %></b>
+               <b><%= number_to_currency(@purchase.total) %></b>
             </td>
           </tr>
               </table>

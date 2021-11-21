@@ -56,6 +56,7 @@ class Admin::PurchasesController < ApplicationController
   # POST /purchases.json
   def create
     @purchase = Purchase.new(purchase_params)
+    @purchase.currency_id = 1 #need info#
     @purchase.created_by_id = current_user.id
     respond_to do |format|
       if @purchase.save
@@ -106,11 +107,11 @@ class Admin::PurchasesController < ApplicationController
   end
 
   def product_variants
-    @q = ProductVariant.where("product_variants.deleted_at IS NULL").ransack(params[:q])
+    @q = ProductVariant.ransack(params[:q])
     @product_variants = @q.result(distinct: true)
     total_count = @product_variants.count
     respond_to do |format|
-      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, required_serial_number: s.product.required_serial_number, product_model: s.product.model, product_brand: s.product.brand, unit_price: s.amount_public, amount_provider: s.cost_price, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, provider: s.product.provider.name } } } }
+      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, unit_price: s.amount_public, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, image: s.first_image } } } }
     end
   end
 
@@ -130,7 +131,7 @@ class Admin::PurchasesController < ApplicationController
 
   def search(per_page = 10)
     params[:q] ||= {} 
-    ####params[:per_page] = 10
+    params[:per_page] = 10
     
     @q = Purchase.search(params[:q])
     @collection = @q.result(:distinct => true).order('id DESC').page(params[:page]).per(params[:per_page])
@@ -144,8 +145,8 @@ class Admin::PurchasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_params
-      params.require(:purchase).permit(:folio, :date, :observation, :subtotal, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :receipt_type_id, :entry_code_id, :provider_id, :created_by_id, :deleted_at, :code_invoice, :payment_way_id,
-        purchase_items_attributes: [ :id, :product_variant_id, :name, :observation, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :number_serie, :number_procedure, :product_state, :observation, :_destroy, :serial_number ]
+      params.require(:purchase).permit(:folio, :date, :observation, :subtotal, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :receipt_type_id, :entry_code_id, :provider_id, :created_by_id, :deleted_at,
+        purchase_items_attributes: [ :id, :product_variant_id, :name, :observation, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :number_serie, :number_procedure, :number_part, :observation, :_destroy ]
         )
     end
 end

@@ -12,13 +12,10 @@ class ProductVariant < ApplicationRecord
   has_many :quotations, through: :items, source: :record, source_type: 'Quotation'
   has_many :diagnoses, through: :items, source: :record, source_type: 'Diagnosis'
   has_many :sales, through: :items, source: :record, source_type: 'Sale'
-  has_many :product_stocks
-  accepts_nested_attributes_for :product_stocks, reject_if: :all_blank, allow_destroy: true
 
   scope :active, -> { where('deleted_at IS NULL')}
 
   validates :product_key, presence: true
-  ##################validates :stocking_time, presence: true check 
   
   def first_image
   	if !(product_variant_images.blank?)

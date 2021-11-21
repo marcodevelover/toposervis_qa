@@ -11,12 +11,9 @@ class ServiceOrder < ApplicationRecord
   accepts_nested_attributes_for :images_attachments, allow_destroy: true
   has_one :diagnosis, inverse_of: :service_order, touch: true
   accepts_nested_attributes_for :diagnosis, reject_if: :all_blank, allow_destroy: true
-  has_many :partial_payments
-  accepts_nested_attributes_for :partial_payments, reject_if: :all_blank, allow_destroy: true
 
   before_create :set_folio, :set_state
   before_update :update_state, if: Proc.new { self.diagnosis.present? }
-
   #before_update :update_state_sale, if: Proc.new { self.diagnosis.sale.present? }
   
   # active, diagnosed, done, sold, delivered
@@ -26,9 +23,6 @@ class ServiceOrder < ApplicationRecord
   before_validation :cancellation_state_invoice , on: :request_cancellation_state_invoice_to_diagnosis, if: Proc.new { self.diagnosis.sale.bill_state == "valid" }
 
   validates :date_admission, presence: true
-  validates :images, blob: { content_type: ['image/jpg', 'image/jpeg', 'image/png'], size_range: 1..6.megabytes }
-
-  scope :active, -> { where('deleted_at IS NULL')}
   
   def users
     [user, created_by]
@@ -56,12 +50,6 @@ class ServiceOrder < ApplicationRecord
     case @state
     when "active"
       self.state = "diagnosed"
-    when "diagnosed"
-      if self.diagnosis.is_authorized
-        self.state = "in_repair"
-      else
-        self.state = "diagnosed"
-      end
     when "done"
       self.state = "sold"
     else
@@ -81,13 +69,13 @@ class ServiceOrder < ApplicationRecord
                                             "tax_id": self.customer.rfc
                                         },
                         items:          (@items.map { |s| { quantity: s.quantity, 
-                                                            product: { description: s.name + " PARA " +
-                                                                                    self.product.name +
-                                                                                    " MARCA " + self.brand +
-                                                                                    " MODELO " + self.model +
-                                                                                    " NÚMERO DE SERIE " + self.serie,
+                                                            product: { description: s.name + " " +
+                                                                                    "SERIE".html_safe + " " + self.serie + " " +
+                                                                                    "MODELO".html_safe + " " +self.model + " " +
+                                                                                    "MARCA".html_safe + " " +self.brand + " " +
+                                                                                    s.extended_description,
                                                                        product_key: s.product_variant.product_key, 
-                                                                       price: s.unit_price - s.adjustment_total,
+                                                                       price: s.unit_price, 
                                                                        unit_key: s.product_variant.product.unit.unit_key,
                                                                        tax_included: false} 
                                                           } 

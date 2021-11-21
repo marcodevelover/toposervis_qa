@@ -1,24 +1,25 @@
 version: "3"
 services:
-  web:
+  app:
     build:
       context: .
-      dockerfile: Dockerfile.web
-    container_name: toposervis_web
+      dockerfile: Dockerfile.app
+    container_name: toposervis_app
     stdin_open: true
     tty: true
     volumes:
       - /opt/app/node_modules
+      - /opt/app/tmp
       - .:/opt/app
     ports:
       - 3003:3003
     depends_on:
-      - mysql
-    entrypoint: /opt/app/run.dev
+      - db
+    entrypoint: /opt/app/docker-entrypoint.sh
 
-  mysql:
+  db:
     image: mysql:5.5
-    container_name: toposervis_mysql
+    container_name: toposervis_db
     ports:
       - 13306:3306
     environment:

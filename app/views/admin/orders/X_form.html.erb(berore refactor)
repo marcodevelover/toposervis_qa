@@ -1,0 +1,823 @@
+<%= simple_form_for([:admin, @sale]) do |form| %>
+  <%= form.error_notification %>
+  <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
+            <!-- START card-->
+            <div class="card card-default">
+               <div class="card-body">
+                  
+                     <h3></h3>
+                     <fieldset>
+                        <div class="form-group row">
+                           <div class="col-md-12">
+                              <div class="form-row">
+
+          <div class="col-lg-8 mb-8x">
+            <label class="control-label">Cotización</label>
+             <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" id="note_quotation" style="width: 100%">
+            </select>
+          </div>
+
+
+
+                              </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                           <div class="col-md-12">
+                              <div class="form-row">
+                                <div class="col-lg-4 mb-4">
+                                  <label class="form-label">Fecha</label>
+                                  <div class="form-group"> 
+                                    <%= form.text_field :date, class: "form-control" , placeholder: "Vigencia", type: 'date', value: (form.object.date ? form.object.date.to_date : '')%>
+                                  </div>  
+                                </div> 
+                                 <div class="col-lg-4 mb-4" >
+                                   <%= form.label :currency_id, class: "col-form-label", id: "for_currency"%>
+                                   <div class="form-group">
+                                     <%= form.collection_select :currency_id, Currency.all, :id, :abbreviation, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
+                                   </div>
+                                 </div>
+                                 <div class="col-lg-4 mb-4x">
+                                        <%= form.label :exchange_rate, class: "col-form-label"%> *
+                                        <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true, readonly: true %>
+                                 </div>
+                              </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                           <div class="col-md-12">
+                              <div class="form-row">
+  
+                                 <div class="col-lg-4 mb-4">
+                                   <%= form.label :payment_method_id, class: "col-form-label"%>
+                                   <div class="form-group">
+                                     <%= form.collection_select :payment_method_id, PaymentMethod.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
+                                   </div>
+                                 </div>
+                                 <div class="col-lg-4 mb-4">
+                                   <%= form.label :payment_way_id, class: "col-form-label"%>
+                                   <div class="form-group">
+                                     <%= form.collection_select :payment_way_id, PaymentWay.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
+                                   </div>
+                                 </div>
+
+                              </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <div class="form-row">
+                              <div class="col-lg-8 mb-8">
+                                <%= form.association :customer, input_html: { class: 'custom-select custom-select-sm' } %>
+                              </div>
+                              <div class="col-lg-4 mb-4">
+                                </br>
+                               <%= link_to new_admin_customer_path, :class => "btn btn-success ml-auto", data: { modal: true }   do %>
+                                 <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
+                               <%end%>                                  
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </br>
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <div class="form-row">
+                              <div class="col-lg-12 mb-12">
+                                <label for="validationServer03"><b>Observaciones</b></label>
+                                <%= form.text_area :observation, class: "form-control", rows: 10 %>
+                              </div>
+
+                            </div>
+                          </div>
+
+                        </div>
+                      </br>
+
+                          <!-- begin my product -->
+                              <!-- Table Products -->
+                      <h4 class="box-title m-t-40">Productos y/o Servicios</h4>
+                      <hr>
+
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <div id="open_modal" class="btn btn-success ml-auto">
+                              <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </br>
+                                                          
+                      <div class="col-lg-12">
+                        <div class="white-box">
+                          <table id="table_product" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+                            <thead id="product_head" >
+                              <tr>
+                                <th class="text-center" data-field="product">Producto</th>
+                                <th class="text-center" data-field="quantity">Cantidad</th>
+                                <th class="text-center" data-field="unit_price">Precio</th>
+                                <th class="text-center" data-field="unit">Unidad</th>
+                                <th class="text-center" data-field="discount_import">Descuento importe</th>
+                                <th class="text-center" data-field="total_price">Precio total</th>
+                                <th class="text-center" data-field="last_name" data-sort-ignore="true" class="min-width">Eliminar</th>
+                              </tr>
+                            </thead>
+                              <tbody>
+                                
+                                <%if @sale.items.first %>
+                                  <% @sale.items.each_with_index do |item,index| %>
+                                    <tr class="text-center" data-id="<%=item.id%>">
+                                      
+                                      <td>
+                                      <%= item.name %><br>
+                                      <small><%= item.extended_description ? item.extended_description : "" %></small>
+                                      </td>
+                                      <td><%= item.quantity %></td>
+                                      <td><%= item.unit_price %></td>
+
+                                      <td><%= item.unit %></td>
+
+                                  
+
+                                      <td class="row_total_discount"><%= item.adjustment_total ? item.adjustment_total : 0%></td>
+                                      <td class="row_total_price"><%= item.total %></td>
+
+                                      <td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>
+
+                                      
+
+                                        <input type="hidden" value="<%=item.product_variant.id%>" name="sale[items_attributes][<%=index%>][product_variant_id]">
+                                        
+                                        <input type="hidden" value="<%=item.name%>" name="sale[items_attributes][<%=index%>][name]">
+                                        <input type="hidden" value="<%=item.extended_description%>" name="sale[items_attributes][<%=index%>][extended_description]">
+                                        <input type="hidden" value="<%=item.unit%>" name="sale[items_attributes][<%=index%>][unit]">
+                                        <input type="hidden" value="<%=item.quantity%>" name="sale[items_attributes][<%=index%>][quantity]">
+                                        <input type="hidden" value="<%=item.unit_price%>" name="sale[items_attributes][<%=index%>][unit_price]">
+
+                                        <input type="hidden" value="<%=item.total%>" name="sale[items_attributes][<%=index%>][total]">
+                                        <input type="hidden" value="<%=item.id%>" name="sale[items_attributes][<%=index%>][id]">
+                                    </tr>
+                                  <%end%>
+                                <%end%>
+
+                              </tbody>
+                          </table>
+                        </div>
+                      </div>
+    
+                      <div class="col-lg-12">
+                        <div class="col-md-3 offset-md-9">
+                          <div class="form-group">
+                            <label class="control-label">Importe ($)</label>
+                            <%= form.text_field :subtotal,class:"form-control",id:"total_sale", readonly:"readonly" %>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12">
+                        <div class="col-md-3 offset-md-9">
+                          <div class="form-group">
+                            <label class="control-label">Descuento ($)</label>
+                            <%= form.text_field :adjustment_total,class:"form-control",id:"adjustment_total", readonly:"readonly" %>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-lg-12">
+                        <div class="col-md-3 offset-md-9">
+                          <div class="form-group">
+                            <label class="control-label">IVA ($)</label>
+                            <%= form.text_field :tax_total,class:"form-control",id:"tax_total", readonly:"readonly" %>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-12">
+                        <div class="col-md-3 offset-md-9">
+                          <div class="form-group">
+                            <label class="control-label">Total ($)</label>
+                            <%= form.text_field :total,class:"form-control",id:"total_with_tax", readonly:"readonly" %>
+                          </div>
+                        </div>
+                      </div>                 
+                      </br>
+                     <div class="clearfix">
+                        <div class="float-right">
+                        <%= form.submit class: "btn btn-primary" %>
+
+                        <%= link_to admin_sales_path, :class => "btn btn-secondary" do %>
+                            Cancelar
+                        <%end%>     
+                        </div>
+                     </div>
+                      
+                      </fieldset>
+               </div> <!--card-body card-->
+            </div>
+            <!-- END card-->
+<% end %>
+
+
+<!-- Products /.modal -->
+<div id="note_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg ui-draggable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Productos</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+          <div class="bg-danger rounded" style="color:white; font-weight:bold;">
+            <ul class="errors"></ul>
+          </div>
+          <div class="form-group">
+            <label class="control-label"><%= t('sale_note_has_products.product')%></label>
+             <select class="form-control custom-select custom-select-sm" data-placeholder="Producto" tabindex="1" id="note_product" style="width: 100%">
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Nombre</label>
+            <input type="text" class="form-control" id="name" readonly="readonly"> 
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Unidad</label>
+            <input type="text" class="form-control" id="unit" readonly="readonly"> 
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Descripción extendida</label>
+            <input type="text" class="form-control" id="extended_description" > 
+          </div>
+
+          <div class="form-group">
+            <label class="control-label"><%= t('sale_note_has_products.quantity')%></label>
+            <input type="number" class="form-control" id="note_quantity" onblur="setTotal()" value="0"> 
+          </div>
+
+
+           <div class="form-group">
+            <label class="control-label">Precio Unitario</label>
+            <input type="number" class="form-control" id="note_unit_price" onblur="setTotal()" value="0" readonly="readonly"> 
+          </div>
+
+
+          <div class="btn-hide">
+            <label onclick="isDiscount()" class="control-label">Descuento<span style="color: orange;"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></span></label>
+          </div>
+          <div class="jump show-fields d-none">
+             <div class="form-group">
+              <label class="control-label">Descuento</label>
+              <select class="form-control" data-placeholder="Tipo de descuento" tabindex="1" id="note_factor" onchange="selectDiscount()">
+                <option value="">Seleccionar</option>
+                
+                  <option value="1">Importe</option>
+                  <option value="2">Porcentaje</option>
+                
+              </select>
+            </div>
+             <div class="form-group">
+              <label class="control-label">Valor</label>
+              <input type="text" class="form-control" id="note_discount" onblur="selectDiscount()" value="0"> 
+            </div>
+          </div>
+          <div class="form-group jump">
+            <label class="control-label"><%= t('sale_note_has_products.total')%></label>
+            <input type="text" class="form-control" id="note_total" disabled="disabled"> 
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <div type="button" class="btn btn-default waves-effect" data-dismiss="modal"><%= t('cancel')%></div>
+        <div id="sbm_product" type="button" class="btn btn-success waves-effect waves-light"><%= t('add')%></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+$("#sale_currency_id").select2({
+  ajax: {
+    url: '/admin/<%=controller_name%>/currencies',
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: {abbreviation_cont: params.term}, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      // parse the results into the format expected by Select2
+      // since we are using custom formatting functions we do not need to
+      // alter the remote JSON data, except to indicate that infinite
+      // scrolling can be used
+      params.page = params.page || 1;
+
+      return {
+        results: data.currencies,
+        pagination: {
+          more: (params.page * 30) < data.total_count
+        }
+      };
+    },
+    cache: true
+  },
+  placeholder: 'Buscar Monedas',
+  allowClear: true,
+  minimumInputLength: 1,
+  templateResult: formatRepo,
+  templateSelection: formatRepoSelection
+});
+
+function formatRepo (repo) {
+  if (repo.loading) {
+    return repo.text;
+  }
+
+  var $container = $(
+    "<div class='select2-result-repository clearfix'>" +
+      "<div class='select2-result-repository__meta'>" +
+        "<div class='select2-result-repository__abbreviation'>Abreviación: </div>" +
+      "</div>" +
+    "</div>"
+  );
+
+
+  $container.find(".select2-result-repository__abbreviation").append(repo.abbreviation);
+  
+
+  $("#sale_exchange_rate").val(repo.exchange_rate);
+  
+  return $container;
+}
+
+function formatRepoSelection (repo) {
+  return repo.abbreviation || repo.text;
+}
+
+</script>
+
+<script type="text/javascript">
+
+$("#note_product").select2({
+  ajax: {
+    url: '/admin/<%=controller_name%>/product_variants',
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: {code_cont: params.term}, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      // parse the results into the format expected by Select2
+      // since we are using custom formatting functions we do not need to
+      // alter the remote JSON data, except to indicate that infinite
+      // scrolling can be used
+      params.page = params.page || 1;
+
+      return {
+        results: data.product_variants,
+        pagination: {
+          more: (params.page * 30) < data.total_count
+        }
+      };
+    },
+    cache: true
+  },
+  placeholder: 'Buscar Productos',
+  allowClear: true,
+  minimumInputLength: 1,
+  templateResult: formatRepo,
+  templateSelection: formatRepoSelection
+});
+
+function formatRepo (repo) {
+  if (repo.loading) {
+    return repo.text;
+  }
+
+  var $container = $(
+    "<div class='select2-result-repository clearfix'>" +
+      "<div class='select2-result-repository__meta'>" +
+        "<div class='select2-result-repository__id'>ID: </div>" +
+        "<div class='select2-result-repository__code'>Código: </div>" +
+        "<div class='select2-result-repository__unit_price'>Precio unitario: </div>" +
+        
+      "</div>" +
+    "</div>"
+  );
+
+
+  $container.find(".select2-result-repository__id").append(repo.id);
+  $container.find(".select2-result-repository__code").append(repo.code);
+  $container.find(".select2-result-repository__unit_price").append(repo.unit_price);
+  
+  return $container;
+}
+
+function formatRepoSelection (repo) {
+  // take the value of the currency
+  var sale_exchange_rate = $("#sale_exchange_rate").val();
+  $("#name").val(repo.code);
+  $("#unit").val(repo.unit);
+  $("#note_unit_price").val(repo.unit_price * sale_exchange_rate);
+  return repo.code || repo.text;
+}
+
+</script>
+
+<script type="text/javascript">
+
+$("#sale_customer_id").select2({
+  ajax: {
+    url: '/admin/<%=controller_name%>/customers',
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: {business_name_or_rfc_cont: params.term}, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      // parse the results into the format expected by Select2
+      // since we are using custom formatting functions we do not need to
+      // alter the remote JSON data, except to indicate that infinite
+      // scrolling can be used
+      params.page = params.page || 1;
+
+      return {
+        results: data.customers,
+        pagination: {
+          more: (params.page * 30) < data.total_count
+        }
+      };
+    },
+    cache: true
+  },
+  placeholder: 'Buscar cliente',
+  allowClear: true,
+  minimumInputLength: 1,
+  templateResult: formatRepo,
+  templateSelection: formatRepoSelection
+});
+
+function formatRepo (repo) {
+  if (repo.loading) {
+    return repo.text;
+  }
+
+  var $container = $(
+    "<div class='select2-result-repository clearfix'>" +
+      "<div class='select2-result-repository__meta'>" +
+        "<div class='select2-result-repository__id'>ID: </div>" +
+        "<div class='select2-result-repository__name'>Nombre: </div>" +
+        "<div class='select2-result-repository__rfc'>RFC: </div>" +
+        "<div class='select2-result-repository__business_name'>Empresa: </div>" +
+      "</div>" +
+    "</div>"
+  );
+
+
+  $container.find(".select2-result-repository__id").append(repo.id);
+  $container.find(".select2-result-repository__name").append(repo.name);
+  $container.find(".select2-result-repository__rfc").append(repo.rfc);
+  $container.find(".select2-result-repository__business_name").append(repo.business_name);
+  
+  return $container;
+}
+
+function formatRepoSelection (repo) {
+  return repo.rfc || repo.text;
+}
+
+</script>
+
+<script type="text/javascript">
+
+$("#note_quotation").select2({
+  ajax: {
+    url: '/admin/<%=controller_name%>/quotations',
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: {folio_cont: params.term}, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      // parse the results into the format expected by Select2
+      // since we are using custom formatting functions we do not need to
+      // alter the remote JSON data, except to indicate that infinite
+      // scrolling can be used
+      params.page = params.page || 1;
+
+      return {
+        results: data.quotations,
+        pagination: {
+          more: (params.page * 30) < data.total_count
+        }
+      };
+    },
+    cache: true
+  },
+  placeholder: 'Buscar Cotización',
+  allowClear: true,
+  minimumInputLength: 1,
+  templateResult: formatRepo,
+  templateSelection: formatRepoSelection
+});
+
+function formatRepo (repo) {
+  if (repo.loading) {
+    return repo.text;
+  }
+
+  var $container = $(
+    "<div class='select2-result-repository clearfix'>" +
+      "<div class='select2-result-repository__meta'>" +
+        "<div class='select2-result-repository__id'>ID: </div>" +
+        "<div class='select2-result-repository__code'>Folio: </div>" +
+        "<div class='select2-result-repository__unit_price'>Precio unitario: </div>" +
+        
+      "</div>" +
+    "</div>"
+  );
+
+
+  $container.find(".select2-result-repository__id").append(repo.id);
+  $container.find(".select2-result-repository__code").append(repo.folio);
+  //$container.find(".select2-result-repository__unit_price").append(repo.unit_price);
+//add all accesories
+
+
+  var productCount = 0;
+  var obj = repo.items;
+  if (obj == ""){
+    $( "#items" ).remove();
+  }
+
+  var tbl = $("<tbody/>").attr("id","items");
+  $("#table_product tbody").append(tbl);
+  for(var i=0;i<obj.length;i++)
+  {
+      var tr="<tr class='text-center' data_id='"+productCount+"' >";
+      var td1="<td>"+obj[i]["name"]+"</td>";
+      var td2="<td><input type='number' value='0' name='sale[items_attributes]["+productCount+"][quantity]'  ></td>"
+      var td3="<td><button type='button' class='btn btn-sm btn-icon btn-pure btn-outline btnDelete'><em class='fa-2x icon-close mr-2'></em></button></td></tr>";
+      var hidden="<input type='hidden' value="+obj[i]["name"]+" name='sale[items_attributes]["+productCount+"][name]'  >"
+      
+     $("#items").append(tr+td1+td2+hidden);  
+     productCount += 1;
+    
+  } 
+
+//end products  
+  return $container;
+}
+
+function formatRepoSelection (repo) {
+  // take the value of the currency
+  
+  $("#sale_exchange_rate").val(repo.exchange_rate);
+  $("#sale_currency_id").val(repo.currency_id);
+  $("#sale_currency_id").trigger('change'); 
+  $("#sale_customer_id").val(repo.customer_id);
+  $("#sale_customer_id").trigger('change'); 
+
+ 
+
+
+  return repo.folio || repo.text;
+}
+
+</script>
+
+<script type="text/javascript">
+  // Products methods ****
+  // variables
+  var product_rows = document.getElementById('table_product').getElementsByTagName("tr").length;
+  var productCount = <%= @sale.items.count.to_f %>;
+  var total = <%= @sale.total.to_f %>
+  
+  // Open modal
+  $("#open_modal").click(function(){
+     $("#note_modal").appendTo("body").modal('show');;
+  });
+  // OnclickListener obtiene los valores del formulario producto
+  $('#sbm_product').click(function(){
+    var item = {"product": $("#note_product option:selected").text(),
+                "code": $("#name").val(),
+                "product_variant_id": $("#note_product").val(), 
+                "name": $("#name").val(), 
+                "extended_description": $("#extended_description").val(), 
+                "unit": $("#unit").val(), 
+                "quantity": $("#note_quantity").val(),
+                "unit_price": $("#note_unit_price").val(),
+                "discount_type": $("#note_factor option:selected").text(),
+                "factor_id": $('#note_factor').val(),
+                "discount": $("#note_discount").val(),
+                "total": $("#note_total").val()};
+    var row = create_row(item);
+    if(validate()){
+      $('#table_product tbody').append(row);
+      $('#note_modal').modal('hide');
+      clearForm();
+      productCount += 1;
+      calculateTotal();
+    }
+  });
+  // Crea la fila
+  function create_row (item) {
+    if (item.discount_type == "Seleccionar"){
+      item.discount_type = "N/A";
+    }
+    var row = $('<tr class="text-center" data_id='+productCount+'><td>' + item.code + 
+                '</br><small>' + item.extended_description +'</small>' +
+                '</td><td>' + item.quantity +
+                '</td><td>' + item.unit_price + 
+                '</td><td>' + item.unit +
+                '</td><td class="row_total_discount">' + item.discount +
+                '</td><td class="row_total_price">' + item.total +   
+                '<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>' +
+                '</td>' + create_row_input(item) +
+                '</tr>');
+    return row;
+  }
+  // Crea los hidden fields, obtenidos en el formulario
+  function create_row_input(item){
+    var input =
+    '<input type="hidden" value="'+item.product_variant_id+'" name="sale[items_attributes]['+productCount+'][product_variant_id]" >' +
+    '<input type="hidden" value="'+item.name+'" name="sale[items_attributes]['+productCount+'][name]" >' +
+    '<input type="hidden" value="'+item.extended_description+'" name="sale[items_attributes]['+productCount+'][extended_description]" >' +
+    '<input type="hidden" value="'+item.quantity+'" name="sale[items_attributes]['+productCount+'][quantity]" >' +
+    '<input type="hidden" value="'+item.unit_price+'" name="sale[items_attributes]['+productCount+'][unit_price]" >' +
+    '<input type="hidden" value="'+item.unit+'" name="sale[items_attributes]['+productCount+'][unit]" >' +
+    '<input type="hidden" value="'+item.discount+'" name="sale[items_attributes]['+productCount+'][adjustment_total]" >' +
+    '<input type="hidden" value="'+item.total+'" name="sale[items_attributes]['+productCount+'][total]" >';
+    return input;
+  }
+  // Establece el total en el formulario
+  function setTotal() {
+    var quantity = $("#note_quantity").val();
+    var price = $("#note_unit_price").val();
+    $("#note_total").val(quantity*price);
+  }
+  // Determina el tipo de descuento
+  function selectDiscount(){
+    setTotal();
+    var typeDiscount = $("#note_factor option:selected").text();
+    if(typeDiscount == "Importe"){
+      valueImport();
+    }
+    if(typeDiscount == "Porcentaje"){
+      valueFactor();
+    }
+  }
+  // Calcula el total con descuento del tipo Importe
+  function valueImport(){
+    var total = $("#note_total").val();
+    var discount = $("#note_discount").val();
+    $("#note_total").val(total-discount);
+  } 
+  // Calcula el total con descuento del tipo Porcentaje
+  function valueFactor(){
+    var currentTotal = $("#note_total").val();
+    var discount = $("#note_discount").val();
+    var factor = currentTotal * (discount/100);
+    $("#note_total").val(currentTotal-factor);
+  }
+  // Validaciones
+  function validate(){
+    $("#note_modal").animate({ scrollTop: 0 }, 'slow');
+    $("ul.errors").html("");
+    var validate = true;
+    var errors = [];
+    if($("#note_product").val() == 0){
+      validate = false;
+      errors.push("Seleccione un producto");
+    }
+    if($("#note_quantity").val() == 0){
+      validate = false;
+      errors.push("La cantidad debe ser mayor a 0");
+    }
+    if($("#note_unit_price").val() == 0){
+      validate = false;
+      errors.push("Precio unitario debe ser mayor a 0, Seleccione tipo de cambio");
+    }
+    if(isDiscount()){
+      if($("#note_factor").val() == ""){
+      validate = false;
+      errors.push("Seleccione un tipo de descuento");
+      }
+      if($("#note_discount").val() == 0){
+        validate = false;
+        errors.push("Valor de descuento debe ser mayor a 0");
+      }
+    }
+    if(validate){
+      return true;
+    }else{
+      $.each( errors, function( key, value ) {
+        // Display errors
+        $("ul.errors").append($("<li />").html(value))
+      });
+    }
+  }
+  // Determina si se aplica la validacion de descuento
+  function isDiscount(){
+    if ($(".show-fields").is(".d-none")) {
+      return false;
+    }else{
+      return true;
+    }
+  }
+  // Elimina la fila seleccionada
+  $("#table_product").on('click', '.btnDelete', function () {
+    var productID = $(this).closest('tr').data("id");
+    if (productID != null){
+      generateOnDestroy(productID);
+    }
+    $(this).closest('tr').remove();
+    calculateTotal();
+  });
+  // Enviar item para eliminar
+  function generateOnDestroy(id){
+    var itemDestroy = '<tr><input type="hidden" value="1" name="sale[items_attributes]['+productCount+'][_destroy]">'+
+      '<input type="hidden" value="'+id+'" name="sale[items_attributes]['+productCount+'][id]"><tr>';
+    $('#table_product tbody').append(itemDestroy);
+    productCount +=1;
+  }
+  // Toggle discount inputs
+  $(".btn-hide label").click(function(){
+    if ($(".show-fields").is(".d-none")) {
+      $(".show-fields").toggle(5,function(){
+        $(".show-fields").removeClass("d-none");
+      });
+    }else{
+      $(".show-fields").toggle("slow",function(){
+        $(".show-fields").addClass("d-none");
+        $("#note_factor").val("");
+        $("#note_discount").val("0");
+        setTotal();
+      });
+    }
+  });
+  // Clear the form
+  function clearForm(){
+    $("#note_product").val(null).trigger('change');;
+    $("#name").val("");
+    $("#unit").val("");
+    $("#extended_description").val("");
+    $("#note_quantity").val("0");
+    $("#note_unit_price").val("0");
+    $("#note_factor").val("");
+    $("#note_discount").val("0");
+    $("#note_total").val("0");
+  }
+
+  // Calculate importe
+  function calculateTotal(){
+    total = 0;
+    tax_total = 0;
+    var product = 0;
+    total_with_tax = 0
+    $('#table_product > tbody  > tr').each(function() {
+      var product_total = $(this).find(".row_total_price").html();
+      if(product_total != null){
+        product = parseFloat(product_total,10);
+        total += product;
+        tax_total = total * 0.16
+        total_with_tax = total + tax_total
+      }
+    });
+
+    total_discount = 0;
+    var discount = 0;
+    $('#table_product > tbody  > tr').each(function() {
+      var product_discount = $(this).find(".row_total_discount").html();
+      if(product_discount != null){
+        discount = parseFloat(product_discount);
+        total_discount += discount;
+      }
+    });
+
+    $("#total_sale").val(total);
+    $("#tax_total").val(tax_total);
+    $("#total_with_tax").val(total_with_tax);
+    $("#adjustment_total").val(total_discount);
+  }
+
+  // End products ****
+</script>

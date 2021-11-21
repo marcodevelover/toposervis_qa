@@ -1,8 +1,12 @@
 wb = xlsx_package.workbook #create excel book
 wb.add_worksheet(name: "Productos") do |sheet|
+  sps_img = File.expand_path(Rails.root+'app/assets/images/pdf/logo.png')
+    sheet.add_image(:image_src => sps_img) do |image|
+      image.start_at 0, 0
+      image.end_at 6, 10
+    end
 
-
-  (1..2).each do |row|
+  (1..12).each do |row|
     sheet.add_row
   end
   header = wb.styles.add_style({:alignment => {:horizontal => :center, :vertical => :center, :wrap_text => true}, :border => { :style => :thin, :color => "000000" }}) 
@@ -15,18 +19,7 @@ wb.add_worksheet(name: "Productos") do |sheet|
     head[:name] = "Nombre"
     head[:brand] = "Marca"
     head[:model] = "Modelo"
-    head[:description] = "Descripción"
-    head[:line] = "Línea"
-    head[:unit] = "Unidad"
-    head[:provider] = "Proveedor"
-    head[:currency] = "Moneda"
-    head[:sat_key] = "Clave SAT"
-    head[:sat_description] = "Descripción SAT"
-    head[:cost_price] = "Precio Proveedor"
-    head[:amount_public] = "Precio Público"
-    head[:is_service_order] = "El producto es para Orden de Servicio"
     head[:stock] = "Existencia"
-    head[:is_service] = "¿Es servicio?"
     head[:deleted_at] = "Estatus"
   end
   sheet.add_row hedears.values, :style => header
@@ -37,18 +30,7 @@ wb.add_worksheet(name: "Productos") do |sheet|
       datos[:name] = product.name
       datos[:brand] = product.brand
       datos[:model] = product.model
-      datos[:description] = product.description
-      datos[:line] = product.product_line.name
-      datos[:unit] = product.unit.name
-      datos[:provider] = product.provider.business_name
-      datos[:currency] = product.product_variants.first.currency.name
-      datos[:product_key] = product.product_variants.first.product_key
-      datos[:product_description] = product.product_variants.first.product_description
-      datos[:cost_price] =  number_to_currency(product.product_variants.first.cost_price)
-      datos[:amount_public] = number_to_currency(product.product_variants.first.amount_public)
-      datos[:is_service_order] = product.is_service_order? ? "1" : "0"
       datos[:stock] = product.product_variants.first.stock_item.stock.round
-      datos[:is_service] = product.is_service? ? "SI" : "NO"
       datos[:deleted_at] = product.deleted_at? ? "Baja" : "Activo"
     end  
     sheet.add_row data.values, :style => border

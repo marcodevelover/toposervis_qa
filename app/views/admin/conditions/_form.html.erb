@@ -14,16 +14,11 @@
         <%= form.label :description, class: "col-form-label"%> *
         <%= form.text_field :description, class: "form-control", type: "text" %>
   </div>
-
- <div class="form-group">
-   <% @is_for  = [["",""], ["Producto","product"], ["Servicio", "service"], ["Ambos", "both"] ] %>
-   <%= form.input :is_for, collection: @is_for, selected: @condition.is_for, input_html: { class: 'custom-select custom-select-sm' } %>                                      
- </div>
-
   <div class="form-group">
         <%= form.label :default, class: "col-form-label"%>
         <%= form.input_field :default, as: :boolean %>
   </div>
+
    <div class="required">* Required fields</div>
 </div>
 <div class="modal-footer">

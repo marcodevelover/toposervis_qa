@@ -4,28 +4,18 @@
             <td colspan="5">
               <table>
                 <tr>
-                  <td class="title" style="width:25%">
+                  <td class="title">
                     <%= wicked_pdf_image_tag 'pdf/logo.png' %>
                   </td>
-                  <td style="text-align: center; width:50%" class="top">
+
+                  <td>
                     <strong>Toposervis S de RL de CV</strong>
                     <br>
-                    <span>RFC: TOP160404KU0</span>
+                    <span>Calle42No.264x41Ay 41C</span>
                     <br>
-                    <span>Calle 42 No.264 x 41A y 41C, C.P. 97203 </span>
+                    <span>Fraccionamiento Francisco de MontejoIII Mérida,Yucatán </span>
                     <br>
-                    <span>Francisco de Montejo III Mérida,Yucatán </span>
-                    <br>
-                    <span>Tel. 01 (800) 890 9383, (999) 4 29 82 78</span>
-                    <br>
-                  </td>
-                  <td style="text-align: center; width:25%">
-                    <br>
-                    <strong>Orden de servicio</strong>
-                    <b>Folio:</b>
-                    <b class="blue"><%= @service_order.folio %></b><br>
-                    <b>Fecha:</b>
-                    <b class="blue"><%= @service_order.created_at.strftime("%d-%m-%Y") %></b><br>
+                    <span>Tel. 01 800 890 9383 CP 97203</span>
                   </td>
                 </tr>
               </table>
@@ -43,11 +33,18 @@
                     <b>RFC:</b>
                     <%= @service_order.customer.rfc.blank? ? "----" : @service_order.customer.rfc %><br>
                   	<b>Contacto:</b>
-                    <%= @service_order.user.blank? ?  "----" : @service_order.user.name + " " + @service_order.user.lastname %><br>
+                    <%= @service_order.customer.customer_contacts.blank? ?  "----" : @service_order.customer.customer_contacts.first.name.blank? ? "----" : @service_order.customer.customer_contacts.first.name %><br>
                     <b>Teléfono:</b>
-                    <%= @service_order.user.blank? ?  "----" : @service_order.user.phone %><br>
+                    <%= @service_order.customer.customer_contacts.blank? ?  "----" : @service_order.customer.customer_contacts.first.phone.blank? ? "----" : @service_order.customer.customer_contacts.first.phone %><br>
                     <b>E-mail:</b>
-                    <%= @service_order.user.blank? ?  "----" : @service_order.user.email %><br>
+                    <%= @service_order.customer.customer_contacts.blank? ?  "----" : @service_order.customer.customer_contacts.first.email.blank? ? "----" : @service_order.customer.customer_contacts.first.email %>
+                  </td>
+                  <td class="top">
+                  	<h3>Orden de servicio</h3>
+                  	<b>Folio:</b>
+                    <b class="blue"><%= @service_order.folio %></b><br>
+                    <b>Fecha:</b>
+                    <b class="blue"><%= @service_order.created_at.strftime("%d-%m-%Y") %></b><br>
                   </td>
 
                 </tr>
@@ -55,14 +52,14 @@
             </td>
           </tr>
 
-          <tr class="font-row-12">
+          <tr>
             <td colspan="5"><b>Producto:</b> <%= @service_order.product.name %></td>
           </tr>
-          <tr class="font-row-12">
-            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp; <b style="font-size: 16px"><%= @service_order.product.name %></b> marca <b style="font-size: 16px"><%= @service_order.brand %></b> modelo <b style="font-size: 16px"><%= @service_order.model %></b> con número de serie <b style="font-size: 16px"><%= @service_order.serie %></b> para su revisión y diagnostico.</br></br><b>Accesorios que incluye:</b><br></td>
+          <tr>
+            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @service_order.product.name %></b> marca <b><%= @service_order.brand %></b> modelo <b><%= @service_order.model %></b> con número de serie <b><%= @service_order.serie %></b> para su revisión y diagnostico.</br><br> <b>Comentarios: </b><%= @service_order.observation %> </br><br><b>Accesorios que incluye:</b><br></td>
           </tr>          
 
-          <tr class="heading font-row-12">
+          <tr class="heading">
             
             <td class="center" colspan="3">Accesorios</td>
             <td style="text-align: center;" colspan="2">Cantidad</td>
@@ -71,7 +68,7 @@
 
           <% @service_order.order_accessories.where.not(quantity: 0).each do |item| %>
             
-            <tr class="item font-row-12">
+            <tr class="item">
                 
                 <td colspan="3">
                     <%= item.accessory %>
@@ -83,25 +80,13 @@
                 </td>
             </tr>
             
-          <% end %>          
-        </table>
-</div>
-<div class="invoice-box nobreak font-row-12">
-        <table cellpadding="0" cellspacing="0">
+          <% end %>
+
           <tr>
             <td colspan="5"></td>
           </tr>
           <tr>
             <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"><b>Comentarios: </b><%= @service_order.observation.blank? ? "N/A" : @service_order.observation.html_safe  %></td>
           </tr>
 
           <tr>
@@ -133,8 +118,12 @@
             <td colspan="3" style="text-align: center"><strong>_________________________________</strong></td>
           </tr>          
           <tr>
-            <td colspan="3" style="text-align: center"><strong>Cliente</strong></td>
+            <td colspan="3" style="text-align: center"><strong>Cliente:</strong></td>
             <td colspan="3" style="text-align: center"><strong>Toposervis S de RL de CV</strong></td>
-          </tr> 
+          </tr>
+              </table>
+            </td>
+          </tr>          
+          
         </table>
-</div>
+    </div>

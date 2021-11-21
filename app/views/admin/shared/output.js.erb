@@ -1,10 +1,10 @@
 swal({
-    title: '¿Estas seguro?',
+    title: 'Are you sure?',
     text: 'Desea realizar la salida de esta orden!',
     icon: 'warning',
     buttons: {
         cancel: {
-            text: 'No, cancelar!',
+            text: 'No, cancel!',
             value: null,
             visible: true,
             className: "",
@@ -34,7 +34,7 @@ swal({
                 }
             });                
     } else {
-        swal('Cancelado', 'No se realizaron los cambios', 'error');
+        swal('Cancelled', 'Your file is safe :)', 'error');
     }
 
     });

@@ -136,26 +136,6 @@
 
 <% end %>
 <hr>
-<strong>Inventario</strong>
-<p>
-  <strong><%= t("products.stock")%>:</strong>
-  <%= @product.product_variants.first.stock_item.stock.round %>
-</p>
-
-<% @product.product_variants.first.product_stocks.each do |product_stock| %>
-
-<p>
-  <strong>Número de serie:</strong>
-  <%= product_stock.serial_number %>
-</p>
-<% end %>
-
-<hr>
-<p>
-  <strong>¿El producto o servicio es para Ordenes de servicio?:</strong>
-  <%= t(@product.is_service_order) %>
-</p>
-
 <p>
   <strong><%= t("products.deleted_at")%>:</strong>
   <%= @product.deleted_at %>

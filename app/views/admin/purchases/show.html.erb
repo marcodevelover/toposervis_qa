@@ -30,28 +30,18 @@
             <td colspan="5">
               <table>
                 <tr>
-                  <td class="title" style="width:25%">
+                  <td class="title">
                     <%= image_tag 'pdf/logo.png' %>
                   </td>
-                  <td style="text-align: center; width:50%" class="top">
+
+                  <td>
                     <strong>Toposervis S de RL de CV</strong>
                     <br>
-                    <span>RFC: TOP160404KU0</span>
+                    <span>Calle42No.264x41Ay 41C</span>
                     <br>
-                    <span>Calle 42 No.264 x 41A y 41C, C.P. 97203 </span>
+                    <span>Fraccionamiento Francisco de MontejoIII Mérida,Yucatán </span>
                     <br>
-                    <span>Francisco de Montejo III Mérida,Yucatán </span>
-                    <br>
-                    <span>Tel. 01 (800) 890 9383, (999) 4 29 82 78</span>
-                    <br>
-                  </td>
-                  <td style="text-align: center; width:25%">
-                    <br>
-                    <strong>Entrada</strong><br>
-                    <b>Folio:</b>
-                    <%= @purchase.folio %><br>
-                    <b>Fecha:</b>
-                    <%= @purchase.date.strftime("%d-%m-%Y") %><br>
+                    <span>Tel. 01 800 890 9383 CP 97203</span>
                   </td>
                 </tr>
               </table>
@@ -74,6 +64,13 @@
                     <%= @purchase.receipt_type.name %><br>
                     <b>Código de entrada:</b>
                     <%= @purchase.entry_code.name %>            
+                  </td>
+                  <td>
+                    <b>Entrada</b><br>
+                    <b>Folio:</b>
+                    <%= @purchase.folio %><br>
+                    <b>Fecha:</b>
+                    <%= @purchase.date.strftime("%d-%m-%Y") %><br>
                   </td>
                 </tr>
               </table>
@@ -106,7 +103,7 @@
                 </td>
 
                 <td class="right">
-                    <%= item.quantity %>
+                    x <%= item.quantity %>
                 </td>
                 <td>
                     <%= number_to_currency(item.unit_price * item.quantity) %>
@@ -128,7 +125,7 @@
 
           <tr>
             <td colspan="3"></td>
-            <td><b>I.V.A. (<%= (@purchase.tax * 100).to_i %>%)</b></td>
+            <td><b>Impuesto (<%= (@purchase.tax * 100).to_i %>%)</b></td>
             <td>+ <%= number_to_currency(@purchase.tax_total) %></td>
           </tr>
 

@@ -48,7 +48,7 @@ class Admin::UsersController < ApplicationController
   # PATCH/PUT /admin/users/1
   # PATCH/PUT /admin/users/1.json
   def update
-    if params[:user][:password].blank?
+    if params[:user][:password_confirmation].blank?
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation) 
     end 
@@ -80,7 +80,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def customers
-    @q = Customer.active.ransack(params[:q])
+    @q = Customer.ransack(params[:q])
     @customers = @q.result(distinct: true)
     total_count = @customers.count
     respond_to do |format|
