@@ -7,6 +7,9 @@
 # Ignore directory and files.
 /.bundle
 Gemfile.lock
+package-lock.json
+yarn.lock
+loaded.lock
 
 # Ignore the default SQLite database.
 /db/*.sqlite3

@@ -4,12 +4,19 @@ USER root
 
 WORKDIR /opt/app
 
+COPY ./run.dev /opt/app/run.dev
+
 RUN set -ex \
-  && apt-get -y update && apt-get -y upgrade  \
-  && apt-get -y --force-yes install \
+  && apt-get update -y && apt-get upgrade -y \
+  && apt-get  install -y --force-yes \
      apt-utils \
      ca-certificates \
-     nodejs \
-     npm \
      build-essential \
+     dos2unix \
+  && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+  && apt-get install -y --force-yes  \
+  && nodejs \
+  && yarn \
+  && dos2unix /opt/app/run.dev \
+  && chmod +x /opt/app/run.dev \
   && echo '--END RUN--'
