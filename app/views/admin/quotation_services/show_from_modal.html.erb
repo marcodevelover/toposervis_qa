@@ -1,0 +1,111 @@
+<div class="modal-body">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t("quotation_services.folio")%>:</strong>
+  <%= @quotation_service.folio %>
+</p>
+<p>
+  <strong>¿Incluye impuestos?</strong>
+  <%= t @quotation_service.is_tax?.to_s %>
+</p>
+<p>
+  <% if @quotation_service.is_tax %>  
+    <strong>Subtotal:</strong>
+  <% else %>  
+    <strong>Total:</strong>
+  <% end %>
+<%= @quotation_service.subtotal %>
+</p>
+
+<p>
+  <strong><%= t("quotation_services.adjustment_total")%>:</strong>
+  <%= @quotation_service.adjustment_total %>
+</p>
+
+<% if @quotation_service.is_tax %>
+  <p>
+    <strong><%= t("quotation_services.total")%>:</strong>
+    <%= @quotation_service.total %>
+  </p>
+    
+  <p>
+    <strong><%= t("quotation_services.tax")%>:</strong>
+    <%= @quotation_service.tax %>
+  </p>
+
+  <p>
+    <strong><%= t("quotation_services.tax_total")%>:</strong>
+    <%= @quotation_service.tax_total %>
+  </p>
+  <p>
+    <strong><%= t("quotation_services.tax_item_total")%>:</strong>
+    <%= @quotation_service.tax_item_total %>
+  </p>
+<% end %>
+<p>
+  <strong><%= t("quotation_services.state")%>:</strong>
+  <%= t(@quotation_service.state) %>
+</p>
+
+<p>
+  <strong><%= t("quotation_services.validity")%>:</strong>
+  <%= @quotation_service.validity %>
+</p>
+
+<p>
+  <strong><%= t("quotation_services.currency")%>:</strong>
+  <%= @quotation_service.currency ? @quotation_service.currency.abbreviation : "N/A" %>
+</p>
+
+<p>
+  <strong><%= t("quotation_services.exchange_rate")%>:</strong>
+  <%= @quotation_service.exchange_rate %>
+</p>
+
+<p>
+  <strong><%= t("quotation_services.customer")%>:</strong>
+  <%= @quotation_service.customer ? @quotation_service.customer.name : "N/A" %>
+</p>
+<p>
+  <strong>RFC:</strong>
+  <%= @quotation_service.customer ? @quotation_service.customer.rfc : "N/A" %>
+</p>
+    
+    
+    <b>Contacto:</b>
+    <%= @quotation_service.customer.customer_contacts.blank? ? "----" : @quotation_service.customer.customer_contacts.first.name %><br>
+    <b>Compañia:</b>
+    <%= @quotation_service.customer.business_name %><br>
+    <b>E-mail:</b>
+    <%= @quotation_service.customer.customer_contacts.blank? ? "----" : @quotation_service.customer.customer_contacts.first.email %><br>
+    
+
+<p>
+  <strong><%= t("quotation_services.condition")%>:</strong>
+  <%= @quotation_service.condition %>
+</p>
+
+<p>
+  <strong><%= t("quotation_services.created_by")%>:</strong>
+  <%= @quotation_service.user.name %> <%= @quotation_service.user.lastname %>
+</p>
+
+<h4>Productos</h4>
+
+<% @quotation_service.items.each do |item| %>
+  <p>
+    <strong>Producto:</strong>
+    <%= item.product_variant.product.name %>
+  </p>
+<% end %>
+
+<p>
+  <strong><%= t("quotation_services.deleted_at")%>:</strong>
+  <%= @quotation_service.deleted_at %>
+</p>
+
+</div>
+<div class="modal-footer"> 
+     <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t(:close) %></button>
+</div>

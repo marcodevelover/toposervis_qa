@@ -27,6 +27,8 @@ wb.add_worksheet(name: "Productos") do |sheet|
     head[:cost_price] = "Costo Unidad"
     head[:cost_total] = "Costos Total"
     head[:deleted_at] = "Estatus"
+   
+
   end
   sheet.add_row hedears.values, :style => header
   
@@ -37,13 +39,14 @@ wb.add_worksheet(name: "Productos") do |sheet|
       datos[:brand] = product.brand
       datos[:model] = product.model
       datos[:folio] = product.folio
-      datos[:created_at] = product.created_at.to_s(:db)
+      datos[:created_at] = product.stock_movements_created_at.to_time.to_formatted_s(:db)
       datos[:description] = product.description
       datos[:quantity] = product.quantity
       datos[:stock] = product.stock
       datos[:cost_price] = product.cost_price
       datos[:cost_total] = product.stock * product.cost_price
       datos[:deleted_at] = product.deleted_at? ? "Baja" : "Activo"
+      
     end
     sheet.add_row data.values, :style => border
   end

@@ -2,7 +2,11 @@ class Item < ApplicationRecord
   belongs_to :record, polymorphic: true
   belongs_to :product_variant
 
-  before_create :set_tax, :set_cost_price
+  before_create :set_tax, :set_cost_price, :default_values
+
+  def default_values
+    self.serial_number.blank? ? self.serial_number = 'N/A' : self.serial_number
+  end
 
   def set_tax
     self.tax = Tax.where(default: true).first.value

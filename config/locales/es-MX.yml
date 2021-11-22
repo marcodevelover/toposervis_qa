@@ -22,7 +22,16 @@
 #https://github.com/svenfuchs/rails-i18n/blob/rails-4-x/rails/locale/es-MX.yml
  
 es: 
+  product: Producto
+  service: Servicio
+  boot: Ambos
   add: Agregar
+  add_accessories: Accesorios
+  add_customers: Clientes
+  add_users: Usuarios
+  select_images: Seleccione los archivos de imágen
+  max_size: Máximo 5 MB
+  product_accessories: Accesorios del producto
   email_availible: Email Disponible
   email_already_taken: Email electrónico ya ha sido tomado
   email_not_exist:  Email no existe
@@ -47,6 +56,9 @@ es:
   event_module: Eventos
   promotion_module: Promoción
   post_module: Publicaciones
+  depot_module: Almacenes
+  project_module: Proyectos
+  lending_module: Resguardo de equipos
   configurations_module: Configuraciones
   completed: Completado
   incompleted: en curso
@@ -59,9 +71,10 @@ es:
   user_module: Usuarios
   unit_module: Unidades de medida
   product_line_module: Lineas de producto
-  product_module: Productos
+  product_module: Productos/Servicios
   currency_module: Monedas
   accessory_module: Accesorios de producto
+  deliverable_module: Entregables de servicio
   category_module: Categorias
   subcategory_module: Subcategorias
   interview_gg_module: Conversaciones Servir y Sonreír
@@ -75,6 +88,24 @@ es:
   category: Categoría
   category_module: Categorías
   categories: Categorías
+  information: Información
+  partial_payment: Abonos
+  help: Ayuda
+  invoice_information: Para poder emitir una factura es necesario que la información del documento este completa, Razón Social, RFC, Uso de CFDI e información de productos/servicios con sus respectivas claves SAT.
+  service_order: Orden de servicio
+  to_diagnose: Diagnostico
+  sale_order: Nota de venta 
+  deliver: Entregar
+  remove: Eliminar
+  print: Imprimir
+  bill: Facturación
+  add_images: Imágenes
+  add_accessories: Accesorios
+  sign_in_to_continue: INICIA SESIÓN PARA CONTINUAR
+  password_reset: RESTABLECIMIENTO DE CONTRASEñA
+  remember_me: Recordarme
+  forgot_your_password?: ¿Olvidaste tu contraseña?
+  tracking: Rastreo de servicio
   shared:
     validation:
       size_validation: El número de imágenes ingresadas es mayor a los 10MB permitidos
@@ -177,11 +208,17 @@ es:
     description: Descripción
     state: Estatus
     deleted_at: Eliminado el    
+  deliverables:
+    name: Nombre
+    description: Descripción
+    state: Estatus
+    deleted_at: Eliminado el    
   departments:
     name: Nombre
     enterprise_id: Empresa
   purchases:
     folio: Folio
+    code_invoice: Código de la factura
     provider: Proveedor
     total: Total
     subtotal: Subtotal
@@ -195,6 +232,41 @@ es:
     deleted_at: Eliminado el
     created_at_lt: Rango de Fecha inicial
     created_at_gt: Rango de Fecha final
+    currency: Moneda
+  projects:
+    folio: Folio
+    code_invoice: Código de la factura
+    provider: Proveedor
+    total: Total
+    subtotal: Subtotal
+    total: Total
+    tax: Impuesto
+    tax_total: Impuesto total
+    quantity: Cantidad
+    state: Estatus
+    date: Fecha
+    created_by: Creado por
+    deleted_at: Eliminado el
+    created_at_lt: Rango de Fecha inicial
+    created_at_gt: Rango de Fecha final
+    currency: Moneda
+  lendings:
+    folio: Folio
+    code_invoice: Código de la factura
+    provider: Proveedor
+    total: Total
+    subtotal: Subtotal
+    total: Total
+    tax: Impuesto
+    tax_total: Impuesto total
+    quantity: Cantidad
+    state: Estatus
+    date: Fecha
+    created_by: Creado por
+    deleted_at: Eliminado el
+    created_at_lt: Rango de Fecha inicial
+    created_at_gt: Rango de Fecha final
+    currency: Moneda
   users: 
     department_id: Departamento/Sucursal
     id: ID
@@ -242,6 +314,7 @@ es:
     status: Estatus
     role: Rol
     company: Empresa
+    contact: Contacto
   quotations:
     folio: Folio
     quantity: Cantidad
@@ -260,12 +333,33 @@ es:
     validity: Vigencia
     currency: Moneda
     exchange_rate: Tipo de cambio
+    created_at: Fecha de creación
+  quotation_services:
+    folio: Folio
+    quantity: Cantidad
+    product: Producto
+    customer: Cliente
+    total: Total
+    state: Estatus
+    subtotal: subtotal
+    adjustment_total: Descuento total
+    tax: Impuesto
+    tax_total: Impuesto total
+    tax_item_total: Impuesto produto total
+    condition: Condición
+    created_by: Creado por
+    deleted_at: Eliminado el
+    validity: Vigencia
+    currency: Moneda
+    exchange_rate: Tipo de cambio
+    created_at: Fecha de creación
   conditions:
     name: Nombre
     description: Descripción
     deleted_at: Eliminado el
     state: Estatus
     default: Predeterminado
+    is_for: Es para
   service_orders:
     folio: Folio
     product: Producto
@@ -281,6 +375,10 @@ es:
     state: Estatus
     is_done: ¿Listo?
     is_authorized: ¿Autorizado?
+    partial_payment: Abonos
+  partial_payments:
+    amount: Abonos
+    date_of_payment: Fecha de abono
   diagnosis:
     product: Producto
     total: Total
@@ -313,7 +411,7 @@ es:
     bank_name: Nombre del banco
     currency:  Moneda
   customers:
-    name: Nombre
+    name: Nombre comercial
     rfc: RFC
     business_name: Razón social
     state: Estatus
@@ -348,6 +446,13 @@ es:
     exchange_rate: Tipo de cambio
     state: Estatus
     deleted_at: Eliminado el
+  depots:
+    name: Nombre
+    description: Descripción
+    abbreviation: Abreviación
+    exchange_rate: Tipo de cambio
+    state: Estatus
+    deleted_at: Eliminado el
   product_lines:
     name: Nombre
     description: Descripción
@@ -373,10 +478,13 @@ es:
     deleted_at: Eliminado el
     customer: Cliente
     currency: Moneda
+    relation_bill: CFDI's relacionados
   sales:
     folio: Folio
     state: Estatus
+    state_payment: Estatus pago
     deleted_at: Eliminado el
+    payment_condition: Condiciones de pago
   units:
     name: Nombre
     description: Descripción
@@ -395,6 +503,7 @@ es:
     state: Estatus
   payment_methods:
     name: Nombre
+    payment_method_key: Clave SAT
     description: Descripción
     deleted_at: Eliminado el
     state: Estatus
@@ -402,9 +511,14 @@ es:
     name: Nombre
     description: Descripción
     name: Nombre
+    payment_way_key: Clave SAT
     description: Descripción
     deleted_at: Eliminado el
     state: Estatus
+  payment_bills:
+    payment_method: Forma de pago
+    payment_way: Método de pago
+    sale: Venta
   products:
     name: Nombre
     brand: Marca
@@ -417,11 +531,16 @@ es:
     deleted_at: Elimiando el
     state: Estatus
     stock: Existencia
+    required_serial_number: Requiere número de serie
+    provider_id: Proveedor
+    deliverable_id: Entregable
+    unit_id: Unidad
+    currency_id: Moneda
   product_variants:
-    code: Código
-    code_alternative: Código alternativo
-    stocking_time: Tiempo de almacen
-    cost_price: Costo
+    code: Clave de producto
+    code_alternative: Código de barras
+    stocking_time: Tiempo de garantía
+    cost_price: Precio proveedor
     currency: Moneda
     amount_public: Precio público
     amount_provider: Precio proveedor
@@ -432,6 +551,9 @@ es:
     deleted_at: Eliminado el
     product_key: Clave SAT
     product_description: Descripción SAT
+    location: Ubicación
+    execution_time: Tiempo de ejecución
+    depreciation: Depreciación
     state: Estatus
   products_accessories:
     product: Producto
@@ -574,7 +696,29 @@ es:
               required: no puede estar en blanco
             provider:
               required: no puede estar en blanco
+        project:
+          attributes:
+            receipt_type:
+              required: no puede estar en blanco
+            entry_code:
+              required: no puede estar en blanco
+            provider:
+              required: no puede estar en blanco
+        lending:
+          attributes:
+            receipt_type:
+              required: no puede estar en blanco
+            entry_code:
+              required: no puede estar en blanco
+            provider:
+              required: no puede estar en blanco
         quotation:
+          attributes:
+            customer:
+              required: no puede estar en blanco
+            currency:
+              required: no puede estar en blanco
+        quotation_service:
           attributes:
             customer:
               required: no puede estar en blanco
@@ -604,6 +748,16 @@ es:
               required: no puede estar en blanco
             user:
               required: no puede estar en blanco
+            images:
+              max_size_error: tamaño excedido, debe ser menor a 5 MB
+        payment_bill:
+          attributes:
+            payment_way:
+              required: no puede estar en blanco
+            payment_method:
+              required: no puede estar en blanco
+            sale:
+              required: no puede estar en blanco
         product:
           attributes:
             product_line:
@@ -620,6 +774,8 @@ es:
           attributes:
             diagnosis_type:
               required: no puede estar en blanco
+            images:
+              max_size_error: tamaño excedido, debe ser menor a 5 MB
         user:
           attributes:
             role:
@@ -632,11 +788,17 @@ es:
           attributes:
             category:
               required: no puede estar en blanco
+        products_accessory:
+          attributes:
+              accessory:
+                required: el nombre no puede estar en blanco
     models:
       Ransack::Search: 'Búsqueda'
       Comment: Mensaje
       accessory: accesorio
       Accessory: Accesorio
+      deliverable: entegable
+      Deliverable: Entregable
       User: Usuario
       category_type: tipo de categoria
       CategoryType: Tipo de categoria
@@ -663,8 +825,14 @@ es:
       Product: Producto
       purchase: entrada
       Purchase: Entrada
-      quotation: cotización
-      Quotation: Cotización
+      project: proyecto
+      Project: Proyecto
+      lending: resguardo
+      lending: Resguardo
+      quotation: cotización de producto
+      Quotation: Cotización de Producto
+      quotation_service: cotización de servicio
+      Quotation_service: Cotización de Servicio
       order: orden de venta
       Order: Orden de venta
       service_order: orden de servicio
@@ -681,12 +849,21 @@ es:
       PaymentWay: Forma de pago
       payment_method: método de pago
       PaymentMethod: Método de pago
+      payment_bill: complemento de pago
+      PaymentBill: Complemento de pago
       receipt_type: tipos de comprobante
       ReceiptType: Tipos de comprobante
       entry_code: códigos de entrada
       EntryCode: Códigos de entrada
+      Sale: Facturación
+      sale: facturación
     attributes: 
       accessory:
+        name: Nombre
+        description: Descripción
+        state: Estatus
+        deleted_at: Eliminado el
+      deliverable:
         name: Nombre
         description: Descripción
         state: Estatus
@@ -700,6 +877,10 @@ es:
         currency_id: Moneda
         exchange_rate: Tipo de cambio
         customer: Cliente
+      quotation_service:
+        currency_id: Moneda
+        exchange_rate: Tipo de cambio
+        customer: Cliente
       service_order:
         customer: Cliente
         user: Usuario
@@ -708,35 +889,62 @@ es:
         brand: Marca
         model: Modelo
         type_service_orders: Tipo de servicios
+      partial_payment:
+        amount: Abono
+        date_of_payment: Fecha de abono
+        delete: Eliminar
       diagnosis:
         diagnosis_type_id: Tipo de diagnostico
+        diagnosis_types: Tipo de diagnostico
       purchase:
         receipt_type: Tipo de recibo
         entry_code: Código de entrada
         folio: Folio
         provider: Proveedor
+        currency: Moneda
+        payment_way: Forma de pago
+      project:
+        receipt_type: Tipo de recibo
+        entry_code: Código de entrada
+        folio: Folio
+        provider: Proveedor
+        currency: Moneda
+        payment_way: Forma de pago
+      lending:
+        receipt_type: Tipo de recibo
+        entry_code: Código de entrada
+        folio: Folio
+        provider: Proveedor
+        currency: Moneda
+        payment_way: Forma de pago
       order:
         currency_id: Moneda
         exchange_rate: Tipo de cambio
         customer: Cliente
+        relation_bill: CFDI's relacionados
       product:
         name: Nombre
         brand: Marca
         model: Modelo
         description: Descripción
         comment: Comentario
-        product_line_id: Línea
-        unit_id: Unidad
-        provider_id: Proveedor
+        product_line: Línea
+        unit: Unidad
+        provider: Proveedor
         deleted_at: Elimiando el
         state: Estatus
         stock: Existencia
-      product_variant:
-        code: Código
-        code_alternative: Código alternativo
-        stocking_time: Tiempo de almacen
-        cost_price: Costo
+        required_serial_number: Requiere número de serie
+        provider_id: Proveedor
+        deliverable_id: Entregable
+        unit_id: Unidad
         currency_id: Moneda
+      product_variant:
+        code: Clave de producto
+        code_alternative: Código de barras
+        stocking_time: Tiempo de garantía
+        cost_price: Precio proveedor
+        currency: Moneda
         amount_public: Precio público
         amount_provider: Precio proveedor
         amount_shipping: Precio envio
@@ -745,14 +953,17 @@ es:
         product: Producto
         deleted_at: Eliminado el
         product_key: Clave SAT
+        location: Ubicación
+        execution_time: Tiempo de ejecución
+        depreciation: Depreciación
         product_description: Descripción SAT
       products_accessory:
         product_id: Producto
-        accessory_id: Accesorio
+        accessory: Accesorio
         quantity: Cantidad
       department: 
         name: Nombre
-        enterprise_id: Departamento  
+        enterprise: Departamento  
       enterprise:
         name: Nombre
         logo_image: Logo 
@@ -850,7 +1061,7 @@ es:
         deleted_at: Eliminado el
         state: Estatus
       customer:
-        name: Nombre
+        name: Nombre comercial
         rfc: RFC
         business_name: Razón social
         deleted_at: Elimiando el
@@ -898,6 +1109,7 @@ es:
         deleted_at: Eliminado el
         state: Estatus
         default: Predeterminado
+        is_for: Es para
       payment_method:
         name: Nombre
         description: Descripción
@@ -910,6 +1122,10 @@ es:
         description: Descripción
         deleted_at: Eliminado el
         state: Estatus
+      payment_bill:
+        payment_method: Forma de pago
+        payment_way: Método de pago
+        sale_id: Folio de Nota de Venta
       receipt_type:
         name: Nombre
         description: Descripción
@@ -1031,10 +1247,10 @@ es:
       empty: no puede estar vacío
       equal_to: debe ser igual a %{count}
       even: debe ser un número par
-      exclusion: está reservado
+      exclusion: no puede estar en blanco
       greater_than: debe ser mayor que %{count}
       greater_than_or_equal_to: debe ser mayor o igual que %{count}
-      inclusion: no está incluido en la lista
+      inclusion: no puede estar en blanco
       invalid: es inválido
       less_than: debe ser menor que %{count}
       less_than_or_equal_to: debe ser menor o igual que %{count}
@@ -1137,18 +1353,24 @@ es:
   action_update: Acciones que permiten actualizar registros    
   activate: Activar
   active: Activo
+  received: Recibido
   deleted: Baja
   cancel: Cancelar
-  sold: Vendido
+  required_fields: Campos obligatorios
+  sold: Finalizado
+  in_repair: En reparación
   diagnosed: Diagnosticado
   done: Finalizado
   delivered: Entregado
   payment: pagado
+  credit: crédito
+  cash: contado
   pending: pendiente
   invoiced: facturado
   canceled: cancelado
   accepted: aceptado
-  Quotation: Cotización
+  Quotation: Cotización de producto
+  QuotationService: Cotización de servicio
   Order: Orden de venta
   Diagnosis: Diagnostico
   choose_from_select: -- Seleccionar --
@@ -1216,10 +1438,10 @@ es:
       empty: no puede estar vacío
       equal_to: debe ser igual a %{count}
       even: debe ser un número par
-      exclusion: está reservado
+      exclusion: no puede estar en blanco
       greater_than: debe ser mayor que %{count}
       greater_than_or_equal_to: debe ser mayor o igual que %{count}
-      inclusion: no está incluido en la lista
+      inclusion: no puede estar en blanco
       invalid: es inválido
       less_than: debe ser menor que %{count}
       less_than_or_equal_to: debe ser menor o igual que %{count}
@@ -1248,7 +1470,7 @@ es:
         one: "%{model} no pudo guardarse debido a 1 error"
         other: "%{model} no pudo guardarse debido a %{count} errores"
   exceeded: excedido
-  finalized: finalizado
+  finalized: Vendido
   generic_categories: Categorías generales
   hash_tag: "#"
   hours: horas

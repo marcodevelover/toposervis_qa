@@ -74,3 +74,6 @@ gem 'capistrano-rvm'
 gem 'whenever', require: false
 gem 'listen', '>= 3.0.5', '< 3.2'
 gem 'facturapi_ruby', git: 'https://2be5f383f44112a90f5c4dadeb6c16bf585e3bfc:x-oauth-basic@github.com/dova3187/facturapi'
+gem 'ckeditor'
+gem "mini_magick"
+gem 'numbers_and_words'

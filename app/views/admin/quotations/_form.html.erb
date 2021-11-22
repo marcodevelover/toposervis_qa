@@ -20,14 +20,30 @@
                                  <div class="col-lg-4 mb-4">
                                    <%= form.label :currency_id, class: "col-form-label"%>
                                    <div class="form-group">
-                                     <%= form.collection_select :currency_id, Currency.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
+
+
+                                  
+                                     <%=  form.collection_select :currency_id, Currency.all, :id, :name, {prompt: t('choose_from_select')}, {class: "custom-select custom-select-sm"}  %>
                                      <%= form.error :currency, id: 'currency_error' %>
+                               
+
+
+
                                    </div>
                                  </div>
                                  <div class="col-lg-4 mb-4x">
+
+
+                                  
                                         <%= form.label :exchange_rate, class: "col-form-label"%> *
-                                        <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true, readonly: true %>
+                                        <%= form.text_field :exchange_rate, class: "form-control", type: "number", required: true %>
                                         <%= form.error :exchange_rate, id: 'exchange_rate_error' %>
+                                  
+                                
+
+
+
+
                                  </div>
                               </div>
                           </div>
@@ -55,7 +71,7 @@
                             <div class="form-row">
                               <div class="col-lg-12 mb-12">
                                 <label for="validationServer03"><b>Términos y condiciones</b></label>
-                                <%= form.text_area :condition, class: "form-control", rows: 10 %>
+                                <%= form.cktext_area :condition, class: "form-control", rows: 10 %>
                               </div>
 
                             </div>
@@ -97,6 +113,7 @@
                                 <th class="text-center" data-field="unit">Unidad</th>
                                 <th class="text-center" data-field="discount_import">Descuento importe</th>
                                 <th class="text-center" data-field="total_price">Precio total</th>
+                                <th class="text-center" data-field="currency">Moneda</th>
                                 <th class="text-center" data-field="last_name" data-sort-ignore="true" class="min-width">Eliminar</th>
                               </tr>
                             </thead>
@@ -119,6 +136,7 @@
 
                                       <td class="row_total_discount"><%= item.adjustment_total ? item.adjustment_total : 0%></td>
                                       <td class="row_total_price"><%= item.total %></td>
+                                      <td class="row_currency_name"><%= item.currency %></td>
 
                                       <td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>
 
@@ -133,6 +151,7 @@
                                         <input type="hidden" value="<%=item.unit_price%>" name="quotation[items_attributes][<%=index%>][unit_price]">
 
                                         <input type="hidden" value="<%=item.total%>" name="quotation[items_attributes][<%=index%>][total]">
+                                        <input type="hidden" value="<%=item.currency%>" name="quotation[items_attributes][<%=index%>][currency]">
                                         <input type="hidden" value="<%=item.id%>" name="quotation[items_attributes][<%=index%>][id]">
                                     </tr>
                                   <%end%>
@@ -176,7 +195,18 @@
                             <%= form.text_field :total,class:"form-control",id:"total_with_tax", readonly:"readonly" %>
                           </div>
                         </div>
-                      </div>                 
+                      </div>   
+
+                      <div class="col-lg-12">
+                        <div class="col-md-3 offset-md-9">
+                          <div class="form-group">
+                            <small><i>
+                              <%= @quotation.currency.blank? ? "" : "Totales expresados en #{@quotation.currency.name}" %>
+                            </i></small>
+                          </div>
+                        </div>
+                      </div>   
+                      
                       </br>
                      <div class="clearfix">
                         <div class="float-right">
@@ -263,6 +293,10 @@
             <label class="control-label"><%= t('sale_note_has_products.total')%></label>
             <input type="text" class="form-control" id="note_total" disabled="disabled"> 
           </div>
+          <div class="form-group jump">
+            <label class="control-label"><%= t('sale_note_has_products.total')%></label>
+            <input type="text" class="form-control" id="currency_name" disabled="disabled">
+          </div>
 
       </div>
       <div class="modal-footer">
@@ -348,7 +382,7 @@ $("#note_product").select2({
     delay: 250,
     data: function (params) {
       return {
-        q: {code_or_product_name_cont: params.term}, // search term
+        q: {code_or_product_name_or_product_model_or_product_brand_cont: params.term}, // search term
         page: params.page
       };
     },
@@ -384,6 +418,9 @@ function formatRepo (repo) {
     "<div class='select2-result-repository clearfix'>" +
       "<div class='select2-result-repository__meta'>" +
         "<div class='select2-result-repository__id'>ID: </div>" +
+        "<div class='select2-result-repository__name'>Nombre: </div>" +
+        "<div class='select2-result-repository__model'>Modelo: </div>" +
+        "<div class='select2-result-repository__brand'>Marca: </div>" +
         "<div class='select2-result-repository__code'>Código: </div>" +
         "<div class='select2-result-repository__unit_price'>Precio unitario: </div>" +
         "<div class='select2-result-repository__stock'>Existencias: </div>" +
@@ -393,8 +430,11 @@ function formatRepo (repo) {
 
 
   $container.find(".select2-result-repository__id").append(repo.id);
+  $container.find(".select2-result-repository__name").append(repo.product_name);
+  $container.find(".select2-result-repository__model").append(repo.product_model);
+  $container.find(".select2-result-repository__brand").append(repo.product_brand);
   $container.find(".select2-result-repository__code").append(repo.code);
-  $container.find(".select2-result-repository__unit_price").append(repo.unit_price);
+  $container.find(".select2-result-repository__unit_price").append(repo.unit_price + repo.exchange_name);
   $container.find(".select2-result-repository__stock").append(repo.stock);
 
   return $container;
@@ -406,14 +446,18 @@ function formatRepoSelection (repo) {
   var quotation_currency_text = $("#quotation_currency_id option:selected").text();
   $("#name").val(repo.product_name);
   $("#unit").val(repo.unit);
-  
+  $("#currency_name").val(quotation_currency_text);
+  $("#note_quantity").val(0);
+  $("#note_total").val(0);
+
+
   if(quotation_currency_text == repo.exchange_name){
     $("#note_unit_price").val(repo.unit_price);
   }
   if(quotation_currency_text != repo.exchange_name){
     switch (quotation_currency_text) {
       case 'MXN':
-        $("#note_unit_price").val(repo.unit_price * repo.exchange_rate);
+        $("#note_unit_price").val(repo.unit_price * quotation_exchange_rate);
         break;
       case 'USD':
         $("#note_unit_price").val(repo.unit_price * quotation_exchange_rate);
@@ -422,7 +466,7 @@ function formatRepoSelection (repo) {
         console.log('Lo lamentamos, debe seleccionar al menos una MONEDA');
     }
   }
-  return repo.code || repo.text;
+  return repo.product_name || repo.text;
 }
 
 </script>
@@ -436,7 +480,7 @@ $("#quotation_customer_id").select2({
     delay: 250,
     data: function (params) {
       return {
-        q: {business_name_or_rfc_cont: params.term}, // search term
+        q: {name_or_business_name_or_rfc_cont: params.term}, // search term
         page: params.page
       };
     },
@@ -518,7 +562,9 @@ function formatRepoSelection (repo) {
                 "discount_type": $("#note_factor option:selected").text(),
                 "factor_id": $('#note_factor').val(),
                 "discount": $("#note_discount").val(),
-                "total": $("#note_total").val()};
+                "total": $("#note_total").val(),
+                "currency_name": $("#currency_name").val()};
+
     var row = create_row(item);
     if(validate()){
       $('#table_product tbody').append(row);
@@ -539,6 +585,7 @@ function formatRepoSelection (repo) {
                 '</td><td>' + item.unit +
                 '</td><td class="row_total_discount">' + item.discount +
                 '</td><td class="row_total_price">' + item.total +   
+                '</td><td class="row_currency_name">' + item.currency_name +  
                 '<td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline btnDelete"><em class="fa-2x icon-close mr-2"></em></button></td>' +
                 '</td>' + create_row_input(item) +
                 '</tr>');
@@ -554,7 +601,8 @@ function formatRepoSelection (repo) {
     '<input type="hidden" value="'+item.unit_price+'" name="quotation[items_attributes]['+productCount+'][unit_price]" >' +
     '<input type="hidden" value="'+item.unit+'" name="quotation[items_attributes]['+productCount+'][unit]" >' +
     '<input type="hidden" value="'+item.discount+'" name="quotation[items_attributes]['+productCount+'][adjustment_total]" >' +
-    '<input type="hidden" value="'+item.total+'" name="quotation[items_attributes]['+productCount+'][total]" >';
+    '<input type="hidden" value="'+item.total+'" name="quotation[items_attributes]['+productCount+'][total]" >' +
+    '<input type="hidden" value="'+item.currency_name+'" name="quotation[items_attributes]['+productCount+'][currency]" >';
     return input;
   }
   // Establece el total en el formulario
@@ -594,7 +642,7 @@ function formatRepoSelection (repo) {
     $("ul.errors").html("");
     var validate = true;
     var errors = [];
-    if($("#note_product").val() == 0){
+    /*if($("#note_product").val() == 0){
       validate = false;
       errors.push("Seleccione un producto");
     }
@@ -605,7 +653,15 @@ function formatRepoSelection (repo) {
     if($("#note_unit_price").val() == 0){
       validate = false;
       errors.push("Precio unitario debe ser mayor a 0, Seleccione tipo de cambio");
+    }*/
+    if(quotation_currency_id.value == ''){
+      validate = false;
+      errors.push("Debe seleccionar al menos una MONEDA");
     }
+    /*cheeeeeeeeee if(quotation_currency_id.value != $("#note_product").val()){
+      validate = false;
+      errors.push("No se pueden usar diferentes tipos de MONEDAS");
+    }*/
     if(isDiscount()){
       if($("#note_factor").val() == ""){
       validate = false;
@@ -674,7 +730,7 @@ function formatRepoSelection (repo) {
     $("#note_unit_price").val("0");
     $("#note_factor").val("");
     $("#note_discount").val("0");
-    $("#note_total").val("0");
+    $("#note_total").val("");
   }
 
   // Calculate importe
@@ -707,6 +763,8 @@ function formatRepoSelection (repo) {
     $("#tax_total").val(tax_total);
     $("#total_with_tax").val(total_with_tax);
     $("#adjustment_total").val(total_discount);
+    $("#currency_total").val($("#quotation_currency_id option:selected").text());
+    
   }
 
   // End products ****

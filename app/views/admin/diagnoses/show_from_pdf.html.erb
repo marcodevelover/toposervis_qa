@@ -1,27 +1,42 @@
-<div class="invoice-box">
+
+
+<div class="invoice-box" style="box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);">
         <table cellpadding="0" cellspacing="0">
           <tr class="top">
             <td colspan="5">
               <table>
                 <tr>
-                  <td class="title">
+                  <td class="title" style="width:25%">
                     <%= wicked_pdf_image_tag 'pdf/logo.png' %>
                   </td>
-
-                  <td>
+                  <td style="text-align: center; width:50%" class="top">
                     <strong>Toposervis S de RL de CV</strong>
                     <br>
-                    <span>Calle42No.264x41Ay 41C</span>
+                    <span>RFC: TOP160404KU0</span>
                     <br>
-                    <span>Fraccionamiento Francisco de MontejoIII Mérida,Yucatán </span>
+                    <span>Calle 42 No.264 x 41A y 41C, C.P. 97203 </span>
                     <br>
-                    <span>Tel. 01 800 890 9383 CP 97203</span>
+                    <span>Francisco de Montejo III Mérida,Yucatán </span>
+                    <br>
+                    <span>Tel. 01 (800) 890 9383, (999) 4 29 82 78</span>
+                    <br>
+                  </td>
+                  <td style="text-align: center; width:25%">
+                    <strong>Diagnostico</strong><br>
+                    <b>Folio:</b>
+                    <b class="blue"><%= @diagnosis.service_order.folio %></b><br>
+                    <b>Fecha:</b>
+                    <b class="blue"><%= @diagnosis.service_order.updated_at.strftime("%d-%m-%Y") %></b><br>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
-        
+        </table>
+</div>
+
+<div class="invoice-box nobreak">
+        <table cellpadding="0" cellspacing="0">
 
           <tr class="information">
             <td colspan="5">
@@ -32,12 +47,12 @@
                     <%= @diagnosis.service_order.customer.business_name.blank? ? "----" : @diagnosis.service_order.customer.business_name %><br>
                     <b>RFC:</b>
                     <%= @diagnosis.service_order.customer.rfc.blank? ? "----" : @diagnosis.service_order.customer.rfc %><br>
-                  	<b>Contacto:</b>
-                    <%= @diagnosis.service_order.customer.customer_contacts.blank? ? "----" : @diagnosis.service_order.customer.customer_contacts.first.name.blank? ? "----" : @diagnosis.service_order.customer.customer_contacts.first.name %><br>
+                    <b>Contacto:</b>
+                    <%= @diagnosis.service_order.user.blank? ?  "----" : @diagnosis.service_order.user.name + " " + @diagnosis.service_order.user.lastname %><br>
                     <b>Teléfono:</b>
-                    <%= @diagnosis.service_order.customer.customer_contacts.blank? ?  "----" : @diagnosis.service_order.customer.customer_contacts.first.phone.blank? ? "----" : @diagnosis.service_order.customer.customer_contacts.first.phone %><br>
+                    <%= @diagnosis.service_order.user.blank? ?  "----" : @diagnosis.service_order.user.phone %><br>
                     <b>E-mail:</b>
-                    <%= @diagnosis.service_order.customer.customer_contacts.blank? ? "----" : @diagnosis.service_order.customer.customer_contacts.first.email.blank? ? "----" : @diagnosis.service_order.customer.customer_contacts.first.email %><br>
+                    <%= @diagnosis.service_order.user.blank? ?  "----" : @diagnosis.service_order.user.email %><br>
                     <% if @diagnosis.sale.present? %>
                     <b>Método de pago:</b>
                     <%= @diagnosis.sale.payment_method.name %><br>
@@ -45,34 +60,20 @@
                     <%= @diagnosis.sale.payment_way.name %>            
                     <% end %>
                   </td>
-                  <td class="top">
-                    <% if @diagnosis.sale.present?%>
-                    <h3>Orden de salida</h3>
-                    <b>Folio:</b>
-                    <b class="blue"><%= @diagnosis.sale.folio %></b><br>
-                    <b>Fecha:</b>
-                    <b class="blue"><%= @diagnosis.sale.created_at.strftime("%d-%m-%Y") %></b><br>
-                    <% end %>
-                  	<h3>Orden de servicio</h3>
-                  	<b>Folio:</b>
-                    <b class="blue"><%= @diagnosis.service_order.folio %></b><br>
-                    <b>Fecha:</b>
-                    <b class="blue"><%= @diagnosis.service_order.created_at.strftime("%d-%m-%Y") %></b><br>
-                  </td>
 
                 </tr>
               </table>
             </td>
           </tr>
 
-          <tr>
+          <tr class="font-row-12">
             <td colspan="5"><b>Producto:</b> <%= @diagnosis.service_order.product.name %></td>
           </tr>
-          <tr>
-            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp;<b><%= @diagnosis.service_order.product.name %></b> marca <b><%= @diagnosis.service_order.brand %></b> modelo <b><%= @diagnosis.service_order.model %></b> con número de serie <b><%= @diagnosis.service_order.serie %></b> para su revisión y diagnostico.</br><br> <b>Accesorios que incluye:</b><br></td>
+          <tr class="font-row-12">
+            <td colspan="5">Por este medio manifiesto enviar el equipo&nbsp; <b style="font-size: 16px"><%= @diagnosis.service_order.product.name %></b> marca <b style="font-size: 16px"><%= @diagnosis.service_order.brand %></b> modelo <b style="font-size: 16px"><%= @diagnosis.service_order.model %></b> con número de serie <b style="font-size: 16px"><%= @diagnosis.service_order.serie %></b> para su revisión y diagnostico.</br><br> <b>Accesorios que incluye:</b><br></td>
           </tr>          
 
-          <tr class="heading">
+          <tr class="heading font-row-12">
             
             <td class="center" colspan="3">Accesorios</td>
             <td style="text-align: center;" colspan="2">Cantidad</td>
@@ -81,7 +82,7 @@
 
           <% @diagnosis.service_order.order_accessories.where.not(quantity: 0).each do |item| %>
             
-            <tr class="item">
+            <tr class="item font-row-12">
                 
                 <td colspan="3">
                     <%= item.accessory %><br>
@@ -96,8 +97,8 @@
             
           <% end %>
 <!--diagnosis-->
-          <tr>
-            <td colspan="5" style="text-align: left;"><br><b>Diagnostico:</b></td>
+          <tr class="font-row-12">
+            <td colspan="5" style="text-align: left;"><br><h4>Diagnostico:</h4></td>
           </tr>         
 
           <tr class="heading">
@@ -109,7 +110,7 @@
 
           <% @diagnosis.diagnosis_descriptions.each do |item| %>
             
-            <tr class="item">
+            <tr class="item font-row-12">
                 
                 <td colspan="5">
                     <%= item.description %><br>
@@ -121,11 +122,11 @@
 
 <!--end diagnosis-->
 <!--diagnosis items-->
-          <tr>
-            <td colspan="5" style="text-align: left;"><br><b>Presupuesto:</b></td>
+          <tr class="font-row-12">
+            <td colspan="5" style="text-align: left;"><b>Presupuesto:</b></td>
           </tr>         
 
-          <tr class="heading">
+          <tr class="heading font-row-12">
             <td class="center">Concepto</td>
             <td class="center">Unidad</td>
             <td class="center">Precio</td>
@@ -134,7 +135,7 @@
           </tr>
 
           <% @diagnosis.items.each do |item| %>
-            <tr class="item">
+            <tr class="item font-row-12">
                 <td>
                     <%= item.name %><br>
                     <small><%= item.extended_description %></small>
@@ -149,7 +150,7 @@
                 </td>
 
                 <td class="center">
-                    x <%= item.quantity %>
+                    <%= item.quantity %>
                 </td>
 
                 <td class="center">
@@ -158,19 +159,17 @@
             </tr>
           <% end %>
 
-
-
           <tr>
             <td colspan="5"></td>
           </tr>
 
-          <tr>
+          <tr class="font-row-12">
             <td colspan="3"></td>
             <td><b>Subtotal</b></td>
             <td class="center"><%= number_to_currency(@diagnosis.subtotal) %></td>
           </tr>
 
-          <tr>
+          <tr class="font-row-12">
             <td colspan="3"></td>
             <% if @diagnosis.adjustment_total != 0 %>
             <td><b>Descuento</b></td>
@@ -178,56 +177,56 @@
             <% end %>
           </tr>
 
-          <tr>
+          <tr class="font-row-12">
             <td colspan="3"></td>
             <% if @diagnosis.is_tax %>
-            <td><b>Impuesto (<%= (@diagnosis.tax * 100).to_i %>%)</b></td>
-            <td class="center">+ <%= number_to_currency(@diagnosis.tax_total) %></td>
+            <td><b>IVA <%= (@diagnosis.tax * 100).to_i %>%</b></td>
+            <td class="center"><%= number_to_currency(@diagnosis.tax_total) %></td>
             <% end %>
           </tr>
 
-          <tr>
-            <td colspan="3"></td>
+          <tr class="font-row-12">
+            <td colspan="3">
+               <% if @diagnosis.is_tax %>
+               <%= @diagnosis.total.to_i.round(2).to_words precision: 2 %> <%= @diagnosis.currency.name == "MXN" ? "PESOS" : "DOLARES" %> <%= sprintf('%02d', (@diagnosis.total.frac * 100).round(2)) %><%= @diagnosis.currency.abbreviation %>
+               <%else%>
+               <% unless @diagnosis.subtotal.blank? %> <%= @diagnosis.subtotal.to_i.round(2).to_words precision: 2 %> <%= @diagnosis.currency.name == "MXN" ? "PESOS" : "DOLARES" %> <%= sprintf('%02d', (@diagnosis.total.frac * 100).round(2)) %><% end %> <%= @diagnosis.currency.abbreviation %>
+               <%end%>              
+            </td>
             <td><b>TOTAL:</b></td>
             <td class="center">
                <% if @diagnosis.is_tax %>
-               <b><%= number_to_currency(@diagnosis.total) %></b>
+               <b><%= number_to_currency(@diagnosis.total) %> <%= @diagnosis.currency.name %></b>
                <%else%>
-               <b><%= number_to_currency(@diagnosis.subtotal) %></b>
+               <b><%= number_to_currency(@diagnosis.subtotal) %> <%= @diagnosis.currency.name %></b>
                <%end%>
             </td>
           </tr>
-
 <!--end diagnosis items-->
-
-
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-          </tr>
-
-          <tr>
-            <td colspan="3" style="text-align: center"><strong>_________________________________</strong></td>
-            <td colspan="3" style="text-align: center"><strong>_________________________________</strong></td>
-          </tr>          
-          <tr>
-            <td colspan="3" style="text-align: center"><strong>Cliente:</strong></td>
-            <td colspan="3" style="text-align: center"><strong>Toposervis S de RL de CV</strong></td>
-          </tr>
-              </table>
-            </td>
-          </tr>          
-          
         </table>
-    </div>
+</div>
+<div class="invoice-box nobreak font-row-12">
+        <table cellpadding="0" cellspacing="0">
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="5" style="text-align: center; font-size: 14px"><strong>Acepto presupuesto</strong></td>
+          </tr>
+
+          <tr>
+            <td colspan="5" style="text-align: center"><strong>_________________________________</strong></td>
+            
+          </tr>          
+          <tr>
+            <td colspan="5" style="text-align: center; font-size: 14px"><strong>Nombre y firma<br>Cliente</strong></td>
+            
+          </tr>
+        </table>
+</div>

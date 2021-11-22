@@ -1,5 +1,4 @@
 <%= render "show"%>
-
 <%= simple_form_for([:admin, @service_order]) do |form| %>
   <%= form.error_notification %>
   <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
@@ -32,9 +31,20 @@
                                 </div> 
 
                                  <div class="col-lg-4 mb-4">
-                                  <strong><%= f.label :diagnosis_type_id, class: "col-form-label"%></strong>
+                                  <strong><%= f.label :diagnosis_type_id, class: "form-label"%></strong>
                                   <div class="form-group">
-                                    <label class="form-label"><%= @service_order.diagnosis.diagnosis_type.name %></label>
+                                    
+                                    <% unless @service_order.diagnosis.diagnoses_types.blank? %>
+                                    
+                                    <div class="form-group row" >
+                                    <% @service_order.diagnosis.diagnoses_types.each do |f| %>
+                                              
+                                                <%= f.diagnosis_type.name %><br>
+                                              
+                                    <% end %>
+                                    </div> 
+                                    <% end %> 
+                                                                  
                                  
                                   </div> 
                                  </div>
@@ -117,7 +127,7 @@
 
                                   <div class="col-lg-6 mb-6">
                                    <div class="form-group">
-                                     <% @states  = ["", "payment", "pending"]  %>
+                                     <% @states  = [["",""], ["Pagado","payment"], ["Pendiente", "pending"] ] %>
                                      <%= sale.input :state, collection: @states, selected: @service_order.diagnosis.sale.state, input_html: { class: 'custom-select custom-select-sm' } %>                                      
                                    </div>
                                  </div>
@@ -192,6 +202,7 @@
             <!-- END card-->
 <% end %>
 
+<%= render "partial_payment"%>
 
 <!-- Diagnosis /.modal -->
 <div id="note_modal" class="modal fade" role="dialog">

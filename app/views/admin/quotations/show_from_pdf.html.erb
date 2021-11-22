@@ -1,22 +1,33 @@
 
+
 <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
           <tr class="top">
-            <td colspan="5">
+            <td colspan="6">
               <table>
                 <tr>
-                  <td class="title">
+                  <td class="title" style="width:25%">
                     <%= wicked_pdf_image_tag 'pdf/logo.png' %>
                   </td>
-
-                  <td>
+                  <td style="text-align: center; width:50%" class="top">
                     <strong>Toposervis S de RL de CV</strong>
                     <br>
-                    <span>Calle42No.264x41Ay 41C</span>
+                    <span>RFC: TOP160404KU0</span>
                     <br>
-                    <span>Fraccionamiento Francisco de MontejoIII Mérida,Yucatán </span>
+                    <span>Calle 42 No.264 x 41A y 41C, C.P. 97203 </span>
                     <br>
-                    <span>Tel. 01 800 890 9383 CP 97203</span>
+                    <span>Francisco de Montejo III Mérida,Yucatán </span>
+                    <br>
+                    <span>Tel. 01 (800) 890 9383, (999) 4 29 82 78</span>
+                    <br>
+                  </td>
+                  <td style="text-align: center; width:25%">
+                    <br>                   
+                    <strong>Cotización</strong><br>
+                    <b>Folio:</b>
+                    <b class="blue"><%= @quotation.folio %></b><br>
+                    <b>Fecha:</b>
+                    <b class="blue"><%= @quotation.updated_at.strftime("%d-%m-%Y") %></b>
                   </td>
                 </tr>
               </table>
@@ -25,7 +36,7 @@
         
 
           <tr class="information">
-            <td colspan="5">
+            <td colspan="6">
               <table>
                 <tr>
                   <td class="top">
@@ -33,34 +44,25 @@
                     <%= @quotation.customer.business_name.blank? ? "----" : @quotation.customer.business_name %><br>
                     <b>RFC:</b>
                     <%= @quotation.customer.rfc.blank? ? "----" : @quotation.customer.rfc %><br>
-                  	<b>Contacto:</b>
+                    <b>Contacto:</b>
                     <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.name.blank? ? "----" : @quotation.customer.customer_contacts.first.name %><br>
+                    
+
+                  <% unless @quotation.customer.customer_contacts.blank? || @quotation.customer.customer_contacts.first.phone.blank?%>
                     <b>Teléfono:</b>
                     <%= @quotation.customer.customer_contacts.blank? ?  "----" : @quotation.customer.customer_contacts.first.phone.blank? ? "----" : @quotation.customer.customer_contacts.first.phone %><br>
+                  <% end %>         
+
+
+                  <% unless @quotation.customer.customer_contacts.blank? || @quotation.customer.customer_contacts.first.cellphone.blank? %>
+                    <b>Celular:</b>
+                    <%= @quotation.customer.customer_contacts.blank? ?  "----" : @quotation.customer.customer_contacts.first.cellphone.blank? ? "----" : @quotation.customer.customer_contacts.first.cellphone %><br>
+                  <% end %>   
+
+
+
                     <b>E-mail:</b>
                     <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.email.blank? ? "----" : @quotation.customer.customer_contacts.first.email %><br>
-                    
-                    <% if @quotation.sale.present? %>
-                    <b>Método de pago:</b>
-                    <%= @quotation.sale.payment_method.name %><br>
-                    <b>Forma de pago:</b>
-                    <%= @quotation.sale.payment_way.name %>            
-                    <% end %>
-                  </td>
-
-                  <td class="top">
-                    <% if @quotation.sale.present?%>
-                    <h3>Nota de venta</h3>
-                    <b>Folio:</b>
-                    <b class="blue"><%= @quotation.sale.folio %></b><br>
-                    <b>Fecha:</b>
-                    <b class="blue"><%= @quotation.sale.created_at.strftime("%d-%m-%Y") %></b><br>
-                    <% end %>                    
-                  	<h3>Cotización</h3>
-                  	<b>Folio:</b>
-                    <b class="blue"><%= @quotation.folio %></b><br>
-                    <b>Fecha:</b>
-                    <b class="blue"><%= @quotation.created_at.strftime("%d-%m-%Y") %></b>
                   </td>
 
                 </tr>
@@ -68,8 +70,12 @@
             </td>
           </tr>
 
-          <tr class="heading">
-            <td class="center">Concepto</td>
+
+          <tr class="heading font-row-12">
+            <td style="text-align: center;">Imagen</td>
+            <td style="text-align: center;">Concepto</td>
+            
+            
             <td style="text-align: center;">Unidad</td>
             <td class="center">Precio</td>
             <td class="center">Cantidad</td>
@@ -77,86 +83,160 @@
           </tr>
 
           <% @quotation.items.each do |item| %>
-            <tr class="item">
-                <td>
-                    <%= item.name %><br>
-                    <small><%= item.extended_description %></small>
+            <tr class="item-no-border font-row-12">
+
+                <td style="text-align: center; padding-bottom: 1px !important;">
+                  <% if  !(item.product_variant.product_variant_images.blank?) %>
+                    <%= image_tag item.product_variant.product_variant_images.first.image.variant(resize_to_limit: [100, 100]) %>
+                  <%else%>
+                    <%= wicked_pdf_image_tag 'pdf/sin-fotografia.png' %>
+                  <%end%>
                 </td>
 
-                <td style="text-align: center;">
+                <td style="text-align: left;" style="padding-bottom: 1px !important;">
+                    <b><%= item.name %></b>
+                    <% unless item.product_variant.product.brand.blank? %>
+                     <b>MARCA:</b>
+                     <b><%= item.product_variant.product.brand %>;</b>
+                    <% end %>
+
+                    <% unless item.product_variant.product.model.blank? %>
+                      <b>MODELO:</b>
+                      <b><%= item.product_variant.product.model %></b>
+                    <% end %>
+                    
+                    <% unless item.product_variant.product.description.blank? %>
+                      <br><small><%= item.product_variant.product.description %></small>
+                    <% end %>
+
+                    <br>
+                    <small>INCLUYE:</small>
+                    <ul class="no-indentation" style="padding-bottom: 0px !important">
+                    <% item.product_variant.product.products_accessories.each do |accessory| %>
+                      <% if accessory.quantity != 0%>
+                        <li><%= accessory.accessory.name %></li>
+                      <%end%>
+                    <% end %>
+                    </ul>
+                    
+                    <% unless item.product_variant.product.comment.blank? %>
+                      <br><small><b><%= item.product_variant.product.comment %></b></small>
+                    <% end %>
+
+                    <% unless item.product_variant.stocking_time.blank? %>
+                      <br><small>TIEMPO DE GARANTÍA: <%= item.product_variant.stocking_time %></small>
+                    <% end %>
+
+
+                    <% unless item.extended_description.blank? %>
+                      <br><small><%= item.extended_description %></small>
+                    <% end %>
+                    
+                </td>
+
+                <td class="top" style="text-align: top; padding-bottom: 1px !important;">
                     <%= item.unit %>
                 </td>
 
-                <td class="center">
+                <td class="top" style="padding-bottom: 1px !important;">
                     <%= number_to_currency(item.unit_price) %>
                 </td>
 
-                <td class="center">
-                    x <%= item.quantity %>
-                </td>
+                <td class="top" style="padding-bottom: 1px !important;">
+                    <%= item.quantity %>
+                    <br>
+                    <br>
+                    <% unless item.product_variant.product.description.blank? %>
+                      <br>
+                    <% end %>
+                    <small>
+                    <ul class="no-style" style="padding-bottom: 0px !important">
+                    <% item.product_variant.product.products_accessories.each do |accessory| %>
+                      <% if accessory.quantity != 0%>
+                        <li><%= accessory.quantity %></li>
+                      <%end%>
+                    <% end %>
+                    </ul>
+                    </small>
 
-                <td class="center">
+                </td>
+ 
+                <td class="center top" style="padding-bottom: 1px !important;">
                     <%= number_to_currency(item.unit_price * item.quantity) %>
                 </td>
             </tr>
+
+
           <% end %>
 
           <tr>
-            <td colspan="5"></td>
+            <td colspan="6"></td>
           </tr>
 
-          <tr>
-            <td colspan="3"></td>
-            <td><b>Subtotal</b></td>
-            <td><%= number_to_currency(@quotation.subtotal) %></td>
-          </tr>
+          <tr class="details font-row-12">
+            <td colspan="4">
+              
+              <br><%= @quotation.total.to_i.round(2).to_words precision: 2%> <%= @quotation.currency.name == "MXN" ? "PESOS" : "DOLARES" %> <%= sprintf('%02d', (@quotation.total.frac * 100).round(2)) %><%= @quotation.currency.abbreviation %>
 
-          <tr>
-            <td colspan="3"></td>
-            <% if @quotation.adjustment_total != 0 %>
-            <td><b>Descuento</b></td>
-            <td>- <%= number_to_currency(@quotation.adjustment_total) %></td>
-            <% end %>
-          </tr>
-
-          <tr>
-            <td colspan="3"></td>
-            <% if @quotation.is_tax %>
-            <td><b>Impuesto (<%= (@quotation.tax * 100).to_i %>%)</b></td>
-            <td>+ <%= number_to_currency(@quotation.tax_total) %></td>
-            <% end %>
-          </tr>
-
-          <tr>
-            <td colspan="3"></td>
-            <td><b>TOTAL:</b></td>
-            <td>
-              <% if @quotation.is_tax %>
-              <b><%= number_to_currency(@quotation.total) %></b>
-              <%else%>
-              <b><%= number_to_currency(@quotation.subtotal) %></b>
-              <%end%>
             </td>
+            <td class="bottom"><b>Subtotal</b></td>
+            <td class="center bottom"><%= number_to_currency(@quotation.subtotal) %></td>
           </tr>
 
-          <tr>
-            <td colspan="5">
+
+
+<% if @quotation.adjustment_total != 0 %>
+          <tr class="details font-row-12 ">
+            <td colspan="4"></td>
+            <td><b>Descuento</b></td>
+            <td class="center">- <%= number_to_currency(@quotation.adjustment_total) %></td>
+          </tr>
+<% end %>
+
+
+          <tr class="details font-row-12">
+            <td colspan="4">
+
               <table>
                 <tr>
                   <td>
-                  	<td><b>Términos de venta:</b></td>
+                    <b>Términos de venta:</b>
                   </td>
-                  <td>
-                  	<%= @quotation.condition %>
-                  </td>
+                </tr>
 
+              </table>            
+
+
+            </td>
+            <td><b>IVA <%= (@quotation.tax * 100).to_i %>%</b></td>
+            <td class="center"> <%= number_to_currency(@quotation.tax_total) %></td>
+          </tr>
+
+          <tr class="details font-row-12">
+            <td colspan="4">
+
+              <table>
+
+                <tr>
+                  <td>
+                    <%= raw @quotation.condition %>
+                  </td>
                 </tr>
               </table>
+
+
+            </td>
+            <td class="top"><b>TOTAL:</b></td>
+            <td class="center top">
+              <b><%= number_to_currency(@quotation.total) %> <%= @quotation.currency.name %></b>
             </td>
           </tr>
+
+
               </table>
             </td>
           </tr>          
           
         </table>
-    </div>
+
+</div>

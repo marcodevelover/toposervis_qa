@@ -7,18 +7,31 @@
               <em class="fa fa-edit"></em> 
             <%end%>
 
-            <%= link_to show_from_pdf_admin_quotation_path(@quotation, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
-                <em class="fas fa-print"></em> 
+            <% if @quotation.sale.present? %>
+              <%= link_to note_from_pdf_admin_quotation_path(@quotation, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+                  <em class="fas fa-print"></em> 
+              <%end%>
+            <% else %>
+              <%= link_to show_from_pdf_admin_quotation_path(@quotation, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+                  <em class="fas fa-print"></em> 
+              <%end%>
             <%end%>
-
             <%= link_to admin_quotations_path, :class => "btn btn-sm btn-info" do %>
                 <em class="fas fa-step-backward"></em> 
-            <%end%>            
-
+            <%end%>  
+            <div id="open_modal" class="btn btn-sm btn-info">
+              <em class="fas fa-question"></em> 
+            </div>
       <%if @quotation.sale %>
             <a class="btn btn-sm btn-info" target="_blank" href="https://portalsat.plataforma.sat.gob.mx/ConsultaRFC/" >
                 <em class="fa-1x mr-2 fas fa-external-link-alt"></em> Verificar RFC
             </a>
+            
+            <% if @quotation.sale.present? %>
+            <%= link_to note_from_pdf_admin_quotation_path(@quotation, format: :pdf), :class => "btn btn-sm btn-info", target: :_blank do %>
+                Vista previa
+            <%end%>
+            <% end %>
 
             <% if @quotation.sale.bill_state.blank? && @quotation.is_tax   %>
             <%= link_to bill_admin_quotation_path(@quotation), :class => "btn btn-sm btn-info", remote: true   do %>
@@ -79,48 +92,16 @@
             <td colspan="5">
               <table>
                 <tr>
-                  <td class="title">
+                  <td class="title" style="width:25%">
                     <%= image_tag 'pdf/logo.png' %>
                   </td>
+                  <td style="text-align: center; width:50%" class="top">
 
-                  <td>
-                    <strong>Toposervis S de RL de CV</strong>
-                    <br>
-                    <span>Calle42No.264x41Ay 41C</span>
-                    <br>
-                    <span>Fraccionamiento Francisco de MontejoIII Mérida,Yucatán </span>
-                    <br>
-                    <span>Tel. 01 800 890 9383 CP 97203</span>
                   </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        
-
-          <tr class="information">
-            <td colspan="5">
-              <table>
-                <tr>
-                  <td>
-                    <b>Contacto:</b>
-
-                    <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.name %><br>
-                    <b>Compañia:</b>
-                    <%= @quotation.customer.business_name %><br>
-                    <b>E-mail:</b>
-                    <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.email %><br>
-                    
-                    <% if @quotation.sale.present? %>
-                    <b>Método de pago:</b>
-                    <%= @quotation.sale.payment_method.name %><br>
-                    <b>Forma de pago:</b>
-                    <%= @quotation.sale.payment_way.name %>            
-                    <% end %>                    
-                  </td>
-                  <td>
+                  <td style="text-align: center; width:25%">
+                    <br>
                     <% if @quotation.sale.present?%>
-                    <b>Nota de venta</b><br>
+                    <strong>Nota de venta</strong><br>
                     <b>Folio:</b>
                     <%= @quotation.sale.folio %><br>
                     <b>Fecha:</b>
@@ -132,28 +113,105 @@
                     <b>Fecha:</b>
                     <%= @quotation.created_at.strftime("%d-%m-%Y") %>
                   </td>
-
                 </tr>
               </table>
             </td>
           </tr>
+          <tr class="information">
+            <td colspan="5">
+              <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mb-3 border-secondary">
+                       <div class="card-header bg-secondary">Datos de contacto</div>
+                       <div class="card-body">
+                          <p class="card-text">
+                            <b>Contacto:</b>
+                            <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.name %><br>
+                            <b>Compañia:</b>
+                            <%= @quotation.customer.business_name %><br>
+                            <b>E-mail:</b>
+                            <%= @quotation.customer.customer_contacts.blank? ? "----" : @quotation.customer.customer_contacts.first.email %><br>
+                          </p>
+                       </div>
+                    </div>
+                 </div>
+               </div>
+            </td>
+          </tr>
+          <tr class="information">
+            <td colspan="5">
+              <div class="row">
+              <div class="col-lg-6">
+                  <div class="card mb-3 border-secondary">
+                     <div class="card-header bg-secondary">Emisor</div>
+                     <div class="card-body">
+                        <p class="card-text">
+                            <b>Razón Social:</b><br>
+                            TOPOSERVIS<br>
+                            <b>RFC:</b><br>
+                            TOP160404KU0<br>
+                            <b>Domicilio:</b><br>
+                            Calle 42 No.264 x 41A y 41C, C.P. 97203<br>
+                            Francisco de Montejo III Mérida,Yucatán<br>
+                            <b>Régimen F.:</b><br>
+                            General de Ley Personas<br>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+              <div class="col-lg-6">
+                  <div class="card mb-3 border-secondary">
+                     <div class="card-header bg-secondary">Receptor</div>
+                     <div class="card-body">
+                        <p class="card-text">
+                            <b>Razón Social:</b><br>
+                            <%= @quotation.customer.blank? ? "" : @quotation.customer.business_name %><br>
+                            <b>RFC:</b><br>
+                            <%= @quotation.customer.blank? ? "" : @quotation.customer.rfc %><br>
+                            <% unless @quotation.sale.blank? %>
+                            <b>Uso del CFDI:</b><br>
+                            <%= @quotation.sale.use_of_cfdi.blank? ? "" : @quotation.sale.use_of_cfdi.cfdi_key + " - " + @quotation.sale.use_of_cfdi.name %><br>
+                            <% end %>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               </div>
 
-          <tr class="heading">
-            <td>Concepto</td>
-            <td class="right">Unidad</td>
+            </td>
+          </tr>
+<tr>
+  <td colspan="5">
+    <table>
+      
+
+          <tr class="bg-secondary">
+            <td>Clave ProdServ</td>
+            <td style="text-align: left">Concepto</td>
+            <td style="text-align: center;">Unidad</td>
             <td class="right">Precio</td>
             <td class="right">Cantidad</td>
-            <td>Total</td>
+            <td style="text-align: center">Total</td>
           </tr>
 
           <% @quotation.items.each do |item| %>
             <tr class="item">
+
                 <td>
+                    <%= item.product_variant.product_key %>
+                </td>
+                <td style="text-align: left">
+                    
                     <%= item.name %><br>
                     <small><%= item.extended_description %></small>
                 </td>
 
-                <td class="right">
+                <td style="text-align: center;">
+                    <%unless item.product_variant.product.unit.blank? %>
+                    <%= item.product_variant.product.unit.unit_key %>
+                    <% else %>
+                    ----
+                    <% end %>
                     <%= item.unit %>
                 </td>
 
@@ -162,91 +220,148 @@
                 </td>
 
                 <td class="right">
-                    x <%= item.quantity %>
+                    <%= item.quantity %>
                 </td>
 
-                <td>
-                    <%= number_to_currency(item.unit_price * item.quantity) %>
+                <td style="text-align: center">
+                    <%= number_to_currency(item.unit_price * item.quantity) %> <%= item.currency %>
                 </td>
             </tr>
           <% end %>
+    
+    </table>
+  </td>
+</tr>
 
+<tr>
+  <td colspan="5"></td>
+</tr>
+<tr>
+  <td colspan="3"></td>
+  <td><b>Subtotal</b></td>
+  <td style="text-align: center; width: 10%"><%= number_to_currency(@quotation.subtotal) %></td>
+</tr>
+<tr>
+  <td colspan="3"></td>
+  <% if @quotation.adjustment_total != 0 %>
+  <td><b>Descuento</b></td>
+  <td style="text-align: center">- <%= number_to_currency(@quotation.adjustment_total) %></td>
+  <% end %>
+</tr>
+<tr>
+  <td colspan="3"></td>
+  <td><b>I.V.A. (<%= (@quotation.tax * 100).to_i %>%)</b></td>
+  <td style="text-align: center">+ <%= number_to_currency(@quotation.tax_total) %></td>
+</tr>
+<tr>
+  <td colspan="3"></td>
+  <td><b>TOTAL:</b></td>
+  <td style="text-align: center">
+     <% if @quotation.is_tax %>
+     <b><%= number_to_currency(@quotation.total) %></b>
+     <%else%>
+     <b><%= number_to_currency(@quotation.subtotal) %></b>
+     <%end%>
+  </td>
+</tr>
+<tr>
+  <td colspan="3"></td>
+  <td></td>
+  <td style="text-align: center">
+     <small><i>
+      <%= @quotation.currency.blank? ? "" : "Totales expresados en #{@quotation.currency.name}" %>
+      </i></small>
+  </td>
+</tr>
+<tr class="information">
+  <td colspan="5">
+    <div class="row">
+      <div class="col-lg-3">
+          <div class="card mb-3 border-secondary">
+             <div class="card-body">
+                <p class="card-text">
+                  <b>Forma de pago:</b><br>
 
+                  <% if @quotation.sale.present? %>
+                    <%= @quotation.sale.payment_way.name %>            
+                  <% end %> 
 
-          <tr>
-            <td colspan="5"></td>
-          </tr>
+                </p>
+             </div>
+          </div>
+      </div>
+      <div class="col-lg-3">
+          <div class="card mb-3 border-secondary">
+             <div class="card-body">
+                <b>Método de pago:</b><br>
+                  <% if @quotation.sale.present? %>
+                    <%= @quotation.sale.payment_method.name %>
+                  <% end %> 
+             </div>
+          </div>
+      </div>
+      <div class="col-lg-3">
+          <div class="card mb-3 border-secondary">
+             <div class="card-body">
+                <b>Moneda:</b><br>
+                <%= @quotation.currency.name %>
+             </div>
+          </div>
+      </div>
+      <div class="col-lg-3">
+          <div class="card mb-3 border-secondary">
+             <div class="card-body">
+                <b>Tipo de cambio:</b><br>
+                <%= @quotation.exchange_rate %>
+             </div>
+          </div>
+      </div>
+     </div>
 
-          <tr>
-            <td colspan="3"></td>
-            <td><b>Subtotal</b></td>
-            <td><%= number_to_currency(@quotation.subtotal) %></td>
-          </tr>
+  </td>
+</tr>
+<tr>
+  <td colspan="5">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="card mb-3 border-secondary">
+            <div class="card-header bg-secondary">Términos de venta</div>
+             <div class="card-body">
+                <p class="card-text">
+                  <%= raw @quotation.condition %>
 
-          <tr>
-            <td colspan="3"></td>
-            <% if @quotation.adjustment_total != 0 %>
-            <td><b>Descuento</b></td>
-            <td>- <%= number_to_currency(@quotation.adjustment_total) %></td>
-            <% end %>
-          </tr>
-
-          <tr>
-            <td colspan="3"></td>
-            <% if @quotation.is_tax %>
-            <td><b>Impuesto (<%= (@quotation.tax * 100).to_i %>%)</b></td>
-            <td>+ <%= number_to_currency(@quotation.tax_total) %></td>
-            <%end%>
-          </tr>
-
-          <tr class="heading">
-            <td colspan="3"></td>
-            <td><b>TOTAL:</b></td>
-            <td>
-               <% if @quotation.is_tax %>
-               <b><%= number_to_currency(@quotation.total) %></b>
-               <%else%>
-               <b><%= number_to_currency(@quotation.subtotal) %></b>
-               <%end%>
-            </td>
-          </tr>
-
-          <tr>
-            <td colspan="5">
-              <table>
-                <tr>
-                  <td>
-                    <td><b>Términos de venta:</b></td>
-                  </td>
-                  <td>
-                    <%= @quotation.condition %>
-                  </td>
-
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <tr>
-            <td colspan="5">
-              <table>
-            <tr class="footer">
-              <td colspan="1"></td>
-              <td colspan="2" class="footer" style="text-align: center;">
-                <b>www.toposervis.com</b></br>
-                <b>Venta, renta de equipos, servicios de topografía e ingeniería<b></br>
-                <b>Tel. 01 800 890 9383<b></br>
-              </td>         
-              <td colspan="2"></td>
-          </tr> 
-              </table>
-            </td>
-          </tr>          
+                </p>
+             </div>
+          </div>
+      </div>
+     </div>
+  </td>
+</tr>
+<tr>
+  <td colspan="5">
+  </td>
+</tr>
+<tr>
+  <td colspan="5">
+    <table>
+  <tr class="footer">
+    <td colspan="1"></td>
+    <td colspan="2" class="footer" style="text-align: center;">
+      <b>www.toposervis.com</b></br>
+      <b>Venta, renta de equipos, servicios de topografía e ingeniería<b></br>
+      <b>Tel. 01 800 890 9383<b></br>
+    </td>         
+    <td colspan="2"></td>
+</tr> 
+    </table>
+  </td>
+</tr>          
           
         </table>
     </div>
 </div>
 </div>
+<%= render 'admin/shared/help' %>
 
 <style type="text/css">
 // Place all the styles related to the Conditions controller here.
@@ -473,3 +588,10 @@
     text-align: left;
 }  
 </style>
+
+<script type="text/javascript">
+  
+  $("#open_modal").click(function(){
+     $("#note_modal").appendTo("body").modal('show');;
+  });
+</script>

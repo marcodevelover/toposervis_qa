@@ -1,10 +1,10 @@
 class Admin::OrdersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :bill, :invoice, :cancel_invoice, :request_cancellation_state_invoice, :cancellation_state_invoice]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :delete, :show_from_modal, :show_from_pdf, :note_from_pdf, :bill, :invoice, :cancel_invoice, :request_cancellation_state_invoice, :cancellation_state_invoice]
   respond_to :html, :json
 
   def page_name
-     @page_name = "Orden de Ventas"
+     @page_name = "Venta por nota de venta"
   end
   # GET /orders
   # GET /orders.json
@@ -36,6 +36,23 @@ class Admin::OrdersController < ApplicationController
                          
                          },
             footer:  {   html: {   template: "admin/orders/footer_pdf.html.erb"}}
+        end
+    end
+  end
+
+  def note_from_pdf
+    respond_to do |format|
+        format.html
+        format.pdf do
+            render pdf: "nota_de_venta_" + @order.sale.folio,
+            template: "admin/orders/note_from_pdf.html.erb",
+            layout: "pdf.html",
+            viewport_size: '1280x1024',
+            margin:  {   
+                         bottom: 40,
+                         
+                      }
+            #footer:  {   html: {   template: "admin/quotations/footer_pdf.html.erb"}}
         end
     end
   end
@@ -101,7 +118,7 @@ class Admin::OrdersController < ApplicationController
   end
 
   def customers
-    @q = Customer.ransack(params[:q])
+    @q = Customer.active.ransack(params[:q])
     @customers = @q.result(distinct: true)
     total_count = @customers.count
     respond_to do |format|
@@ -110,11 +127,20 @@ class Admin::OrdersController < ApplicationController
   end
 
   def product_variants
-    @q = ProductVariant.ransack(params[:q])
+    @q = ProductVariant.select('product_variants.*, product_stocks.serial_number').left_outer_joins(:product_stocks).where("product_stocks.status IS NULL").where("products.deleted_at IS NULL").where("products.available_for_sale != 0").ransack(params[:q])
     @product_variants = @q.result(distinct: true)
-    total_count = @product_variants.count
+    #total_count = @product_variants.count
     respond_to do |format|
-      format.json { render json: { total: total_count,  product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, product_name: s.product.name, unit_price: s.amount_public, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, image: s.first_image } } } }
+      format.json { render json: {   product_variants: @product_variants.map { |s| {id: s.id, code:  s.code, required_serial_number: s.product.required_serial_number, product_name: s.product.name, product_model: s.product.model, product_brand: s.product.brand, unit_price: s.amount_public, exchange_name: s.currency.name, exchange_rate: s.currency.exchange_rate, unit: s.product.unit.name, stock: s.stock_item.stock, image: s.first_image, serial_number: s.serial_number} } } }
+    end
+  end
+
+  def product_stocks
+    @q = ProductStock.ransack(params[:q])
+    @product_stocks = @q.result(distinct: true)
+    total_count = @product_stocks.count
+    respond_to do |format|
+      format.json { render json: { total: total_count,  product_stocks: @product_stocks.map { |s| {id: s.id, product_variant_id: s.product_variant.id, required_serial_number: s.product_variant.product.required_serial_number, serial_number:  s.serial_number, code: s.product_variant.code, product_name: s.product_variant.product.name, product_model: s.product_variant.product.model, product_brand: s.product_variant.product.brand, unit_price: s.product_variant.amount_public, exchange_name: s.product_variant.currency.name, exchange_rate: s.product_variant.currency.exchange_rate, unit: s.product_variant.product.unit.name } } } }
     end
   end
 
@@ -134,7 +160,7 @@ class Admin::OrdersController < ApplicationController
 
   def search(per_page = 10)
     params[:q] ||= {} 
-    params[:per_page] = 10
+    #####params[:per_page] = 10
     
     @q = Order.search(params[:q])
     @collection = @q.result(:distinct => true).includes(:sale).order('id DESC').page(params[:page]).per(params[:per_page])
@@ -175,8 +201,8 @@ class Admin::OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:folio, :reference, :date, :observation, :payment_method_id, :payment_way_id, :subtotal, :item_total, :total, :adjustment_total, :tax, :tax_total, :tax_item_total, :state, :validity, :currency_id, :exchange_rate, :customer_id, :condition, :created_by_id, :is_tax, :deleted_at,
-        sale_attributes: [:id, :folio, :payment_method_id, :payment_way_id, :use_of_cfdi_id, :state, :_destroy],
-        items_attributes: [ :id, :product_variant_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :_destroy ]
+        sale_attributes: [:id, :folio, :payment_method_id, :payment_way_id, :use_of_cfdi_id, :state, :_destroy, :payment_condition, :uuid, :bill_folio, :relation_bill_id, :related],
+        items_attributes: [ :id, :product_variant_id, :name, :extended_description, :unit, :quantity, :unit_price, :total, :currency, :cost_price, :tax_item_total, :tax_total, :tax, :adjustment_total, :serial_number, :_destroy ]
         )
     end
 end

@@ -6,8 +6,6 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
-  config.hosts << "toposervismexico.com"
-
   # Do not eager load code on boot.
   config.eager_load = false
 
@@ -57,6 +55,16 @@ Rails.application.configure do
 
   config.action_view.embed_authenticity_token_in_remote_forms = true
 
+  config.active_storage.variable_content_types = %w(
+    image/png
+    image/gif
+    image/jpg
+    image/jpeg
+    image/webp
+    image/vnd.adobe.photoshop
+    image/vnd.microsoft.icon
+  )
+
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
@@ -64,7 +72,7 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'localhost:3003' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              'smtp.detei.com.mx',

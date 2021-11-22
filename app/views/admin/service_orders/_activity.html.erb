@@ -1,0 +1,59 @@
+                      <!-- Table activities -->
+                      <hr>
+                      <h4 class="box-title m-t-40">Captura de procedimientos</h4>
+
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="form-group">
+                            <div id="open_modal_activity" class="btn btn-success ml-auto">
+                              <em class="fa fa-plus-circle fa-fw mr-1"></em>Agregar
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </br>
+                                                          
+                      <div class="col-lg-12">
+                        <div class="white-box">
+                          <table id="table_activity" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+                            <thead id="activity_head" >
+                              <tr>
+                                <th class="text-center" data-field="product">Procedimientos</th>
+                                <th class="text-center" data-field="product">Creado por</th>
+                                <th class="text-center" data-field="product">Fecha</th>
+                                <th class="text-center" data-field="last_name" data-sort-ignore="true" class="min-width">Eliminar</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                                <%if @service_order.diagnosis %>
+                                  <% @service_order.diagnosis.activity_descriptions.each_with_index do |item,index| %>
+                                    <tr class="text-center" data-id="<%=item.id%>">
+                                      <td>
+                                      <%= item.description %><br>
+                                      </td>
+                                      <td><%= item.user.name %> <%= item.user.lastname %></td>
+                                      <td><%= item.created_at %></td>
+                                      <td></td>
+                                      
+                                        <input type="hidden" value="<%=item.id%>" name="service_order[diagnosis_attributes][activity_descriptions_attributes][<%=index%>][id]">
+
+                                    </tr>
+                                  <%end%>
+                                <%end%>                              
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-3 offset-md-9">
+                          <div class="form-group">
+                            <% if @service_order.diagnosis.is_authorized %>
+                              ¿El servico está listo?
+                              <%= f.input :is_done, inline_label: 'Si', as: :boolean %>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                      <!--end table activities -->

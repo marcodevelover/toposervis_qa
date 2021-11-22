@@ -1,14 +1,14 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :null_session, prepend: true
+  protect_from_forgery with: :null_session, prepend: true  
   before_action :authenticate_user!
   before_action :page_name
   before_action :page_description
   layout :layout_by_resource
-	
+
   skip_before_action :verify_authenticity_token, only: [:create]
-  
+
   def dashboard
   end
 

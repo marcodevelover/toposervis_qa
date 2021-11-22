@@ -31,7 +31,7 @@ class Admin::SalesController < ApplicationController
 
   def search(per_page = 10)
     params[:q] ||= {} 
-    params[:per_page] = 10
+    ######params[:per_page] = 10
     
     @q = Sale.search(params[:q])
     @collection = @q.result(:distinct => true).order('id DESC').page(params[:page]).per(params[:per_page])  

@@ -12,13 +12,40 @@
                 <em class="fa fa-file-excel"></em> Exportar
                 </div>
                 <% end%>
+                <br><br>
+                <div class="form-group">
+                <%= search_form_for [:admin, @q] do |f| %>
+                  <%= f.search_field :folio_or_provider_business_name_or_provider_name_or_provider_rfc_cont, class: "form-control", placeholder: t('search') %><br>
+                  <div class="form-group row">
+                     <div class="col-md-12">
+                        <div class="form-row">
+                          <div class="col-lg-6 mb-6">
+                            <label class="form-label">Fecha Inicio</label>
+                            <div class="form-group"> 
+                              <%= f.search_field :created_at_gteq, class: "form-control" , placeholder: "Buscar", type: 'date'%>
+                            </div>  
+                          </div> 
+                          <div class="col-lg-6 mb-6">
+                            <label class="form-label">Fecha Final</label>
+                            <div class="form-group"> 
+                              <%= f.search_field :created_at_lteq, class: "form-control" , placeholder: "Buscar", type: 'date'%>
+                            </div>  
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  <%= f.submit class: "btn btn-success waves-effect"%>
+                  <a href="<% admin_purchases_path %>?per_page=10000">Mostrar todo</a>
+                <% end %>
+                </div>
+
                </div>
                <div class="card-body">
                   <div class="table-responsive bootgrid">
                      <table class="table table-striped" id="bootgrid-command" >
                         <thead>
                            <tr>
-                              <th data-column-id="id" data-type="numeric">ID</th>
+                              
                               <th data-column-id="name"><%= t("purchases.folio")%></th>
                               <th data-column-id="rfc" data-order="desc"><%= t("purchases.provider")%></th>
                               <th data-column-id="business_name" data-order="desc"><%= t("purchases.total")%></th>
