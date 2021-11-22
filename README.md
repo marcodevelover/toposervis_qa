@@ -47,7 +47,9 @@ Host app:
 Host datos:
 - localhost:13306
 
-### seeds (Carga de registros en la base de datos)
+** Importante cargar seeds antes de trabajar.
+
+### seeds (Registros que deben ser precargados en la base de datos para trabajar)
 
 rake db:seed                    # Load the seed data from db/seeds.rb, db/seeds/*.seeds.rb and db/seeds/ENVIRONMENT/*.seeds.rb. ENVIRONMENT is the current environment in Rails.env.
 rake db:seed:bar                # Load the seed data from db/seeds/bar.seeds.rb
@@ -58,7 +60,7 @@ rake db:seed:original           # Load the seed data from db/seeds.rb
 
 Los seed estan alojados en la carpeta db/seeds/*.seeds.rb (20211119_1600.seeds.rb)
 
-** cuando la base de datos no tiene ningun registro registros ejecutamos:
+** cuando la base de datos no tiene ningun registro ejecutamos:
 - docker exec -ti toposervis_app bash -c "bundle exec rake db:seed"
 
 ** cuando la base de datos tiene registros y hay algun seed sin cargar ejecutamos:
