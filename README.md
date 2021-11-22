@@ -38,6 +38,9 @@ rm -fr tmp/pids/server.pid && bundle exec rails s -p 3003 -b 0.0.0.0;
 
 ### docker
 
+Cuando se descarga el repositorio por primera ves es importante crear el siguiente archivo:
+- config/database.yml.example.yml -> config/database.yml
+
 Para trabajar con docker solo es necesario ejecutar el comando:
 - docker-compose up
 
