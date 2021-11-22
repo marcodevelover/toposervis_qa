@@ -6,6 +6,9 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
+  # for development permit requests for all hostnames
+  config.hosts.clear
+
   # Do not eager load code on boot.
   config.eager_load = false
 
@@ -26,6 +29,10 @@ Rails.application.configure do
     config.action_controller.perform_caching = false
 
     config.cache_store = :null_store
+  end
+
+  Rails.application.configure do
+    config.hosts.clear
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
