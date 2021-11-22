@@ -61,8 +61,7 @@ rake db:seed:original           # Load the seed data from db/seeds.rb
 Los seed estan alojados en la carpeta db/seeds/*.seeds.rb (20211119_1600.seeds.rb)
 
 ** cuando la base de datos no tiene ningun registro ejecutamos:
-- docker exec -ti toposervis_app bash -c "bundle exec rake db:seed"
+- docker exec -it toposervis_app bash -c "bundle exec rake db:seed"
 
 ** cuando la base de datos tiene registros y hay algun seed sin cargar ejecutamos:
-- docker exec -ti toposervis_app bash -c "bundle exec rake db:seed:20211119_1630"
-
+- docker exec -it toposervis_app bash -c "bundle exec rake db:seed:20211119_1630"
