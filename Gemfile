@@ -77,3 +77,4 @@ gem 'facturapi_ruby', git: 'https://2be5f383f44112a90f5c4dadeb6c16bf585e3bfc:x-o
 gem 'ckeditor'
 gem "mini_magick"
 gem 'numbers_and_words'
+gem 'seedbank'
