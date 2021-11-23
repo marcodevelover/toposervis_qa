@@ -7,8 +7,8 @@ WORKDIR /opt/app
 COPY ./docker-entrypoint.sh /opt/app/docker-entrypoint.sh
 
 RUN set -ex \
-  && apt-get update -y && apt-get upgrade -y \
-  && apt-get  install -y --force-yes \
+  && apt-get update -y \
+  && apt-get install -y --force-yes \
      apt-utils \
      ca-certificates \
      build-essential \
