@@ -1,8 +1,8 @@
 #!/bin/sh
 
-set -ex
+set -ex;
 
-cd /opt/app
+cd /opt/app;
 
 gem install bundler;
 
