@@ -38,20 +38,20 @@ rm -fr tmp/pids/server.pid && bundle exec rails s -p 3003 -b 0.0.0.0;
 
 ### docker
 
-Cuando se descarga el repositorio por primera ves es importante crear el siguiente archivo:
+Asegurate de que este creado el siguiente archivo:
 - config/database.yml.example.yml -> config/database.yml
 
-Para trabajar con docker solo es necesario ejecutar el comando:
+Si estas creando los contenedores por primera vez o necesitas volver a generarlos asegurate de borrar primero los siguientes archivos:
+- package-lock.json Gemfile.lock yarn.lock;
+
+Para iniciar los contenedores ejecuta:
 - docker-compose up
 
 Host app:
-- localhost:3003
+- localhost:3000
 
 Host datos:
 - localhost:13306
-
-** si tienes problemas al crear los contenedores docker elimina los siguientes archivos:
-- package-lock.json Gemfile.lock yarn.lock;
 
 ** Importante cargar seeds antes de trabajar.
 
@@ -72,4 +72,4 @@ Los seed estan alojados en la carpeta db/seeds/*.seeds.rb (20211119_1600.seeds.r
 ** cuando la base de datos tiene registros y hay algun seed sin cargar ejecutamos:
 - docker exec -it toposervis_app bash -c "bundle exec rake db:seed:20211119_1630"
 
-** Ejecutar dentro de la base de datos los archivos en la carpeta "db/*.sql" si los hay.
+** Ejecutar dentro de la base de datos los archivos en la carpeta "db/sql/*.sql" si los hay.

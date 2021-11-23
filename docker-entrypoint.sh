@@ -4,8 +4,6 @@ set -ex
 
 cd /opt/app
 
-rm -fr package-lock.json Gemfile.lock yarn.lock;
-
 gem install bundler;
 
 bundle check || bundle install;
