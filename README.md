@@ -50,6 +50,9 @@ Host app:
 Host datos:
 - localhost:13306
 
+** si tienes problemas al crear los contenedores docker elimina los siguientes archivos:
+- package-lock.json Gemfile.lock yarn.lock;
+
 ** Importante cargar seeds antes de trabajar.
 
 ### seeds (Registros que deben ser precargados en la base de datos para trabajar)
