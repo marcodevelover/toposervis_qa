@@ -39,10 +39,10 @@
             </a>
         </li>
         <!-- END Alert menu-->
-       <!-- START Offsidebar button--> 
+       <!-- START Offsidebar button-->
          <%if user_signed_in? %>  
         <li class="nav-item"> 
-            <%=link_to destroy_user_session_path, :class => "nav-link", method: :delete,  data: { turbolinks: false }   do %>
+            <%=link_to destroy_user_session_path, :class => "nav-link", method: :get,  data: { turbolinks: false }   do %>
                 <em class="icon-lock"></em>
             <%end%>
         </li><!-- #header-nav-right -->
