@@ -24,7 +24,7 @@ Things you may want to cover:
 * ...
 # toposervis
 
-### Comandos basicos
+### Comandos basicos para iniciar un proyecto en ruby on rails
 
 gem install bundler;
 
@@ -34,7 +34,7 @@ bundle exec rake db:migrate;
 
 yarn install --check-files;
 
-rm -fr tmp/pids/server.pid && bundle exec rails s -p 3003 -b 0.0.0.0;
+rm -fr tmp/pids/server.pid && bundle exec rails s -p 3000 -b 0.0.0.0;
 
 ### docker
 
