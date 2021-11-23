@@ -73,3 +73,4 @@ Los seed estan alojados en la carpeta db/seeds/*.seeds.rb (20211119_1600.seeds.r
 - docker exec -it toposervis_app bash -c "bundle exec rake db:seed:20211119_1630"
 
 ** Ejecutar dentro de la base de datos los archivos en la carpeta "db/sql/*.sql" si los hay.
+
