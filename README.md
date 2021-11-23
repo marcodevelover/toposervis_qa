@@ -42,7 +42,7 @@ Asegurate de que este creado el siguiente archivo:
 - config/database.yml.example.yml -> config/database.yml
 
 Si estas creando los contenedores por primera vez o necesitas volver a generarlos asegurate de borrar primero los siguientes archivos:
-- package-lock.json Gemfile.lock yarn.lock;
+- package-lock.json Gemfile.lock yarn.lock
 
 Para iniciar los contenedores ejecuta:
 - docker-compose up
