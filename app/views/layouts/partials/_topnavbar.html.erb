@@ -40,7 +40,7 @@
         </li>
         <!-- END Alert menu-->
        <!-- START Offsidebar button-->
-         <%if user_signed_in? %>  
+         <%if user_signed_in? %>
         <li class="nav-item"> 
             <%=link_to destroy_user_session_path, :class => "nav-link", method: :get,  data: { turbolinks: false }   do %>
                 <em class="icon-lock"></em>
