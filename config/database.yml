@@ -51,4 +51,4 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV["DATABASE_NAME"] %>_prd
+  database: <%= ENV["DATABASE_NAME"] %>
