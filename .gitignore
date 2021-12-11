@@ -15,7 +15,6 @@ loaded.lock
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
-/config/database.yml
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -66,7 +65,7 @@ yarn-debug.log*
 *.docx
 *.xls
 *.xlsx
-
+*.env
 # OS generated files #
 ######################
 .DS_Store

@@ -34,6 +34,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem "dotenv-rails"
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
@@ -74,7 +75,7 @@ gem 'capistrano-rvm'
 gem 'whenever', require: false
 gem 'listen', '>= 3.0.5', '< 3.2'
 #gem 'facturapi_ruby', git: 'https://2be5f383f44112a90f5c4dadeb6c16bf585e3bfc:x-oauth-basic@github.com/dova3187/facturapi'
-gem 'facturapi_ruby', path: '/opt/app/local_gems/facturapi'
+gem 'facturapi_ruby', path: 'local_gems/facturapi'
 gem 'ckeditor'
 gem "mini_magick"
 gem 'numbers_and_words'
