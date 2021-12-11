@@ -66,7 +66,7 @@ yarn-debug.log*
 *.docx
 *.xls
 *.xlsx
-
+*.env
 # OS generated files #
 ######################
 .DS_Store
